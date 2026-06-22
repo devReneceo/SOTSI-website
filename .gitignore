@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Internal docs — NOT for a public repo
+PROJECT_MEMORY.md
+sotsi-uhf-brand-guidelines.pdf
+
+# Source mockups / screenshots (internal, heavy)
+section*.png
+hero and nav/
+concepts-nav-hero.html
+glow-menu-preview.html
+react-glow-menu/
+
+# Heavy / unused assets
+assets/SOTS-Homepage-Video.mp4
+assets/images/last.gif
+assets/old fonts/

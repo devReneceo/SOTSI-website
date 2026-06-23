@@ -681,19 +681,26 @@
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg> Variants
   </button>
   <div class="vswitch__panel" id="vpanel" role="group" aria-label="Design variants">
-    <h4>Color theme (brandbook)</h4>
+    <div class="vsec">Brand palette</div>
     <select class="vselect" data-options="theme-cosmic theme-dawn">
       <option value="">Midnight Navy · SOTSI (default)</option>
       <option value="theme-cosmic">Cosmic Purple · UHF</option>
       <option value="theme-dawn">Pure White · Dawn (light)</option>
     </select>
     <p class="vswitch__hint" style="margin:.5rem 0 0;">3 brandbook primaries · secondaries blended with intent.</p>
-    <h4>Navigation layout</h4>
+
+    <div class="vsec">Navigation</div>
+    <h4>Layout</h4>
     <div class="vgroup" data-exclusive>
       <button class="vchip" data-set="nl-centered" aria-pressed="false">Centered</button>
       <button class="vchip" data-set="nl-centered-immersive" aria-pressed="true">Centered immersive</button>
       <button class="vchip" data-set="nl-bar" aria-pressed="false">Bar</button>
       <button class="vchip" data-set="nl-immersive" aria-pressed="false">Immersive</button>
+    </div>
+    <h4>Nav effects</h4>
+    <div class="vgroup">
+      <button class="vchip" data-toggle="nav-glass" aria-pressed="false">Nav glass: OFF</button>
+      <button class="vchip" data-toggle="nav-solid-always" aria-pressed="false">Always solid: OFF</button>
     </div>
     <h4>Nav · size</h4>
     <div class="vgroup" data-exclusive>
@@ -707,32 +714,31 @@
       <button class="vchip" data-set="logosize-l" aria-pressed="false">Large</button>
       <button class="vchip" data-set="logosize-xl" aria-pressed="false">XL</button>
     </div>
-    <h4>Logo · frame (centered nav)</h4>
-    <div class="vgroup" data-exclusive>
-      <button class="vchip" data-set="logoframe-2" aria-pressed="true">Option 2 · margin (default)</button>
-      <button class="vchip" aria-pressed="false">Normal</button>
+    <div class="vsw-cond" data-cond="centered">
+      <h4>Logo · frame</h4>
+      <div class="vgroup" data-exclusive>
+        <button class="vchip" data-set="logoframe-2" aria-pressed="true">Option 2 · margin (default)</button>
+        <button class="vchip" aria-pressed="false">Normal</button>
+      </div>
     </div>
-    <h4>Theme</h4>
+
+    <div class="vsec">Hero</div>
+    <h4>Variant</h4>
     <div class="vgroup" data-exclusive>
-      <button class="vchip" data-set="nav-dark" aria-pressed="true">Dark glass</button>
-      <button class="vchip" data-set="nav-light" aria-pressed="false">Light</button>
-    </div>
-    <h4>Menu glow</h4>
-    <div class="vgroup"><button class="vchip" data-toggle="nav-glow" aria-pressed="false">Glow OFF</button></div>
-    <h4>Nav glass</h4>
-    <div class="vgroup"><button class="vchip" data-toggle="nav-glass" aria-pressed="false">Nav glass: OFF</button></div>
-    <h4>Nav behavior</h4>
-    <div class="vgroup"><button class="vchip" data-toggle="nav-solid-always" aria-pressed="false">Always solid: OFF</button></div>
-    <h4>Button · style</h4>
-    <div class="vgroup" data-exclusive>
-      <button class="vchip" aria-pressed="false">Button 1</button>
-      <button class="vchip" data-set="btnstyle-2" aria-pressed="true">Proposal 2</button>
-      <button class="vchip" data-set="btnstyle-3" aria-pressed="false">Glass 3</button>
+      <button class="vchip" data-set="hero-slider" aria-pressed="false">Slider (redesign)</button>
+      <button class="vchip" data-set="hero-original" aria-pressed="true">Original (faithful)</button>
+      <button class="vchip" data-set="hero-static" aria-pressed="false">Editorial</button>
     </div>
     <h4>Hero button (slide)</h4>
     <div class="vgroup" data-exclusive>
       <button class="vchip" data-set="herocta-2" aria-pressed="true">Editorial · arrow (default)</button>
       <button class="vchip" aria-pressed="false">Pill (same as nav)</button>
+    </div>
+    <h4>Button · style</h4>
+    <div class="vgroup" data-exclusive>
+      <button class="vchip" aria-pressed="false">Button 1</button>
+      <button class="vchip" data-set="btnstyle-2" aria-pressed="true">Proposal 2</button>
+      <button class="vchip" data-set="btnstyle-3" aria-pressed="false">Glass 3</button>
     </div>
     <h4>Button · color</h4>
     <select class="vselect" data-options="btncolor-c1 btncolor-c2 btncolor-c3 btncolor-c4 btncolor-c5">
@@ -744,20 +750,16 @@
       <option value="btncolor-c5">5 · Sober navy</option>
     </select>
     <div class="vgroup" style="margin-top:.6rem;"><button class="vchip" data-toggle="cta-irid" aria-pressed="false">Iridescent (extra)</button></div>
-    <h4>Hero</h4>
-    <div class="vgroup" data-exclusive>
-      <button class="vchip" data-set="hero-slider" aria-pressed="false">Slider (redesign)</button>
-      <button class="vchip" data-set="hero-original" aria-pressed="true">Original (faithful)</button>
-      <button class="vchip" data-set="hero-static" aria-pressed="false">Editorial</button>
-    </div>
-    <h4>Text animation</h4>
+
+    <div class="vsec">Text animation</div>
     <div class="vgroup" data-exclusive>
       <button class="vchip" data-set="anim-ink" aria-pressed="true">Ink drop (default)</button>
       <button class="vchip" data-set="anim-reveal" aria-pressed="false">Soft reveal (A)</button>
       <button class="vchip" data-set="anim-kinetic" aria-pressed="false">Kinetic (B)</button>
       <button class="vchip" aria-pressed="false">None</button>
     </div>
-    <h4>Typography</h4>
+
+    <div class="vsec">Typography</div>
     <select class="vselect" data-options="font-brand font-fraunces font-cormorant font-playfair font-caslon">
       <option value="font-brand">Brand · Canela + Jost (default)</option>
       <option value="font-fraunces">Fraunces + Inter</option>
@@ -945,6 +947,10 @@
     }, state.fxMs);
   }
 
+  /* reinicios de slider al slide 1 (asignados dentro de cada setup; el switcher los llama
+     al cambiar de variante de hero). No-ops por defecto si un slider no existe. */
+  var resetHeroSlider = function(){}, resetOriginalSlider = function(){};
+
   /* hero slider */
   var hsliderEl = document.querySelector('.hslider');
   var hcursor = document.getElementById('hcursor');
@@ -1022,6 +1028,19 @@
     restartHeroProgress();
     if(!reduce) timer=setInterval(next,DELAY);
   }
+  resetHeroSlider = function(){
+    if(!slides.length) return;
+    if(timer) clearInterval(timer);
+    slides.forEach(function(s,i){
+      s.classList.remove('is-active','is-leaving','is-entering','to-left','to-right','from-left','from-right');
+      resetSlideFx(s);
+      if(i===0){ s.removeAttribute('hidden'); s.classList.add('is-active'); }
+      else { s.setAttribute('hidden',''); }
+    });
+    dots.forEach(function(d,i){ d.classList.toggle('is-active', i===0); });
+    hstate.cur=0; hstate.animating=false;
+    syncHeroChrome(0); restart(); maybeInk(slides[0]);
+  };
   document.getElementById('hnext').addEventListener('click', function(){ next('82%','50%'); restart(); });
   document.getElementById('hprev').addEventListener('click', function(){ prev('18%','50%'); restart(); });
   if(hsliderEl && hcursor && hcursorLabel && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches){
@@ -1146,6 +1165,19 @@
       restartOriginalProgress();
       if(!reduce) otimer=setInterval(onext,ODELAY);
     }
+    resetOriginalSlider = function(){
+      if(!oslides.length) return;
+      if(otimer) clearInterval(otimer);
+      oslides.forEach(function(s,i){
+        s.classList.remove('is-active','is-leaving','is-entering','to-left','to-right','from-left','from-right');
+        resetSlideFx(s);
+        if(i===0){ s.removeAttribute('hidden'); s.classList.add('is-active'); }
+        else { s.setAttribute('hidden',''); }
+      });
+      odots.forEach(function(d,i){ d.classList.toggle('is-active', i===0); });
+      ostate.cur=0; ostate.animating=false;
+      syncOriginalChrome(0); orestart(); maybeInk(oslides[0]);
+    };
     syncOriginalChrome(0);
     document.getElementById('onext').addEventListener('click', function(){ onext('82%','50%'); orestart(); });
     document.getElementById('oprev').addEventListener('click', function(){ oprevf('18%','50%'); orestart(); });
@@ -1190,7 +1222,6 @@
       var body=document.body;
       if(chip.dataset.toggle){
         var on=body.classList.toggle(chip.dataset.toggle); chip.setAttribute('aria-pressed', on?'true':'false');
-        if(chip.dataset.toggle==='nav-glow') chip.textContent = on?'Glow ON':'Glow OFF';
         if(chip.dataset.toggle==='nav-glass') chip.textContent = on?'Nav glass: ON':'Nav glass: OFF';
         if(chip.dataset.toggle==='nav-solid-always'){ chip.textContent = on?'Always solid: ON':'Always solid: OFF'; onScroll(); }
         return;
@@ -1199,8 +1230,13 @@
       group.querySelectorAll('.vchip').forEach(function(c){ if(c.dataset.set) body.classList.remove(c.dataset.set); c.setAttribute('aria-pressed','false'); });
       if(chip.dataset.set) body.classList.add(chip.dataset.set);
       chip.setAttribute('aria-pressed','true');
-      /* preview instantáneo: re-disparar la animación del hero activo al cambiar animación o hero */
-      if(group.querySelector('[data-set^="anim-"],[data-set^="hero-"]')) replayActiveHero();
+      /* al cambiar la VARIANTE de hero: reiniciar el slider al slide 1 (+ re-animar);
+         al cambiar solo la animación: re-disparar la animación del hero activo */
+      if(group.querySelector('[data-set^="hero-"]')){
+        resetHeroSlider(); resetOriginalSlider(); replayActiveHero();
+      } else if(group.querySelector('[data-set^="anim-"]')){
+        replayActiveHero();
+      }
     });
   });
   /* re-pulse: quita y re-añade .is-active para reiniciar la animación CSS (reveal/kinética),

@@ -639,6 +639,15 @@ body.nav-light .snav__mobile-panel{background:#fff;} body.nav-light .snav__mobil
 .vchip[aria-pressed="true"]{background:var(--gold);color:var(--navy);border-color:var(--gold);}
 .vchip:focus-visible{outline:none;box-shadow:0 0 0 3px var(--yellow);}
 .vswitch__hint{font-size:.78rem;color:var(--text-on-dark-soft);margin-top:1rem;line-height:1.4;}
+/* switcher — encabezados de sección (Navigation · Hero · Text animation · Typography) */
+.vsec{font-family:var(--font-body);font-weight:800;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;margin:1.5rem 0 .45rem;padding-bottom:.5rem;border-bottom:1px solid var(--glass-border);}
+.vsec:first-child{margin-top:0;}
+.vsec + h4{margin-top:.7rem;}
+/* grupos condicionales: "Logo · frame" solo con nav centrado / centrado inmersivo */
+.vsw-cond{display:none;}
+body.nl-centered .vsw-cond[data-cond="centered"],
+body.nl-centered-immersive .vsw-cond[data-cond="centered"]{display:block;}
 
 /* hide whichever hero variant is not selected (3-way: slider · original · editorial) */
 .hero-original-wrap{display:none;}

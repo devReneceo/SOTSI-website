@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SOTSI · Nav + Hero (branding nuevo) — propuesta</title>
 <meta name="description" content="Spiritual growth and emotional awareness with Gary Zukav. Create authentic power, at your own pace." />
+<!-- Preload the LCP hero image (first slide) so it starts fetching before CSS -->
+<link rel="preload" as="image" href="assets/images/slides/beach-creating-authentic-power-clean.webp" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Mulish:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=Libre+Caslon+Display&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles/tokens.css" />
@@ -139,7 +141,7 @@
   <section class="hslider" aria-label="Hero" aria-roledescription="carousel">
     <div class="hslide hslide--bottom is-active" data-slide="0" data-status="Authentic Power" role="group" aria-roledescription="slide" aria-label="1 of 4">
       <div class="hslide__mediafx">
-        <video class="hslide__media" autoplay muted loop playsinline poster="assets/images/Home-page-video-Thumbnail_image.png">
+        <video class="hslide__media" autoplay muted loop playsinline poster="assets/images/Home-page-video-Thumbnail_image.webp">
           <source src="assets/SOTS-Homepage-Video-web.mp4" type="video/mp4" /></video>
       </div>
       <span class="hslide__scrim" aria-hidden="true" style="background:linear-gradient(0deg,rgba(14,22,49,.92) 0%,rgba(14,22,49,.55) 35%,rgba(14,22,49,.12) 70%,transparent 100%);"></span><span class="hslide__glow" aria-hidden="true"></span>
@@ -156,7 +158,7 @@
     </div>
     <div class="hslide hslide--right" data-slide="1" data-status="Live with Gary" role="group" aria-roledescription="slide" aria-label="2 of 4" hidden>
       <div class="hslide__mediafx">
-        <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-2.png" alt="Gary Zukav under a starlit sky" />
+        <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-2.webp" width="1200" height="630" decoding="async" alt="Gary Zukav under a starlit sky" />
       </div>
       <span class="hslide__scrim" aria-hidden="true" style="background:linear-gradient(250deg,rgba(14,22,49,.9),rgba(14,22,49,.4) 55%,transparent 85%);"></span>
       <div class="wrap hslide__inner"><div class="hslide__content">
@@ -168,7 +170,7 @@
     </div>
     <div class="hslide" data-slide="2" data-status="Begin" role="group" aria-roledescription="slide" aria-label="3 of 4" hidden>
       <div class="hslide__mediafx">
-        <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-4.png" alt="A dove resting on an open hand at sunrise" />
+        <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-4.webp" width="1200" height="630" decoding="async" alt="A dove resting on an open hand at sunrise" />
       </div>
       <span class="hslide__scrim" aria-hidden="true" style="background:linear-gradient(110deg,rgba(60,25,81,.8),rgba(14,22,49,.45) 60%,transparent);"></span>
       <div class="wrap hslide__inner"><div class="hslide__content">
@@ -181,7 +183,7 @@
     <!-- Slide 4: AI robot · AI & Human Evolution (PM likes the robot) -->
     <div class="hslide" data-slide="3" data-status="Soul Feed" role="group" aria-roledescription="slide" aria-label="4 of 4" hidden>
       <div class="hslide__mediafx">
-        <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-6.png" alt="A humanoid robot reading a tablet" />
+        <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-6.webp" width="1200" height="630" decoding="async" alt="A humanoid robot reading a tablet" />
       </div>
       <span class="hslide__scrim" aria-hidden="true" style="background:linear-gradient(110deg,rgba(14,22,49,.9),rgba(14,22,49,.5) 55%,transparent 90%);"></span>
       <div class="wrap hslide__inner"><div class="hslide__content">
@@ -220,15 +222,7 @@
   <section class="oslider" aria-label="Hero (réplica original)" aria-roledescription="carousel">
     <!-- 1 · Beach sunset — Creating Authentic Power (entrada · texto recreado con nuestra tipografía) -->
     <div class="oslide oslide--center is-active" data-oslide="0" data-status="Authentic Power" role="group" aria-roledescription="slide" aria-label="1 of 5">
-      <img class="oslide__media" src="assets/images/slides/beach-creating-authentic-power-clean.png" alt="A calm beach at sunset, soft pink sky over the ocean" />
-      <!-- AMANECER (sunrise crossfade) DESACTIVADO por el PM 2026-06-22 (se veía mal) — dejar solo la imagen original.
-           Reactivar: descomentar este bloque + el bloque CSS ".oslide__sunrise" en brand.css.
-      <span class="oslide__sunrise" aria-hidden="true">
-        <img class="oslide__media oslide__media--sun sun-1" src="assets/images/slides/beach-creating-authentic-power-clean.png" alt="A calm beach at dawn, soft pink sky over the ocean" />
-        <img class="oslide__media oslide__media--sun sun-2" src="assets/images/slides/sunrise-2-clean.jpg" alt="" loading="lazy" />
-        <img class="oslide__media oslide__media--sun sun-3" src="assets/images/slides/sunrise-3-clean.jpg" alt="" loading="lazy" />
-      </span>
-      -->
+      <img class="oslide__media" src="assets/images/slides/beach-creating-authentic-power-clean.webp" alt="A calm beach at sunset, soft pink sky over the ocean" width="1920" height="1080" fetchpriority="high" loading="eager" decoding="async" />
       <span class="oslide__scrim" aria-hidden="true" style="background:radial-gradient(62% 52% at 50% 47%, rgba(14,22,49,.44), rgba(14,22,49,.16) 68%, transparent);"></span>
       <div class="wrap oslide__inner"><div class="oslide__content">
         <p class="oslide__script">Supporting You in</p>
@@ -243,7 +237,7 @@
     </div>
     <!-- 2 · Gary + starfield — Spend an Evening with Gary Zukav -->
     <div class="oslide oslide--right" data-oslide="1" data-status="Live with Gary" role="group" aria-roledescription="slide" aria-label="2 of 5" hidden>
-      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-2.png" alt="Gary Zukav under a starlit sky" />
+      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-2.webp" width="1200" height="630" decoding="async" alt="Gary Zukav under a starlit sky" />
       <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(90deg,rgba(8,12,32,.82) 0%,rgba(8,12,32,.52) 48%,rgba(8,12,32,.3) 100%);"></span>
       <div class="wrap oslide__inner"><div class="oslide__content">
         <p class="oslide__eyebrow">Live with Gary</p>
@@ -254,7 +248,7 @@
     </div>
     <!-- 3 · Capitol red/blue — What To Do About Failing Governments? -->
     <div class="oslide oslide--center" data-oslide="2" data-status="Perspective" role="group" aria-roledescription="slide" aria-label="3 of 5" hidden>
-      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-1.png" alt="The US Capitol lit in red and blue" />
+      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-1.webp" width="1200" height="630" decoding="async" alt="The US Capitol lit in red and blue" />
       <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(180deg,rgba(12,9,26,.4),rgba(12,9,26,.66));"></span>
       <div class="wrap oslide__inner"><div class="oslide__content">
         <p class="oslide__eyebrow">Perspective</p>
@@ -265,7 +259,7 @@
     </div>
     <!-- 4 · AI robot — AI &amp; Human Evolution -->
     <div class="oslide oslide--left" data-oslide="3" data-status="Human Evolution" role="group" aria-roledescription="slide" aria-label="4 of 5" hidden>
-      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-6.png" alt="A humanoid robot reading a tablet" />
+      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-6.webp" width="1200" height="630" decoding="async" alt="A humanoid robot reading a tablet" />
       <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(90deg,rgba(10,16,40,.72),rgba(10,16,40,.35) 60%,rgba(10,16,40,.15));"></span>
       <div class="wrap oslide__inner"><div class="oslide__content">
         <h2 class="oslide__title">AI &amp; <span class="gold">Human Evolution</span></h2>
@@ -275,7 +269,7 @@
     </div>
     <!-- 5 · Dove + hand sunset — Start Your Journey -->
     <div class="oslide oslide--left" data-oslide="4" data-status="Begin" role="group" aria-roledescription="slide" aria-label="5 of 5" hidden>
-      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-8.png" alt="A dove resting on an open hand at sunrise" />
+      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-8.webp" width="1200" height="630" decoding="async" alt="A dove resting on an open hand at sunrise" />
       <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(90deg,rgba(40,30,20,.5),rgba(40,30,20,.18) 55%,transparent);"></span>
       <div class="wrap oslide__inner"><div class="oslide__content">
         <h2 class="oslide__title">Start Your <span class="gold">Journey</span></h2>
@@ -316,9 +310,9 @@
     </div>
     <div class="heroA__media">
       <span class="heroA__glow" aria-hidden="true"></span>
-      <img class="heroA__img" src="assets/images/6a3342a6143842a748166485_1220.jpg" alt="A community gathered together at sunset, practicing authentic power" />
+      <img class="heroA__img" src="assets/images/6a3342a6143842a748166485_1220.webp" width="1500" height="841" decoding="async" alt="A community gathered together at sunset, practicing authentic power" />
       <div class="heroA__chip">
-        <img src="assets/images/6a3342a6143842a74816646a_gary-zukav-author-new-york-times-best-seller.webp" alt="" aria-hidden="true" />
+        <img src="assets/images/6a3342a6143842a74816646a_gary-zukav-author-new-york-times-best-seller.webp" width="120" height="158" decoding="async" alt="" aria-hidden="true" />
         <span><strong>#1 New York Times</strong> bestselling author <em style="opacity:.55">[verify]</em></span>
       </div>
     </div>
@@ -350,7 +344,7 @@
 <section class="sec greeting sec--dark" aria-label="A greeting from Gary and Linda">
   <div class="sec__inner">
     <div class="greeting__card reveal">
-      <video id="greetVideo" poster="assets/images/Home-page-video-Thumbnail_image.png" playsinline preload="metadata">
+      <video id="greetVideo" poster="assets/images/Home-page-video-Thumbnail_image.webp" playsinline preload="metadata">
         <source src="assets/SOTS-Homepage-Video-web.mp4" type="video/mp4" /></video>
       <span class="greeting__scrim" aria-hidden="true"></span>
       <div class="greeting__label" id="greetLabel">
@@ -375,7 +369,7 @@
   <span class="sec__glow" style="top:-10%;left:-8%;"></span>
   <div class="sec__inner">
     <div class="split__media reveal">
-      <img src="assets/images/6a3342a6143842a748166454_people-with-authentic-power-gary-zukav.webp" alt="People living with authentic power" loading="lazy" />
+      <img src="assets/images/6a3342a6143842a748166454_people-with-authentic-power-gary-zukav.webp" width="1200" height="799" decoding="async" alt="People living with authentic power" loading="lazy" />
     </div>
     <div>
       <p class="sec__eyebrow reveal">A new consciousness</p>
@@ -397,7 +391,7 @@
     </div>
     <div class="courses__grid">
       <a class="ccard ccard--feature reveal" href="#">
-        <img class="ccard__img" src="assets/images/6a3342a6143842a748166452_authentic-power-spiritual-growth-community.webp" alt="" loading="lazy" />
+        <img class="ccard__img" src="assets/images/6a3342a6143842a748166452_authentic-power-spiritual-growth-community.webp" width="1200" height="799" decoding="async" alt="" loading="lazy" />
         <span class="ccard__scrim" aria-hidden="true"></span>
         <span class="ccard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>
         <h3>Authentic Power</h3>
@@ -428,7 +422,7 @@
 
 <!-- ========== 4c · MEMBERSHIP (Soul to Soul Community) ========== -->
 <section class="sec membership" aria-label="Soul to Soul Community membership">
-  <img class="membership__media" src="assets/images/6a3342a6143842a748166485_1220.jpg" alt="" loading="lazy" />
+  <img class="membership__media" src="assets/images/6a3342a6143842a748166485_1220.webp" width="1500" height="841" decoding="async" alt="" loading="lazy" />
   <span class="membership__scrim" aria-hidden="true"></span>
   <div class="sec__inner">
     <p class="sec__eyebrow reveal" style="color:var(--gold);">Soul to Soul Community</p>
@@ -519,14 +513,14 @@
     <p class="sec__eyebrow reveal">Voices</p>
     <h2 class="sec__title reveal">Praised by leaders, artists &amp; seekers.</h2>
     <div class="praise__grid">
-      <div class="praise__card reveal"><img class="praise__photo" src="assets/images/6a3342a6143842a748166405_oprah-winfrey-authentic-power-endorsement.webp" alt="Oprah Winfrey" loading="lazy" /><div class="praise__name">Oprah Winfrey</div><div class="praise__role">Media leader</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" src="assets/images/6a3342a6143842a748166458_maya-angelou-spiritual-wisdom-testimonial.webp" alt="Maya Angelou" loading="lazy" /><div class="praise__name">Maya Angelou</div><div class="praise__role">Poet &amp; author</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" src="assets/images/6a3342a6143842a748166415_paulo-coelho-consciousness-testimonial.webp" alt="Paulo Coelho" loading="lazy" /><div class="praise__name">Paulo Coelho</div><div class="praise__role">Author, <em>The Alchemist</em></div></div>
-      <div class="praise__card reveal"><img class="praise__photo" src="assets/images/6a3342a6143842a748166418_jay-z-personal-growth-testimonial.webp" alt="Jay-Z" loading="lazy" /><div class="praise__name">Jay-Z</div><div class="praise__role">Artist &amp; entrepreneur</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" src="assets/images/6a3342a6143842a748166406_gwyneth-paltrow-authentic-power-review.webp" alt="Gwyneth Paltrow" loading="lazy" /><div class="praise__name">Gwyneth Paltrow</div><div class="praise__role">Founder, Goop</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" src="assets/images/6a3342a6143842a748166419_lewis-howes-spiritual-growth-testimonial.webp" alt="Lewis Howes" loading="lazy" /><div class="praise__name">Lewis Howes</div><div class="praise__role">Author &amp; host</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" src="assets/images/6a3342a6143842a748166416_julianne-hough-conscious-living-testimonial.webp" alt="Julianne Hough" loading="lazy" /><div class="praise__name">Julianne Hough</div><div class="praise__role">Artist</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" src="assets/images/6a3342a6143842a748166417_andre-duqum-authentic-power-testimonial.webp" alt="Andre Duqum" loading="lazy" /><div class="praise__name">Andre Duqum</div><div class="praise__role">Host, <em>Know Thyself</em></div></div>
+      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166405_oprah-winfrey-authentic-power-endorsement.webp" alt="Oprah Winfrey" loading="lazy" /><div class="praise__name">Oprah Winfrey</div><div class="praise__role">Media leader</div></div>
+      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166458_maya-angelou-spiritual-wisdom-testimonial.webp" alt="Maya Angelou" loading="lazy" /><div class="praise__name">Maya Angelou</div><div class="praise__role">Poet &amp; author</div></div>
+      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166415_paulo-coelho-consciousness-testimonial.webp" alt="Paulo Coelho" loading="lazy" /><div class="praise__name">Paulo Coelho</div><div class="praise__role">Author, <em>The Alchemist</em></div></div>
+      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166418_jay-z-personal-growth-testimonial.webp" alt="Jay-Z" loading="lazy" /><div class="praise__name">Jay-Z</div><div class="praise__role">Artist &amp; entrepreneur</div></div>
+      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166406_gwyneth-paltrow-authentic-power-review.webp" alt="Gwyneth Paltrow" loading="lazy" /><div class="praise__name">Gwyneth Paltrow</div><div class="praise__role">Founder, Goop</div></div>
+      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166419_lewis-howes-spiritual-growth-testimonial.webp" alt="Lewis Howes" loading="lazy" /><div class="praise__name">Lewis Howes</div><div class="praise__role">Author &amp; host</div></div>
+      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166416_julianne-hough-conscious-living-testimonial.webp" alt="Julianne Hough" loading="lazy" /><div class="praise__name">Julianne Hough</div><div class="praise__role">Artist</div></div>
+      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166417_andre-duqum-authentic-power-testimonial.webp" alt="Andre Duqum" loading="lazy" /><div class="praise__name">Andre Duqum</div><div class="praise__role">Host, <em>Know Thyself</em></div></div>
     </div>
     <p class="praise__note">Retratos de referencia · citas/endorsements por confirmar con el cliente antes de publicar.</p>
   </div>
@@ -544,7 +538,7 @@
         <a class="btn btn--ghost" href="#">More about Linda</a>
       </div>
     </div>
-    <img class="founders__photo reveal" src="assets/images/6a3342a6143842a748166469_gary-zukav-portrait-seat-of-the-soul-institute.webp" alt="Gary Zukav" loading="lazy" />
+    <img class="founders__photo reveal" src="assets/images/6a3342a6143842a748166469_gary-zukav-portrait-seat-of-the-soul-institute.webp" width="744" height="494" decoding="async" alt="Gary Zukav" loading="lazy" />
   </div>
 </section>
 
@@ -565,7 +559,7 @@
     <div class="blog__grid" id="blogGrid">
       <a class="post post--glow reveal" href="#">
         <span class="post__media">
-          <img src="assets/images/slides/SOTSI-Site-Carousel-6.png" alt="" loading="lazy" />
+          <img src="assets/images/slides/SOTSI-Site-Carousel-6.webp" alt="" loading="lazy" width="1200" height="630" decoding="async" />
           <span class="post__chip">Soul Feast</span>
         </span>
         <span class="post__body">
@@ -576,7 +570,7 @@
       </a>
       <a class="post post--glow reveal" href="#">
         <span class="post__media">
-          <img src="assets/images/slides/SOTSI-Site-Carousel-1.png" alt="" loading="lazy" />
+          <img src="assets/images/slides/SOTSI-Site-Carousel-1.webp" alt="" loading="lazy" width="1200" height="630" decoding="async" />
           <span class="post__chip">Soul Feast</span>
         </span>
         <span class="post__body">
@@ -587,7 +581,7 @@
       </a>
       <a class="post post--glow reveal" href="#">
         <span class="post__media">
-          <img src="assets/images/6a3342a6143842a748166452_authentic-power-spiritual-growth-community.webp" alt="" loading="lazy" />
+          <img src="assets/images/6a3342a6143842a748166452_authentic-power-spiritual-growth-community.webp" width="1200" height="799" decoding="async" alt="" loading="lazy" />
           <span class="post__chip">Soul Snack</span>
         </span>
         <span class="post__body">
@@ -602,7 +596,7 @@
 
 <!-- ========== 10 · BIG CLOSING CTA (océano/horizonte, brand-correct) ========== -->
 <section class="sec bigcta" aria-label="Are you ready to create authentic power?">
-  <img class="bigcta__media" src="assets/images/6a3342a6143842a748166484_spiritual-growth-membership-community-sunset-100.jpg" alt="" loading="lazy" />
+  <img class="bigcta__media" src="assets/images/6a3342a6143842a748166484_spiritual-growth-membership-community-sunset-100.webp" width="1920" height="1076" decoding="async" alt="" loading="lazy" />
   <span class="bigcta__scrim" aria-hidden="true"></span>
   <div class="sec__inner">
     <h2 class="bigcta__title sec__title reveal">Are you ready to create <span class="accent">Authentic Power?</span></h2>

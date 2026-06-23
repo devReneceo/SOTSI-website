@@ -1,0 +1,211 @@
+/* =====================================================================
+   SOTSI · MOBILE & TABLET RESPONSIVE  — loaded LAST (overrides desktop)
+   Breakpoints: 1024 (tablet) · 768 (phone/portrait) · 380 (small phone)
+   Grounded in ui-ux-pro-max: copy-dominant hierarchy, ≥44px targets,
+   swipe + visible controls, ≥16px body, no horizontal scroll, srcset/lazy,
+   strong scrim (40–60%) for legibility, safe-area aware.
+   ===================================================================== */
+
+/* ---- 0 · Global safety nets ---- */
+@media (max-width: 1024px){
+  html, body{ overflow-x: clip; }
+  a, button{ -webkit-tap-highlight-color: transparent; }
+  /* let the page scroll vertically; horizontal swipe is handled in JS */
+  .hslider, .oslider{ touch-action: pan-y; }
+}
+
+/* =====================================================================
+   1 · NAVIGATION  (immersive default + bar + centered)
+   logo left · burger right · inline links & CTA hidden (CTA in drawer)
+   ===================================================================== */
+@media (max-width: 1024px){
+  .snav__main .wrap{
+    display:flex !important; align-items:center; justify-content:space-between;
+    gap:.75rem; min-height:60px;
+    padding-left:max(var(--gutter,18px), env(safe-area-inset-left));
+    padding-right:max(var(--gutter,18px), env(safe-area-inset-right));
+  }
+  .snav__logo{ justify-self:auto !important; padding-inline:0 !important; margin:0 !important; }
+  body.logoframe-2 .snav--centered .snav__logo{ margin:0 !important; }
+  .snav__logo img{
+    height:auto !important; max-height:34px !important;
+    width:auto !important; max-width:62vw !important;
+  }
+  .snav.is-condensed .snav__logo img{ max-height:30px !important; }
+  .snav__row{ display:none !important; }
+  .snav__end{ display:none !important; }            /* Get Started → drawer */
+  .snav__burger{
+    display:inline-grid !important; place-items:center;
+    width:48px; height:48px; justify-self:auto !important;
+  }
+}
+@media (max-width: 380px){
+  .snav__logo img{ max-height:30px !important; max-width:70vw !important; }
+}
+
+/* ---- Mobile drawer: full-screen overlay (driven by body.menu-open) ----
+   .snav--immersive is position:absolute with z-auto, while hero slides are
+   z-index:2 — so the in-flow panel painted UNDER the hero. Lift the header
+   above everything when open and make the panel a fixed full-screen sheet. */
+@media (max-width: 1024px){
+  body.menu-open{ overflow:hidden; }
+  body.menu-open .snav{ z-index:1300 !important; }                /* header context above hero (slides z2 / chrome z6) */
+  body.menu-open .snav--immersive{ position:fixed !important; }
+  body.menu-open .snav__mobile{ display:block; }
+  body.menu-open .snav__main{ position:relative; z-index:2; }     /* bar (logo + burger) stays above the sheet → tap burger to close */
+  body.menu-open .snav__mobile-panel{
+    position:fixed; inset:0; z-index:1; overflow-y:auto;
+    padding:calc(80px + env(safe-area-inset-top)) var(--gutter,20px) calc(2rem + env(safe-area-inset-bottom));
+    background:rgba(10,15,35,.985) !important;
+    -webkit-backdrop-filter:blur(22px); backdrop-filter:blur(22px);
+    animation:sotsiDrawerIn .3s var(--ease, cubic-bezier(.16,1,.3,1));
+  }
+  body.menu-open.nav-light .snav__mobile-panel{ background:rgba(255,255,255,.985) !important; }
+  .snav__mobile-panel a{ padding:1rem .2rem; font-size:1.15rem; min-height:48px; display:flex; align-items:center; }
+  .snav__mobile-panel .btn{ min-height:54px; display:flex; align-items:center; justify-content:center; margin-top:1.2rem; }
+}
+/* slide only (no opacity) so the sheet is never left invisible mid-animation */
+@keyframes sotsiDrawerIn{ from{ transform:translateY(-10px); } to{ transform:none; } }
+@media (prefers-reduced-motion: reduce){ .snav__mobile-panel{ animation:none; } }
+
+/* =====================================================================
+   2 · HERO SLIDERS  (redesign .hslide + original .oslide)
+   Copy-dominant, bottom-anchored, full-width, one consistent layout.
+   Resets all desktop per-slide positioning.
+   ===================================================================== */
+@media (max-width: 1024px){
+  /* full-screen stage, safe for mobile URL bars */
+  .hslider, .oslider{ min-height:100svh; }
+
+  /* one layout: content sits at the bottom, full width, left aligned */
+  .hslide__inner, .oslide__inner{ align-items:flex-end !important; }
+  .hslide[data-slide] .hslide__inner,
+  .oslide[data-oslide] .oslide__inner{ align-items:flex-end !important; }
+
+  .hslide__content, .oslide__content{
+    max-width:none !important; width:100%;
+    margin:0 !important; text-align:left !important;
+    padding:0 max(var(--gutter,20px), env(safe-area-inset-left))
+            calc(8.5rem + env(safe-area-inset-bottom))
+            max(var(--gutter,20px), env(safe-area-inset-right)) !important;
+  }
+  .oslide__inner .wrap, .hslide__inner .wrap{ padding:0 !important; max-width:none; }
+
+  /* strong, consistent bottom scrim for legibility on every slide */
+  .hslide__scrim, .oslide__scrim{
+    background:linear-gradient(0deg,
+      rgba(10,15,35,.94) 0%, rgba(10,15,35,.78) 26%,
+      rgba(10,15,35,.42) 56%, rgba(10,15,35,.12) 80%, transparent 100%) !important;
+  }
+
+  /* eyebrow / kicker / script — small, calm, above the title */
+  .hslide__kicker, .hslide__eyebrow, .hslide__script,
+  .oslide__script, .oslide__eyebrow{
+    font-size:.72rem !important; letter-spacing:.18em; text-transform:uppercase;
+    margin:0 0 .7rem !important; opacity:.92;
+  }
+
+  /* TITLE — the copy that leads. Big, contained, never overflows. */
+  .hslide__title, .oslide__title,
+  .hslide__title--xl,
+  .hslide[data-slide] .hslide__title,
+  .oslide[data-oslide] .oslide__title{
+    font-size:clamp(2.2rem, 4.5vw + 1rem, 4rem) !important;
+    line-height:1.02 !important; letter-spacing:-.02em !important;
+    margin:0 0 .55rem !important; max-width:14ch;
+    overflow-wrap:break-word; word-break:break-word; text-wrap:balance;
+    text-shadow:0 2px 24px rgba(8,10,28,.45);
+  }
+  .oslide[data-oslide] .oslide__title{ margin-inline:0 !important; }
+
+  /* supporting copy — readable measure, ≥16px */
+  .hslide__deck, .hslide__lead, .oslide__deck, .oslide__lead{
+    font-size:1.02rem !important; line-height:1.55 !important;
+    max-width:34ch !important; margin:.2rem 0 0 !important; opacity:.92;
+  }
+  .oslide__note, .hslide__script{ margin-top:.6rem !important; }
+
+  /* CTA row — stacked, full-width, ≥52px touch targets */
+  .hslide__cta, .oslide__cta{
+    margin-top:1.5rem !important; display:flex !important; flex-direction:column;
+    align-items:stretch; gap:.85rem; width:100%; max-width:24rem;
+  }
+  .hslide__cta .btn-cta, .oslide__cta .btn-cta{ width:100%; min-height:54px; }
+  .hslide__cta .btn-cta__inner, .oslide__cta .btn-cta__inner{ justify-content:center; }
+  .hslide__cta .link-anim, .oslide__cta .link-anim{
+    align-self:flex-start; min-height:44px; display:inline-flex; align-items:center;
+  }
+
+  /* ---- chrome: declutter for touch ---- */
+  .hslider__cursor, .oslider .hslider__cursor,
+  .harrow__label, .hslider__status, .hslider__brand-sub{ display:none !important; }
+  .hslider::before, .hslider::after, .oslider::before, .oslider::after{ display:none !important; }
+
+  /* dots become the primary visible control — enlarge hit area */
+  .hslider__dots{
+    bottom:calc(1.6rem + env(safe-area-inset-bottom)) !important;
+    left:max(var(--gutter,20px), env(safe-area-inset-left)) !important; right:auto !important;
+    gap:.4rem; z-index:8;
+  }
+  .hslider__dots .hdot{
+    width:auto; height:auto; padding:10px 6px; position:relative;
+  }
+  .hslider__dots .hdot::after{
+    content:""; display:block; width:26px; height:3px; border-radius:2px;
+    background:rgba(255,255,255,.34); transition:background-color .3s var(--ease);
+  }
+  .hslider__dots .hdot.is-active::after{ background:var(--gold); }
+
+  /* slim progress counter, bottom-right, out of the way */
+  .hslider__chrome{
+    top:auto !important; bottom:calc(1.5rem + env(safe-area-inset-bottom)) !important;
+    right:max(var(--gutter,20px), env(safe-area-inset-right)) !important; left:auto !important;
+  }
+  .hslider__count-line{ width:34px !important; }
+
+  /* hide the big side arrows on phones — swipe + dots cover navigation */
+}
+@media (max-width: 768px){
+  .hslider__arrows{ display:none !important; }
+}
+@media (max-width: 380px){
+  .hslide__title, .oslide__title,
+  .hslide__title--xl,
+  .hslide[data-slide] .hslide__title,
+  .oslide[data-oslide] .oslide__title{
+    font-size:clamp(1.95rem, 7.5vw + .4rem, 2.6rem) !important;
+  }
+  .hslide__content, .oslide__content{ padding-bottom:calc(7.5rem + env(safe-area-inset-bottom)) !important; }
+}
+
+/* editorial static hero — simple stack */
+@media (max-width: 1024px){
+  .heroA{ min-height:auto; }
+  .heroA__grid{ grid-template-columns:1fr !important; gap:1.5rem; }
+}
+
+/* =====================================================================
+   3 · SECTIONS — clean single-column stacking, comfortable rhythm
+   ===================================================================== */
+@media (max-width: 768px){
+  .sec{ padding-block:clamp(3.2rem, 8vw, 5rem) !important; }
+  /* headings never overflow; images never exceed their column */
+  .sec h2, .sec h3, .sec__title{ overflow-wrap:break-word; text-wrap:balance; max-width:100%; }
+  img{ max-width:100%; }
+  /* Books · keep the two covers side-by-side without overflowing 320px */
+  .books__covers{ gap:1rem !important; }
+  .book{ width:clamp(108px, 38vw, 150px) !important; }
+  .books__stage{ min-height:300px !important; }
+  .book__flag{ font-size:.54rem !important; padding:.28rem .5rem !important; letter-spacing:.02em !important; }
+}
+@media (max-width: 380px){
+  .books__covers{ gap:.7rem !important; }
+}
+
+/* =====================================================================
+   4 · Variants switcher — keep it usable / out of the way on mobile
+   ===================================================================== */
+@media (max-width: 768px){
+  .vswitch{ right:12px; bottom:calc(12px + env(safe-area-inset-bottom)); }
+  .vswitch__panel{ width:min(82vw, 320px); max-height:72vh; }
+}

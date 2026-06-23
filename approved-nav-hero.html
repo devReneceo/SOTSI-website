@@ -316,7 +316,7 @@
     </div>
     <div class="heroA__media">
       <span class="heroA__glow" aria-hidden="true"></span>
-      <img class="heroA__img" src="assets/images/6a3342a6143842a748166457_membership-background-seat-of-the-soul-institute-gary-zukav-contemplating-the-horizon.jpg" alt="Gary Zukav contemplating the horizon over water" />
+      <img class="heroA__img" src="assets/images/6a3342a6143842a748166485_1220.jpg" alt="A community gathered together at sunset, practicing authentic power" />
       <div class="heroA__chip">
         <img src="assets/images/6a3342a6143842a74816646a_gary-zukav-author-new-york-times-best-seller.webp" alt="" aria-hidden="true" />
         <span><strong>#1 New York Times</strong> bestselling author <em style="opacity:.55">[verify]</em></span>
@@ -428,7 +428,7 @@
 
 <!-- ========== 4c · MEMBERSHIP (Soul to Soul Community) ========== -->
 <section class="sec membership" aria-label="Soul to Soul Community membership">
-  <img class="membership__media" src="assets/images/6a3342a6143842a748166457_membership-background-seat-of-the-soul-institute-gary-zukav-contemplating-the-horizon.jpg" alt="" loading="lazy" />
+  <img class="membership__media" src="assets/images/6a3342a6143842a748166485_1220.jpg" alt="" loading="lazy" />
   <span class="membership__scrim" aria-hidden="true"></span>
   <div class="sec__inner">
     <p class="sec__eyebrow reveal" style="color:var(--gold);">Soul to Soul Community</p>
@@ -673,7 +673,7 @@
     </div>
 
     <div class="foot__bottom">
-      <span>©2025 The Seat of the Soul Institute. All rights reserved.</span>
+      <span>©<span id="footYear">2026</span> The Seat of the Soul Institute. All rights reserved.</span>
       <span class="foot__legal">
         <a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Refund Policy</a>
       </span>
@@ -778,6 +778,9 @@
 <script>
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Footer copyright year (auto-updating via JS) ---- */
+  (function(){ var y = document.getElementById('footYear'); if(y) y.textContent = new Date().getFullYear(); })();
 
   /* ---- Ink Drop Spread: split text into words and radiate from center ---- */
   function splitInto(el){

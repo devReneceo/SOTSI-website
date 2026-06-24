@@ -950,8 +950,9 @@ body.nl-immersive #navImmersive{display:block;}
 .snav--bar .snav__row{display:flex;align-items:center;gap:.15rem;margin-inline:auto;}
 .snav--bar .snav__end{display:flex;align-items:center;gap:1rem;}
 
-/* Layout · Immersive (transparent overlay → solid on scroll) */
-.snav--immersive{position:absolute;top:0;left:0;right:0;background:transparent !important;border-bottom:1px solid transparent !important;backdrop-filter:none !important;}
+/* Layout · Immersive (transparent overlay → solid on scroll)
+   Fixed positioning keeps the variant sticky while preserving the hero overlay treatment. */
+.snav--immersive{position:fixed;top:0;left:0;right:0;z-index:40;background:transparent !important;border-bottom:1px solid transparent !important;backdrop-filter:none !important;}
 .snav--immersive .snav__main .wrap{display:flex;align-items:center;gap:1.5rem;min-height:calc(var(--nav-h,84px) + 6px);}
 .snav--immersive .snav__row{display:flex;align-items:center;gap:.15rem;margin-inline:auto;}
 .snav--immersive .snav__end{display:flex;align-items:center;gap:1rem;}
@@ -963,6 +964,40 @@ body.nav-light .snav--immersive.is-condensed{background:rgba(255,255,255,.92) !i
 body.nav-light .snav--immersive.is-condensed .nlink{color:var(--navy) !important;}
 body.nav-light .snav--immersive.is-condensed .logo--for-dark{display:none;}
 body.nav-light .snav--immersive.is-condensed .logo--for-light{display:block !important;}
+body.nav-light .snav--immersive.is-condensed .snav__burger{color:var(--navy);}
+
+/* light first hero slide uses the same nav contrast swap as the centered immersive variant */
+body.hero-slide-light-nav.nl-immersive #navImmersive{
+  background:transparent !important;
+  backdrop-filter:none !important;
+  border-bottom-color:transparent !important;
+}
+body.hero-slide-light-nav.nl-immersive #navImmersive .nlink{color:#fff !important;}
+body.hero-slide-light-nav.nl-immersive #navImmersive .nlink:hover{background:rgba(255,255,255,.08);}
+body.hero-slide-light-nav.nl-immersive #navImmersive .nlink[aria-current="page"]{color:var(--yellow) !important;}
+body.hero-slide-light-nav.nl-immersive #navImmersive .logo--for-dark{display:block !important;}
+body.hero-slide-light-nav.nl-immersive #navImmersive .logo--for-light{display:none !important;}
+body.hero-slide-light-nav.nl-immersive #navImmersive .snav__burger{color:#fff;}
+body.hero-slide-light-nav.nl-immersive #navImmersive .btn-cta__inner{color:#fff !important;}
+body.hero-slide-light-nav.nl-immersive #navImmersive .btn-cta__icon{
+  background:rgba(255,255,255,.12);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);
+}
+body.hero-slide-light-nav.nl-immersive #navImmersive .dd{
+  background:rgba(255,255,255,.96);
+  border-color:rgba(14,22,49,.08);
+}
+body.hero-slide-light-nav.nl-immersive #navImmersive .dd a{color:var(--navy);}
+body.hero-slide-light-nav.nl-immersive #navImmersive .dd a:hover{background:var(--surface-soft);color:var(--purple);}
+body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed{
+  background:rgba(255,255,255,.92) !important;
+  backdrop-filter:blur(14px) !important;
+  border-bottom-color:rgba(14,22,49,.08) !important;
+}
+body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .nlink{color:var(--navy) !important;}
+body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .logo--for-dark{display:none !important;}
+body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .logo--for-light{display:block !important;}
+body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .snav__burger{color:var(--navy);}
 
 @media (max-width:1040px){
   .snav--bar .snav__row,.snav--immersive .snav__row{display:none;}
@@ -1075,14 +1110,14 @@ body.nav-light.nl-centered-immersive #navCentered.is-condensed{background:rgba(2
 body.nav-light.nl-centered-immersive #navCentered.is-condensed .nlink{color:var(--navy) !important;}
 body.nav-light.nl-centered-immersive #navCentered.is-condensed .logo--for-dark{display:none;}
 body.nav-light.nl-centered-immersive #navCentered.is-condensed .logo--for-light{display:block !important;}
-body.hero-slide-light-nav.nl-centered-immersive #navCentered.is-condensed{
+body.nav-light.hero-slide-light-nav.nl-centered-immersive #navCentered.is-condensed{
   background:rgba(255,255,255,.92) !important;
   backdrop-filter:blur(14px) !important;
   border-bottom-color:rgba(14,22,49,.08) !important;
 }
-body.hero-slide-light-nav.nl-centered-immersive #navCentered.is-condensed .nlink{color:var(--navy) !important;}
-body.hero-slide-light-nav.nl-centered-immersive #navCentered.is-condensed .logo--for-dark{display:none !important;}
-body.hero-slide-light-nav.nl-centered-immersive #navCentered.is-condensed .logo--for-light{display:block !important;}
+body.nav-light.hero-slide-light-nav.nl-centered-immersive #navCentered.is-condensed .nlink{color:var(--navy) !important;}
+body.nav-light.hero-slide-light-nav.nl-centered-immersive #navCentered.is-condensed .logo--for-dark{display:none !important;}
+body.nav-light.hero-slide-light-nav.nl-centered-immersive #navCentered.is-condensed .logo--for-light{display:block !important;}
 body.nav-glass.hero-slide-light-nav.nl-centered-immersive #navCentered.is-condensed{
   background:rgba(255,255,255,.92) !important;
   backdrop-filter:blur(14px) !important;

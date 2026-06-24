@@ -60,7 +60,9 @@ body.theme-dawn{
 .sec--dark .sec__title,.sec--deep .sec__title,.stats .sec__title{color:var(--sec-fg);}
 .sec--dark .sec__lead,.sec--deep .sec__lead{color:var(--sec-fg-soft);}
 .sec--dark .sec__eyebrow,.sec--deep .sec__eyebrow,.stats .sec__eyebrow{color:var(--sec-eyebrow);}
-.sec__title .accent,.statement__big .accent,.event__body .accent{color:var(--accent-word);}
+.sec__title .accent,.event__body .accent{color:var(--accent-word);}
+/* Statement es inmersivo oscuro fijo en todos los temas → acento dorado (regla de marca sobre oscuro) */
+.statement__big .accent{color:var(--gold);}
 
 /* Aspiration "Soul Tide": inmersivo oscuro fijo → sus colores (texto blanco /
    acento dorado) los gobierna sections.css en cualquier tema. */

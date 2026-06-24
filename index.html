@@ -324,7 +324,7 @@
   </div>
 </section>
 
-<!-- ========== 1 · ASPIRATION — "Soul Tide" (dotted-wave canvas + GSAP wave reveal) ========== -->
+<!-- ========== 1 · ASPIRATION — "Soul Tide" dotted-wave (su propia sección, como estaba) ========== -->
 <section class="sec aspire" id="aspire" aria-label="Do you want a life of meaning, creativity, joy and love?">
   <canvas class="aspire__waves" aria-hidden="true"></canvas>
   <span class="aspire__veil" aria-hidden="true"></span>
@@ -345,42 +345,65 @@
   </div>
 </section>
 
-<!-- ========== 2 · GREETING (video Gary & Linda) ========== -->
-<section class="sec greeting sec--dark" aria-label="A greeting from Gary and Linda">
+<!-- ========== INMERSIVE FLOW — Statement + Greeting. Plasma DESACTIVADO (ver más abajo); el wave de puntos se queda en Aspiration. ========== -->
+<div class="immersive-flow">
+  <!-- SEGUNDO EFECTO (plasma) DESACTIVADO — reactivar: descomentar este canvas + el <script id="statement-plasma">
+  <canvas class="flow__plasma" aria-hidden="true"></canvas>
+  -->
+
+<!-- ========== 2 · STATEMENT (Authentic Power) — antecede al video, como el sitio original ========== -->
+<section class="sec statement statement--tide" aria-label="These are experiences of Authentic Power">
+  <span class="statement__veil" aria-hidden="true"></span>
   <div class="sec__inner">
-    <div class="greeting__card reveal">
-      <video id="greetVideo" poster="assets/images/Home-page-video-Thumbnail_image.webp" playsinline preload="metadata">
-        <source src="assets/SOTS-Homepage-Video-web.mp4" type="video/mp4" /></video>
+    <p class="sec__eyebrow reveal">The experience</p>
+    <hr class="accent-rule reveal" />
+    <h2 class="statement__big sec__title reveal">These are experiences of <span class="accent">Authentic&nbsp;Power</span></h2>
+    <p class="statement__lead reveal">The alignment of your personality and soul.</p>
+  </div>
+</section>
+
+<!-- ========== 3 · GREETING (video Gary & Linda) ========== -->
+<section class="sec greeting sec--dark" aria-label="A greeting from Gary and Linda">
+  <span class="greeting__glow" aria-hidden="true"></span>
+  <span class="greeting__backdrop" id="greetBackdrop" aria-hidden="true"></span>
+  <div class="sec__inner">
+    <div class="greeting__card reveal" id="greetCard">
+      <video id="greetVideo" poster="assets/images/greeting-poster.webp" playsinline preload="metadata">
+        <source src="assets/SOTS-Homepage-Video.mp4" type="video/mp4" /></video>
       <span class="greeting__scrim" aria-hidden="true"></span>
-      <div class="greeting__label" id="greetLabel">
-        <button class="greeting__play" id="greetPlay" aria-label="Play greeting video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
-        <span class="lbl">A greeting from</span>
-        <span class="names">Gary and Linda</span>
+      <span class="greeting__bokeh" aria-hidden="true"></span>
+      <div class="greeting__overlay" id="greetOverlay">
+        <p class="greeting__from">A greeting from</p>
+        <button class="greeting__play" id="greetPlay" aria-label="Play the greeting from Gary and Linda">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <p class="greeting__names">Gary <span class="accent">and</span> Linda</p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ========== 3 · STATEMENT (Authentic Power) ========== -->
-<section class="sec statement sec--paper" aria-label="These are experiences of Authentic Power">
-  <div class="sec__inner">
-    <hr class="accent-rule reveal" />
-    <p class="statement__big sec__title reveal">These are experiences of <span class="accent">Authentic Power</span> — the alignment of your personality and soul.</p>
-  </div>
-</section>
+</div><!-- /.immersive-flow -->
 
 <!-- ========== 4 · CONSCIOUSNESS (split) ========== -->
-<section class="sec split split--media-left sec--deep" aria-label="The emerging global consciousness">
-  <span class="sec__glow" style="top:-10%;left:-8%;"></span>
-  <div class="sec__inner">
-    <div class="split__media reveal">
-      <img src="assets/images/6a3342a6143842a748166454_people-with-authentic-power-gary-zukav.webp" width="1200" height="799" decoding="async" alt="People living with authentic power" loading="lazy" />
-    </div>
-    <div>
+<!-- Editorial cinematográfico: foto full-bleed + texto inmersivo (eyebrow/título/lead, ink + acento dorado).
+     Para usar VIDEO de fondo: reemplazar el <img> por un <video autoplay muted loop playsinline>. -->
+<section class="sec consciousness sec--deep" aria-labelledby="cons-h">
+  <div class="consciousness__media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata"
+           poster="assets/images/6a3342a6143842a748166454_people-with-authentic-power-gary-zukav.webp">
+      <source src="assets/The-Seat-Of-The-Soul-Home_Woman.mp4" type="video/mp4" />
+    </video>
+    <span class="consciousness__scrim"></span>
+  </div>
+  <div class="sec__inner consciousness__inner">
+    <div class="consciousness__intro">
       <p class="sec__eyebrow reveal">A new consciousness</p>
-      <h2 class="split__title sec__title reveal">The emerging global consciousness offers the potential of authentic power — a power based on compassion and wisdom.</h2>
+      <h2 id="cons-h" class="sec__title consciousness__title reveal">The emerging global consciousness offers the potential of <span class="accent">authentic power</span>.</h2>
+    </div>
+    <div class="consciousness__aside">
+      <h3 class="consciousness__subtitle reveal">A power based on <span class="accent">compassion and wisdom</span>.</h3>
       <p class="sec__lead reveal">It calls you to act from love rather than fear. It connects you to the seat of your soul — the place of purpose, fulfillment and joy.</p>
-      <div class="reveal" style="margin-top:1.8rem;">
+      <div class="consciousness__cta reveal">
         <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Start Your Journey</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
       </div>
     </div>
@@ -440,29 +463,32 @@
   </div>
 </section>
 
-<!-- ========== 5 · TOOLS ========== -->
-<section class="sec tools sec--lilac" aria-label="Explore powerful tools">
+<!-- ========== 5 · TOOLS (statement potente · wave de texto) ========== -->
+<section class="sec tools sec--lilac textwave" id="tools" aria-label="Explore powerful tools">
   <div class="sec__inner">
     <p class="sec__eyebrow reveal">For your practice</p>
     <hr class="accent-rule reveal" aria-hidden="true" />
-    <h2 class="sec__title tools__title reveal">Explore <span class="accent">powerful</span> tools.</h2>
-    <p class="tools__script reveal">Use these tools on your journey to love.</p>
+    <h2 class="sec__title tools__title"><span data-wave-line data-wave-base="#0E1631" data-wave-crest="#3C1951">Explore</span> <span class="accent" data-wave-line data-wave-base="#3C1951" data-wave-crest="#FED457">powerful</span> <span data-wave-line data-wave-base="#0E1631" data-wave-crest="#3C1951">tools.</span></h2>
+    <p class="tools__script" data-wave-line data-wave-base="rgba(14,22,49,.72)" data-wave-crest="#3C1951">Use these tools on your journey to love.</p>
     <div class="tools__cta reveal">
       <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the Tools</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
     </div>
   </div>
 </section>
 
-<!-- ========== 6 · LIVE EVENT (Join Gary) ========== -->
-<section class="sec event sec--deep" aria-label="Join Gary — a live event">
+<!-- ========== 6 · LIVE EVENT (Join Gary · Soul Tide + wave de texto) ========== -->
+<section class="sec event sec--deep textwave" id="event" aria-label="Join Gary — a live event">
+  <canvas class="event__waves tw-tide" aria-hidden="true"></canvas>
+  <span class="event__veil" aria-hidden="true"></span>
   <span class="sec__glow" style="bottom:-12%;right:-10%;"></span>
   <div class="sec__inner">
     <p class="sec__eyebrow reveal">Join Gary — Live</p>
     <hr class="accent-rule reveal" aria-hidden="true" />
-    <h2 class="sec__title event__headline reveal">A <span class="accent">profound, life-changing</span> experience.</h2>
-    <p class="sec__lead event__detail reveal">A live event with Gary Zukav and the energy of Linda Francis. Accelerate your personal journey into evolutionary spiritual growth, and become the creator of your life.</p>
-    <p class="event__ready reveal">Are you ready?</p>
-    <div class="reveal">
+    <h2 class="sec__title event__headline"><span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">A</span> <span class="accent" data-wave-line data-wave-base="#FED457" data-wave-crest="#FFF3CC">profound, life-changing</span> <span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">experience.</span></h2>
+    <p class="sec__lead event__support reveal">A live event with Gary Zukav and the energy of Linda Francis.</p>
+    <p class="event__statement" data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">Accelerate your personal journey into evolutionary spiritual growth, and become the creator of your life.</p>
+    <p class="event__ready" data-wave-line data-wave-base="#FED457" data-wave-crest="#FFF3CC">Are you ready?</p>
+    <div class="reveal" style="margin-top:.6rem;">
       <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Register Today</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
     </div>
   </div>
@@ -512,22 +538,84 @@
   </div>
 </section>
 
-<!-- ========== 7b · PRAISE (muro de retratos · endorsements reales) ========== -->
+<!-- ========== 7b · PRAISE (testimonios · carrusel de una cita · ref. seatofthesoul) ========== -->
 <section class="sec praise" aria-label="Praised by">
   <div class="sec__inner">
     <p class="sec__eyebrow reveal">Voices</p>
     <h2 class="sec__title reveal">Praised by leaders, artists &amp; seekers.</h2>
-    <div class="praise__grid">
-      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166405_oprah-winfrey-authentic-power-endorsement.webp" alt="Oprah Winfrey" loading="lazy" /><div class="praise__name">Oprah Winfrey</div><div class="praise__role">Media leader</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166458_maya-angelou-spiritual-wisdom-testimonial.webp" alt="Maya Angelou" loading="lazy" /><div class="praise__name">Maya Angelou</div><div class="praise__role">Poet &amp; author</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166415_paulo-coelho-consciousness-testimonial.webp" alt="Paulo Coelho" loading="lazy" /><div class="praise__name">Paulo Coelho</div><div class="praise__role">Author, <em>The Alchemist</em></div></div>
-      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166418_jay-z-personal-growth-testimonial.webp" alt="Jay-Z" loading="lazy" /><div class="praise__name">Jay-Z</div><div class="praise__role">Artist &amp; entrepreneur</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166406_gwyneth-paltrow-authentic-power-review.webp" alt="Gwyneth Paltrow" loading="lazy" /><div class="praise__name">Gwyneth Paltrow</div><div class="praise__role">Founder, Goop</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166419_lewis-howes-spiritual-growth-testimonial.webp" alt="Lewis Howes" loading="lazy" /><div class="praise__name">Lewis Howes</div><div class="praise__role">Author &amp; host</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166416_julianne-hough-conscious-living-testimonial.webp" alt="Julianne Hough" loading="lazy" /><div class="praise__name">Julianne Hough</div><div class="praise__role">Artist</div></div>
-      <div class="praise__card reveal"><img class="praise__photo" width="200" height="247" decoding="async" src="assets/images/6a3342a6143842a748166417_andre-duqum-authentic-power-testimonial.webp" alt="Andre Duqum" loading="lazy" /><div class="praise__name">Andre Duqum</div><div class="praise__role">Host, <em>Know Thyself</em></div></div>
+
+    <div class="praise__carousel reveal" id="praiseCarousel" role="group" aria-roledescription="carousel" aria-label="Testimonials">
+      <button class="praise__arrow praise__arrow--prev" id="prAprev" type="button" aria-label="Previous testimonial">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="praise__viewport">
+        <div class="praise__track" id="praiseTrack">
+          <figure class="praise__slide is-active" role="group" aria-roledescription="slide" aria-label="Oprah Winfrey">
+            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
+            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166405_oprah-winfrey-authentic-power-endorsement.webp" alt="Oprah Winfrey" />
+            <blockquote class="praise__quote">The Seat of the Soul changed the way I see myself, and the way I view the world.</blockquote>
+            <figcaption class="praise__cite"><span class="praise__name">Oprah Winfrey</span><span class="praise__role">Media leader, producer &amp; philanthropist</span></figcaption>
+          </figure>
+
+          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Maya Angelou" aria-hidden="true">
+            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
+            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166458_maya-angelou-spiritual-wisdom-testimonial.webp" alt="Maya Angelou" />
+            <blockquote class="praise__quote">The intrepid, daring Gary Zukav tells the hard truths.</blockquote>
+            <figcaption class="praise__cite"><span class="praise__name">Maya Angelou</span><span class="praise__role">Poet &amp; author</span></figcaption>
+          </figure>
+
+          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Paulo Coelho" aria-hidden="true">
+            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
+            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166415_paulo-coelho-consciousness-testimonial.webp" alt="Paulo Coelho" />
+            <blockquote class="praise__quote">The Seat of the Soul is a very important book to me.</blockquote>
+            <figcaption class="praise__cite"><span class="praise__name">Paulo Coelho</span><span class="praise__role">Author, <em>The Alchemist</em></span></figcaption>
+          </figure>
+
+          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Jay-Z" aria-hidden="true">
+            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
+            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166418_jay-z-personal-growth-testimonial.webp" alt="Jay-Z" />
+            <blockquote class="praise__quote">There are two books I absolutely live my life by. This is one of them.</blockquote>
+            <figcaption class="praise__cite"><span class="praise__name">Jay-Z</span><span class="praise__role">Artist &amp; entrepreneur</span></figcaption>
+          </figure>
+
+          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Gwyneth Paltrow" aria-hidden="true">
+            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
+            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166406_gwyneth-paltrow-authentic-power-review.webp" alt="Gwyneth Paltrow" />
+            <blockquote class="praise__quote">A powerful reminder that we are all connected.</blockquote>
+            <figcaption class="praise__cite"><span class="praise__name">Gwyneth Paltrow</span><span class="praise__role">Founder, Goop</span></figcaption>
+          </figure>
+
+          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Lewis Howes" aria-hidden="true">
+            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
+            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166419_lewis-howes-spiritual-growth-testimonial.webp" alt="Lewis Howes" />
+            <blockquote class="praise__quote">If you're feeling confused, this is going to give you a lot of clarity.</blockquote>
+            <figcaption class="praise__cite"><span class="praise__name">Lewis Howes</span><span class="praise__role">Author &amp; host</span></figcaption>
+          </figure>
+
+          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Julianne Hough" aria-hidden="true">
+            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
+            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166416_julianne-hough-conscious-living-testimonial.webp" alt="Julianne Hough" />
+            <blockquote class="praise__quote">This is a soul agreement — a moment for me to level up and learn something.</blockquote>
+            <figcaption class="praise__cite"><span class="praise__name">Julianne Hough</span><span class="praise__role">Actress &amp; wellness advocate</span></figcaption>
+          </figure>
+
+          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="André Duqum" aria-hidden="true">
+            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
+            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166417_andre-duqum-authentic-power-testimonial.webp" alt="André Duqum" />
+            <blockquote class="praise__quote">His teachings have supported millions of people for decades, transforming the way they move through the world.</blockquote>
+            <figcaption class="praise__cite"><span class="praise__name">André Duqum</span><span class="praise__role">Host, <em>Know Thyself</em></span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <button class="praise__arrow praise__arrow--next" id="prAnext" type="button" aria-label="Next testimonial">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
-    <p class="praise__note">Retratos de referencia · citas/endorsements por confirmar con el cliente antes de publicar.</p>
+
+    <div class="praise__dots" id="praiseDots" role="tablist" aria-label="Choose testimonial"></div>
+    <p class="praise__note">Citas reales (endorsements p&uacute;blicos) · confirmar derechos de uso con el cliente antes de publicar.</p>
   </div>
 </section>
 
@@ -621,10 +709,12 @@
       <div class="foot__brandblock">
         <a class="foot__logo" href="index.html" aria-label="Seat of the Soul Institute — home"><img src="assets/whitelogo.webp" alt="Seat of the Soul Institute" /></a>
         <p class="foot__tag">Create Authentic Power. Choose Love.</p>
-        <div class="foot__social" aria-label="Síguenos">
-          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 22v-9h3l.5-3.5H13V7.3c0-1 .3-1.7 1.7-1.7H16V2.4C15.7 2.4 14.7 2.3 13.6 2.3 11.3 2.3 9.8 3.7 9.8 6.3V9.5H7V13h2.8v9z"/></svg></a>
-          <a href="#" aria-label="Twitter / X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h3l-7 8 8 12h-6l-5-7-6 7H2l8-9L2 2h6l4 6z"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <div class="foot__social" aria-label="Follow Gary Zukav on social media">
+          <a href="https://www.facebook.com/GaryZukav/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 22v-9h3l.5-3.5H13V7.3c0-1 .3-1.7 1.7-1.7H16V2.4C15.7 2.4 14.7 2.3 13.6 2.3 11.3 2.3 9.8 3.7 9.8 6.3V9.5H7V13h2.8v9z"/></svg></a>
+          <a href="https://x.com/gary_zukav" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h3l-7 8 8 12h-6l-5-7-6 7H2l8-9L2 2h6l4 6z"/></svg></a>
+          <a href="https://www.instagram.com/gary_zukav/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.tiktok.com/@gary.zukav.soul" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 2h3c.25 1.86 1.32 3.4 3 3.94v3.02c-1.5 0-2.9-.48-4-1.3v6.74A6 6 0 1 1 11 8.46c.34 0 .67.03 1 .08v3.12a2.9 2.9 0 1 0 2 2.76V2z"/></svg></a>
+          <a href="https://www.youtube.com/@TheGaryZukav" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.8 12 4.8 12 4.8s-7 0-8.9.6A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6A3 3 0 0 0 23 16.5 31 31 0 0 0 23.4 12 31 31 0 0 0 23 7.5zM9.75 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg></a>
         </div>
       </div>
 
@@ -646,21 +736,21 @@
       <div class="foot">
         <h5>Connect</h5>
         <a href="index.html">Return to Homepage</a>
-        <a href="#">Career Opportunities</a>
-        <a href="#">View Opportunities</a>
+        <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">Career Opportunities</a>
+        <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">View Opportunities</a>
       </div>
       <div class="foot">
         <h5>Explore</h5>
-        <a href="#">Get Started</a>
-        <a href="about/">About</a>
-        <a href="about/seat-of-the-soul-institute/">About SOTS</a>
-        <a href="about/gary-zukav/">About Gary</a>
-        <a href="about/linda-francis/">About Linda</a>
-        <a href="#">In Celebration of Linda Francis</a>
-        <a href="#">Podcast</a>
-        <a href="#">Blog · Soul Feed</a>
-        <a href="#">Resources</a>
-        <a href="#">Courses, Events &amp; Activities</a>
+        <a href="https://seatofthesoul.com/get-started/" target="_blank" rel="noopener noreferrer">Get Started</a>
+        <a href="https://seatofthesoul.com/about/" target="_blank" rel="noopener noreferrer">About</a>
+        <a href="https://seatofthesoul.com/about/seat-of-the-soul-institute/" target="_blank" rel="noopener noreferrer">About SOTS</a>
+        <a href="https://seatofthesoul.com/about-gary-zukav/" target="_blank" rel="noopener noreferrer">About Gary</a>
+        <a href="https://seatofthesoul.com/about-linda-francis/" target="_blank" rel="noopener noreferrer">About Linda</a>
+        <a href="https://seatofthesoul.com/remember-linda-homepage/" target="_blank" rel="noopener noreferrer">In Celebration of Linda Francis</a>
+        <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Podcast</a>
+        <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Blog · Soul Feed</a>
+        <a href="https://seatofthesoul.com/apg-optin/" target="_blank" rel="noopener noreferrer">Resources</a>
+        <a href="https://seatofthesoul.com/shop/" target="_blank" rel="noopener noreferrer">Courses, Events &amp; Activities</a>
       </div>
       <div class="foot">
         <h5>Contact</h5>
@@ -677,7 +767,7 @@
     <div class="foot__bottom">
       <span>©<span id="footYear">2026</span> The Seat of the Soul Institute. All rights reserved.</span>
       <span class="foot__legal">
-        <a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Refund Policy</a>
+        <a href="https://seatofthesoul.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a><a href="https://seatofthesoul.com/terms-of-use/" target="_blank" rel="noopener noreferrer">Terms of Use</a><a href="https://seatofthesoul.com/refund-cancellation/" target="_blank" rel="noopener noreferrer">Refund Policy</a>
       </span>
     </div>
   </div>
@@ -690,7 +780,7 @@
   </button>
   <div class="vswitch__panel" id="vpanel" role="group" aria-label="Design variants">
     <div class="vsec">Brand palette</div>
-    <select class="vselect" data-options="theme-cosmic theme-dawn">
+    <select class="vselect" data-options="theme-cosmic theme-dawn" data-brand-palette>
       <option value="">Midnight Navy · SOTSI (default)</option>
       <option value="theme-cosmic">Cosmic Purple · UHF</option>
       <option value="theme-dawn">Pure White · Dawn (light)</option>
@@ -787,18 +877,27 @@
   (function(){ var y = document.getElementById('footYear'); if(y) y.textContent = new Date().getFullYear(); })();
 
   /* ---- Ink Drop Spread: split text into words and radiate from center ---- */
-  function splitInto(el){
+  function splitInto(el, byChar){
     if(el.__words) return el.__words;
     var words=[];
     (function walk(parent){
       [].slice.call(parent.childNodes).forEach(function(n){
         if(n.nodeType===3){
-          var parts=n.textContent.split(/(\s+)/), frag=document.createDocumentFragment();
-          parts.forEach(function(p){
-            if(p==='') return;
-            if(/^\s+$/.test(p)){ frag.appendChild(document.createTextNode(p)); }
-            else { var s=document.createElement('span'); s.className='word'; s.textContent=p; frag.appendChild(s); words.push(s); }
-          });
+          var frag=document.createDocumentFragment();
+          if(byChar){
+            /* letra por letra: entrada más lenta y elegante, aprovecha el tracking del eyebrow */
+            n.textContent.split('').forEach(function(c){
+              if(/\s/.test(c)){ frag.appendChild(document.createTextNode(' ')); }
+              else { var s=document.createElement('span'); s.className='word'; s.textContent=c; frag.appendChild(s); words.push(s); }
+            });
+          } else {
+            var parts=n.textContent.split(/(\s+)/);
+            parts.forEach(function(p){
+              if(p==='') return;
+              if(/^\s+$/.test(p)){ frag.appendChild(document.createTextNode(p)); }
+              else { var s=document.createElement('span'); s.className='word'; s.textContent=p; frag.appendChild(s); words.push(s); }
+            });
+          }
           parent.replaceChild(frag,n);
         } else if(n.nodeType===1 && !n.classList.contains('word')){ walk(n); }
       });
@@ -806,8 +905,8 @@
     el.__words=words; return words;
   }
   function inkPlay(slide){
-    var all=[]; [].slice.call(slide.querySelectorAll('.hslide__eyebrow,.hslide__title,.hslide__script,.hslide__lead,.oslide__title,.oslide__script,.oslide__lead,.oslide__note,.heroA__title,.heroA__sub,.heroA__body,.sec__eyebrow,.sec__title,.sec__lead,.sec__script'))
-      .forEach(function(el){ all=all.concat(splitInto(el)); });
+    var all=[]; [].slice.call(slide.querySelectorAll('.hslide__eyebrow,.hslide__title,.hslide__script,.hslide__lead,.oslide__title,.oslide__script,.oslide__lead,.oslide__note,.heroA__title,.heroA__sub,.heroA__body,.sec__eyebrow,.sec__title,.sec__lead,.sec__script,.statement__lead'))
+      .forEach(function(el){ all=all.concat(splitInto(el, el.classList.contains('sec__eyebrow'))); });
     if(!all.length) return;
     var center=(all.length-1)/2;
     all.forEach(function(w){ w.classList.remove('in'); w.style.transition='none'; w.style.transitionDelay='0s'; });
@@ -1274,14 +1373,25 @@
     maybeInk(document.querySelector('.oslide.is-active'));
     if(document.body.classList.contains('hero-static')) maybeInk(document.querySelector('.heroA'));
   }
+  function syncNavWithBrandPalette(themeClass){
+    var body=document.body;
+    body.classList.remove('nav-dark','nav-light');
+    if(themeClass === 'theme-dawn') body.classList.add('nav-light');
+    else body.classList.add('nav-dark'); /* default = Midnight Navy */
+    onScroll();
+  }
+
   /* color <select> */
   document.querySelectorAll('.vselect').forEach(function(sel){
     var opts = (sel.dataset.options||'').split(' ').filter(Boolean);
     sel.addEventListener('change', function(){
       opts.forEach(function(c){ document.body.classList.remove(c); });
       if(sel.value) document.body.classList.add(sel.value);
+      if(sel.hasAttribute('data-brand-palette')) syncNavWithBrandPalette(sel.value);
     });
   });
+  var brandPaletteSelect=document.querySelector('.vselect[data-brand-palette]');
+  if(brandPaletteSelect) syncNavWithBrandPalette(brandPaletteSelect.value);
 
   /* Ink al cargar: anima la entrada del hero visible (default = original) */
   if(document.body.classList.contains('hero-original')) maybeInk(document.querySelector('.oslide.is-active'));
@@ -1299,9 +1409,15 @@
       });
     }
   }
+  /* reset al SALIR del viewport → permite re-disparar la animación al volver a entrar (scroll up Y down) */
+  function resetSec(sec){
+    sec.classList.remove('ink-on');
+    [].slice.call(sec.querySelectorAll('.word.in')).forEach(function(el){ el.style.transition='none'; el.classList.remove('in'); });
+    [].slice.call(sec.querySelectorAll('.reveal.in')).forEach(function(el){ el.classList.remove('in'); });
+  }
   if('IntersectionObserver' in window && !reduce){
     var io=new IntersectionObserver(function(ents){
-      ents.forEach(function(e){ if(e.isIntersecting){ showSec(e.target); io.unobserve(e.target); } });
+      ents.forEach(function(e){ if(e.isIntersecting){ showSec(e.target); } else { resetSec(e.target); } });
     },{threshold:.16, rootMargin:'0px 0px -8% 0px'});
     secs.forEach(function(s){ io.observe(s); });
   } else { secs.forEach(function(s){ [].slice.call(s.querySelectorAll('.reveal')).forEach(function(el){ el.classList.add('in'); }); }); }
@@ -1325,12 +1441,66 @@
     nums.forEach(function(n){ io2.observe(n); });
   } else { nums.forEach(countUp); }
 
-  /* ---- Greeting: click play → reproduce el video con controles ---- */
+  /* ---- Praise · testimonios: carrusel de una cita (crossfade, autoplay pausable, swipe, reduced-motion safe) ---- */
+  (function(){
+    var car=document.getElementById('praiseCarousel'); if(!car) return;
+    var slides=[].slice.call(car.querySelectorAll('.praise__slide'));
+    var dotsWrap=document.getElementById('praiseDots');
+    if(!slides.length || !dotsWrap) return;
+    var cur=0, timer=null, DELAY=9000;
+    slides.forEach(function(s,i){
+      var b=document.createElement('button');
+      b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Testimonial '+(i+1));
+      b.addEventListener('click', function(){ go(i); restart(); });
+      dotsWrap.appendChild(b);
+    });
+    var dots=[].slice.call(dotsWrap.children);
+    function paint(){
+      slides.forEach(function(s,i){ var on=i===cur; s.classList.toggle('is-active',on); s.setAttribute('aria-hidden', on?'false':'true'); });
+      dots.forEach(function(d,i){ var on=i===cur; d.classList.toggle('is-active',on); d.setAttribute('aria-selected', on?'true':'false'); });
+    }
+    function go(n){ cur=(n+slides.length)%slides.length; paint(); }
+    function next(){ go(cur+1); }
+    function prev(){ go(cur-1); }
+    function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+    function restart(){ stop(); if(!reduce) timer=setInterval(next,DELAY); }
+    var pb=document.getElementById('prAprev'), nb=document.getElementById('prAnext');
+    if(pb) pb.addEventListener('click', function(){ prev(); restart(); });
+    if(nb) nb.addEventListener('click', function(){ next(); restart(); });
+    car.addEventListener('mouseenter', stop);
+    car.addEventListener('mouseleave', restart);
+    car.addEventListener('focusin', stop);
+    car.addEventListener('focusout', restart);
+    if(typeof attachSwipe==='function') attachSwipe(car, function(){ next(); restart(); }, function(){ prev(); restart(); });
+    paint();
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting ? restart() : stop(); }); },{threshold:.2}).observe(car);
+    } else { restart(); }
+  })();
+
+  /* ---- Greeting: play → expand inmersivo + controles nativos (pausa/volumen). Backdrop o Esc = cerrar ---- */
   var gp=document.getElementById('greetPlay');
-  if(gp){ gp.addEventListener('click', function(){
-    var v=document.getElementById('greetVideo'), lbl=document.getElementById('greetLabel');
-    v.setAttribute('controls',''); if(lbl) lbl.style.display='none'; var p=v.play(); if(p&&p.catch) p.catch(function(){});
-  }); }
+  if(gp){
+    var gv=document.getElementById('greetVideo');
+    var gsec=document.querySelector('.greeting');
+    var gbd=document.getElementById('greetBackdrop');
+    function greetOpen(){
+      gv.setAttribute('controls','');               /* controles nativos → pausa/seek/volumen fiables */
+      gsec.classList.add('is-playing');
+      var p=gv.play(); if(p&&p.catch) p.catch(function(){});
+    }
+    function greetClose(){
+      gsec.classList.remove('is-playing');               /* quita class ANTES de pause() → evita recursión con el listener */
+      gv.pause(); gv.removeAttribute('controls');
+      try{ gv.currentTime = 0; }catch(e){}                /* reinicia al estado inicial (texto + botón vuelven) */
+    }
+    gp.addEventListener('click', function(e){ e.stopPropagation(); greetOpen(); });
+    if(gbd) gbd.addEventListener('click', greetClose);
+    gv.addEventListener('ended', greetClose);
+    /* al PAUSAR (controles nativos) → regresa al estado inicial */
+    gv.addEventListener('pause', function(){ if(gsec.classList.contains('is-playing')) greetClose(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && gsec.classList.contains('is-playing')) greetClose(); });
+  }
 
   /* ---- Soul Feed · spotlight cards: el brillo del borde sigue al cursor ---- */
   var blogGrid=document.getElementById('blogGrid');
@@ -1357,19 +1527,18 @@
 <!-- ===== Aspiration · "Soul Tide" — campo de puntos en oleaje + wave de texto ===== -->
 <script id="soul-tide">
 (function(){
-  var section = document.getElementById('aspire');
-  if(!section) return;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var inView = true;
 
   /* ---------- A · campo de puntos en oleaje (canvas 2D, perspectiva) ----------
      Adaptación del "dotted-surface" (Three.js) a Canvas — mismo look de oleaje
      pero sin dependencia 3D (más liviano, porta a Webflow como un solo embed).
-     Color de marca: periwinkle en los valles → dorado en las crestas, sobre navy. */
-  (function(){
-    var canvas = section.querySelector('.aspire__waves');
+     Color de marca: periwinkle en los valles → dorado en las crestas, sobre navy.
+     Reutilizable → se monta en Aspiration y en Statement (mismo Soul Tide). */
+  function mountTideCanvas(section){
+    var canvas = section.querySelector('canvas');
     if(!canvas) return;
     var ctx = canvas.getContext('2d', {alpha:true});
+    var inView = true;
     var COOL = [210,204,253];   /* Soft Periwinkle #D2CCFD — valle, frío, tenue */
     var WARM = [254,212,87];    /* Golden Yellow  #FED457 — cresta, cálido       */
     var AMOUNTX = 46, AMOUNTY = 72, SEP = 150, WAVE = 46;
@@ -1450,27 +1619,26 @@
         es.forEach(function(e){ inView = e.isIntersecting; inView ? start() : stop(); });
       }, {threshold:0}).observe(section);
     }
-  })();
+  }
 
-  /* ---------- B · wave de texto (GSAP SplitText) ----------
-     (1) ENTRADA en ola: cada letra sube + aparece (una vez, sin desaparecer luego).
-     (2) COLOR ligado al SCROLL: una cresta dorada viaja por las letras al bajar y
-         retrocede al subir (scrub bidireccional). Respeta el switcher Animación + RM. */
-  if(window.gsap && window.SplitText){
+  /* montar el oleaje de puntos SÓLO en Aspiration (el Statement usa su propio shader de plasma) */
+  var aspire = document.getElementById('aspire');
+  if(aspire) mountTideCanvas(aspire);
+
+  /* ---------- B · wave de texto (GSAP SplitText) — REUTILIZABLE ----------
+     (1) ENTRADA en ola: cada letra sube + aparece (una vez). (2) COLOR ligado al
+     SCROLL: una cresta (oro/púrpura) viaja por las letras al bajar y retrocede al
+     subir. Se monta en Aspiration, Tools y Event. Respeta el switcher Animación + RM. */
+  function mountTextWave(section, lineSel, colorsFor, splitType){
+    if(!section || !window.gsap || !window.SplitText) return;
     gsap.registerPlugin(ScrollTrigger, SplitText);
-    var lines = [].slice.call(section.querySelectorAll('[data-asp-line]'));
-
-    /* [base, cresta] por tipo de línea — el color en reposo lo respeta el CSS */
-    function colorsFor(el){
-      if(el.classList.contains('aspire__word--accent')) return ['#FED457','#FFF3CC'];
-      if(el.classList.contains('aspire__word'))          return ['#ffffff','#FED457'];
-      if(el.classList.contains('aspire__tag'))           return ['rgba(255,255,255,0.6)','rgba(255,233,160,0.96)'];
-      return ['rgba(255,255,255,0.55)','rgba(255,237,176,0.95)'];                 /* intro */
-    }
+    var lines = [].slice.call(section.querySelectorAll(lineSel));
+    if(!lines.length) return;
+    splitType = splitType || 'chars';
 
     function init(){
       var splits = lines.map(function(el){
-        return new SplitText(el, {type:'chars', charsClass:'asp-char'});
+        return new SplitText(el, {type: splitType, charsClass:'asp-char', wordsClass:'tw-word'});
       });
       var entrance = [], colorST = null, lastOn = null;
 
@@ -1497,9 +1665,9 @@
           var tw = gsap.from(splits[i].chars, {
             yPercent: 120, autoAlpha: 0, filter: 'blur(8px)',
             duration: 0.7, ease: 'sine.out', delay: i * 0.08,
-            stagger: {each: 0.045, from: 'start'},
+            stagger: {each: Math.min(0.045, 0.7 / Math.max(1, splits[i].chars.length)), from: 'start'},
             clearProps: 'transform,opacity,visibility,filter',
-            scrollTrigger: {trigger: section, start: 'top 78%', toggleActions: 'restart none none none'}
+            scrollTrigger: {trigger: section, start: 'top 78%', toggleActions: 'restart none restart none'}
           });
           entrance.push(tw);
         });
@@ -1540,7 +1708,166 @@
       setTimeout(go, 1200);                        /* fallback si fonts.ready tarda */
     } else { init(); }
   }
+
+  /* Aspiration — colores por clase (comportamiento original, intacto) */
+  mountTextWave(aspire, '[data-asp-line]', function(el){
+    if(el.classList.contains('aspire__word--accent')) return ['#FED457','#FFF3CC'];
+    if(el.classList.contains('aspire__word'))          return ['#ffffff','#FED457'];
+    if(el.classList.contains('aspire__tag'))           return ['rgba(255,255,255,0.6)','rgba(255,233,160,0.96)'];
+    return ['rgba(255,255,255,0.55)','rgba(255,237,176,0.95)'];                   /* intro */
+  });
+
+  /* Tools + Event (y cualquier .textwave) — colores por data-attr; Event suma el canvas Soul Tide */
+  function dataColors(el){
+    return [el.getAttribute('data-wave-base') || '#ffffff', el.getAttribute('data-wave-crest') || '#FED457'];
+  }
+  [].slice.call(document.querySelectorAll('.textwave')).forEach(function(sec){
+    if(sec === aspire) return;
+    mountTextWave(sec, '[data-wave-line]', dataColors, 'words,chars');
+    if(sec.querySelector('canvas.tw-tide')) mountTideCanvas(sec);
+  });
 })();
 </script>
+
+<!-- Statement · fondo de PLASMA (WebGL) recoloreado a la marca — distinto del oleaje de puntos de Aspiration.
+     Adaptado de un shader de "warped plasma lines": fondo navy↔púrpura, líneas periwinkle con destellos dorados.
+     Vanilla (sin libs) → porta a Webflow como un embed. Pausa fuera de viewport + reduced-motion safe. -->
+<!-- DESACTIVADO (segundo efecto / plasma): cambiar type a "text/javascript" para reactivar -->
+<script id="statement-plasma" type="text/plain">
+(function(){
+  var section = document.querySelector('.immersive-flow');
+  if(!section) return;
+  var canvas = section.querySelector('.flow__plasma');
+  if(!canvas) return;
+  var gl = canvas.getContext('webgl', {alpha:true, premultipliedAlpha:false, antialias:true});
+  if(!gl){ return; } /* sin WebGL → queda el fondo navy del CSS (fallback limpio) */
+
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var VS = 'attribute vec4 p;void main(){gl_Position=p;}';
+  /* Fragment: plasma de líneas onduladas. Colores de marca:
+       fondo  = Midnight Navy #0E1631 ↔ Cosmic Purple #3C1951
+       líneas = Soft Periwinkle #D2CCFD con destello Golden Yellow #FED457 hacia los lados */
+  var FS = [
+    'precision highp float;',
+    'uniform vec2 iResolution;',
+    'uniform float iTime;',
+    'const float overallSpeed=0.16;',          /* calmado, acorde a la marca */
+    'const float gridSmoothWidth=0.015;',
+    'const float minLineWidth=0.012;',
+    'const float maxLineWidth=0.18;',
+    'const float lineSpeed=1.0*overallSpeed;',
+    'const float lineAmplitude=1.5;',
+    'const float lineFrequency=0.2;',
+    'const float warpSpeed=0.2*overallSpeed;',
+    'const float warpFrequency=0.5;',
+    'const float warpAmplitude=1.0;',
+    'const float offsetFrequency=0.5;',
+    'const float offsetSpeed=1.33*overallSpeed;',
+    'const float minOffsetSpread=0.6;',
+    'const float maxOffsetSpread=3.4;',          /* cubre más alto del flujo (arriba/abajo) */
+    'const float scale=5.0;',
+    'const int linesPerGroup=16;',
+    '#define drawCircle(pos,radius,coord) smoothstep(radius+gridSmoothWidth,radius,length(coord-(pos)))',
+    '#define drawSmoothLine(pos,halfWidth,t) smoothstep(halfWidth,0.0,abs(pos-(t)))',
+    '#define drawCrispLine(pos,halfWidth,t) smoothstep(halfWidth+gridSmoothWidth,halfWidth,abs(pos-(t)))',
+    'float random(float t){return (cos(t)+cos(t*1.3+1.3)+cos(t*1.4+1.4))/3.0;}',
+    'float getPlasmaY(float x,float horizontalFade,float offset){return random(x*lineFrequency+iTime*lineSpeed)*horizontalFade*lineAmplitude+offset;}',
+    'void main(){',
+    '  vec2 fragCoord=gl_FragCoord.xy;',
+    '  vec2 uv=fragCoord.xy/iResolution.xy;',
+    '  vec2 space=(fragCoord-iResolution.xy/2.0)/iResolution.x*2.0*scale;',
+    '  float horizontalFade=1.0-(cos(uv.x*6.28)*0.5+0.5);',
+    '  float verticalFade=1.0-(cos(uv.y*6.28)*0.5+0.5);',
+    '  space.y+=random(space.x*warpFrequency+iTime*warpSpeed)*warpAmplitude*(0.5+horizontalFade);',
+    '  space.x+=random(space.y*warpFrequency+iTime*warpSpeed+2.0)*warpAmplitude*horizontalFade;',
+    '  vec4 lines=vec4(0.0);',
+    '  vec3 peri=vec3(0.824,0.800,0.992);',     /* #D2CCFD */
+    '  vec3 gold=vec3(0.996,0.831,0.341);',     /* #FED457 */
+    '  for(int l=0;l<linesPerGroup;l++){',
+    '    float normalizedLineIndex=float(l)/float(linesPerGroup);',
+    '    float offsetTime=iTime*offsetSpeed;',
+    '    float offsetPosition=float(l)+space.x*offsetFrequency;',
+    '    float rand=random(offsetPosition+offsetTime)*0.5+0.5;',
+    '    float halfWidth=mix(minLineWidth,maxLineWidth,rand*horizontalFade)/2.0;',
+    '    float offset=random(offsetPosition+offsetTime*(1.0+normalizedLineIndex))*mix(minOffsetSpread,maxOffsetSpread,horizontalFade);',
+    '    float linePosition=getPlasmaY(space.x,horizontalFade,offset);',
+    '    float line=drawSmoothLine(linePosition,halfWidth,space.y)/2.0+drawCrispLine(linePosition,halfWidth*0.15,space.y);',
+    '    float circleX=mod(float(l)+iTime*lineSpeed,25.0)-12.0;',
+    '    vec2 circlePosition=vec2(circleX,getPlasmaY(circleX,horizontalFade,offset));',
+    '    float circle=drawCircle(circlePosition,0.01,space)*4.0;',
+    '    line=line+circle;',
+    '    vec3 lc=mix(peri,gold,clamp(rand*horizontalFade,0.0,1.0));',  /* periwinkle al centro → dorado a los lados */
+    '    lines+=line*vec4(lc,1.0)*rand;',
+    '  }',
+    '  vec4 bgColor1=vec4(0.0549,0.0863,0.1922,1.0);',  /* Midnight Navy */
+    '  vec4 bgColor2=vec4(0.2353,0.0980,0.3176,1.0);',  /* Cosmic Purple */
+    '  vec4 fragColor=mix(bgColor1,bgColor2,uv.x);',
+    '  fragColor*=(0.55+0.45*verticalFade);',           /* viñeta vertical suave, sin apagar del todo */
+    '  fragColor+=lines*0.7;',                          /* líneas sutiles bajo el texto */
+    '  fragColor.a=1.0;',
+    '  gl_FragColor=fragColor;',
+    '}'
+  ].join('\n');
+
+  function compile(type, src){
+    var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)){ console.warn('plasma shader:', gl.getShaderInfoLog(s)); return null; }
+    return s;
+  }
+  var vs = compile(gl.VERTEX_SHADER, VS), fs = compile(gl.FRAGMENT_SHADER, FS);
+  if(!vs || !fs) return;
+  var prog = gl.createProgram(); gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog, gl.LINK_STATUS)){ console.warn('plasma link:', gl.getProgramInfoLog(prog)); return; }
+
+  var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, 'p');
+  var uRes = gl.getUniformLocation(prog, 'iResolution');
+  var uTime = gl.getUniformLocation(prog, 'iTime');
+
+  var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+  function resize(){
+    /* el canvas cubre todo el flujo (las 3 secciones) → dimensionar al wrapper */
+    var r = section.getBoundingClientRect();
+    var w = Math.max(1, Math.round(r.width * dpr)), h = Math.max(1, Math.round(r.height * dpr));
+    if(canvas.width !== w || canvas.height !== h){
+      canvas.width = w; canvas.height = h;
+      gl.viewport(0, 0, w, h);
+    }
+  }
+  function frame(t){
+    resize();
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform1f(uTime, t);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+
+  var raf = 0, running = false, inView = true, start = 0;
+  function loop(now){
+    raf = requestAnimationFrame(loop);
+    if(!start) start = now;
+    frame((now - start) / 1000);
+  }
+  function play(){ if(running || reduce) return; running = true; raf = requestAnimationFrame(loop); }
+  function stop(){ running = false; if(raf) cancelAnimationFrame(raf); raf = 0; }
+
+  resize();
+  frame(0);                                   /* primer frame estático siempre */
+  if(!reduce) play();
+  addEventListener('resize', function(){ resize(); if(!running) frame(0); }, {passive:true});
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) stop(); else if(inView) play(); });
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ inView = e.isIntersecting; inView ? play() : stop(); });
+    }, {threshold:0}).observe(section);
+  }
+})();
+</script>
+
 </body>
 </html>

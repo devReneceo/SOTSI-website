@@ -60,7 +60,7 @@ body.theme-dawn{
 .sec--dark .sec__title,.sec--deep .sec__title,.stats .sec__title{color:var(--sec-fg);}
 .sec--dark .sec__lead,.sec--deep .sec__lead{color:var(--sec-fg-soft);}
 .sec--dark .sec__eyebrow,.sec--deep .sec__eyebrow,.stats .sec__eyebrow{color:var(--sec-eyebrow);}
-.sec__title .accent,.event__body .accent{color:var(--accent-word);}
+.sec__title .accent{color:var(--accent-word);}
 /* Statement es inmersivo oscuro fijo en todos los temas → acento dorado (regla de marca sobre oscuro) */
 .statement__big .accent{color:var(--gold);}
 
@@ -68,10 +68,10 @@ body.theme-dawn{
    acento dorado) los gobierna sections.css en cualquier tema. */
 
 /* Books / Stats / Tools detalles */
-.books__sub{color:var(--sec-fg-soft);}
+.books__script{color:var(--accent-word);}                                  /* oro → púrpura en Dawn */
+body.theme-dawn .books__statement [data-wave-line]{color:var(--sec-fg);}   /* navy en reposo sobre claro */
 .sec--deep .tools__script,.sec--dark .tools__script{color:var(--sec-fg-soft);}
 .stat__label{color:var(--sec-fg-soft);}
-.stat__verify{color:color-mix(in srgb, var(--sec-fg) 45%, transparent);}
 .stat:not(:last-child)::after{background:color-mix(in srgb, var(--sec-fg) 16%, transparent);}
 
 /* glow atmosférico: en Dawn casi nulo (no se ve bien sobre claro) */

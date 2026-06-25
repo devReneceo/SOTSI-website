@@ -1,0 +1,244 @@
+/* =====================================================================
+   SOTSI · SECTION-POLISH — loaded LAST (after theme.css / responsive-fix.css)
+   Eleva 3 secciones a nivel premium SIN tocar el sistema base:
+     · TOOLS        → atmósfera de marca + adaptación real por tema
+     · CONSCIOUSNESS→ profundidad cinematográfica (grano + scrim + glow)
+     · EVENT        → jerarquía (meta + 2º CTA) + marco sutil
+   Aditivo y reversible. Reusa tokens, --surf-*/--sec-fg y utilidades.
+   ===================================================================== */
+
+/* grano fino reutilizable (filmic) */
+:root{
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* =====================================================================
+   1 · TOOLS — de bloque plano a estancia de marca, adaptativa por tema
+   ===================================================================== */
+.tools{position:relative;overflow:hidden;isolation:isolate;}
+
+/* superficie con profundidad: halo suave arriba (no fill plano).
+   Usa --surf-soft → adapta navy/dawn; cosmic se sobreescribe abajo. */
+.tools{
+  background:
+    radial-gradient(120% 86% at 50% -12%,
+      color-mix(in srgb, var(--tools-tint, #D2CCFD) 60%, transparent), transparent 58%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--surf-soft) 90%, #ffffff) 0%,
+      var(--surf-soft) 64%);
+}
+:root{ --tools-tint:#D2CCFD; }            /* navy → periwinkle */
+
+/* halos atmosféricos (compositor-friendly: solo filtro/posición) */
+.tools__glow{position:absolute;z-index:0;border-radius:50%;aspect-ratio:1;
+  filter:blur(64px);pointer-events:none;}
+.tools__glow--a{width:46vw;max-width:560px;top:-14%;left:-8%;
+  background:radial-gradient(circle, rgba(210,204,253,.55), transparent 66%);}
+.tools__glow--b{width:40vw;max-width:480px;bottom:-18%;right:-6%;
+  background:radial-gradient(circle, rgba(254,212,87,.20), transparent 68%);}
+
+/* textura sutil */
+.tools::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:var(--grain);background-size:170px;opacity:.05;mix-blend-mode:multiply;}
+
+.tools .sec__inner{position:relative;z-index:1;}
+
+/* sello de marca (sol radiante) — foco premium sobre el eyebrow */
+.tools__mark{display:grid;place-items:center;width:clamp(48px,5.4vw,66px);height:auto;
+  margin:0 auto 1.6rem;color:var(--purple);}
+.tools__mark svg{width:100%;height:auto;display:block;
+  filter:drop-shadow(0 6px 18px rgba(60,25,81,.18));}
+
+/* chips de práctica — dan cuerpo editorial al centro vacío */
+.tools__chips{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
+  gap:.6rem;margin:2.4rem 0 0;padding:0;}
+.tools__chips li{font-family:var(--font-body);font-weight:500;font-size:.86rem;letter-spacing:.01em;
+  color:var(--purple);border:1px solid color-mix(in srgb, var(--purple) 26%, transparent);
+  border-radius:999px;padding:.55rem 1.15rem;
+  background:color-mix(in srgb, #ffffff 50%, transparent);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  transition:transform .3s var(--ease), border-color .3s var(--ease), background-color .3s var(--ease);}
+.tools__chips li:hover{transform:translateY(-2px);
+  border-color:color-mix(in srgb, var(--purple) 50%, transparent);
+  background:color-mix(in srgb, #ffffff 78%, transparent);}
+
+.tools__cta{margin-top:2.7rem;}
+
+/* —— adaptación real por tema —— */
+/* Cosmic: la estancia se vuelve púrpura (antes idéntica a navy) */
+body.theme-cosmic{ --tools-tint:#C8A6E2; }
+body.theme-cosmic .tools{
+  background:
+    radial-gradient(120% 86% at 50% -12%, rgba(60,25,81,.30), transparent 58%),
+    linear-gradient(180deg, #efe2f6 0%, #E7D4F1 64%);
+}
+body.theme-cosmic .tools__glow--a{background:radial-gradient(circle, rgba(170,120,205,.5), transparent 66%);}
+/* Dawn: claro y aireado — sube el oro para que respire */
+body.theme-dawn .tools__glow--b{background:radial-gradient(circle, rgba(254,212,87,.30), transparent 68%);}
+body.theme-dawn .tools::after{opacity:.035;}
+
+/* (Consciousness se rediseñó por completo: statement con orbe + banda de
+   video. Su CSS vive ahora en sections.css → bloque "4 · Consciousness".) */
+
+/* =====================================================================
+   3 · EVENT — jerarquía + marco premium
+   ===================================================================== */
+/* marco interior sutil (hairline dorado, esquinas suaves) + viñeta */
+.event::after{content:"";position:absolute;inset:clamp(12px,1.4vw,22px);z-index:1;
+  pointer-events:none;border-radius:22px;
+  box-shadow:inset 0 0 0 1px rgba(254,212,87,.14), inset 0 0 80px rgba(8,8,24,.4);}
+
+/* meta-fila: formato del evento (credibilidad premium) — fila limpia, izquierda en la Z */
+.event__meta{position:relative;z-index:2;list-style:none;padding:0;
+  display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:baseline;
+  gap:.4rem 1.15rem;margin:0 0 clamp(1.8rem,3vw,2.4rem);font-family:var(--font-body);}
+.event__meta li{display:inline-flex;align-items:baseline;gap:.5rem;position:relative;}
+.event__meta li:not(:first-child)::before{content:"";align-self:center;
+  width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.8;}
+.em-k{font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);}
+.em-v{font-size:.94rem;font-weight:500;letter-spacing:.01em;color:rgba(255,255,255,.9);}
+
+/* El Event es un momento inmersivo (canvas Soul Tide diseñado para oscuro):
+   se mantiene oscuro en TODOS los temas — como hero/membership/greeting —
+   para que el titular blanco y el oro conserven contraste (en Dawn, sec--deep
+   se aclaraba a lila y el texto blanco se perdía). */
+body.theme-dawn .event{background:#181033 !important;color:#fff !important;}
+
+/* "Are you ready? ──→ Register Today!" — unidad pregunta→acción */
+.event__act{position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;
+  gap:clamp(1rem,2vw,1.6rem);margin-top:clamp(1.8rem,3vw,2.4rem);}
+.event__act .event__ready{margin:0;flex:0 0 auto;}          /* anula los márgenes grandes */
+.event__connector{flex:1 1 60px;min-width:48px;height:1px;align-self:center;
+  transform-origin:left;
+  background:linear-gradient(90deg, rgba(254,212,87,.85), rgba(254,212,87,.2));}
+.event__cta-row{position:relative;z-index:2;display:flex;flex:0 0 auto;margin:0;}
+
+/* el conector crece de la pregunta al botón al revelarse (.event__act lleva .reveal → .in) */
+body.anim-reveal .event__connector,
+body.anim-kinetic .event__connector{transform:scaleX(0);
+  transition:transform var(--dur-slow) var(--ease);}
+body.anim-reveal .event__act.in .event__connector,
+body.anim-kinetic .event__act.in .event__connector{transform:scaleX(1);}
+@media (prefers-reduced-motion:reduce){.event__connector{transform:none!important;}}
+
+/* =====================================================================
+   4 · TOOLS · minimal centrado (3 textos + botón en medio)
+   Estructura del original (2w.png), elevada con tipografía/color/animación.
+   Colorimetría: claro periwinkle→lila; acentos PÚRPURA (oro pierde contraste
+   sobre claro); el ÚNICO oro va en el botón (texto dorado sobre navy = oscuro).
+   ===================================================================== */
+.tools{text-align:center;
+  background:linear-gradient(180deg, #ECEAFF 0%, #E7D4F1 56%, #F4F0FB 100%);}
+.tools .sec__inner{max-width:none;}
+.tools__inner{display:flex;flex-direction:column;align-items:center;
+  max-width:46rem;margin-inline:auto;}
+.tools__title{margin:0;}
+.tools__cta{margin:clamp(2rem,4vw,3rem) 0 clamp(2.2rem,4vw,3.2rem);text-align:center;}
+.tools__kicker{font-family:var(--font-body);font-weight:600;font-size:.92rem;letter-spacing:.34em;
+  text-transform:uppercase;color:rgba(14,22,49,.5);margin:0;}
+.tools__script{font-family:var(--font-script);font-weight:400;
+  font-size:clamp(2.1rem,1.2rem + 3.2vw,3.8rem);line-height:1.04;color:var(--purple);margin:.55rem 0 0;}
+.tools__glow--a{opacity:.7;} .tools__glow--b{opacity:.5;}
+
+/* el script entra con elegancia (visible por defecto; .in refina, no oculta) */
+.tools__script.in{animation:toolsScriptIn 1s var(--ease) both;}
+@keyframes toolsScriptIn{from{opacity:.2;transform:translateY(10px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.tools__script.in{animation:none;}}
+
+/* CTA sólido navy + oro (visible sobre claro, como el original 2w.png) */
+.tools .btn-cta{background:transparent;padding:0;border:0;box-shadow:0 16px 32px -16px rgba(14,22,49,.55);}
+.tools .btn-cta__inner{background:var(--navy)!important;color:var(--gold)!important;border:0!important;
+  padding:.82rem 1.05rem .82rem 1.45rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)!important;}
+.tools .btn-cta__inner::before{display:none!important;}
+.tools .btn-cta__sheen{display:none!important;}
+.tools .btn-cta__label{color:var(--gold)!important;}
+.tools .btn-cta__icon{background:rgba(254,212,87,.18)!important;color:var(--gold)!important;
+  box-shadow:inset 0 0 0 1px rgba(254,212,87,.32)!important;}
+.tools .btn-cta:hover{transform:translateY(-2px);box-shadow:0 22px 44px -18px rgba(14,22,49,.6);}
+.tools .btn-cta:hover .btn-cta__inner{background:#16223f!important;color:var(--gold)!important;}
+
+/* =====================================================================
+   4b · EVENT · zigzag (derecha · IZQUIERDA · derecha) — solo ≥769px
+   ===================================================================== */
+@media (min-width:769px){
+  .event .sec__inner{max-width:68rem;}
+  .event .sec__eyebrow{text-align:right;}
+  .event .accent-rule{margin-left:auto;margin-right:0;}
+  .event__headline{margin-left:auto;margin-right:0;text-align:right;max-width:22ch;}
+  .event__support{margin-left:auto;margin-right:0;text-align:right;max-width:36ch;}
+  /* cierre como UNIDAD a la izquierda (diagonal: intro der · cierre izq) */
+  .event__close{margin-left:0;margin-right:auto;text-align:left;max-width:42rem;}
+}
+
+/* =====================================================================
+   5 · Secuencia de color sutil — SOLO tema default (navy ↔ púrpura ↔ claro)
+   Rompe el "puro azul" metiendo cosmic purple en oscuras sólidas.
+   No toca video/imagen (Hero/Consciousness/Membership/BigCTA) ni cosmic/dawn.
+   ===================================================================== */
+body:not(.theme-cosmic):not(.theme-dawn) .greeting{background:#241043;}
+body:not(.theme-cosmic):not(.theme-dawn) .event{background:#1d1240;}
+body:not(.theme-cosmic):not(.theme-dawn) .stats{background:#3c1951;}
+
+/* =====================================================================
+   7 · BOOKS — imagen real (2 libros + badges) sobre el círculo dorado
+   ===================================================================== */
+/* (sin textura de fondo — removida a pedido del PM; el fondo queda navy/periwinkle limpio) */
+.books__stage{min-height:clamp(400px,44vw,560px);}
+.books__circle{width:min(440px,88%);box-shadow:0 40px 90px -40px rgba(199,154,54,.55);}
+.books__img{position:relative;z-index:1;display:block;width:min(140%,620px);max-width:140%;height:auto;
+  transform:translateY(-16px);filter:drop-shadow(0 26px 40px rgba(0,0,0,.42));
+  animation:booksFloat 7s var(--ease) infinite;will-change:transform;}
+.books__img:hover{filter:drop-shadow(0 34px 56px rgba(0,0,0,.5));}
+@keyframes booksFloat{0%,100%{transform:translateY(-8px);}50%{transform:translateY(-24px);}}
+@media (prefers-reduced-motion:reduce){.books__img{animation:none;transform:translateY(-16px);}}
+
+/* CTA sólido navy + oro (patrón Tools), scope a Books */
+.books .btn-cta{background:transparent;padding:0;border:0;box-shadow:0 16px 32px -16px rgba(14,22,49,.55);}
+.books .btn-cta__inner{background:var(--navy)!important;color:var(--gold)!important;border:0!important;
+  padding:.82rem 1.05rem .82rem 1.45rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)!important;}
+.books .btn-cta__inner::before{display:none!important;}
+.books .btn-cta__sheen{display:none!important;}
+.books .btn-cta__label{color:var(--gold)!important;}
+.books .btn-cta__icon{background:rgba(254,212,87,.18)!important;color:var(--gold)!important;
+  box-shadow:inset 0 0 0 1px rgba(254,212,87,.32)!important;}
+.books .btn-cta:hover{transform:translateY(-2px);box-shadow:0 22px 44px -18px rgba(14,22,49,.6);}
+.books .btn-cta:hover .btn-cta__inner{background:#16223f!important;}
+
+/* =====================================================================
+   8 · FOUNDERS — momento inmersivo brand-book (gradiente + halo sol + script)
+   ===================================================================== */
+.founders--immersive{background:var(--grad-immersive);color:#fff;
+  position:relative;overflow:hidden;isolation:isolate;}
+.founders--immersive::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 80% at 16% 28%, rgba(60,25,81,.55), transparent 60%),
+             radial-gradient(54% 72% at 92% 84%, rgba(14,22,49,.55), transparent 60%);}
+.founders--immersive .sec__inner{position:relative;z-index:1;}
+.founders--immersive .sec__eyebrow{color:var(--gold);}
+.founders__lead{color:rgba(255,255,255,.82);max-width:42ch;}
+
+/* nombre: "Gary &" Fraunces + "Linda" script dorado */
+.founders__name{color:#fff;font-family:var(--font-display);font-weight:400;line-height:1;margin:0;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.18em;}
+.founders__amp{font-size:clamp(2.4rem,1.6rem + 3vw,3.8rem);letter-spacing:-.015em;}
+.founders__script{font-family:var(--font-accent);font-weight:400;color:var(--gold);
+  font-size:clamp(3.8rem,2.3rem + 5.4vw,6.8rem);line-height:.86;}
+.founders .accent-rule{margin:1.4rem 0 1.6rem;}
+
+/* CTAs sobre fondo oscuro */
+.founders--immersive .btn--primary{background:var(--gold);color:var(--navy);}
+.founders--immersive .btn--primary:hover{background:#ffe07a;box-shadow:0 18px 40px -16px rgba(254,212,87,.5);}
+.founders--immersive .btn--ghost{background:transparent;color:#fff;border:1.5px solid rgba(254,212,87,.5);}
+.founders--immersive .btn--ghost:hover{border-color:var(--gold);color:var(--gold);box-shadow:none;}
+
+/* retrato: CÍRCULO perfecto (alto/ancho explícitos) + doble anillo dorado + glow suave (sin rayos) */
+.founders__portrait{position:relative;flex:0 0 auto;margin-inline:auto;display:grid;place-items:center;
+  width:clamp(240px,30vw,400px);height:clamp(240px,30vw,400px);}
+.founders__halo{position:absolute;inset:-12%;z-index:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle, rgba(254,212,87,.20) 0%, transparent 62%);}
+.founders__ring{position:absolute;inset:0;z-index:2;border-radius:50%;pointer-events:none;
+  box-shadow:0 0 0 2px var(--gold), 0 0 0 9px rgba(254,212,87,.16), 0 30px 70px -28px rgba(0,0,0,.6);}
+.founders__photo{position:relative;z-index:1;width:100%;height:100%;max-width:none;object-fit:cover;
+  border-radius:50%;box-shadow:none;margin:0;display:block;}
+
+/* (Big CTA volvió al original: foto full-bleed + scrim, definido en sections.css) */

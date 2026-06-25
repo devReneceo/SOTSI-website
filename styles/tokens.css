@@ -39,6 +39,7 @@
   --font-display: "Fraunces", "Cormorant Garamond", "Canela", Georgia, serif;
   --font-body: "Jost", "Inter", system-ui, -apple-system, sans-serif;
   --font-script: "Dancing Script", "WorldDiscovery One", cursive;
+  --font-accent: "Pinyon Script", "Allura", "Fraunces", cursive;   /* script elegante para frases emotivas (brand book) */
 
   /* Escala fluida — cuerpo grande (senior-friendly: base 20px) */
   --text-body: clamp(1.18rem, 1.08rem + 0.4vw, 1.3rem);     /* ~19–21px */
@@ -56,6 +57,7 @@
   --radius-lg: 28px;
   --radius-pill: 999px;
   --maxw: 1240px;
+  --maxw-wide: 1180px;     /* rail de secciones — sube progresivamente en monitores grandes (ver responsive-fix.css) */
   --gutter: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
 
   /* ---- Sombras (profundidad/layering) ---- */

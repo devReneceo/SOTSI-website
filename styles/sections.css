@@ -8,7 +8,7 @@
 
 /* ---- ritmo vertical generoso ---- */
 .sec{position:relative;padding-block:clamp(5.5rem,4rem + 7vw,11rem);overflow:hidden;}
-.sec__inner{width:min(1180px,100% - 2*var(--gutter));margin-inline:auto;position:relative;z-index:1;}
+.sec__inner{width:min(var(--maxw-wide,1180px),100% - 2*var(--gutter));margin-inline:auto;position:relative;z-index:1;}
 
 /* tipografía base de sección */
 .sec__eyebrow{font-family:var(--font-body);font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;
@@ -183,112 +183,90 @@
   font-size:clamp(1.7rem,1.2rem + 2.2vw,2.7rem);margin:0;}
 
 /* ---- 4 · Consciousness — editorial cinematográfico (foto full-bleed + texto inmersivo) ---- */
+/* ============================================================
+   4 · Consciousness — video full-bleed + texto bookend (sobre el video)
+   "soul calm" cinematográfico (ref. página antigua): el video es el fondo
+   a todo lo ancho; el título va arriba y el lead+CTA abajo, ambos sobre
+   scrims (la cara respira en el centro). Texto blanco + acento oro fijo en
+   todos los temas (video-bg, como hero/membership).
+   ============================================================ */
 .consciousness{position:relative;overflow:hidden;isolation:isolate;
-  min-height:clamp(700px,93vh,980px);display:flex;align-items:stretch;
-  padding-block:clamp(3.2rem,6vh,5.5rem);}
+  padding-block:0;background:var(--navy);}
 .consciousness__media{position:absolute;inset:0;z-index:0;}
-/* el rostro se desplaza al tercio derecho (zona limpia) — el rail de texto queda a la izquierda */
-.consciousness__media img,.consciousness__media video{width:100%;height:100%;object-fit:cover;object-position:34% 22%;display:block;}
-/* scrim direccional: rail oscuro a la IZQUIERDA (texto) → se disuelve para revelar el rostro a la derecha */
-.consciousness__scrim{position:absolute;inset:0;
+.consciousness__media video{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;}
+.consciousness__scrim{position:absolute;inset:0;pointer-events:none;
   background:
-    linear-gradient(95deg, rgba(20,13,42,.95) 0%, rgba(20,13,42,.9) 24%, rgba(20,13,42,.66) 44%, rgba(20,13,42,.26) 64%, rgba(20,13,42,0) 84%),
-    radial-gradient(120% 92% at 2% 50%, rgba(14,22,49,.5) 0%, transparent 56%),
-    linear-gradient(180deg, rgba(8,12,28,.24) 0%, rgba(8,12,28,.12) 48%, rgba(8,12,28,.5) 100%);}
-.consciousness__inner{
-  position:relative;
-  z-index:1;
-  width:min(1320px, 100% - 2*var(--gutter));
-  margin-inline:auto;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;     /* statement arriba · coda abajo */
-  align-items:flex-start;
-  gap:clamp(2.6rem,6vh,6rem);
-}
-/* statement (primer párrafo) = título grande, anclado arriba-izquierda.
-   width:100% evita el shrink-to-fit del flex item (text-wrap:balance reportaba
-   un ancho balanceado que desbordaba en móvil) → el texto envuelve dentro del rail. */
-.consciousness__intro{
-  width:100%;
-  max-width:min(54rem,60%);
-}
-/* coda (segundo párrafo) = subtítulo + lead + CTA, anclado abajo-izquierda */
-.consciousness__aside{
-  width:100%;
-  max-width:min(42rem,54%);
-  padding-top:clamp(1.7rem,2.6vw,2.6rem);
-  border-top:1px solid rgba(210,204,253,.2);
-}
-/* subtítulo del aside: "A power based on compassion and wisdom." como TÍTULO (serif de marca) */
-.consciousness__subtitle{font-family:var(--font-display);font-weight:400;line-height:1.12;letter-spacing:-.015em;
-  font-size:clamp(1.7rem,1.2rem + 1.8vw,2.8rem);margin:0 0 1.1rem;color:#fff;text-wrap:balance;
-  text-shadow:0 8px 26px rgba(10,12,26,.2);}
-.consciousness__subtitle .accent{color:var(--gold);}
-.consciousness .sec__eyebrow{
-  display:flex;
-  align-items:center;
-  gap:.9rem;
-  color:var(--gold);
-  margin-bottom:1.7rem;
-  max-width:max-content;
-  padding:0;
-  background:none;
-  box-shadow:none;
-}
-.consciousness .sec__eyebrow::before{
-  content:"";
-  width:40px;
-  height:1px;
-  background:linear-gradient(90deg, rgba(254,212,87,.95), rgba(254,212,87,.15));
-}
-.consciousness__title{font-family:var(--font-display);font-weight:400;line-height:1.08;letter-spacing:-.018em;
-  font-size:clamp(2.45rem,1.2rem + 4.1vw,4.8rem);margin:0;max-width:14.2ch;text-wrap:balance;color:#fff;
-  text-shadow:0 12px 34px rgba(10,12,26,.18);}
+    linear-gradient(180deg, rgba(8,10,26,.82) 0%, rgba(8,10,26,.36) 22%, transparent 40%, transparent 56%, rgba(8,10,26,.5) 78%, rgba(8,10,26,.92) 100%),
+    radial-gradient(130% 80% at 50% 50%, transparent 42%, rgba(8,10,26,.30) 100%);}
+
+/* orbes/círculos suaves (motivo de marca) — MUY tenues sobre el video,
+   detrás de los bloques de texto (arriba-izq y abajo-izq). Respiran. */
+.consciousness__orb{position:absolute;z-index:0;pointer-events:none;border-radius:50%;aspect-ratio:1;
+  filter:blur(12px);mix-blend-mode:screen;will-change:transform;}
+.consciousness__orb--top{width:clamp(360px,40vw,620px);
+  left:clamp(-220px,-11vw,-90px);top:clamp(-200px,-15vh,-110px);
+  background:radial-gradient(circle, rgba(210,204,253,.18) 0%, rgba(210,204,253,.07) 42%, transparent 70%);
+  animation:consOrbBreath 18s ease-in-out infinite alternate;}
+.consciousness__orb--bottom{width:clamp(300px,34vw,520px);
+  right:clamp(-170px,-8vw,-60px);bottom:clamp(-170px,-13vh,-90px);
+  background:radial-gradient(circle, rgba(254,212,87,.11) 0%, rgba(210,204,253,.07) 44%, transparent 72%);
+  animation:consOrbBreath 22s ease-in-out infinite alternate;}
+@keyframes consOrbBreath{from{transform:scale(1);}to{transform:scale(1.05);}}
+
+/* inner = columna bookend (título arriba · lead+CTA abajo) */
+.consciousness__inner{position:relative;z-index:1;min-height:clamp(640px,90vh,1000px);
+  display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left;
+  padding-block:clamp(2.6rem,5vh,4.5rem);gap:2rem;}
+
+/* —— bookend TOP: eyebrow + título (arriba-izquierda) —— */
+.consciousness__top{align-self:flex-start;max-width:min(58rem,84%);}
+.consciousness .sec__eyebrow{display:flex;align-items:center;gap:.9rem;color:var(--gold);
+  margin:0 0 1.4rem;max-width:max-content;padding:0;background:none;box-shadow:none;}
+.consciousness .sec__eyebrow::before{content:"";width:52px;height:2px;
+  background:linear-gradient(90deg, rgba(254,212,87,.95), rgba(254,212,87,.12));}
+.consciousness__title{font-family:var(--font-display);font-weight:400;line-height:1.07;letter-spacing:-.018em;
+  font-size:clamp(2.4rem,1.4rem + 3.6vw,4.9rem);margin:0;max-width:17ch;text-wrap:balance;color:#fff;
+  text-shadow:0 12px 40px rgba(8,10,26,.5);}
 .consciousness__title .accent{color:var(--gold);}
-.consciousness .sec__lead{
-  margin-top:0;
-  max-width:40ch;
-  color:rgba(255,255,255,.9);
-  font-weight:400;                                        /* boomer-friendly: peso legible */
-  font-size:clamp(1.3rem,1.05rem + 1vw,1.85rem);          /* MÁS grande para boomers */
-  line-height:1.62;
-  text-shadow:0 2px 16px rgba(8,10,26,.6);                /* legible sobre la zona clara del video */
-}
-/* resalta la frase que continúa del título ("authentic power" → "compassion and wisdom") en dorado */
+/* —— bookend BOTTOM: subtítulo + lead + CTA (abajo-derecha, diagonal) —— */
+.consciousness__bottom{align-self:flex-end;text-align:left;max-width:min(40rem,86%);}
+.consciousness__subtitle{font-family:var(--font-display);font-weight:400;line-height:1.16;letter-spacing:-.012em;
+  font-size:clamp(1.4rem,1.05rem + 1.2vw,2.2rem);margin:0 0 1.1rem;max-width:26ch;text-wrap:balance;
+  color:#fff;text-shadow:0 6px 24px rgba(8,10,26,.5);}
+.consciousness__subtitle .accent{color:var(--gold);}
+.consciousness .sec__lead{margin:0;max-width:46ch;color:rgba(255,255,255,.92);
+  font-weight:400;font-size:clamp(1.18rem,1.02rem + .7vw,1.55rem);line-height:1.62;
+  text-shadow:0 2px 18px rgba(8,10,26,.7);}
 .consciousness .sec__lead .accent{color:var(--gold);font-weight:500;}
-.consciousness__cta{margin-top:2.35rem;}
-/* Ken Burns sutil: la foto respira (solo si el usuario no pidió menos movimiento) */
+.consciousness__cta{margin-top:2rem;}
+
+/* Ken Burns suave (reduced-motion safe) */
 @media (prefers-reduced-motion:no-preference){
-  .consciousness__media img{animation:consKenBurns 22s ease-in-out infinite alternate;will-change:transform;}
+  .consciousness__media video{animation:consKenBurns 26s ease-in-out infinite alternate;will-change:transform;}
 }
 @keyframes consKenBurns{from{transform:scale(1.05)}to{transform:scale(1.13) translateY(-2%)}}
-/* tablet: el rail se ensancha; la sección crece con el contenido (sin space-between forzado) */
-@media (max-width:1040px){
-  .consciousness{min-height:auto;padding-block:clamp(4rem,10vw,6.5rem);}
-  .consciousness__scrim{
-    background:linear-gradient(180deg, rgba(20,13,42,.84) 0%, rgba(20,13,42,.52) 42%, rgba(20,13,42,.9) 100%);}
-  .consciousness__inner{gap:clamp(2.2rem,7vw,3.6rem);}
-  .consciousness__intro{max-width:42rem;}
-  .consciousness__aside{max-width:40rem;}
-  .consciousness__title{max-width:16ch;}
+
+/* responsive */
+@media (max-width:1024px){
+  .consciousness__inner{min-height:clamp(620px,86vh,860px);}
+  .consciousness__top{max-width:min(34rem,90%);}
+  .consciousness__bottom{max-width:min(31rem,90%);}
 }
-/* móvil: texto a ancho completo → scrim vertical uniforme para legibilidad */
+/* ≤768: se rompe la diagonal → todo apilado a la izquierda */
 @media (max-width:768px){
-  .consciousness{padding-block:clamp(3.4rem,9vw,5rem);}
-  .consciousness__media img,.consciousness__media video{object-position:center 26%;}
+  .consciousness__inner{min-height:clamp(560px,90svh,800px);}
+  .consciousness__top,.consciousness__bottom{align-self:flex-start;max-width:none;}
+  .consciousness__orb--bottom{right:auto;left:clamp(-150px,-22vw,-50px);}
+  .consciousness__media video{object-position:center 24%;}
   .consciousness__scrim{
-    background:linear-gradient(180deg, rgba(24,16,51,.74) 0%, rgba(24,16,51,.5) 38%, rgba(24,16,51,.9) 100%);}
-  .consciousness__inner{gap:1.8rem;}
-  .consciousness__intro,.consciousness__aside{max-width:none;}
-  .consciousness__aside{padding-top:1.5rem;}
-  /* a 390 el flex no envolvía el texto (se recortaba) → block normal + sin hairline + tracking menor */
-  .consciousness .sec__eyebrow{display:block;margin-bottom:1.1rem;padding:0;max-width:100%;
-    letter-spacing:.18em;font-size:.72rem;}
-  .consciousness .sec__eyebrow::before{display:none;}
-  .consciousness__title{max-width:none;font-size:clamp(1.95rem,1.2rem + 4.2vw,2.7rem);}
-  .consciousness .sec__lead{max-width:none;margin-top:1.6rem;line-height:1.6;}
-  .consciousness__cta{margin-top:2.1rem;}
+    background:linear-gradient(180deg, rgba(8,10,26,.84) 0%, rgba(8,10,26,.32) 26%, transparent 46%, transparent 52%, rgba(8,10,26,.6) 74%, rgba(8,10,26,.95) 100%);}
+  .consciousness .sec__eyebrow{font-size:.72rem;letter-spacing:.18em;}
+  .consciousness__title{max-width:none;font-size:clamp(2rem,1.3rem + 3.6vw,2.9rem);}
+  .consciousness__subtitle{max-width:none;}
+  .consciousness .sec__lead{max-width:none;}
+  .consciousness__cta{margin-top:1.6rem;width:100%;}
+  .consciousness__cta .btn-cta{width:100%;max-width:22rem;}
+  .consciousness__cta .btn-cta__inner{justify-content:center;}
 }
 
 /* ---- 5 · Tools (centered) ---- */
@@ -301,28 +279,23 @@
 /* ---- 6 · Live event ---- */
 .event{text-align:center;}
 .event .sec__inner{max-width:52rem;}
-.event__body{font-family:var(--font-display);font-weight:400;font-size:clamp(1.5rem,1.1rem + 1.8vw,2.4rem);
-  line-height:1.32;letter-spacing:-.01em;margin:0;}
-.event__body .accent{color:var(--gold);}
-.event__ready{font-family:var(--font-body);font-weight:300;letter-spacing:.04em;color:rgba(255,255,255,.62);
-  font-size:clamp(1.1rem,.9rem + 1vw,1.5rem);margin:2.2rem 0 2.4rem;}
 
 /* ---- 7 · Books ---- */
 .books .sec__inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,2rem + 5vw,7rem);align-items:center;}
-.books__title{font-family:var(--font-display);font-weight:400;font-size:clamp(1.9rem,1.3rem + 2.2vw,3rem);line-height:1.16;letter-spacing:-.015em;margin:0;}
-.books__title strong{font-weight:400;color:var(--gold);display:block;}
-.books__sub{font-family:var(--font-body);font-weight:300;color:rgba(255,255,255,.7);font-size:1.15rem;margin:1.4rem 0 2.2rem;}
+.books__copy{max-width:42rem;}
+.books__title{font-family:var(--font-display);font-weight:400;line-height:1.1;letter-spacing:-.015em;margin:0;}
+.books__lead{display:block;font-size:clamp(1.25rem,1rem + .9vw,1.75rem);line-height:1.3;
+  color:var(--sec-fg-soft);font-weight:400;letter-spacing:.005em;margin-bottom:.6rem;}
+.books__statement{display:block;font-weight:500;font-size:clamp(2.3rem,1.5rem + 3.2vw,4.4rem);
+  line-height:1.02;letter-spacing:-.022em;color:var(--sec-fg);}
+.books__statement .tw-word{display:inline-block;}
+.books__script{font-family:var(--font-display);font-style:italic;font-weight:400;
+  font-size:clamp(2.1rem,1.35rem + 2.6vw,3.5rem);line-height:1.05;letter-spacing:-.01em;
+  color:var(--accent-word);margin:1.5rem 0 2.3rem;}
+.books__statement [data-wave-line]{display:block;color:var(--sec-fg);}   /* cada concepto en su línea (Revolutionized / Self-Transformation) + color en reposo */
 .books__stage{position:relative;display:flex;justify-content:center;align-items:center;min-height:380px;}
 .books__circle{position:absolute;width:min(380px,86%);aspect-ratio:1;border-radius:50%;
   background:radial-gradient(circle at 40% 34%,#fde9a6,#fed457 48%,#c79a36);z-index:0;}
-.books__covers{position:relative;z-index:1;display:flex;gap:1.4rem;align-items:flex-end;}
-.book{width:clamp(130px,15vw,172px);border-radius:6px;box-shadow:var(--shadow-lg);position:relative;background:#0e1c39;aspect-ratio:2/3;
-  display:grid;place-items:center;padding:1.4rem 1rem;text-align:center;}
-.book__flag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#fff;color:var(--navy);
-  font-family:var(--font-body);font-weight:600;font-size:.68rem;letter-spacing:.04em;padding:.36rem .75rem;border-radius:999px;white-space:nowrap;box-shadow:var(--shadow-md);}
-.book__name{font-family:var(--font-display);color:#fff;font-size:1.18rem;line-height:1.15;}
-.book__author{font-family:var(--font-body);color:var(--gold);font-size:.66rem;letter-spacing:.16em;margin-top:.7rem;}
-.book--latest{transform:translateY(-26px);}
 
 /* ---- 8 · Founders ---- */
 .founders .sec__inner{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(3rem,2rem + 5vw,6.5rem);align-items:center;}
@@ -421,13 +394,15 @@ body.theme-dawn .post__chip::before{background:var(--purple);}
   .post:hover{transform:none;} .post:hover .post__media img{transform:scale(1.01);}
 }
 
-/* ---- 10 · Big closing CTA ---- */
-.bigcta{min-height:clamp(460px,64vh,680px);display:grid;place-items:center;text-align:center;color:#fff;}
+/* ---- 10 · Big closing CTA (foto full-bleed + scrim, más alto) ---- */
+.bigcta{min-height:clamp(620px,84vh,900px);display:grid;place-items:center;text-align:center;color:#fff;
+  position:relative;overflow:hidden;}
 .bigcta__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
-.bigcta__scrim{position:absolute;inset:0;background:rgba(14,22,49,.55);z-index:1;}
-.bigcta .sec__inner{z-index:2;max-width:46rem;}
-.bigcta__title{font-family:var(--font-display);font-weight:400;line-height:1.14;letter-spacing:-.015em;
-  font-size:clamp(2rem,1.3rem + 3vw,3.8rem);margin:0 0 2.6rem;}
+.bigcta__scrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(14,22,49,.42) 0%, rgba(14,22,49,.5) 55%, rgba(14,22,49,.62) 100%);}
+.bigcta .sec__inner{position:relative;z-index:2;max-width:46rem;}
+.bigcta__title{font-family:var(--font-display);font-weight:400;line-height:1.12;letter-spacing:-.015em;
+  font-size:clamp(2.2rem,1.4rem + 3.4vw,4.4rem);margin:0 0 2.6rem;}
 
 /* ============================================================
    FOOTER · editorial oscuro con "línea de amanecer" dorada.
@@ -591,7 +566,6 @@ body.anim-ink .sec__eyebrow .word{display:inline-block;}
 .stat{position:relative;}
 .stat__num{font-family:var(--font-display);font-weight:400;font-size:clamp(2.8rem,1.8rem + 3vw,4.6rem);line-height:1;color:var(--gold);}
 .stat__label{font-family:var(--font-body);font-weight:300;color:rgba(255,255,255,.74);margin-top:.6rem;font-size:1.02rem;}
-.stat__verify{display:block;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.35rem;}
 .stat:not(:last-child)::after{content:"";position:absolute;right:calc(-1*clamp(.75rem,1vw,1.5rem));top:14%;height:72%;width:1px;background:rgba(255,255,255,.14);}
 
 /* ---- Praise · testimonios (carrusel de una cita · ref. seatofthesoul) ---- */
@@ -736,8 +710,6 @@ body.anim-ink .sec__eyebrow .word{display:inline-block;}
 /* —— EVENT (deep): titular fuerte + lead de apoyo (contraste de escala) —— */
 .event .sec__inner{max-width:56rem;}
 .event__headline{font-size:clamp(2.7rem,1.7rem + 4.2vw,5.2rem);line-height:1;letter-spacing:-.03em;margin:0;}
-.event__detail{font-size:clamp(1.18rem,1rem + .8vw,1.5rem);line-height:1.62;max-width:50ch;margin:1.8rem auto 0;}
-.event__ready{margin:2.4rem 0 2.2rem;color:var(--sec-fg-soft);}  /* theme-aware (legible también en Dawn) */
 
 /* —— STATS (deep): números más grandes y vivos —— */
 .stats__title{font-size:clamp(2.3rem,1.6rem + 2.8vw,4rem);line-height:1.08;letter-spacing:-.02em;}
@@ -775,11 +747,19 @@ body.anim-ink .sec__eyebrow .word{display:inline-block;}
 .event__headline{font-size:clamp(2.2rem,1.15rem + 5vw,6.4rem);line-height:1;letter-spacing:-.03em;margin:0;}
 .event__support{font-size:clamp(1.05rem,.95rem + .4vw,1.28rem);line-height:1.6;
   color:rgba(255,255,255,.62);max-width:42ch;margin:1.6rem auto 0;}
-.event__statement{font-family:var(--font-display);font-weight:400;
-  font-size:clamp(1.5rem,1.05rem + 2.1vw,3.3rem);line-height:1.2;letter-spacing:-.02em;
-  color:#fff;max-width:22ch;margin:2.4rem auto 0;text-wrap:balance;}
-.event__ready{font-family:var(--font-display);font-weight:400;
-  font-size:clamp(1.4rem,1.05rem + 1.4vw,2.7rem);letter-spacing:-.012em;margin:2rem 0 2.4rem;}
+/* cierre re-estructurado: crescendo de escala + "Are you ready?" + tira de detalle */
+.event__close{margin-top:clamp(2.4rem,4vw,3.6rem);}
+.event__statement{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;
+  margin:0;max-width:26ch;color:#fff;}
+.event__statement .es{display:block;}
+.es--1{font-size:clamp(1.15rem,.9rem + .9vw,1.65rem);line-height:1.5;color:rgba(255,255,255,.7);margin-bottom:.35rem;}
+.es--2{font-size:clamp(1.9rem,1.1rem + 2.5vw,3.1rem);line-height:1.06;color:var(--gold);}
+.es--3{font-size:clamp(2.2rem,1.3rem + 3vw,3.9rem);line-height:1.04;color:#fff;margin-top:.18rem;}
+.es-key{color:var(--gold);}
+.event__ready{font-family:var(--font-display);font-style:italic;font-weight:400;
+  font-size:clamp(1.45rem,1rem + 1.7vw,2.5rem);letter-spacing:-.01em;color:var(--gold);
+  margin:clamp(1.8rem,3vw,2.6rem) 0 clamp(1.6rem,2.6vw,2.2rem);}
+/* (la meta-fila Format/Host/Reach se define una sola vez en section-polish.css) */
 
 /* color en REPOSO (Animación OFF / reduced-motion: el JS no pinta los chars) */
 .tools__title [data-wave-line]{color:var(--navy);}

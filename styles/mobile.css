@@ -72,8 +72,12 @@
    2 · HERO SLIDERS  (redesign .hslide + original .oslide)
    Copy-dominant, bottom-anchored, full-width, one consistent layout.
    Resets all desktop per-slide positioning.
+   ↑ Cubre hasta 1280px: las tablets en horizontal (iPad Air/Pro 11 ~1180,
+   iPad Mini ~1133) heredan el layout con título contenido (14ch / máx 4rem),
+   evitando que los titulares gigantes del hero desktop se desborden a la
+   derecha. La barra de navegación sigue en modo desktop hasta 1024px.
    ===================================================================== */
-@media (max-width: 1024px){
+@media (max-width: 1280px){
   /* full-screen stage, safe for mobile URL bars */
   .hslider, .oslider{ min-height:100svh; }
 
@@ -117,6 +121,13 @@
     text-shadow:0 2px 24px rgba(8,10,28,.45);
   }
   .oslide[data-oslide] .oslide__title{ margin-inline:0 !important; }
+  /* el acento dorado y el script pueden romper línea en tablet/phone
+     (en desktop van nowrap) → nunca se salen del viewport por la derecha */
+  .hslide__title .gold, .oslide__title .gold,
+  .hslide[data-slide] .hslide__title .gold,
+  .oslide[data-oslide] .oslide__title .gold,
+  .oslide[data-oslide] .oslide__script,
+  .hslide[data-slide="0"] .hslide__title--xl .gold{ white-space:normal !important; }
 
   /* supporting copy — readable measure, ≥16px */
   .hslide__deck, .hslide__lead, .oslide__deck, .oslide__lead{
@@ -178,8 +189,8 @@
   .hslide__content, .oslide__content{ padding-bottom:calc(7.5rem + env(safe-area-inset-bottom)) !important; }
 }
 
-/* editorial static hero — simple stack */
-@media (max-width: 1024px){
+/* editorial static hero — simple stack (igual que los sliders: hasta 1280) */
+@media (max-width: 1280px){
   .heroA{ min-height:auto; }
   .heroA__grid{ grid-template-columns:1fr !important; gap:1.5rem; }
 }
@@ -192,14 +203,11 @@
   /* headings never overflow; images never exceed their column */
   .sec h2, .sec h3, .sec__title{ overflow-wrap:break-word; text-wrap:balance; max-width:100%; }
   img{ max-width:100%; }
-  /* Books · keep the two covers side-by-side without overflowing 320px */
-  .books__covers{ gap:1rem !important; }
-  .book{ width:clamp(108px, 38vw, 150px) !important; }
-  .books__stage{ min-height:300px !important; }
-  .book__flag{ font-size:.54rem !important; padding:.28rem .5rem !important; letter-spacing:.02em !important; }
-}
-@media (max-width: 380px){
-  .books__covers{ gap:.7rem !important; }
+  /* Books · imagen única (2 libros + badges) escala dentro de la columna, sin overflow.
+     Sin transform !important para no congelar el float (booksFloat sigue corriendo). */
+  .books__img{ width:auto !important; max-width:min(100%,400px) !important; }
+  .books__stage{ min-height:clamp(280px,74vw,380px) !important; }
+  .books__copy{ max-width:none !important; }
 }
 
 /* =====================================================================
@@ -208,4 +216,15 @@
 @media (max-width: 768px){
   .vswitch{ right:12px; bottom:calc(12px + env(safe-area-inset-bottom)); }
   .vswitch__panel{ width:min(82vw, 320px); max-height:72vh; }
+}
+
+/* =====================================================================
+   5 · Event · "Are you ready? → Register" en columna (la Z se desarma)
+   ===================================================================== */
+@media (max-width: 768px){
+  .event__act{ flex-direction:column; align-items:center; gap:.9rem; }
+  .event__connector{ flex:0 0 auto; width:1px; height:28px; transform:none !important;
+    background:linear-gradient(180deg, rgba(254,212,87,.85), rgba(254,212,87,.2)); }
+  .event__meta{ justify-content:center; }
+  .event__cta-row .btn-cta{ min-height:52px; }
 }

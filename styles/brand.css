@@ -109,7 +109,7 @@ body.nav-dark .snav__mobile-panel{background:rgba(14,22,49,.96);} body.nav-dark 
 body.nav-light .snav__mobile-panel{background:#fff;} body.nav-light .snav__mobile-panel a{color:var(--navy);border-color:var(--hairline);}
 .snav__mobile-panel .btn{margin-top:1rem;width:100%;}
 
-@media (max-width:1040px){
+@media (max-width:1024px){
   .snav__side{display:none;}
   .snav__main .wrap{grid-template-columns:1fr auto 1fr;}
   .snav__burger{display:inline-grid;place-items:center;justify-self:start;}
@@ -587,7 +587,7 @@ body.nav-light .snav__mobile-panel{background:#fff;} body.nav-light .snav__mobil
   font-family:var(--font-body);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:#fff;
 }
 
-@media (max-width:1040px){
+@media (max-width:1024px){
   .hslide__glow{display:none;}
 }
 @media (max-width:760px){
@@ -966,8 +966,10 @@ body.nav-light .snav--immersive.is-condensed .logo--for-dark{display:none;}
 body.nav-light .snav--immersive.is-condensed .logo--for-light{display:block !important;}
 body.nav-light .snav--immersive.is-condensed .snav__burger{color:var(--navy);}
 
-/* light first hero slide uses the same nav contrast swap as the centered immersive variant */
-body.hero-slide-light-nav.nl-immersive #navImmersive{
+/* light first hero slide uses the same nav contrast swap as the centered immersive variant.
+   SÓLO transparente mientras NO está condensado: al hacer scroll (.is-condensed) el nav
+   recupera su fondo sólido (regla .is-condensed) para no chocar con el contenido de atrás. */
+body.hero-slide-light-nav.nl-immersive #navImmersive:not(.is-condensed){
   background:transparent !important;
   backdrop-filter:none !important;
   border-bottom-color:transparent !important;
@@ -999,7 +1001,7 @@ body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .log
 body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .logo--for-light{display:block !important;}
 body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .snav__burger{color:var(--navy);}
 
-@media (max-width:1040px){
+@media (max-width:1024px){
   .snav--bar .snav__row,.snav--immersive .snav__row{display:none;}
 }
 
@@ -1080,7 +1082,7 @@ body.nav-glass.hero-slide-light-nav.nl-immersive #navImmersive{
   border-bottom-color:rgba(14,22,49,.08) !important;
 }
 /* slide 1 (video claro) usa tratamiento light puntual: navy del brandbook + dark logo */
-body.hero-slide-light-nav.nl-centered-immersive #navCentered{
+body.hero-slide-light-nav.nl-centered-immersive #navCentered:not(.is-condensed){
   background:transparent !important;
   backdrop-filter:none !important;
   border-bottom-color:transparent !important;

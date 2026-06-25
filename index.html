@@ -12,13 +12,15 @@
 <!-- Preload the LCP hero image (first slide) so it starts fetching before CSS -->
 <link rel="preload" as="image" href="assets/images/slides/beach-creating-authentic-power-clean.webp" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Mulish:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=Libre+Caslon+Display&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Pinyon+Script&family=Allura&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Mulish:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=Libre+Caslon+Display&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles/tokens.css" />
 <link rel="stylesheet" href="styles/concepts.css" />
 <link rel="stylesheet" href="styles/brand.css" />
 <link rel="stylesheet" href="styles/sections.css" />
 <link rel="stylesheet" href="styles/theme.css" />
 <link rel="stylesheet" href="styles/mobile.css" />
+<link rel="stylesheet" href="styles/responsive-fix.css" />
+<link rel="stylesheet" href="styles/section-polish.css" />
 </head>
 <!-- PRINCIPAL: centrado inmersivo · nav M · logo normal · glow OFF · botón Propuesta 2 · hero original · tipografía marca -->
 <body class="nav-dark cta-grad nl-immersive hero-original navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand anim-ink">
@@ -318,7 +320,7 @@
       <img class="heroA__img" src="assets/images/6a3342a6143842a748166485_1220.webp" width="1500" height="841" decoding="async" alt="A community gathered together at sunset, practicing authentic power" />
       <div class="heroA__chip">
         <img src="assets/images/6a3342a6143842a74816646a_gary-zukav-author-new-york-times-best-seller.webp" width="120" height="158" decoding="async" alt="" aria-hidden="true" />
-        <span><strong>#1 New York Times</strong> bestselling author <em style="opacity:.55">[verify]</em></span>
+        <span><strong>#1 New York Times</strong> bestselling author</span>
       </div>
     </div>
   </div>
@@ -384,28 +386,96 @@
 </section>
 </div><!-- /.immersive-flow -->
 
-<!-- ========== 4 · CONSCIOUSNESS (split) ========== -->
-<!-- Editorial cinematográfico: foto full-bleed + texto inmersivo (eyebrow/título/lead, ink + acento dorado).
-     Para usar VIDEO de fondo: reemplazar el <img> por un <video autoplay muted loop playsinline>. -->
+<!-- ========== 4 · CONSCIOUSNESS (video full-bleed + texto bookend) ========== -->
+<!-- "soul calm" cinematográfico (ref. página antigua): el video es el fondo a
+     todo lo ancho; título arriba y lead+CTA abajo, ambos sobre el video. -->
 <section class="sec consciousness sec--deep" aria-labelledby="cons-h">
   <div class="consciousness__media" aria-hidden="true">
     <video autoplay muted loop playsinline preload="metadata"
            poster="assets/images/6a3342a6143842a748166454_people-with-authentic-power-gary-zukav.webp">
       <source src="assets/The-Seat-Of-The-Soul-Home_Woman.mp4" type="video/mp4" />
     </video>
-    <span class="consciousness__scrim"></span>
+    <span class="consciousness__scrim" aria-hidden="true"></span>
   </div>
+  <span class="consciousness__orb consciousness__orb--top" aria-hidden="true"></span>
+  <span class="consciousness__orb consciousness__orb--bottom" aria-hidden="true"></span>
   <div class="sec__inner consciousness__inner">
-    <div class="consciousness__intro">
+    <div class="consciousness__top">
       <p class="sec__eyebrow reveal">A new consciousness</p>
       <h2 id="cons-h" class="sec__title consciousness__title reveal">The emerging global consciousness offers the potential of <span class="accent">authentic power</span>.</h2>
     </div>
-    <div class="consciousness__aside">
+    <div class="consciousness__bottom">
       <h3 class="consciousness__subtitle reveal">A power based on <span class="accent">compassion and wisdom</span>.</h3>
       <p class="sec__lead reveal">It calls you to act from love rather than fear. It connects you to the seat of your soul — the place of purpose, fulfillment and joy.</p>
       <div class="consciousness__cta reveal">
         <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Start Your Journey</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5 · TOOLS (statement potente · wave de texto) — movido tras Consciousness (orden old site) ========== -->
+<section class="sec tools sec--lilac textwave" id="tools" aria-label="Explore powerful tools">
+  <span class="tools__glow tools__glow--a" aria-hidden="true"></span>
+  <span class="tools__glow tools__glow--b" aria-hidden="true"></span>
+  <div class="sec__inner tools__inner">
+    <h2 class="sec__title tools__title reveal"><span data-wave-line data-wave-base="#0E1631" data-wave-crest="#3C1951">Explore</span> <span class="accent" data-wave-line data-wave-base="#3C1951" data-wave-crest="#FED457">powerful</span> <span data-wave-line data-wave-base="#0E1631" data-wave-crest="#3C1951">tools.</span></h2>
+    <div class="tools__cta reveal">
+      <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the Tools</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+    </div>
+    <p class="tools__kicker reveal">Use these tools</p>
+    <p class="tools__script reveal">on your journey to love</p>
+  </div>
+</section>
+
+<!-- ========== 6 · LIVE EVENT (Join Gary · Soul Tide + wave de texto) ========== -->
+<section class="sec event sec--deep textwave" id="event" aria-label="Join Gary — a live event">
+  <canvas class="event__waves tw-tide" aria-hidden="true"></canvas>
+  <span class="event__veil" aria-hidden="true"></span>
+  <span class="sec__glow" style="bottom:-12%;right:-10%;"></span>
+  <div class="sec__inner">
+    <p class="sec__eyebrow reveal">Join Gary — Live</p>
+    <hr class="accent-rule reveal" aria-hidden="true" />
+    <h2 class="sec__title event__headline"><span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">A</span> <span class="accent" data-wave-line data-wave-base="#FED457" data-wave-crest="#FFF3CC">profound, life-changing</span> <span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">experience.</span></h2>
+    <p class="sec__lead event__support reveal">A live event with Gary Zukav and the energy of Linda Francis.</p>
+    <div class="event__close reveal">
+      <p class="event__statement">
+        <span class="es es--1">Accelerate your personal journey into</span>
+        <span class="es es--2">evolutionary spiritual growth,</span>
+        <span class="es es--3">and become the <span class="es-key">creator of your life</span>.</span>
+      </p>
+      <ul class="event__meta">
+        <li><span class="em-k">Format</span><span class="em-v">Live online</span></li>
+        <li><span class="em-k">Host</span><span class="em-v">With Gary Zukav</span></li>
+        <li><span class="em-k">Reach</span><span class="em-v">Worldwide</span></li>
+      </ul>
+      <div class="event__act reveal">
+        <p class="event__ready">Are you ready?</p>
+        <span class="event__connector" aria-hidden="true"></span>
+        <div class="event__cta-row">
+          <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Register Today!</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 7 · BOOKS ========== -->
+<section class="sec books sec--dark textwave" aria-label="The legendary books">
+  <div class="sec__inner">
+    <div class="books__copy">
+      <h2 class="books__title sec__title reveal">
+        <span class="books__lead">Read the Legendary Books that</span>
+        <span class="books__statement"><span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">Revolutionized</span> <span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">Self-Transformation</span></span>
+      </h2>
+      <p class="books__script reveal">Follow your spiritual path</p>
+      <div class="books__cta reveal">
+        <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the Books</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+      </div>
+    </div>
+    <div class="books__stage reveal">
+      <span class="books__circle" aria-hidden="true"></span>
+      <img class="books__img" src="assets/images/latest-books.webp" width="1000" height="1000" decoding="async" loading="lazy" alt="Gary Zukav's books: Universal Human (latest) and the #1 New York Times bestseller The Seat of the Soul" />
     </div>
   </div>
 </section>
@@ -463,38 +533,8 @@
   </div>
 </section>
 
-<!-- ========== 5 · TOOLS (statement potente · wave de texto) ========== -->
-<section class="sec tools sec--lilac textwave" id="tools" aria-label="Explore powerful tools">
-  <div class="sec__inner">
-    <p class="sec__eyebrow reveal">For your practice</p>
-    <hr class="accent-rule reveal" aria-hidden="true" />
-    <h2 class="sec__title tools__title"><span data-wave-line data-wave-base="#0E1631" data-wave-crest="#3C1951">Explore</span> <span class="accent" data-wave-line data-wave-base="#3C1951" data-wave-crest="#FED457">powerful</span> <span data-wave-line data-wave-base="#0E1631" data-wave-crest="#3C1951">tools.</span></h2>
-    <p class="tools__script" data-wave-line data-wave-base="rgba(14,22,49,.72)" data-wave-crest="#3C1951">Use these tools on your journey to love.</p>
-    <div class="tools__cta reveal">
-      <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the Tools</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ========== 6 · LIVE EVENT (Join Gary · Soul Tide + wave de texto) ========== -->
-<section class="sec event sec--deep textwave" id="event" aria-label="Join Gary — a live event">
-  <canvas class="event__waves tw-tide" aria-hidden="true"></canvas>
-  <span class="event__veil" aria-hidden="true"></span>
-  <span class="sec__glow" style="bottom:-12%;right:-10%;"></span>
-  <div class="sec__inner">
-    <p class="sec__eyebrow reveal">Join Gary — Live</p>
-    <hr class="accent-rule reveal" aria-hidden="true" />
-    <h2 class="sec__title event__headline"><span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">A</span> <span class="accent" data-wave-line data-wave-base="#FED457" data-wave-crest="#FFF3CC">profound, life-changing</span> <span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">experience.</span></h2>
-    <p class="sec__lead event__support reveal">A live event with Gary Zukav and the energy of Linda Francis.</p>
-    <p class="event__statement" data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">Accelerate your personal journey into evolutionary spiritual growth, and become the creator of your life.</p>
-    <p class="event__ready" data-wave-line data-wave-base="#FED457" data-wave-crest="#FFF3CC">Are you ready?</p>
-    <div class="reveal" style="margin-top:.6rem;">
-      <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Register Today</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
-    </div>
-  </div>
-</section>
-
 <!-- ========== 6b · IMPACT STATS (count-up) ========== -->
+<!-- TODO cliente: VERIFICAR cifras antes de publicar — 6M+ libros · 30+ idiomas · 30+ años · 100+ episodios -->
 <section class="sec stats" aria-label="Impact">
   <span class="sec__glow" style="top:-12%;right:-6%;"></span>
   <div class="sec__inner">
@@ -502,38 +542,10 @@
     <hr class="accent-rule reveal" aria-hidden="true" />
     <h2 class="sec__title stats__title reveal">A work that has <span class="accent">reached the world.</span></h2>
     <div class="stats__grid reveal">
-      <div class="stat"><div class="stat__num" data-count="6" data-suffix="M+">0</div><div class="stat__label">books sold<span class="stat__verify">[verify]</span></div></div>
-      <div class="stat"><div class="stat__num" data-count="30" data-suffix="+">0</div><div class="stat__label">languages<span class="stat__verify">[verify]</span></div></div>
-      <div class="stat"><div class="stat__num" data-count="30" data-suffix="+">0</div><div class="stat__label">years of teaching<span class="stat__verify">[verify]</span></div></div>
-      <div class="stat"><div class="stat__num" data-count="100" data-suffix="+">0</div><div class="stat__label">podcast episodes<span class="stat__verify">[verify]</span></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== 7 · BOOKS ========== -->
-<section class="sec books sec--dark" aria-label="The legendary books">
-  <div class="sec__inner">
-    <div>
-      <h2 class="books__title sec__title reveal">Read the legendary books that <strong>revolutionized self-transformation</strong></h2>
-      <p class="books__sub reveal">Follow your spiritual path.</p>
-      <div class="reveal">
-        <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the Books</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
-      </div>
-    </div>
-    <div class="books__stage reveal">
-      <span class="books__circle" aria-hidden="true"></span>
-      <div class="books__covers">
-        <div class="book book--latest">
-          <span class="book__flag">Latest Book</span>
-          <span class="book__name">Universal<br>Human</span>
-          <span class="book__author">GARY ZUKAV</span>
-        </div>
-        <div class="book">
-          <span class="book__flag">#1 New York Times Bestseller</span>
-          <span class="book__name">the Seat<br>of the Soul</span>
-          <span class="book__author">GARY ZUKAV</span>
-        </div>
-      </div>
+      <div class="stat"><div class="stat__num" data-count="6" data-suffix="M+">0</div><div class="stat__label">books sold</div></div>
+      <div class="stat"><div class="stat__num" data-count="30" data-suffix="+">0</div><div class="stat__label">languages</div></div>
+      <div class="stat"><div class="stat__num" data-count="30" data-suffix="+">0</div><div class="stat__label">years of teaching</div></div>
+      <div class="stat"><div class="stat__num" data-count="100" data-suffix="+">0</div><div class="stat__label">podcast episodes</div></div>
     </div>
   </div>
 </section>
@@ -615,27 +627,34 @@
     </div>
 
     <div class="praise__dots" id="praiseDots" role="tablist" aria-label="Choose testimonial"></div>
-    <p class="praise__note">Citas reales (endorsements p&uacute;blicos) · confirmar derechos de uso con el cliente antes de publicar.</p>
+    <!-- TODO cliente (LEGAL): citas reales (endorsements públicos) · confirmar derechos de uso de nombres/retratos antes de publicar. Si no se aprueban, ocultar esta sección para el soft-launch. -->
+
   </div>
 </section>
 
 <!-- ========== 8 · FOUNDERS (Gary & Linda) ========== -->
-<section class="sec founders sec--lilac" aria-label="Gary and Linda">
+<section class="sec founders founders--immersive" aria-label="Gary and Linda">
   <div class="sec__inner">
-    <div>
-      <p class="sec__eyebrow reveal">The founders</p>
-      <p class="founders__name reveal">Gary &amp; Linda</p>
-      <p class="sec__lead reveal" style="color:var(--navy);">We've spent more than 25 years experimenting with our lives together as spiritual partners and sharing our experiments with the world.</p>
+    <div class="founders__copy">
+      <p class="sec__eyebrow reveal">The Founders</p>
+      <p class="founders__name reveal"><span class="founders__amp">Gary &amp;</span> <span class="founders__script">Linda</span></p>
+      <hr class="accent-rule reveal" aria-hidden="true" />
+      <p class="sec__lead founders__lead reveal">We've spent more than 25 years experimenting with our lives together as spiritual partners and sharing our experiments with the world.</p>
       <div class="founders__cta reveal">
         <a class="btn btn--primary" href="about/gary-zukav/">More about Gary</a>
         <a class="btn btn--ghost" href="about/linda-francis/">More about Linda</a>
       </div>
     </div>
-    <img class="founders__photo reveal" src="assets/images/6a3342a6143842a748166469_gary-zukav-portrait-seat-of-the-soul-institute.webp" width="744" height="494" decoding="async" alt="Gary Zukav" loading="lazy" />
+    <div class="founders__portrait reveal">
+      <span class="founders__halo" aria-hidden="true"></span>
+      <span class="founders__ring" aria-hidden="true"></span>
+      <img class="founders__photo" src="assets/images/seat.webp" width="682" height="682" decoding="async" alt="Gary Zukav and Linda Francis" loading="lazy" />
+    </div>
   </div>
 </section>
 
 <!-- ========== 9 · BLOG · SOUL FEED ========== -->
+<!-- TODO cliente: alinear con posts reales del WordPress (títulos/imágenes/links). Sin fechas inventadas. -->
 <section class="sec blog" aria-label="Blog · Soul Feed">
   <div class="sec__inner">
     <div class="blog__head">
@@ -657,7 +676,7 @@
         </span>
         <span class="post__body">
           <h3 class="post__title">AI &amp; Human Evolution</h3>
-          <span class="post__meta">Jun 2026 · 7 min read</span>
+          <span class="post__meta">7 min read</span>
           <span class="post__cta">Read<span class="post__cta-ico" aria-hidden="true">→</span></span>
         </span>
       </a>
@@ -668,7 +687,7 @@
         </span>
         <span class="post__body">
           <h3 class="post__title">What To Do About Failing Governments?</h3>
-          <span class="post__meta">May 2026 · 9 min read</span>
+          <span class="post__meta">9 min read</span>
           <span class="post__cta">Read<span class="post__cta-ico" aria-hidden="true">→</span></span>
         </span>
       </a>
@@ -679,7 +698,7 @@
         </span>
         <span class="post__body">
           <h3 class="post__title">Choosing Love Over Fear</h3>
-          <span class="post__meta">May 2026 · 4 min read</span>
+          <span class="post__meta">4 min read</span>
           <span class="post__cta">Read<span class="post__cta-ico" aria-hidden="true">→</span></span>
         </span>
       </a>
@@ -1338,8 +1357,10 @@
     orestart();
   }
 
-  /* switcher */
+  /* switcher — herramienta de DEV: visible solo en localhost o con #dev en la URL; oculto en producción */
   var vsw=document.getElementById('vswitch'), vt=document.getElementById('vtoggle');
+  var DEV=/^(localhost|127\.|0\.0\.0\.0|\[?::1)/.test(location.hostname)||location.hash.indexOf('dev')>=0;
+  if(vsw && !DEV){ vsw.style.display='none'; }
   vt.addEventListener('click', function(){ var open=vsw.classList.toggle('is-open'); vt.setAttribute('aria-expanded', open?'true':'false'); });
   document.querySelectorAll('.vchip').forEach(function(chip){
     chip.addEventListener('click', function(){

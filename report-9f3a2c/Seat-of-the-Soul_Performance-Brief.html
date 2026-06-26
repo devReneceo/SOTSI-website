@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Seat of the Soul — Website Performance Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brief.css">
+</head>
+<body>
+
+<!-- PAGE 1 · DIAGNOSIS -->
+<div class="page">
+  <div class="head">
+    <div>
+      <div class="eyebrow">Website Performance Brief · The speed problem</div>
+      <h1>A 22-megabyte home page that mobile can't load</h1>
+      <div class="source">Source: Google Lighthouse (the engine behind PageSpeed Insights) — seatofthesoul.com home page, Jun 25, 2026. Full reports: <a href="lighthouse/Seat-of-the-Soul_Lighthouse-Mobile.pdf">Mobile</a> · <a href="lighthouse/Seat-of-the-Soul_Lighthouse-Desktop.pdf">Desktop</a>. Reproducible at <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fseatofthesoul.com">pagespeed.web.dev</a>.</div>
+    </div>
+    <div class="mark"><span class="agency">22D<br>Marketing</span><span class="sun" aria-hidden="true"></span></div>
+  </div>
+
+  <div class="stats c5">
+    <div class="stat alert"><div class="n">52<span class="u">/100</span></div><div class="l">Mobile performance</div><div class="s">Google "good": 90+</div></div>
+    <div class="stat"><div class="n">89<span class="u">/100</span></div><div class="l">Desktop performance</div><div class="s">acceptable — but most traffic is mobile</div></div>
+    <div class="stat alert"><div class="n">18.5<span class="u">s</span></div><div class="l">Mobile LCP — time to main content</div><div class="s">~7× Google's 2.5s target</div></div>
+    <div class="stat alert"><div class="n">22.7<span class="u">MB</span></div><div class="l">Home-page weight</div><div class="s">~8× a healthy 3MB</div></div>
+    <div class="stat alert"><div class="n">146</div><div class="l">Network requests</div><div class="s">to render one page</div></div>
+  </div>
+
+  <p style="font-size:12px;color:#2c3146;line-height:1.6;">
+    The home page ships <b style="color:var(--navy)">22.7&nbsp;MB</b> across <b style="color:var(--navy)">146 requests</b>, and takes
+    <b style="color:var(--navy)">18.5 seconds</b> to show its main content on a phone. On desktop it scores an acceptable 89, but because
+    <b style="color:var(--navy)">56% of visitors are on mobile</b> (see the Analytics brief), the slow mobile experience is what most people actually get —
+    and the Core Web Vitals Google uses for ranking <b style="color:var(--navy)">fail</b> there.
+  </p>
+
+  <h2 class="sec">Why the page is this heavy</h2>
+  <div class="two">
+    <div>
+      <div class="point bad"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 12l6 6 6-6"/></svg></span><div class="tx"><b>Video dominates the page.</b> <span class="fig">14.2&nbsp;MB</span> of video (8 files) auto-load — nearly two-thirds of the entire page weight.</div></div>
+      <div class="point bad"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 12l6 6 6-6"/></svg></span><div class="tx"><b>Images aren't optimized.</b> <span class="fig">5.8&nbsp;MB</span> of images; modern formats (WebP/AVIF) and right-sizing would save <b>~3.9&nbsp;MB</b>.</div></div>
+      <div class="point bad"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 12l6 6 6-6"/></svg></span><div class="tx"><b>Too many files.</b> <span class="fig">56</span> stylesheets and <span class="fig">46</span> scripts load for one page — the hallmark of a plugin-heavy WordPress build.</div></div>
+    </div>
+    <div>
+      <div class="point bad"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 12l6 6 6-6"/></svg></span><div class="tx"><b>Render-blocking resources.</b> CSS/JS in the way of first paint cost an estimated <span class="fig">2.3s</span> before anything useful appears.</div></div>
+      <div class="point bad"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 12l6 6 6-6"/></svg></span><div class="tx"><b>Legacy code &amp; weak caching.</b> ~<span class="fig">76&nbsp;KB</span> of legacy JavaScript is shipped, and better caching could save another ~167&nbsp;KB.</div></div>
+      <div class="point bad"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 12l6 6 6-6"/></svg></span><div class="tx"><b>Third-party load.</b> <span class="fig">1.6&nbsp;MB</span> across 27 third-party requests — each one outside your control and a point of failure.</div></div>
+    </div>
+  </div>
+
+  <div class="chart">
+    <div class="cap">Where the 22.7&nbsp;MB goes — home page weight by resource type (mobile)</div>
+    <div class="row"><span class="lab">Video / media</span><span class="track"><span class="fill" style="width:100%;background:#C0392B;"></span></span><span class="val">14.2 MB · 8</span></div>
+    <div class="row"><span class="lab">Images</span><span class="track"><span class="fill" style="width:41%;background:#d8513c;"></span></span><span class="val">5.8 MB · 17</span></div>
+    <div class="row"><span class="lab">Scripts</span><span class="track"><span class="fill" style="width:12%;background:#d99a4e;"></span></span><span class="val">1.66 MB · 46</span></div>
+    <div class="row"><span class="lab">Fonts</span><span class="track"><span class="fill" style="width:5.5%;background:#c9c4e6;"></span></span><span class="val">776 KB · 11</span></div>
+    <div class="row"><span class="lab">Stylesheets</span><span class="track"><span class="fill" style="width:2%;background:#8a7fd6;"></span></span><span class="val">240 KB · 56</span></div>
+  </div>
+
+  <footer>
+    Lab data from Google Lighthouse 12.8.2 (Slow-4G, emulated mobile), seatofthesoul.com home page, Jun 25, 2026. Page weight is total transfer size; "savings" are Lighthouse estimates. Anyone can reproduce these results at pagespeed.web.dev. Prepared by 22D Marketing for The Seat of the Soul Institute · June 2026.
+  </footer>
+</div>
+
+<!-- PAGE 2 · CORE WEB VITALS + REMEDIATION -->
+<div class="page">
+  <div class="head">
+    <div>
+      <div class="eyebrow">Website Performance Brief · Core Web Vitals &amp; the fix</div>
+      <h1>Failing the metrics Google ranks on</h1>
+      <div class="source">Core Web Vitals are the user-experience signals Google uses for search ranking. Mobile lab values, Lighthouse, Jun 25, 2026.</div>
+    </div>
+    <div class="mark"><span class="agency">22D<br>Marketing</span><span class="sun" aria-hidden="true"></span></div>
+  </div>
+
+  <div class="chart">
+    <div class="cap">Core Web Vitals — current mobile value vs. Google's "good" threshold</div>
+    <div class="row"><span class="lab">LCP · main content</span><span class="track"><span class="fill" style="width:100%;background:#C0392B;"></span></span><span class="val">18.5s / 2.5s</span></div>
+    <div class="row"><span class="lab">Speed Index</span><span class="track"><span class="fill" style="width:100%;background:#C0392B;"></span></span><span class="val">15.0s / 3.4s</span></div>
+    <div class="row"><span class="lab">First Contentful Paint</span><span class="track"><span class="fill" style="width:88%;background:#d8513c;"></span></span><span class="val">3.2s / 1.8s</span></div>
+    <div class="row"><span class="lab">Total Blocking Time</span><span class="track"><span class="fill" style="width:72%;background:#d8513c;"></span></span><span class="val">320ms / 200ms</span></div>
+    <div class="row"><span class="lab">Cumulative Layout Shift</span><span class="track"><span class="fill" style="width:4%;background:#2faa72;"></span></span><span class="val">0 / 0.10 ✓</span></div>
+    <div class="callout bad">Four of five Core Web Vitals fail on mobile — including <b>LCP</b>, the metric Google weights most heavily. Only layout stability (CLS) is in range: the page is visually steady, but agonizingly slow to appear.</div>
+  </div>
+
+  <h2 class="sec">What the rebuild targets</h2>
+  <div class="two">
+    <div>
+      <div class="point good"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 6"/></svg></span><div class="tx"><b>Right-sized, lazy media.</b> Replace 14.2MB of auto-loading video with a poster + click-to-play, compressed stream — the single biggest win.</div></div>
+      <div class="point good"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 6"/></svg></span><div class="tx"><b>Modern images.</b> WebP/AVIF + correct sizing recovers ~5.2MB and sharpens quality on every device.</div></div>
+      <div class="point good"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 6"/></svg></span><div class="tx"><b>One platform, not 100 files.</b> Webflow ships lean CSS/JS — no plugin pile-up of 56 stylesheets and 46 scripts.</div></div>
+    </div>
+    <div>
+      <div class="point good"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 6"/></svg></span><div class="tx"><b>Targets that pass.</b> Engineering goals: <b>LCP &lt; 2.5s</b>, <b>page &lt; 3MB</b>, validated on the live build before go-live.</div></div>
+      <div class="point good"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 6"/></svg></span><div class="tx"><b>Managed CDN &amp; caching.</b> Global delivery and long-cache assets included — no hosting tuning to maintain.</div></div>
+      <div class="point good"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 6"/></svg></span><div class="tx"><b>Faster pages rank higher.</b> Passing Core Web Vitals lifts the same SEO the Analytics brief shows is your best-engaging channel.</div></div>
+    </div>
+  </div>
+
+  <div class="nextlink">
+    <div class="t"><b>See the faster home in action</b>The redesign, section by section, side by side with today's site.</div>
+    <a class="btn" href="Seat-of-the-Soul_New-Proposal-Presentation.pdf" target="_blank" rel="noopener">Open Presentation 4 · The New Proposal
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+
+  <footer>
+    Core Web Vitals thresholds per Google (web.dev/vitals). Lab values from Lighthouse 12.8.2, emulated mobile, Slow-4G, Jun 25, 2026 — real-world (field) experience may vary. Targets are engineering goals, not guaranteed ranking outcomes. Companion documents: Site Assessment, Analytics Brief, and The New Proposal. · 22D Marketing · June 2026.
+  </footer>
+</div>
+
+</body>
+</html>

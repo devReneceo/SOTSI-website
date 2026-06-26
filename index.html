@@ -21,9 +21,10 @@
 <link rel="stylesheet" href="styles/mobile.css" />
 <link rel="stylesheet" href="styles/responsive-fix.css" />
 <link rel="stylesheet" href="styles/section-polish.css" />
+<link rel="stylesheet" href="styles/instafeed.css" />
 </head>
 <!-- PRINCIPAL: centrado inmersivo · nav M · logo normal · glow OFF · botón Propuesta 2 · hero original · tipografía marca -->
-<body class="nav-dark cta-grad nl-immersive hero-original navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand anim-ink">
+<body class="nav-dark cta-grad nl-immersive hero-original heroheight-full heroborder-on navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand anim-ink">
 
 <!-- ============ NAV 3 · CENTERED TWO-TIER (default) ============ -->
 <header class="snav snav--centered" id="navCentered">
@@ -209,7 +210,7 @@
       <div class="hslider__status">Authentic Power</div>
     </div>
     <div class="hslider__arrows">
-      <button class="harrow harrow--prev" id="hprev" aria-label="Previous slide"><span class="harrow__line"></span><span class="harrow__label" id="hprevLabel">Preview</span></button>
+      <button class="harrow harrow--prev" id="hprev" aria-label="Previous slide"><span class="harrow__line"></span><span class="harrow__label" id="hprevLabel">Back</span></button>
       <button class="harrow harrow--next" id="hnext" aria-label="Next slide"><span class="harrow__label" id="hnextLabel">Next</span><span class="harrow__line"></span></button>
     </div>
     <div class="hslider__dots" id="hdots" role="tablist" aria-label="Slides"></div>
@@ -294,7 +295,7 @@
       <div class="hslider__status" id="ostatus">Authentic Power</div>
     </div>
     <div class="hslider__arrows">
-      <button class="harrow harrow--prev" id="oprev" aria-label="Previous slide"><span class="harrow__line"></span><span class="harrow__label" id="oprevLabel">Preview</span></button>
+      <button class="harrow harrow--prev" id="oprev" aria-label="Previous slide"><span class="harrow__line"></span><span class="harrow__label" id="oprevLabel">Back</span></button>
       <button class="harrow harrow--next" id="onext" aria-label="Next slide"><span class="harrow__label" id="onextLabel">Next</span><span class="harrow__line"></span></button>
     </div>
     <div class="hslider__dots" id="odots" role="tablist" aria-label="Slides"></div>
@@ -369,18 +370,24 @@
   <span class="greeting__glow" aria-hidden="true"></span>
   <span class="greeting__backdrop" id="greetBackdrop" aria-hidden="true"></span>
   <div class="sec__inner">
+    <div class="greeting__stage" id="greetStage">
     <div class="greeting__card reveal" id="greetCard">
       <video id="greetVideo" poster="assets/images/greeting-poster.webp" playsinline preload="metadata">
-        <source src="assets/SOTS-Homepage-Video.mp4" type="video/mp4" /></video>
+        <source src="assets/SOTS-Homepage-Video-web.mp4" type="video/mp4" /></video>
       <span class="greeting__scrim" aria-hidden="true"></span>
       <span class="greeting__bokeh" aria-hidden="true"></span>
       <div class="greeting__overlay" id="greetOverlay">
         <p class="greeting__from">A greeting from</p>
-        <button class="greeting__play" id="greetPlay" aria-label="Play the greeting from Gary and Linda">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        <button class="greeting__play" id="greetPlay" aria-label="Play or pause the greeting from Gary and Linda">
+          <svg class="greeting__icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="greeting__icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.2v14H7zM13.8 5H17v14h-3.2z"/></svg>
+          <span class="greeting__spinner" aria-hidden="true"></span>
         </button>
-        <p class="greeting__names">Gary <span class="accent">and</span> Linda</p>
+        <p class="greeting__names"><span class="greeting__amp">Gary &amp;</span> <span class="greeting__script">Linda</span></p>
       </div>
+      <div class="greeting__hint" id="greetHint" aria-live="polite" hidden>Pause or press <kbd>Esc</kbd> to keep exploring</div>
+      <span class="greeting__bloom" aria-hidden="true"></span>
+    </div>
     </div>
   </div>
 </section>
@@ -396,6 +403,7 @@
       <source src="assets/The-Seat-Of-The-Soul-Home_Woman.mp4" type="video/mp4" />
     </video>
     <span class="consciousness__scrim" aria-hidden="true"></span>
+    <span class="consciousness__readpane" aria-hidden="true"></span>
   </div>
   <span class="consciousness__orb consciousness__orb--top" aria-hidden="true"></span>
   <span class="consciousness__orb consciousness__orb--bottom" aria-hidden="true"></span>
@@ -462,6 +470,11 @@
 
 <!-- ========== 7 · BOOKS ========== -->
 <section class="sec books sec--dark textwave" aria-label="The legendary books">
+  <div class="books__paths" id="booksPaths" aria-hidden="true"></div>
+  <!-- Nubes feTurbulence (top/bottom) ocultas a pedido del PM (2026-06-25). Descomentar para reactivar; CSS sigue en section-polish.css (.books__clouds/.books__sky).
+  <div class="books__clouds books__clouds--top" aria-hidden="true"><div class="books__sky"></div></div>
+  <div class="books__clouds books__clouds--bottom" aria-hidden="true"><div class="books__sky"></div></div>
+  -->
   <div class="sec__inner">
     <div class="books__copy">
       <h2 class="books__title sec__title reveal">
@@ -487,32 +500,50 @@
       <p class="sec__eyebrow reveal">The path of authentic power</p>
       <h2 class="sec__title reveal">Four practices to align your personality with your soul.</h2>
     </div>
-    <div class="courses__grid">
-      <a class="ccard ccard--feature reveal" href="#">
-        <img class="ccard__img" src="assets/images/6a3342a6143842a748166452_authentic-power-spiritual-growth-community.webp" width="1200" height="799" decoding="async" alt="" loading="lazy" />
-        <span class="ccard__scrim" aria-hidden="true"></span>
-        <span class="ccard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>
-        <h3>Authentic Power</h3>
-        <p>Align your personality with your soul and act from love, not fear.</p>
-        <span class="ccard__more">Explore the course <span class="arrow">→</span></span>
+    <div class="courses__grid" id="coursesGrid">
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/6a3342a6143842a748166454_people-with-authentic-power-gary-zukav.webp" width="1200" height="800" decoding="async" alt="" loading="lazy" />
+          <span class="post__chip">Practice 01</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">Authentic Power</h3>
+          <span class="post__meta">Align your personality with your soul — act from love, not fear.</span>
+          <span class="post__cta">Explore the course<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
       </a>
-      <a class="ccard reveal" href="#">
-        <span class="ccard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-1.6-3.2-5.4-4.2-5.4-8.4A5.4 5.4 0 0 1 12 7.2a5.4 5.4 0 0 1 5.4 5.4c0 4.2-3.8 5.2-5.4 8.4z"/><path d="M12 3v4.2"/></svg></span>
-        <h3>Emotional Awareness</h3>
-        <p>Hear your emotions as messages from the soul.</p>
-        <span class="ccard__more">Explore <span class="arrow">→</span></span>
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/6a3342a6143842a748166468_gary-zukav-emotional-awareness-spiritual-growth.webp" style="object-position:30% top" width="1200" height="800" decoding="async" alt="" loading="lazy" />
+          <span class="post__chip">Practice 02</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">Emotional Awareness</h3>
+          <span class="post__meta">Hear your emotions as messages from the soul.</span>
+          <span class="post__cta">Explore<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
       </a>
-      <a class="ccard reveal" href="#">
-        <span class="ccard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 7 5-2.5 11h-9L5 8z"/><path d="M12 3v18M5 8h14"/></svg></span>
-        <h3>Responsible Choice</h3>
-        <p>Recognize your intentions and choose their consequences with awareness.</p>
-        <span class="ccard__more">Explore <span class="arrow">→</span></span>
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/6a3342a6143842a74816646c_millions-of-people-reached-via-gary-zukav-teachings.webp" width="1200" height="800" decoding="async" alt="" loading="lazy" />
+          <span class="post__chip">Practice 03</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">Responsible Choice</h3>
+          <span class="post__meta">Recognize your intentions and choose their consequences with awareness.</span>
+          <span class="post__cta">Explore<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
       </a>
-      <a class="ccard ccard--wide reveal" href="#">
-        <span class="ccard__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="15" r="3"/><path d="m10.5 10.5 3.2 2.7"/></svg></span>
-        <h3>Spiritual Partnership</h3>
-        <p>Grow alongside others walking toward the same awakening — a community that practices authentic power in everyday life.</p>
-        <span class="ccard__more">Join the community <span class="arrow">→</span></span>
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/6a3342a6143842a748166472_spiritual-partnership-card-image.webp" width="1200" height="800" decoding="async" alt="" loading="lazy" />
+          <span class="post__chip">Practice 04</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">Spiritual Partnership</h3>
+          <span class="post__meta">Grow alongside others walking toward the same awakening.</span>
+          <span class="post__cta">Join the community<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
       </a>
     </div>
   </div>
@@ -534,7 +565,7 @@
 </section>
 
 <!-- ========== 6b · IMPACT STATS (count-up) ========== -->
-<!-- TODO cliente: VERIFICAR cifras antes de publicar — 6M+ libros · 30+ idiomas · 30+ años · 100+ episodios -->
+<!-- Cifras verificadas vs seatofthesoul.com/about-gary-zukav (2026-06-25): "Six million copies of his books have been published in 32 languages" · 4 #1 NYT bestsellers · 36× Oprah. Años de enseñanza: desde 1989 (The Seat of the Soul). Episodios 100+: el podcast va por Soul Feast #90 + Soul Snacks → confirmar total exacto con cliente. -->
 <section class="sec stats" aria-label="Impact">
   <span class="sec__glow" style="top:-12%;right:-6%;"></span>
   <div class="sec__inner">
@@ -543,7 +574,7 @@
     <h2 class="sec__title stats__title reveal">A work that has <span class="accent">reached the world.</span></h2>
     <div class="stats__grid reveal">
       <div class="stat"><div class="stat__num" data-count="6" data-suffix="M+">0</div><div class="stat__label">books sold</div></div>
-      <div class="stat"><div class="stat__num" data-count="30" data-suffix="+">0</div><div class="stat__label">languages</div></div>
+      <div class="stat"><div class="stat__num" data-count="32" data-suffix="">0</div><div class="stat__label">languages</div></div>
       <div class="stat"><div class="stat__num" data-count="30" data-suffix="+">0</div><div class="stat__label">years of teaching</div></div>
       <div class="stat"><div class="stat__num" data-count="100" data-suffix="+">0</div><div class="stat__label">podcast episodes</div></div>
     </div>
@@ -551,84 +582,113 @@
 </section>
 
 <!-- ========== 7b · PRAISE (testimonios · carrusel de una cita · ref. seatofthesoul) ========== -->
-<section class="sec praise" aria-label="Praised by">
+<section class="sec praise stories-sec" aria-label="Stories from our community">
   <div class="sec__inner">
-    <p class="sec__eyebrow reveal">Voices</p>
-    <h2 class="sec__title reveal">Praised by leaders, artists &amp; seekers.</h2>
-
-    <div class="praise__carousel reveal" id="praiseCarousel" role="group" aria-roledescription="carousel" aria-label="Testimonials">
-      <button class="praise__arrow praise__arrow--prev" id="prAprev" type="button" aria-label="Previous testimonial">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-
-      <div class="praise__viewport">
-        <div class="praise__track" id="praiseTrack">
-          <figure class="praise__slide is-active" role="group" aria-roledescription="slide" aria-label="Oprah Winfrey">
-            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
-            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166405_oprah-winfrey-authentic-power-endorsement.webp" alt="Oprah Winfrey" />
-            <blockquote class="praise__quote">The Seat of the Soul changed the way I see myself, and the way I view the world.</blockquote>
-            <figcaption class="praise__cite"><span class="praise__name">Oprah Winfrey</span><span class="praise__role">Media leader, producer &amp; philanthropist</span></figcaption>
-          </figure>
-
-          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Maya Angelou" aria-hidden="true">
-            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
-            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166458_maya-angelou-spiritual-wisdom-testimonial.webp" alt="Maya Angelou" />
-            <blockquote class="praise__quote">The intrepid, daring Gary Zukav tells the hard truths.</blockquote>
-            <figcaption class="praise__cite"><span class="praise__name">Maya Angelou</span><span class="praise__role">Poet &amp; author</span></figcaption>
-          </figure>
-
-          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Paulo Coelho" aria-hidden="true">
-            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
-            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166415_paulo-coelho-consciousness-testimonial.webp" alt="Paulo Coelho" />
-            <blockquote class="praise__quote">The Seat of the Soul is a very important book to me.</blockquote>
-            <figcaption class="praise__cite"><span class="praise__name">Paulo Coelho</span><span class="praise__role">Author, <em>The Alchemist</em></span></figcaption>
-          </figure>
-
-          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Jay-Z" aria-hidden="true">
-            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
-            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166418_jay-z-personal-growth-testimonial.webp" alt="Jay-Z" />
-            <blockquote class="praise__quote">There are two books I absolutely live my life by. This is one of them.</blockquote>
-            <figcaption class="praise__cite"><span class="praise__name">Jay-Z</span><span class="praise__role">Artist &amp; entrepreneur</span></figcaption>
-          </figure>
-
-          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Gwyneth Paltrow" aria-hidden="true">
-            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
-            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166406_gwyneth-paltrow-authentic-power-review.webp" alt="Gwyneth Paltrow" />
-            <blockquote class="praise__quote">A powerful reminder that we are all connected.</blockquote>
-            <figcaption class="praise__cite"><span class="praise__name">Gwyneth Paltrow</span><span class="praise__role">Founder, Goop</span></figcaption>
-          </figure>
-
-          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Lewis Howes" aria-hidden="true">
-            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
-            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166419_lewis-howes-spiritual-growth-testimonial.webp" alt="Lewis Howes" />
-            <blockquote class="praise__quote">If you're feeling confused, this is going to give you a lot of clarity.</blockquote>
-            <figcaption class="praise__cite"><span class="praise__name">Lewis Howes</span><span class="praise__role">Author &amp; host</span></figcaption>
-          </figure>
-
-          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="Julianne Hough" aria-hidden="true">
-            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
-            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166416_julianne-hough-conscious-living-testimonial.webp" alt="Julianne Hough" />
-            <blockquote class="praise__quote">This is a soul agreement — a moment for me to level up and learn something.</blockquote>
-            <figcaption class="praise__cite"><span class="praise__name">Julianne Hough</span><span class="praise__role">Actress &amp; wellness advocate</span></figcaption>
-          </figure>
-
-          <figure class="praise__slide" role="group" aria-roledescription="slide" aria-label="André Duqum" aria-hidden="true">
-            <span class="praise__mark" aria-hidden="true">&ldquo;</span>
-            <img class="praise__photo" width="108" height="108" decoding="async" loading="lazy" src="assets/images/6a3342a6143842a748166417_andre-duqum-authentic-power-testimonial.webp" alt="André Duqum" />
-            <blockquote class="praise__quote">His teachings have supported millions of people for decades, transforming the way they move through the world.</blockquote>
-            <figcaption class="praise__cite"><span class="praise__name">André Duqum</span><span class="praise__role">Host, <em>Know Thyself</em></span></figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <button class="praise__arrow praise__arrow--next" id="prAnext" type="button" aria-label="Next testimonial">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
+    <div class="stories__head">
+      <p class="sec__eyebrow reveal">(testimonials)</p>
+      <h2 class="sec__title reveal">Stories from our <em class="serif-em">community</em></h2>
     </div>
+  </div>
+  <div class="stories" id="storiesWrap">
+    <span class="stories__arrow stories__arrow--prev" id="storiesPrev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span class="stories__arrow stories__arrow--next" id="storiesNext" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <div class="stories__track" id="storiesTrack">
 
-    <div class="praise__dots" id="praiseDots" role="tablist" aria-label="Choose testimonial"></div>
-    <!-- TODO cliente (LEGAL): citas reales (endorsements públicos) · confirmar derechos de uso de nombres/retratos antes de publicar. Si no se aprueban, ocultar esta sección para el soft-launch. -->
+      <!-- cada testimonio = par: foto cuadrada + burbuja de cita con esquina cortada (chamfer) -->
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166405_oprah-winfrey-authentic-power-endorsement.webp?v=2" alt="Oprah Winfrey" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;The Seat of the Soul changed the way I see myself. It changed the way I view the world.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Oprah Winfrey</span><span class="story-quote__role">Media Leader, Producer &amp; Philanthropist</span></figcaption>
+      </figure>
 
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166415_paulo-coelho-consciousness-testimonial.webp?v=2" alt="Paulo Coelho" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;The Seat of the Soul is a very important book to me.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Paulo Coelho</span><span class="story-quote__role">Author &amp; Spiritual Thinker</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166416_julianne-hough-conscious-living-testimonial.webp?v=2" alt="Julianne Hough" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;This is an opportunity. This is a soul agreement. This is a moment for me to level up and learn something.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Julianne Hough</span><span class="story-quote__role">Actress, Dancer &amp; Wellness Advocate</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166417_andre-duqum-authentic-power-testimonial.webp?v=2" alt="André Duqum" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;His teachings have supported millions of people for decades now, transforming their perspective and way of being in the world.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">André Duqum</span><span class="story-quote__role">Podcast Host &amp; Consciousness Educator</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166458_maya-angelou-spiritual-wisdom-testimonial.webp?v=2" alt="Maya Angelou" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;The intrepid, daring Gary Zukav tells the hard truths.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Maya Angelou</span><span class="story-quote__role">Poet, Author &amp; Civil Rights Activist</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166419_lewis-howes-spiritual-growth-testimonial.webp?v=2" alt="Lewis Howes" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;If you&rsquo;re feeling confused, this is going to give you a lot of clarity.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Lewis Howes</span><span class="story-quote__role">Author, Entrepreneur &amp; Podcast Host</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166406_gwyneth-paltrow-authentic-power-review.webp?v=2" alt="Gwyneth Paltrow" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;A powerful reminder that we&rsquo;re all connected.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Gwyneth Paltrow</span><span class="story-quote__role">Actress &amp; Wellness Entrepreneur</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166418_jay-z-personal-growth-testimonial.webp?v=2" alt="Jay-Z" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;There are two books that I absolutely live my life by. This is one of them.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Jay-Z</span><span class="story-quote__role">Artist, Producer &amp; Entrepreneur</span></figcaption>
+      </figure>
+
+    </div>
+  </div>
+  <!-- TODO cliente (LEGAL): citas reales (endorsements públicos) · confirmar derechos de uso de nombres/retratos antes de publicar. -->
+</section>
+
+<!-- ========== 7c · INSTAGRAM FEED (latest from @gary_zukav · mock → Meta Graph API) ========== -->
+<!-- TODO cliente: conectar Instagram Graph API (Meta). Captions/likes/fechas reales vienen del API.
+     Mockup hoy en assets/js/instafeed.js (useMockData:true). Mañana: useMockData:false. -->
+<section class="sec blog instafeed" aria-label="Latest on Instagram">
+  <div class="sec__inner">
+    <div class="blog__head">
+      <div class="blog__intro">
+        <p class="sec__eyebrow reveal">@gary_zukav · Instagram</p>
+        <h2 class="sec__title reveal">Latest from the feed</h2>
+        <p class="blog__deck reveal">Fresh reflections and reminders — straight from Gary&rsquo;s Instagram.</p>
+        <span class="instafeed__mockbadge reveal">&#10038; Mockup · example data</span>
+      </div>
+      <a class="blog__all instafeed__follow reveal" href="https://www.instagram.com/gary_zukav/" target="_blank" rel="noopener noreferrer">
+        <span class="instafeed__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+        <span>Follow</span>
+        <span class="blog__all-ico" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <!-- Tarjetas renderizadas por assets/js/instafeed.js (reusan .post .post--glow del Soul Feed) -->
+    <div class="blog__grid instafeed__grid" id="instaFeedGrid" data-ig-source="mock">
+      <noscript>
+        <a class="post post--insta" href="https://www.instagram.com/gary_zukav/" target="_blank" rel="noopener noreferrer">
+          <span class="post__media post__media--square post__media--ph">
+            <span class="post__ph-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+            <span class="post__chip post__chip--insta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Example</span>
+          </span>
+          <span class="post__body">
+            <h3 class="post__title post__title--insta">Connect @gary_zukav on Instagram — your latest posts will appear here.</h3>
+            <span class="post__cta">View<span class="post__cta-ico" aria-hidden="true">→</span></span>
+          </span>
+        </a>
+      </noscript>
+    </div>
   </div>
 </section>
 
@@ -641,8 +701,16 @@
       <hr class="accent-rule reveal" aria-hidden="true" />
       <p class="sec__lead founders__lead reveal">We've spent more than 25 years experimenting with our lives together as spiritual partners and sharing our experiments with the world.</p>
       <div class="founders__cta reveal">
-        <a class="btn btn--primary" href="about/gary-zukav/">More about Gary</a>
-        <a class="btn btn--ghost" href="about/linda-francis/">More about Linda</a>
+        <a class="founders__meet" href="https://seatofthesoul.com/about-gary-zukav/" target="_blank" rel="noopener noreferrer">
+          <span class="founders__meet-avatar"><img src="assets/images/Gary_outside_smiling_cb_146-scaled.jpg" width="60" height="60" loading="lazy" decoding="async" alt="" /></span>
+          <span class="founders__meet-text"><span class="founders__meet-kicker">Learn more</span><span class="founders__meet-name">Meet Gary</span></span>
+          <svg class="founders__meet-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="founders__meet" href="https://seatofthesoul.com/about-linda-francis/" target="_blank" rel="noopener noreferrer">
+          <span class="founders__meet-avatar"><img src="assets/images/Linda_cb_015.jpg" width="60" height="60" loading="lazy" decoding="async" alt="" /></span>
+          <span class="founders__meet-text"><span class="founders__meet-kicker">Learn more</span><span class="founders__meet-name">Meet Linda</span></span>
+          <svg class="founders__meet-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
     </div>
     <div class="founders__portrait reveal">
@@ -846,10 +914,31 @@
       <button class="vchip" data-set="hero-original" aria-pressed="true">Original (faithful)</button>
       <button class="vchip" data-set="hero-static" aria-pressed="false">Editorial</button>
     </div>
+    <h4>Hero · height</h4>
+    <div class="vgroup" data-exclusive>
+      <button class="vchip" data-set="heroheight-full" aria-pressed="true">Full</button>
+      <button class="vchip" data-set="heroheight-low" aria-pressed="false">Low</button>
+    </div>
+    <h4>Hero · bottom divider</h4>
+    <div class="vgroup" data-exclusive>
+      <button class="vchip" data-set="heroborder-on" aria-pressed="true">On</button>
+      <button class="vchip" data-set="heroborder-off" aria-pressed="false">Off</button>
+    </div>
     <h4>Hero button (slide)</h4>
     <div class="vgroup" data-exclusive>
       <button class="vchip" data-set="herocta-2" aria-pressed="true">Editorial · arrow (default)</button>
       <button class="vchip" aria-pressed="false">Pill (same as nav)</button>
+    </div>
+    <h4>Hero · cursor color</h4>
+    <div class="vgroup" data-exclusive>
+      <button class="vchip" aria-pressed="true">Sun (gold)</button>
+      <button class="vchip" data-set="curs-plain" aria-pressed="false">Plain</button>
+    </div>
+    <h4>Hero · cursor size</h4>
+    <div class="vgroup" data-exclusive>
+      <button class="vchip" data-set="curs-s" aria-pressed="false">S</button>
+      <button class="vchip" aria-pressed="true">M</button>
+      <button class="vchip" data-set="curs-l" aria-pressed="false">L</button>
     </div>
     <h4>Button · style</h4>
     <div class="vgroup" data-exclusive>
@@ -1109,8 +1198,8 @@
     return slides[(index + slides.length) % slides.length].dataset.status || '';
   }
   function setArrowLabels(index){
-    if(hprevLabel) hprevLabel.innerHTML = 'Preview<small>' + slideStatus(index - 1) + '</small>';
-    if(hnextLabel) hnextLabel.innerHTML = 'Next<small>' + slideStatus(index + 1) + '</small>';
+    if(hprevLabel) hprevLabel.textContent = 'Back';   /* corto, sin subtítulo de slide */
+    if(hnextLabel) hnextLabel.textContent = 'Next';
   }
   function syncHeroNavTheme(index){
     document.body.classList.toggle('hero-slide-light-nav', index === 0);
@@ -1217,7 +1306,7 @@
       var intent = cursorIntent(e.clientX);
       hcursor.style.left = e.clientX + 'px';
       hcursor.style.top = e.clientY + 'px';
-      hcursorLabel.textContent = intent === 'prev' ? 'Preview' : 'Next';
+      hcursorLabel.textContent = intent === 'prev' ? 'Back' : 'Next';
       setLens(e);
     });
     hsliderEl.addEventListener('pointerleave', function(){
@@ -1255,8 +1344,8 @@
       return oslides[(index + oslides.length) % oslides.length].dataset.status || '';
     }
     function setOriginalArrowLabels(index){
-      if(oprevLabel) oprevLabel.innerHTML = 'Preview<small>' + oSlideStatus(index - 1) + '</small>';
-      if(onextLabel) onextLabel.innerHTML = 'Next<small>' + oSlideStatus(index + 1) + '</small>';
+      if(oprevLabel) oprevLabel.textContent = 'Back';   /* corto, sin subtítulo de slide */
+      if(onextLabel) onextLabel.textContent = 'Next';
     }
     function syncOriginalChrome(index){
       if(ocurrent) ocurrent.textContent = pad2(index + 1);
@@ -1337,7 +1426,7 @@
         var intent = originalCursorIntent(e.clientX);
         ocursor.style.left = e.clientX + 'px';
         ocursor.style.top = e.clientY + 'px';
-        ocursorLabel.textContent = intent === 'prev' ? 'Preview' : 'Next';
+        ocursorLabel.textContent = intent === 'prev' ? 'Back' : 'Next';
       });
       osliderEl.addEventListener('pointerleave', function(){
         ocursor.classList.remove('is-visible');
@@ -1505,28 +1594,83 @@
     var gv=document.getElementById('greetVideo');
     var gsec=document.querySelector('.greeting');
     var gbd=document.getElementById('greetBackdrop');
-    function greetOpen(){
-      gv.setAttribute('controls','');               /* controles nativos → pausa/seek/volumen fiables */
+    var gcard=document.getElementById('greetCard');
+    var ghint=document.getElementById('greetHint');
+    /* ---- Soft scroll-hold: al reproducir, el scroll fija el video + aviso cálido; si insiste → pausa y libera (nunca atrapa) ---- */
+    var scrollAccum=0, holdOn=false, hintTimer=0;
+    function showHint(){ if(!ghint) return; ghint.hidden=false; gsec.classList.add('is-hinting');
+      clearTimeout(hintTimer); hintTimer=setTimeout(function(){ gsec.classList.remove('is-hinting'); }, 2600); }
+    function hideHint(){ clearTimeout(hintTimer); gsec.classList.remove('is-hinting'); }
+    function onHoldWheel(e){ if(gv.paused){ releaseHold(); return; }
+      e.preventDefault(); showHint(); scrollAccum += Math.abs(e.deltaY||40);
+      if(scrollAccum>700) greetPauseVid(); }                 /* sigue scrolleando → pausa + sale */
+    function onHoldTouch(e){ if(gv.paused){ releaseHold(); return; }
+      e.preventDefault(); showHint(); scrollAccum += 90;
+      if(scrollAccum>700) greetPauseVid(); }
+    function lockHold(){ if(holdOn) return; holdOn=true; scrollAccum=0;
+      window.addEventListener('wheel', onHoldWheel, {passive:false});
+      window.addEventListener('touchmove', onHoldTouch, {passive:false}); }
+    function releaseHold(){ if(!holdOn) return; holdOn=false; scrollAccum=0;
+      window.removeEventListener('wheel', onHoldWheel, {passive:false});
+      window.removeEventListener('touchmove', onHoldTouch, {passive:false}); hideHint(); }
+    function setLoading(on){ gsec.classList.toggle('is-loading', !!on); }   /* spinner ⟳ mientras bufferea */
+    function greetBloom(){                                /* bloom dorado: nace del centro del play y se expande */
+      gsec.classList.remove('is-blooming'); void gsec.offsetWidth; gsec.classList.add('is-blooming');
+      setTimeout(function(){ gsec.classList.remove('is-blooming'); }, 900);
+    }
+    function greetCenter(){                               /* auto-centra el video en pantalla (modo "siéntate y ve") */
+      if(!gcard) return;
+      var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      try{ gcard.scrollIntoView(smooth?{behavior:'smooth',block:'center'}:{block:'center'}); }
+      catch(e){ try{ gcard.scrollIntoView(); }catch(_){} }
+    }
+    function greetPlay(){
+      var opening=!gsec.classList.contains('is-playing');/* abrir desde el poster (no reanudar) */
+      gv.muted=false;                                    /* asegura AUDIO (nunca silenciamos el saludo) */
       gsec.classList.add('is-playing');
-      var p=gv.play(); if(p&&p.catch) p.catch(function(){});
+      gsec.classList.remove('is-paused');
+      if(gv.readyState < 3) setLoading(true);            /* aún sin buffer suficiente → muestra spinner */
+      if(opening){ greetBloom(); greetCenter(); }        /* bienvenida: bloom + auto-centrar (solo al abrir) */
+      var p=gv.play();                                   /* gesto de usuario → reproduce CON audio */
+      if(p&&p.catch) p.catch(function(){ setLoading(false); gsec.classList.add('is-paused'); }); /* si falla → botón ▶ */
     }
-    function greetClose(){
-      gsec.classList.remove('is-playing');               /* quita class ANTES de pause() → evita recursión con el listener */
-      gv.pause(); gv.removeAttribute('controls');
-      try{ gv.currentTime = 0; }catch(e){}                /* reinicia al estado inicial (texto + botón vuelven) */
+    function greetPauseVid(){
+      gv.pause();                                        /* CONGELA el cuadro (como darle a pausa) — no reinicia */
+      setLoading(false);
+      gsec.classList.add('is-paused');                   /* reaparece el botón ▶ para reanudar */
     }
-    gp.addEventListener('click', function(e){ e.stopPropagation(); greetOpen(); });
-    if(gbd) gbd.addEventListener('click', greetClose);
+    function greetToggle(){ if(gv.paused) greetPlay(); else greetPauseVid(); }
+    function greetClose(){                               /* cerrar = volver al poster inicial */
+      gv.pause(); try{ gv.currentTime=0; }catch(e){}
+      gsec.classList.remove('is-playing','is-paused','is-loading');
+    }
+    gp.addEventListener('click', function(e){ e.stopPropagation(); greetToggle(); });   /* botón → play/pausa */
+    gv.addEventListener('click', greetToggle);                                          /* clic en el video → play/pausa */
+    if(gbd) gbd.addEventListener('click', greetClose);                                  /* clic fuera (backdrop) → cerrar */
+    /* sincroniza las clases con el estado REAL del <video> (cubre cualquier ruta de pausa/play/buffer) */
+    gv.addEventListener('play',    function(){ gsec.classList.add('is-playing'); gsec.classList.remove('is-paused'); lockHold(); });
+    gv.addEventListener('playing', function(){ setLoading(false); });   /* ya renderiza fluido → quita spinner */
+    gv.addEventListener('canplay', function(){ setLoading(false); });
+    gv.addEventListener('waiting', function(){ if(gsec.classList.contains('is-playing') && !gv.paused) setLoading(true); }); /* buffer underrun → spinner */
+    gv.addEventListener('pause',   function(){ if(gsec.classList.contains('is-playing') && !gv.ended) gsec.classList.add('is-paused'); releaseHold(); });
     gv.addEventListener('ended', greetClose);
-    /* al PAUSAR (controles nativos) → regresa al estado inicial */
-    gv.addEventListener('pause', function(){ if(gsec.classList.contains('is-playing')) greetClose(); });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && gsec.classList.contains('is-playing')) greetClose(); });
+    document.addEventListener('keydown', function(e){
+      if(!gsec.classList.contains('is-playing')) return;
+      if(e.key===' '||e.key==='Spacebar'){ e.preventDefault(); greetToggle(); }   /* barra espaciadora = play/pausa */
+      else if(e.key==='Escape'){ greetClose(); }
+    });
+    /* lazy-preload: bufferiza por adelantado al acercarse al viewport → al dar click arranca instantáneo */
+    if('IntersectionObserver' in window){
+      var gpre=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ try{ gv.preload='auto'; gv.load(); }catch(err){} gpre.disconnect(); } });
+      },{ rootMargin:'400px 0px' });
+      gpre.observe(gsec);
+    } else { try{ gv.preload='auto'; }catch(err){} }
   }
 
-  /* ---- Soul Feed · spotlight cards: el brillo del borde sigue al cursor ---- */
-  var blogGrid=document.getElementById('blogGrid');
-  if(blogGrid && matchMedia('(hover:hover) and (pointer:fine)').matches){
-    [].slice.call(blogGrid.querySelectorAll('.post--glow')).forEach(function(card){
+  /* ---- Spotlight cards (.post--glow): el brillo del borde sigue al cursor — Soul Feed + Courses ---- */
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+    [].slice.call(document.querySelectorAll('.post--glow')).forEach(function(card){
       var raf=0,mx=0,my=0;
       function apply(){ raf=0; card.style.setProperty('--mx',mx+'px'); card.style.setProperty('--my',my+'px'); }
       card.addEventListener('pointerenter',function(){ card.style.setProperty('--glow','1'); });
@@ -1537,6 +1681,74 @@
       card.addEventListener('pointerleave',function(){ card.style.setProperty('--glow','0'); });
     });
   }
+
+  /* ---- Books: flowing background paths (port vanilla del efecto "Background Paths") → líneas que fluyen hacia el libro ---- */
+  (function(){
+    var host=document.getElementById('booksPaths');
+    if(!host) return;
+    var NS='http://www.w3.org/2000/svg';
+    var svg=document.createElementNS(NS,'svg');
+    svg.setAttribute('viewBox','-658 -67 907 454');
+    svg.setAttribute('preserveAspectRatio','none');
+    svg.setAttribute('fill','none');
+    [1,-1].forEach(function(position){
+      for(var i=0;i<11;i++){
+        var d='M-'+(380-i*5*position)+' -'+(189+i*6)
+          +'C-'+(380-i*5*position)+' -'+(189+i*6)
+          +' -'+(312-i*5*position)+' '+(216-i*6)+' '+(152-i*5*position)+' '+(343-i*6)
+          +'C'+(616-i*5*position)+' '+(470-i*6)+' '+(684-i*5*position)+' '+(875-i*6)+' '+(684-i*5*position)+' '+(875-i*6);
+        var p=document.createElementNS(NS,'path');
+        p.setAttribute('d',d);
+        p.setAttribute('pathLength','1');
+        p.setAttribute('stroke-width',(0.6+i*0.13).toFixed(2));
+        p.setAttribute('stroke-opacity',(0.09+i*0.024).toFixed(3));
+        if(!reduce){ p.style.animationDuration=(16+i*1.4+(position>0?0:4))+'s'; p.style.animationDelay=(-i*0.8)+'s'; }
+        svg.appendChild(p);
+      }
+    });
+    host.appendChild(svg);
+  })();
+
+  /* ---- Stories / testimonials: scroll horizontal siguiendo el mouse (port del efecto Webflow) ---- */
+  (function(){
+    var sec=document.getElementById('storiesWrap'); if(!sec) return;
+    var track=document.getElementById('storiesTrack'); if(!track) return;
+    var aL=document.getElementById('storiesPrev'), aR=document.getElementById('storiesNext');
+    if(!matchMedia('(hover:hover) and (pointer:fine)').matches || reduce) return;  /* touch/reduced → scroll nativo */
+    sec.classList.add('is-glide');
+    var EASE=0.045, cur=0, tar=0, maxShift=0;   /* más bajo = glide más lento/suave */
+    function measure(){ maxShift=Math.max(0, track.scrollWidth - sec.clientWidth + 24); }
+    measure(); window.addEventListener('resize', measure);
+    sec.addEventListener('mousemove', function(e){
+      var r=sec.getBoundingClientRect(); var t=(e.clientX-r.left)/r.width; t=t<0?0:(t>1?1:t); tar=-t*maxShift;
+    });
+    function tick(){
+      var d=tar-cur, moving=Math.abs(d)>1.5;
+      if(aL) aL.classList.toggle('is-active', moving && d>0);
+      if(aR) aR.classList.toggle('is-active', moving && d<0);
+      cur+=d*EASE; if(Math.abs(tar-cur)<.2) cur=tar;
+      track.style.transform='translateX('+cur.toFixed(1)+'px)';
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  /* ---- Stories / testimonials: entrada scroll-reveal (rise+fade) de fotos y bubbles ---- */
+  (function(){
+    if(reduce) return;                                   /* reduced → cards visibles (sin .rev-ready) */
+    var wrap=document.getElementById('storiesWrap');
+    if(!wrap || !('IntersectionObserver' in window)) return;
+    var cards=[].slice.call(wrap.querySelectorAll('.story-photo,.story-quote'));
+    if(!cards.length) return;
+    wrap.classList.add('rev-ready');                     /* activa el estado oculto del CSS */
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        cards.forEach(function(c,i){ c.style.transitionDelay=(Math.min(i,8)*0.05)+'s'; c.classList.add('in'); });
+        io.disconnect();
+      }});
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    io.observe(wrap);
+  })();
 })();
 </script>
 
@@ -1889,6 +2101,9 @@
   }
 })();
 </script>
+
+<!-- Instagram Feed (sección 7c): mock → Meta Graph API. Ver assets/js/instafeed.js -->
+<script src="assets/js/instafeed.js" defer></script>
 
 </body>
 </html>

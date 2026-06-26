@@ -23,8 +23,10 @@ html, body { overflow-x: clip; }
   :root{ --maxw-wide: 1320px; }
 
   /* hero: llena monitores altos sin banda muerta (cap suave) */
-  .oslider{ height: clamp(540px, 82vh, 920px); }
-  .hslider{ height: clamp(560px, 84vh, 940px); }
+  body.heroheight-full{
+    --hero-h-original:min(100svh, 960px);
+    --hero-h-slider:min(100svh, 980px);
+  }
 
   /* grids: misma cuenta de columnas (la composición bento está fijada a
      4-col), pero más separación → tarjetas más grandes, no más densas */
@@ -42,13 +44,31 @@ html, body { overflow-x: clip; }
     --gutter: clamp(1.25rem, 0.8rem + 2vw, 3.25rem);
   }
 
-  .oslider{ height: clamp(560px, 82vh, 1000px); }
-  .hslider{ height: clamp(580px, 84vh, 1020px); }
+  body.heroheight-full{
+    --hero-h-original:min(100svh, 1020px);
+    --hero-h-slider:min(100svh, 1040px);
+  }
 
   .blog__grid{ gap: 3rem; }
   .courses__grid{ gap: 26px; }
   .ccard--feature{ min-height: 480px; }   /* mantiene la proporción 2×2 al crecer las tarjetas */
   .stats__grid{ gap: 4rem; }
+}
+
+@supports (height: 100dvh){
+  @media (min-width: 1440px){
+    body.heroheight-full{
+      --hero-h-original:min(100dvh, 960px);
+      --hero-h-slider:min(100dvh, 980px);
+    }
+  }
+
+  @media (min-width: 1920px){
+    body.heroheight-full{
+      --hero-h-original:min(100dvh, 1020px);
+      --hero-h-slider:min(100dvh, 1040px);
+    }
+  }
 }
 
 /* =====================================================================

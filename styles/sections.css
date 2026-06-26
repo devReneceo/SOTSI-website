@@ -88,6 +88,7 @@
 /* ---- 2 · Greeting (video card · expand inmersivo al play) ---- */
 /* más aire arriba (separa el video del texto del Statement) — ~1.5× el padding base */
 .greeting{background:var(--navy);padding-top:clamp(8rem,6rem + 10vw,16.5rem);}
+.greeting.is-playing{z-index:60;overflow:visible;}   /* modo foco "siéntate y ve": eleva sobre las vecinas + deja salir el dim fijo */
 /* aura de gradiente de marca detrás de la tarjeta — tenue SIEMPRE (da atmósfera, menos "seco"),
    se intensifica y respira al reproducir */
 .greeting__glow{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;transition:opacity .9s ease;
@@ -101,14 +102,37 @@
 /* backdrop transparente al reproducir → deja VER el flow-field detrás del video; clic = cerrar */
 .greeting__backdrop{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;
   background:transparent;transition:opacity .4s ease;}
-.greeting.is-playing .greeting__backdrop{opacity:1;pointer-events:auto;cursor:zoom-out;}
-.greeting__card{position:relative;max-width:1160px;margin-inline:auto;border-radius:var(--radius-lg,24px);
-  overflow:hidden;box-shadow:0 40px 90px -34px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.05);aspect-ratio:16/9;transform-origin:center;
-  transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s ease;}
+.greeting.is-playing .greeting__backdrop{position:fixed;inset:0;z-index:0;opacity:1;pointer-events:auto;cursor:zoom-out;
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(60,25,81,.72), transparent 60%),
+    radial-gradient(120% 120% at 50% 100%, rgba(20,30,70,.6), transparent 62%),
+    #05070f;
+  transition:opacity .6s ease;}   /* teatro inmersivo on-brand (navy ↔ púrpura) */
+/* atmósfera viva: capa de gradiente que deriva muy lento (transform → compositor-friendly) */
+.greeting.is-playing .greeting__backdrop::before{content:"";position:absolute;inset:-20%;pointer-events:none;
+  background:
+    radial-gradient(38% 38% at 28% 30%, rgba(254,212,87,.10), transparent 70%),
+    radial-gradient(42% 42% at 76% 72%, rgba(210,204,253,.12), transparent 72%);
+  animation:greetTheater 32s ease-in-out infinite;}
+@keyframes greetTheater{0%,100%{transform:rotate(0deg) scale(1)}50%{transform:rotate(8deg) scale(1.08)}}
+/* STAGE: contenedor SIN recorte → aloja el marco de gradiente; define tamaño/centro/escala */
+.greeting__stage{position:relative;max-width:1160px;margin-inline:auto;aspect-ratio:16/9;
+  border-radius:var(--radius-lg,24px);transform-origin:center;
+  transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.greeting__card{position:relative;width:100%;height:100%;border-radius:var(--radius-lg,24px);
+  overflow:hidden;box-shadow:0 40px 90px -34px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.05);transform-origin:center;
+  transition:box-shadow .6s ease;}
 .greeting__card video{width:100%;height:100%;object-fit:cover;display:block;background:#0b0f1f;}
-/* zoom TENUE al reproducir: el video crece apenas + sombra suave (animación discreta) */
-.greeting.is-playing .greeting__card{transform:scale(1.045);
-  box-shadow:0 32px 74px -28px rgba(0,0,0,.55),0 0 0 1px rgba(254,212,87,.14);}
+/* marco de gradiente de marca (oro ↔ periwinkle ↔ púrpura), glow suave que gira lento — SOLO al reproducir */
+@property --ga{syntax:"<angle>";inherits:false;initial-value:0deg;}
+.greeting.is-playing .greeting__stage::before{content:"";position:absolute;inset:-7px;z-index:-1;pointer-events:none;
+  border-radius:calc(var(--radius-lg,24px) + 7px);opacity:.7;filter:blur(11px) saturate(116%);
+  background:conic-gradient(from var(--ga), #fed457, #d2ccfd, #3c1951, #fed457);
+  animation:greetFrameSpin 14s linear infinite;}
+@keyframes greetFrameSpin{to{--ga:360deg;}}
+/* zoom TENUE al reproducir: escala el STAGE (el marco escala con él) + sombra del card */
+.greeting.is-playing .greeting__stage{transform:scale(1.05);}
+.greeting.is-playing .greeting__card{box-shadow:0 48px 110px -30px rgba(0,0,0,.7),0 0 0 1px rgba(254,212,87,.18);}
 /* scrim NUNCA bloquea → los clics llegan a los controles del video (pausa funciona) */
 .greeting__scrim{position:absolute;inset:0;pointer-events:none;transition:opacity .5s ease;
   background:radial-gradient(62% 60% at 50% 58%, rgba(14,22,49,.5), rgba(14,22,49,.1) 72%),
@@ -132,29 +156,104 @@
 .greeting__overlay::before{content:"";position:absolute;inset:0;z-index:-1;
   background:rgba(60,25,81,.28);
   -webkit-backdrop-filter:blur(14px) saturate(112%);backdrop-filter:blur(14px) saturate(112%);}
-.greeting.is-playing .greeting__overlay{opacity:0;}
+/* al reproducir: se van el texto + el vidrio esmerilado; el overlay queda para alojar el botón play/pausa */
+.greeting.is-playing .greeting__from,
+.greeting.is-playing .greeting__names{opacity:0;}
+.greeting.is-playing .greeting__overlay::before{opacity:0;transition:opacity .5s ease;}
+/* botón play/pausa: en reproducción se va a la ESQUINA inf-izq (no tapa las caras), más chico;
+   oculto mientras reproduce, reaparece al PAUSAR o al pasar el cursor (para pausar) */
+.greeting.is-playing .greeting__play{opacity:0;position:absolute;left:18px;bottom:18px;width:54px;height:54px;}
+.greeting.is-playing .greeting__play svg{width:22px;height:22px;}
+.greeting.is-playing:hover .greeting__play,
+.greeting.is-playing.is-loading .greeting__play,
+.greeting.is-playing.is-paused .greeting__play{opacity:1;}
+/* leve scrim al pausar → contraste del botón sobre el cuadro congelado */
+.greeting.is-playing.is-paused .greeting__scrim{opacity:.5;}
+/* iconos del botón: SIEMPRE uno solo — ▶ reposo/pausado · ❚❚ reproduciendo · ⟳ cargando.
+   Los 3 comparten la MISMA celda (grid-area:1/1, ver abajo) → nunca se apilan ni se ven dos a la vez. */
+.greeting__icon-pause,.greeting__spinner{display:none;}
+.greeting.is-playing:not(.is-paused) .greeting__icon-play{display:none;}
+.greeting.is-playing:not(.is-paused) .greeting__icon-pause{display:block;}
+/* cargando (buffering): oculta ▶ y ❚❚, muestra el spinner — va DESPUÉS para ganar por orden de fuente */
+.greeting.is-playing.is-loading .greeting__icon-play,
+.greeting.is-playing.is-loading .greeting__icon-pause{display:none;}
+.greeting.is-playing.is-loading .greeting__spinner{display:block;}
 /* "A greeting from" — serif de marca (Canela), grande pero refinado, tracking editorial */
-.greeting__from{margin:0 0 .12em;font-family:var(--font-display);font-weight:400;letter-spacing:.03em;
-  font-size:clamp(1.5rem,1.1rem + 1.6vw,2.2rem);color:rgba(255,255,255,.86);text-shadow:0 2px 18px rgba(8,10,26,.5);}
-/* "Gary and Linda" — script original WorldDiscovery, mayor presencia + tracking suave */
-.greeting__names{margin:0;font-family:var(--font-script);font-weight:400;line-height:.96;letter-spacing:.015em;
-  font-size:clamp(2.9rem,1.7rem + 4.2vw,5.4rem);color:#fff;text-shadow:0 6px 34px rgba(8,10,26,.55);}
-.greeting__names .accent{color:var(--gold);}   /* "and" en dorado de marca */
-/* play dorado OPACO (sólido) + halo suave · flecha navy — pro */
-.greeting__play{pointer-events:auto;width:86px;height:86px;border-radius:50%;border:0;cursor:pointer;
-  display:grid;place-items:center;background:var(--gold);
-  box-shadow:0 12px 36px rgba(8,10,26,.42),0 0 0 9px rgba(254,212,87,.14);
-  transition:transform .35s var(--ease),background-color .35s ease,box-shadow .35s ease;}
-.greeting__play svg{width:30px;height:30px;fill:var(--navy);margin-left:4px;}
-.greeting__play:hover{transform:scale(1.08);background:#ffe07f;
-  box-shadow:0 16px 46px rgba(8,10,26,.5),0 0 0 12px rgba(254,212,87,.22);}
+.greeting__from{margin:0 0 .18em;font-family:var(--font-display);font-weight:400;letter-spacing:.04em;
+  font-size:clamp(1.9rem,1.2rem + 2.2vw,3rem);color:rgba(255,255,255,.9);text-shadow:0 2px 18px rgba(8,10,26,.5);}
+/* "Gary & Linda" — MISMO formato que Founders: "Gary &" Fraunces + "Linda" script dorado (Pinyon) */
+.greeting__names{margin:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:.14em;
+  font-family:var(--font-display);font-weight:400;line-height:.92;}
+.greeting__amp{font-size:clamp(2rem,1.3rem + 3vw,4.6rem);letter-spacing:-.018em;color:#fff;
+  text-shadow:0 6px 30px rgba(8,10,26,.55);}
+.greeting__script{font-family:var(--font-accent);font-weight:400;color:var(--gold);line-height:.82;
+  font-size:clamp(3.2rem,2rem + 5.5vw,7.5rem);text-shadow:0 6px 34px rgba(8,10,26,.5);
+  animation:foundersScriptGlow 5.5s ease-in-out infinite;}
+/* play dorado — MEDALLÓN dimensional (anillo elevado + cara con relieve + sheen) · flecha navy */
+.greeting__play{position:relative;isolation:isolate;pointer-events:auto;width:86px;height:86px;border-radius:50%;border:0;cursor:pointer;
+  display:grid;place-items:center;
+  background:linear-gradient(180deg,#ffe486 0%,#fed457 52%,#f3bf3b 100%);
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,.6),
+    inset 0 -5px 10px rgba(120,75,8,.32),
+    0 14px 34px rgba(8,10,26,.46),
+    0 0 0 1px rgba(120,75,8,.18),
+    0 0 0 9px rgba(254,212,87,.14);
+  transition:transform .35s var(--ease),background .35s ease,box-shadow .35s ease,opacity .35s ease;}
+/* sheen "vidrio" arriba — recortado al círculo, sobre la cara y bajo el ícono */
+.greeting__play::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.6) 0%,rgba(255,255,255,.12) 34%,transparent 58%);}
+.greeting__play svg{position:relative;z-index:2;width:30px;height:30px;fill:var(--navy);grid-area:1/1;}
+.greeting__icon-play{margin-left:4px;}   /* centrado óptico del triángulo ▶ */
+/* spinner "cargando" — anillo girando, misma celda que los iconos */
+.greeting__spinner{position:relative;z-index:2;grid-area:1/1;width:30px;height:30px;border-radius:50%;margin:0 auto;
+  border:3px solid rgba(8,10,26,.22);border-top-color:var(--navy);animation:greetSpin .8s linear infinite;}
+@keyframes greetSpin{to{transform:rotate(360deg);}}
+/* bloom dorado al dar play: nace del centro (donde está el botón ▶) y se expande hacia afuera sobre el video */
+.greeting__bloom{position:absolute;top:50%;left:50%;width:min(64%,520px);aspect-ratio:1;
+  transform:translate(-50%,-50%) scale(.12);transform-origin:center;border-radius:50%;
+  pointer-events:none;z-index:4;opacity:0;
+  background:radial-gradient(circle, rgba(254,212,87,.34) 0%, rgba(254,212,87,.12) 42%, transparent 64%);
+  box-shadow:0 0 0 2px rgba(254,212,87,.5) inset;}
+.greeting.is-blooming .greeting__bloom{animation:greetBloom .85s var(--ease) forwards;}
+@keyframes greetBloom{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.12);}
+  22%{opacity:.85;}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.5);}
+}
+.greeting__play:hover{transform:scale(1.08) translateY(-1px);
+  background:linear-gradient(180deg,#fff0b0 0%,#ffe07f 52%,#f6c845 100%);
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,.72),
+    inset 0 -5px 10px rgba(120,75,8,.3),
+    0 20px 48px rgba(8,10,26,.52),
+    0 0 0 1px rgba(120,75,8,.16),
+    0 0 0 13px rgba(254,212,87,.22);}
 .greeting__play:focus-visible{outline:none;box-shadow:0 0 0 3px #fff,0 0 0 7px var(--gold),0 12px 36px rgba(8,10,26,.42);}
+/* aviso cálido "soft hold": aparece al intentar hacer scroll con el video en marcha */
+.greeting__hint{position:absolute;left:50%;bottom:18px;transform:translate(-50%,8px);z-index:5;
+  display:inline-flex;align-items:center;gap:.5ch;pointer-events:none;text-align:center;
+  padding:.5rem .9rem;border-radius:999px;font-family:var(--font-body);font-size:.82rem;letter-spacing:.01em;
+  color:#fff7e2;background:rgba(36,16,42,.62);border:1px solid rgba(254,212,87,.4);
+  box-shadow:0 10px 30px rgba(0,0,0,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:0;transition:opacity .35s ease,transform .35s var(--ease);}
+.greeting__hint[hidden]{display:none;}
+.greeting__hint kbd{font-family:var(--font-body);font-size:.78em;padding:.05em .45em;border-radius:5px;
+  background:rgba(254,212,87,.92);color:var(--navy);font-weight:600;}
+.greeting.is-hinting .greeting__hint{opacity:1;transform:translate(-50%,0);}
 @media (max-width:768px){
   .greeting__play{width:72px;height:72px;}
   .greeting__play svg{width:26px;height:26px;}
   .greeting__overlay{gap:.7rem;}
+  .greeting.is-playing .greeting__play{width:46px;height:46px;left:12px;bottom:12px;}
+  .greeting.is-playing .greeting__play svg{width:19px;height:19px;}
+  .greeting__hint{bottom:12px;font-size:.76rem;}
 }
-@media (prefers-reduced-motion:reduce){.greeting__card{transition:none;}.greeting__glow{animation:none;}}
+@media (prefers-reduced-motion:reduce){.greeting__card{transition:none;}.greeting__glow{animation:none;}.greeting__spinner{animation:none;}.greeting__bloom,.greeting__script{animation:none;}
+  .greeting__stage{transition:none;}
+  .greeting.is-playing .greeting__stage::before{animation:none;}
+  .greeting.is-playing .greeting__backdrop::before{animation:none;}
+  .greeting__hint{transition:opacity .2s linear;}}
 
 /* ---- 3 · Statement (Authentic Power) — inmersivo oscuro fijo + Soul Tide wave ---- */
 .statement{position:relative;overflow:hidden;text-align:center;isolation:isolate;
@@ -194,10 +293,19 @@
   padding-block:0;background:var(--navy);}
 .consciousness__media{position:absolute;inset:0;z-index:0;}
 .consciousness__media video{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;}
+/* scrim DIRECCIONAL MORADO (de marca): denso arriba-izq (título) y abajo-der (lead+CTA) → resalta las letras y guía el ojo al CTA; rostro al centro claro */
 .consciousness__scrim{position:absolute;inset:0;pointer-events:none;
   background:
-    linear-gradient(180deg, rgba(8,10,26,.82) 0%, rgba(8,10,26,.36) 22%, transparent 40%, transparent 56%, rgba(8,10,26,.5) 78%, rgba(8,10,26,.92) 100%),
-    radial-gradient(130% 80% at 50% 50%, transparent 42%, rgba(8,10,26,.30) 100%);}
+    linear-gradient(125deg, rgba(26,14,44,.74) 0%, rgba(26,14,44,.32) 26%, transparent 46%, transparent 58%, rgba(46,20,68,.5) 78%, rgba(20,11,38,.9) 100%),
+    radial-gradient(60% 60% at 14% 14%, rgba(48,22,74,.5), transparent 60%),
+    radial-gradient(72% 72% at 90% 92%, rgba(60,25,81,.62), transparent 64%),
+    linear-gradient(180deg, transparent 54%, rgba(18,10,36,.55) 100%);}
+/* panel de lectura: blur SUAVE + leve velo MORADO difuminado detrás del texto inf-derecho — ayuda a leer SIN tapar ni romper el video */
+.consciousness__readpane{position:absolute;right:0;bottom:0;width:64%;height:62%;pointer-events:none;z-index:0;
+  background:radial-gradient(120% 120% at 90% 92%, rgba(46,20,68,.34), transparent 66%);
+  -webkit-backdrop-filter:blur(7px) saturate(108%);backdrop-filter:blur(7px) saturate(108%);
+  -webkit-mask-image:radial-gradient(125% 125% at 88% 92%, #000 28%, rgba(0,0,0,.5) 54%, transparent 80%);
+          mask-image:radial-gradient(125% 125% at 88% 92%, #000 28%, rgba(0,0,0,.5) 54%, transparent 80%);}
 
 /* orbes/círculos suaves (motivo de marca) — MUY tenues sobre el video,
    detrás de los bloques de texto (arriba-izq y abajo-izq). Respiran. */
@@ -238,7 +346,21 @@
   font-weight:400;font-size:clamp(1.18rem,1.02rem + .7vw,1.55rem);line-height:1.62;
   text-shadow:0 2px 18px rgba(8,10,26,.7);}
 .consciousness .sec__lead .accent{color:var(--gold);font-weight:500;}
-.consciousness__cta{margin-top:2rem;}
+.consciousness__cta{margin-top:2rem;position:relative;}
+/* glow suave detrás del CTA (oro→morado) que respira lento → hace del botón el foco, SIN línea */
+.consciousness__cta::after{content:"";position:absolute;z-index:-1;left:50%;top:50%;
+  width:min(360px,150%);aspect-ratio:1.7;transform:translate(-50%,-50%);pointer-events:none;border-radius:50%;
+  background:radial-gradient(circle, rgba(254,212,87,.22) 0%, rgba(60,25,81,.22) 42%, transparent 70%);
+  filter:blur(10px);animation:consCtaGlow 6s ease-in-out infinite;}
+@keyframes consCtaGlow{0%,100%{opacity:.45;transform:translate(-50%,-50%) scale(1);}50%{opacity:.82;transform:translate(-50%,-50%) scale(1.06);}}
+/* remate sutil: hairline dorada bajo el CTA que crece al revelar (la mirada "aterriza" aquí) */
+.consciousness__cta::before{content:"";position:absolute;left:2px;bottom:-12px;height:2px;width:0;border-radius:2px;
+  background:linear-gradient(90deg, rgba(254,212,87,.9), rgba(254,212,87,0));transition:width 1s var(--ease) 1.1s;}
+.consciousness__cta.in::before,.consciousness.ink-on .consciousness__cta::before{width:128px;}
+@media (prefers-reduced-motion:reduce){
+  .consciousness__cta::after{animation:none;opacity:.5;}
+  .consciousness__cta::before{width:128px;transition:none;}
+}
 
 /* Ken Burns suave (reduced-motion safe) */
 @media (prefers-reduced-motion:no-preference){
@@ -267,6 +389,9 @@
   .consciousness__cta{margin-top:1.6rem;width:100%;}
   .consciousness__cta .btn-cta{width:100%;max-width:22rem;}
   .consciousness__cta .btn-cta__inner{justify-content:center;}
+  .consciousness__readpane{width:100%;height:52%;
+    -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 38%);mask-image:linear-gradient(180deg, transparent 0%, #000 38%);}
+  .consciousness__cta::before{left:50%;transform:translateX(-50%);}
 }
 
 /* ---- 5 · Tools (centered) ---- */
@@ -317,6 +442,16 @@ body.theme-dawn .blog{
   --g1:var(--purple); --g2:var(--periwinkle);
   --gw:color-mix(in srgb,var(--purple) 16%,transparent);
   --post-accent:var(--purple); --post-accent-ink:#fff;}
+/* Courses reusa las tarjetas .post (estilo Soul Feed) → necesita las mismas variables del glow */
+.courses{--g1:var(--gold); --g2:var(--purple);
+  --gw:color-mix(in srgb,var(--gold) 30%,transparent);
+  --post-accent:var(--gold); --post-accent-ink:var(--navy);
+  --post-ring:rgba(14,22,49,.08);}
+body.theme-dawn .courses{--g1:var(--purple); --g2:var(--periwinkle);
+  --gw:color-mix(in srgb,var(--purple) 16%,transparent);
+  --post-accent:var(--purple); --post-accent-ink:#fff;}
+/* media un poco más ancha en Courses → da headroom (fotos apaisadas no cortan cabezas/caras) */
+.courses .post__media{aspect-ratio:16/9;}
 
 .blog__head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:1.4rem 2rem;
   margin-bottom:clamp(2.6rem,4vw,4rem);}
@@ -433,12 +568,20 @@ body.theme-dawn .post__chip::before{background:var(--purple);}
 .foot__logo img{width:clamp(190px,17vw,236px);height:auto;display:block;}
 .foot__tag{font-family:var(--font-display);font-weight:400;color:var(--gold);
   font-size:clamp(1.3rem,1.05rem + .9vw,1.62rem);line-height:1.3;max-width:20ch;margin:0;}
-.foot__social{display:flex;flex-wrap:wrap;gap:.65rem;}
-.foot__social a{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);
-  display:grid;place-items:center;padding:0;color:#fff;
-  transition:color .25s var(--ease),border-color .25s var(--ease),background-color .25s var(--ease),transform .25s var(--ease);}
-.foot__social a:hover{border-color:var(--gold);background:var(--gold);color:var(--navy);transform:translateY(-3px);}
-.foot__social svg{width:18px;height:18px;}
+.foot__social{display:flex;flex-wrap:wrap;gap:.7rem;}
+/* MEDALLÓN: disco navy con relieve + sheen (mismo lenguaje que el play); hover → oro */
+.foot__social a{position:relative;isolation:isolate;width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--hairline-on-dark);display:grid;place-items:center;padding:0;color:#fff;
+  background:linear-gradient(180deg,#1b2447 0%,#121a38 100%);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.14),inset 0 -4px 8px rgba(0,0,0,.34),0 8px 18px rgba(8,10,26,.4);
+  transition:color .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease),transform .25s var(--ease);}
+.foot__social a::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.03) 36%,transparent 60%);}
+.foot__social svg{position:relative;z-index:2;width:18px;height:18px;}
+.foot__social a:hover{transform:translateY(-3px);color:var(--navy);border-color:rgba(120,75,8,.25);
+  background:linear-gradient(180deg,#ffe486 0%,#fed457 52%,#f3bf3b 100%);
+  box-shadow:inset 0 2px 1px rgba(255,255,255,.6),inset 0 -4px 8px rgba(120,75,8,.3),0 14px 26px rgba(8,10,26,.46),0 0 0 6px rgba(254,212,87,.16);}
+.foot__social a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--navy),0 0 0 6px var(--gold);}
 
 /* newsletter highlight */
 .foot__news{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);
@@ -636,19 +779,31 @@ body.anim-ink .sec__eyebrow .word{display:inline-block;}
 
 /* --- Courses bento --- */
 .courses__grid{gap:20px;}
-.ccard{padding:2rem;border:1px solid rgba(14,22,49,.08);border-radius:22px;background:#fff;}
-.ccard:hover{box-shadow:0 24px 50px rgba(60,25,81,.16);}
+/* SIN bordes ni líneas (se veía "IA"): superficie lila suave + elevación por sombra */
+.ccard{padding:2rem;border:0;border-radius:22px;overflow:hidden;
+  background:linear-gradient(180deg,#fbfaff 0%,#f1ecff 100%);
+  box-shadow:0 12px 30px -16px rgba(60,25,81,.22), 0 2px 6px rgba(60,25,81,.05);}
+.ccard:hover{transform:translateY(-6px);box-shadow:0 30px 60px -22px rgba(60,25,81,.30);}
 .ccard h3{margin-top:1.2rem;font-size:clamp(1.3rem,1rem + 1vw,1.8rem);}
 .ccard p{color:rgba(14,22,49,.64);line-height:1.6;}
-/* iconos: chip suave de marca (NO amarillo sólido) */
-.ccard__icon{width:48px;height:48px;border-radius:50%;background:var(--periwinkle);color:var(--purple);
-  box-shadow:inset 0 0 0 1px rgba(60,25,81,.08);}
-.ccard__icon svg{width:24px;height:24px;}
+/* iconos: MEDALLÓN dimensional (periwinkle→lila, relieve+sheen) → oro al hover */
+.ccard__icon{position:relative;width:54px;height:54px;border-radius:16px;color:var(--purple);
+  background:linear-gradient(155deg,#eae6ff 0%,#d8d0fb 60%,#cfc6f8 100%);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.85), inset 0 -3px 7px rgba(60,25,81,.10), 0 8px 18px -8px rgba(60,25,81,.35);
+  transition:transform .35s var(--ease),background .35s ease,color .35s ease,box-shadow .35s ease;}
+.ccard__icon::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.6),transparent 55%);}
+.ccard__icon svg{position:relative;width:25px;height:25px;}
+.ccard:hover .ccard__icon{transform:translateY(-2px) rotate(-3deg);color:var(--navy);
+  background:linear-gradient(155deg,#ffe9a8,#fed457 60%,#f3bf3b);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.7), inset 0 -3px 7px rgba(120,75,8,.22), 0 12px 22px -10px rgba(254,212,87,.5);}
 /* card protagonista: scrim degradado fuerte abajo + icono glass + más espacio */
 .ccard--feature{min-height:440px;padding:2.2rem;}
 .ccard--feature .ccard__scrim{background:linear-gradient(180deg,rgba(14,22,49,0) 26%,rgba(14,22,49,.55) 60%,rgba(14,22,49,.94));}
-.ccard--feature .ccard__icon{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.34);
+.ccard--feature .ccard__icon{border-radius:16px;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.34);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:none;}
+.ccard--feature .ccard__icon::before{display:none;}
+.ccard--feature:hover .ccard__icon{transform:none;color:#fff;background:rgba(255,255,255,.22);box-shadow:none;}
 .ccard--feature h3{font-size:clamp(1.7rem,1.2rem + 1.6vw,2.4rem);}
 /* "Explore" en morado sobre claro (oro solo en la feature, sobre oscuro) */
 .ccard__more{color:var(--purple);}
@@ -750,7 +905,7 @@ body.anim-ink .sec__eyebrow .word{display:inline-block;}
 /* cierre re-estructurado: crescendo de escala + "Are you ready?" + tira de detalle */
 .event__close{margin-top:clamp(2.4rem,4vw,3.6rem);}
 .event__statement{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;
-  margin:0;max-width:26ch;color:#fff;}
+  margin:0;max-width:40ch;color:#fff;}
 .event__statement .es{display:block;}
 .es--1{font-size:clamp(1.15rem,.9rem + .9vw,1.65rem);line-height:1.5;color:rgba(255,255,255,.7);margin-bottom:.35rem;}
 .es--2{font-size:clamp(1.9rem,1.1rem + 2.5vw,3.1rem);line-height:1.06;color:var(--gold);}

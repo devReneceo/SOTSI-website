@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-map section="about" generated="2026-06-23">
+  <root path="/about/" file="/about/index.html" title="About Hub">
+    <page slug="seat-of-the-soul-institute" path="/about/seat-of-the-soul-institute/" file="/about/seat-of-the-soul-institute/index.html" nav-label="About SOTS" purpose="Institute mission, values, vision, and authentic power foundation" />
+    <page slug="gary-zukav" path="/about/gary-zukav/" file="/about/gary-zukav/index.html" nav-label="About Gary" purpose="Biography, authority, and public credibility for Gary Zukav" />
+    <page slug="linda-francis" path="/about/linda-francis/" file="/about/linda-francis/index.html" nav-label="About Linda" purpose="Biography, spiritual partnership, books, and reverent legacy framing for Linda Francis" />
+  </root>
+  <notes>
+    <note>This sub-site is isolated so homepage/mobile work on the root index can continue without collisions.</note>
+    <note>All three pages follow the current SOTSI look and feel rather than the live site's older visual treatment.</note>
+    <note>Final production linking for books, podcast, resources, and memorial content remains open.</note>
+  </notes>
+</site-map>

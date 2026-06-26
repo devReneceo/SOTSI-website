@@ -20,3 +20,9 @@ assets/SOTS-Homepage-Video.mp4
 assets/images/last.gif
 assets/old fonts/
 assets/images/Latest-Book.png
+
+# Report package — internal-only files (never publish)
+report-*/_SESSION-LOG.md
+report-*/*-Report.md
+report-*/Seat_of_the_Soul_Audit.pdf
+report-*/evidence/before-hero-prev.png

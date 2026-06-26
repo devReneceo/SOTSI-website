@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Seat of the Soul — Current Site Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Roboto+Mono:wght@400;500&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deck.css">
+<style>
+  /* ===== Deck identity: RED glass (the "problem" deck) ===== */
+  :root{ --gold:#ff7a5e; --gold-bright:#ff9d7a; }
+  /* logo + brandmark orbs → warm red */
+  .logo-dot{ background:radial-gradient(circle at 50% 35%, #ff8f7a, #c4392b); box-shadow:0 0 40px rgba(255,95,80,.5); }
+  .brandmark .b-sun{ background:radial-gradient(circle at 50% 35%, #ff8f7a, #c4392b); }
+  /* ambient red-glass wash on the BASE slides only — leave light/cosmic variants alone */
+  .slide:not(.slide--light):not(.slide--cosmic){ background:
+    radial-gradient(1200px 700px at 80% -10%, rgba(150,32,40,.5), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(70,18,30,.72), transparent 55%),
+    var(--navy); }
+  /* light slides → warm ivory (dark ink text stays legible) */
+  .slide--light{ background:
+    radial-gradient(1000px 700px at 85% -10%, rgba(255,236,206,.55), transparent 60%),
+    linear-gradient(180deg, #faf6ee, #f1e7d6); }
+  /* comparison table on ivory: darken the pale/white cells + headers so they read */
+  .slide--light .cmp thead th:nth-child(2){ color:#cf3b2f; }
+  .slide--light .cmp td:nth-child(2){ color:var(--ink); }
+  .slide--light .cmp td:nth-child(3){ color:var(--ink); }
+  .slide--light .cmp .yes{ color:#0c6f48; }
+  .slide--light .cmp .no{ color:#cf3b2f; }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<div class="brandmark"><span class="b-sun"></span> 22D Marketing</div>
+
+<main class="deck">
+
+  <!-- 1 · Title -->
+  <section class="slide title-slide" aria-label="Title">
+    <div class="slide__inner">
+      <div class="logo-dot" aria-hidden="true"></div>
+      <p class="kicker">Website Assessment · June 2026</p>
+      <h1>The current site is<br>holding the brand back.</h1>
+      <p class="lead" style="margin-top:1.4rem">What's wrong with seatofthesoul.com today — performance, security and search problems found live on the current site, June 2026.</p>
+      <div class="meta">
+        <span>Prepared for <b>The Seat of the Soul Institute</b></span>
+        <span>By <b>22D Marketing</b></span>
+        <span>Report 1 of 2</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scoreboard -->
+  <section class="slide" aria-label="Scoreboard">
+    <div class="slide__inner">
+      <p class="eyebrow">The scoreboard</p>
+      <h2>What the numbers say today</h2>
+      <div class="stat-grid">
+        <div class="stat stat--bad"><div class="stat__num"><span data-count="52" data-dec="0">0</span><span class="stat__unit">/100</span></div><div class="stat__label">Mobile performance (Lighthouse)</div><div class="stat__sub">Google “good”: 90+</div></div>
+        <div class="stat stat--bad"><div class="stat__num"><span data-count="18.5" data-dec="1">0</span><span class="stat__unit">s</span></div><div class="stat__label">Mobile LCP — time to main content</div><div class="stat__sub">Google “good”: under 2.5s</div></div>
+        <div class="stat stat--bad"><div class="stat__num">~<span data-count="22.7" data-dec="1">0</span><span class="stat__unit">MB</span></div><div class="stat__label">Home page weight</div><div class="stat__sub">Healthy: under 3MB</div></div>
+        <div class="stat stat--bad"><div class="stat__num"><span data-count="87" data-dec="0">0</span><span class="stat__unit">%</span></div><div class="stat__label">Pages with no meta description</div><div class="stat__sub">269 of 308 pages</div></div>
+        <div class="stat stat--bad"><div class="stat__num"><span data-count="736" data-dec="0">0</span></div><div class="stat__label">Images with no alt text</div><div class="stat__sub">59% of all images</div></div>
+        <div class="stat stat--bad"><div class="stat__num">⚠</div><div class="stat__label">Hidden spam injected in source</div><div class="stat__sub">Unauthorized change to the live site</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · First impression -->
+  <section class="slide" aria-label="First impression">
+    <div class="slide__inner">
+      <div class="cols">
+        <div>
+          <p class="eyebrow">First impression</p>
+          <h2>The message gets lost</h2>
+          <ul class="ticks">
+            <li><strong>No single, clear value proposition</strong> — a rotating carousel mixes spiritual teaching, a live event, AI, and “failing governments.”</li>
+            <li><strong>The desktop menu is hidden</strong> behind a hamburger icon, even on big screens — an extra click and no overview of the site.</li>
+            <li><strong>The logo is hard to read</strong> — a small handwritten mark for a broad, multi-generational audience.</li>
+          </ul>
+        </div>
+        <figure class="shot">
+          <img src="evidence/before-hero.png" alt="Current home page — first impression (beach hero, hamburger menu)" loading="lazy" width="1715" height="877">
+          <figcaption>Live home, June 2026 — note the desktop hamburger (top-right), the small script logo, and one of several competing carousel messages.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Performance -->
+  <section class="slide" aria-label="Performance">
+    <div class="slide__inner">
+      <p class="eyebrow">Performance</p>
+      <h2>Slow enough to lose visitors</h2>
+      <div class="cols" style="margin-top:1.6rem">
+        <div class="gauges">
+          <div class="gauge" data-value="52">
+            <svg width="160" height="160" viewBox="0 0 150 150" role="img" aria-label="Mobile score 52 of 100">
+              <circle class="track" cx="75" cy="75" r="54" transform="rotate(135 75 75)"></circle>
+              <circle class="fill" cx="75" cy="75" r="54" stroke="#ff7a59"></circle>
+              <text class="gauge__val" x="75" y="84" text-anchor="middle" data-count="52" data-dec="0">0</text>
+            </svg>
+            <div class="gauge__cap">Mobile <b>Lighthouse</b> · target 90</div>
+          </div>
+          <div class="gauge" data-value="89">
+            <svg width="160" height="160" viewBox="0 0 150 150" role="img" aria-label="Desktop score 89 of 100">
+              <circle class="track" cx="75" cy="75" r="54" transform="rotate(135 75 75)"></circle>
+              <circle class="fill" cx="75" cy="75" r="54" stroke="#ffb35e"></circle>
+              <text class="gauge__val" x="75" y="84" text-anchor="middle" data-count="89" data-dec="0">0</text>
+            </svg>
+            <div class="gauge__cap">Desktop <b>Lighthouse</b> · acceptable</div>
+          </div>
+        </div>
+        <div class="vbars">
+          <div class="vbar" style="--w:92%">
+            <div class="vbar__top"><span class="vbar__name">Mobile LCP — time to main content</span></div>
+            <div class="vbar__track"><div class="vbar__fill"></div><div class="vbar__goal" style="left:12.5%" data-label="2.5s good"></div></div>
+            <div class="vbar__nums"><b>18.5s now</b><span>~7× slower than Google’s target</span></div>
+          </div>
+          <div class="vbar" style="--w:87%">
+            <div class="vbar__top"><span class="vbar__name">Home page weight</span></div>
+            <div class="vbar__track"><div class="vbar__fill"></div><div class="vbar__goal" style="left:11.5%" data-label="3MB"></div></div>
+            <div class="vbar__nums"><b>~22.7MB now</b><span>~8× heavier than healthy</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout" style="display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap">
+        <span>On desktop the site is fine (<b>89</b>) — but <b>56% of visits are on mobile</b>, where it scores <b>52</b> and an <b>18.5-second</b> LCP makes most visitors leave before they engage. <span style="color:var(--text-faint);font-size:.86em">Source: Google Lighthouse · seatofthesoul.com · Jun 25 2026.</span></span>
+        <a class="pdf-btn" href="Seat-of-the-Soul_Performance-Brief.pdf" target="_blank" rel="noopener" data-no-nav><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Full performance report (PDF) →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Security & maintenance -->
+  <section class="slide slide--cosmic" aria-label="Security and maintenance">
+    <div class="slide__inner">
+      <p class="eyebrow">Security &amp; maintenance</p>
+      <h2>WordPress vs. Webflow</h2>
+      <table class="cmp">
+        <thead><tr><th></th><th>WordPress (current)</th><th>Webflow (proposed)</th></tr></thead>
+        <tbody>
+          <tr><td>Plugins to maintain</td><td><span class="no">37</span> with pending updates · several licenses expired</td><td><span class="yes">None</span> — features are native</td></tr>
+          <tr><td>Security patching</td><td>Manual, ongoing, per-plugin</td><td><span class="yes">Automatic</span> (managed platform)</td></tr>
+          <tr><td>Unauthorized changes</td><td><span class="no">Hidden spam link injected in source</span></td><td>No plugin attack surface</td></tr>
+          <tr><td>An update can break the site</td><td>High — Elementor compat + a broken dependency</td><td>Low (single platform)</td></tr>
+          <tr><td>Hosting · SSL · CDN · backups</td><td>Your responsibility</td><td><span class="yes">Included &amp; managed</span></td></tr>
+        </tbody>
+      </table>
+      <div class="callout callout--bad" style="display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap">
+        <span>Two live risks today: an <b>unauthorized hidden gambling link</b> in the home-page source (proof next slide →), and <b>37 plugins</b> with pending updates plus expired premium licenses.</span>
+        <a class="pdf-btn" href="Seat-of-the-Soul_Plugin-Audit-Brief.pdf" target="_blank" rel="noopener" data-no-nav><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Full plugin audit (PDF) →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6b · Evidence: hidden SEO spam in source -->
+  <section class="slide slide--cosmic" aria-label="Hidden SEO spam in source">
+    <div class="slide__inner">
+      <p class="eyebrow">Unauthorized modification</p>
+      <h2>Hidden <span class="gold">SEO spam</span> in the home-page source</h2>
+      <div class="cols" style="margin-top:1.3rem;align-items:center;grid-template-columns:.9fr 1.2fr">
+        <div>
+          <p class="lead">Hidden SEO spam detected in the home-page source code. An unauthorized hidden link to an external gambling affiliate website (<code>aussielowdepositcasino.com</code>) was found.</p>
+          <p class="lead" style="margin-top:1rem">External malware scanners report <strong>no active malware</strong> — but the WordPress site has been <strong>modified without authorization</strong> and should undergo a full security review.</p>
+          <div class="vsource" data-no-nav>
+            <span class="vsource__lbl">Verify in your browser:</span>
+            <code class="vsource__url">view-source:https://seatofthesoul.com/</code>
+            <button class="vsource__copy" type="button" data-copy="view-source:https://seatofthesoul.com/">Copy</button>
+            <span class="vsource__hint">→ paste in the address bar, then Find (⌘/Ctrl+F) “casino”.</span>
+          </div>
+        </div>
+        <figure class="shot" data-no-nav>
+          <img src="evidence/casino-injection-source.png" alt="Home-page HTML source showing the injected hidden gambling affiliate link" loading="lazy">
+          <figcaption>seatofthesoul.com home page — view-source, June 2026. The injected gambling link (highlighted) is hidden from visitors.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · SEO health -->
+  <section class="slide" aria-label="SEO health">
+    <div class="slide__inner">
+      <div class="cols">
+        <div>
+          <p class="eyebrow">SEO health · 308-page crawl</p>
+          <h2>Hard for search to read</h2>
+          <div class="callout">On the <b>home page itself</b> (checked live, June 2026): <b>0</b> H1 headings and <b>41</b> H2s. Search engines need one clear H1 and an orderly outline — the home gives neither.</div>
+        </div>
+        <div class="pbars">
+          <div class="pbar" style="--w:87%"><div class="pbar__top"><span class="pbar__label">Pages with no meta description</span><span class="pbar__pct">87%</span></div><div class="pbar__track"><div class="pbar__fill"></div></div></div>
+          <div class="pbar" style="--w:71%"><div class="pbar__top"><span class="pbar__label">Titles too long (cut off in Google)</span><span class="pbar__pct">71%</span></div><div class="pbar__track"><div class="pbar__fill"></div></div></div>
+          <div class="pbar" style="--w:59%"><div class="pbar__top"><span class="pbar__label">Images with no alt text</span><span class="pbar__pct">59%</span></div><div class="pbar__track"><div class="pbar__fill"></div></div></div>
+          <div class="pbar" style="--w:29%"><div class="pbar__top"><span class="pbar__label">Pages with no H1 heading</span><span class="pbar__pct">29%</span></div><div class="pbar__track"><div class="pbar__fill"></div></div></div>
+        </div>
+      </div>
+      <p class="lead" style="margin-top:1.4rem">All confirmed on a live 308-page crawl of the current site, June 2026.</p>
+    </div>
+  </section>
+
+  <!-- 8 · AEO/GEO gap -->
+  <section class="slide" aria-label="AI search gap">
+    <div class="slide__inner">
+      <p class="eyebrow">The AI-search gap</p>
+      <h2>Invisible to ChatGPT, Perplexity &amp; Google AI</h2>
+      <p class="lead" style="margin-top:.6rem"><strong>SEO</strong> = appear in Google · <strong>AEO</strong> = be the direct answer · <strong>GEO</strong> = be <em>cited</em> by AI assistants. The current site was built for the first only.</p>
+      <div class="aicite">
+        <div class="aicite__box aicite__box--bad"><small>Ask AI “Who is Gary Zukav?” → today it cites</small><span class="src">Wikipedia · Amazon</span></div>
+        <div class="aicite__arrow" aria-hidden="true">→</div>
+        <div class="aicite__box aicite__box--good"><small>Should cite</small><span class="src">seatofthesoul.com</span></div>
+      </div>
+      <ul class="ticks" style="margin-top:1.4rem">
+        <li><strong>No FAQ structured data</strong> (confirmed live) — the format AI answers cite most.</li>
+        <li><strong>Gary Zukav’s authority isn’t machine-readable</strong> — not linked to his Wikipedia/Wikidata entity, so AIs cite third parties.</li>
+        <li><strong>No <code>llms.txt</code>, weak author signals</strong> — the exact cues AI models look for to trust a source.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 · Analytics: what the data says -->
+  <section class="slide" aria-label="What the analytics say">
+    <div class="slide__inner">
+      <p class="eyebrow">What your analytics say · GA4 · last 12 months</p>
+      <h2>More traffic than ever — <span class="gold">holding far less</span> of it</h2>
+      <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.3rem">
+        <div class="stat"><div class="stat__num" style="font-size:2.7rem">115,566</div><div class="stat__label">Sessions in 12 months</div><div class="stat__sub">+55% year over year</div></div>
+        <div class="stat stat--bad"><div class="stat__num" style="font-size:2.7rem"><span data-count="56" data-dec="0">0</span><span class="stat__unit">%</span></div><div class="stat__label">Visits on mobile</div><div class="stat__sub">the slowest experience (28.4s)</div></div>
+        <div class="stat stat--bad"><div class="stat__num" style="font-size:2.7rem"><span data-count="68" data-dec="0">0</span><span class="stat__unit">%</span></div><div class="stat__label">Bounce rate</div><div class="stat__sub">up from 48% a year ago</div></div>
+        <div class="stat stat--bad"><div class="stat__num" style="font-size:2.7rem"><span data-count="9" data-dec="0">0</span></div><div class="stat__label">From AI assistants</div><div class="stat__sub">all year — the AEO/GEO gap</div></div>
+      </div>
+      <div class="cols">
+        <div class="pbars">
+          <div class="pbar" style="--w:52%"><div class="pbar__top"><span class="pbar__label">Engaged · a year ago</span><span class="pbar__pct">52%</span></div><div class="pbar__track"><div class="pbar__fill"></div></div></div>
+          <div class="pbar" style="--w:32%"><div class="pbar__top"><span class="pbar__label">Engaged · now</span><span class="pbar__pct">32%</span></div><div class="pbar__track"><div class="pbar__fill"></div></div></div>
+        </div>
+        <div class="callout" style="margin-top:0">The <b>home page</b> is the #1 entry — <b>47,975</b> sessions — with ~<b>70%</b> bounce. Your best channel, organic search (56% engagement), is only <b>23%</b> of traffic. <b>Engaged sessions actually fell</b> year over year despite 55% more visits.</div>
+      </div>
+      <div style="margin-top:1.1rem;display:flex;justify-content:flex-end">
+        <a class="pdf-btn" href="Seat-of-the-Soul_Analytics-Brief.pdf" target="_blank" rel="noopener" data-no-nav><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Open the full analytics brief (PDF) →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · Content sprawl -->
+  <section class="slide" aria-label="Content sprawl">
+    <div class="slide__inner">
+      <div class="cols">
+        <div>
+          <p class="eyebrow">Content sprawl &amp; structure</p>
+          <h2>Large, aging, unmanaged</h2>
+          <ul class="ticks">
+            <li><strong>110 pages</strong> + 35 unused drafts; <strong>187 posts</strong>, 20 already expired.</li>
+            <li><strong>Duplicate &amp; year-stamped URLs</strong> (e.g. <code>/blog</code> + <code>/blog-2</code>) split authority.</li>
+            <li><strong>Hardcoded dates</strong> — the footer still reads “© 2025” in 2026.</li>
+            <li><strong>Generic funnels</strong> — every “Get Started” dumps into one catch-all page.</li>
+          </ul>
+        </div>
+        <figure class="shot">
+          <img src="evidence/before-footer.png" alt="Current footer showing hardcoded 2025" loading="lazy" width="1440" height="900">
+          <figcaption>Current footer — text-heavy, and the copyright year is hardcoded (“© 2025”).</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · Bottom line -->
+  <section class="slide slide--cosmic" aria-label="Bottom line">
+    <div class="slide__inner">
+      <p class="eyebrow">Bottom line</p>
+      <h2>The cost of staying</h2>
+      <ul class="ticks">
+        <li><strong>Unauthorized spam injected</strong> into the live home-page source — on a plugin-heavy stack that keeps the door open.</li>
+        <li><strong>~18.5-second mobile LCP</strong> (Lighthouse) — most phone visitors leave before the content renders.</li>
+        <li><strong>87% of pages with no meta description</strong> and <strong>736 images with no alt text</strong> — search traffic suppressed.</li>
+        <li><strong>Invisible to AI search</strong> — no FAQ schema, no entity links, no author signals.</li>
+        <li><strong>110 pages + 187 posts, aging and unmanaged</strong> — duplicate URLs and a hardcoded “© 2025”.</li>
+      </ul>
+      <div class="callout callout--bad">Every issue above is on the live site today — and compounds the longer it stays on WordPress.</div>
+    </div>
+  </section>
+
+</main>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="nav__home" href="index.html" aria-label="Back to index" title="Back to index"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a>
+  <button data-prev aria-label="Previous slide">‹</button>
+  <span class="nav__count" aria-live="polite">01 / 11</span>
+  <button data-next aria-label="Next slide">›</button>
+  <button data-fs aria-label="Toggle fullscreen" title="Fullscreen (F)">⤢</button>
+</nav>
+<div class="hint" aria-hidden="true">← → or click to navigate · F for fullscreen</div>
+
+<script src="assets/deck.js"></script>
+</body>
+</html>

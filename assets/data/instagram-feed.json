@@ -1,0 +1,69 @@
+{
+  "_comment": "MUESTRA con la forma EXACTA de la Instagram Graph API (GET /{ig-user-id}/media). MAÑANA este archivo lo regenera un paso server-side con el token secreto de Meta y la data real. Para probar la ruta de fetch hoy: poner IG_CONFIG.useMockData=false en assets/js/instafeed.js. Los media_url aquí apuntan a fotos locales solo para la demo; el API real devuelve URLs de cdn de Instagram.",
+  "data": [
+    {
+      "id": "17900000000000001",
+      "media_type": "IMAGE",
+      "media_url": "assets/images/Gary_outside_smiling_cb_146-scaled.jpg",
+      "permalink": "https://www.instagram.com/gary_zukav/",
+      "caption": "Authentic power is the alignment of your personality with your soul. 🌿",
+      "timestamp": "2026-06-24T15:02:00+0000",
+      "like_count": 4820,
+      "comments_count": 186
+    },
+    {
+      "id": "17900000000000002",
+      "media_type": "IMAGE",
+      "media_url": "assets/images/6a3342a6143842a748166468_gary-zukav-emotional-awareness-spiritual-growth.webp",
+      "permalink": "https://www.instagram.com/gary_zukav/",
+      "caption": "Emotional awareness is the doorway. What you feel is showing you where to grow.",
+      "timestamp": "2026-06-22T17:40:00+0000",
+      "like_count": 3175,
+      "comments_count": 92
+    },
+    {
+      "id": "17900000000000003",
+      "media_type": "VIDEO",
+      "media_url": "https://example.cdn.instagram.com/video-3.mp4",
+      "thumbnail_url": "assets/images/greeting-poster.webp",
+      "permalink": "https://www.instagram.com/gary_zukav/",
+      "caption": "Love is the antidote to fear. Every moment offers the choice again. 💛",
+      "timestamp": "2026-06-19T13:10:00+0000",
+      "like_count": 6140,
+      "comments_count": 241
+    },
+    {
+      "id": "17900000000000004",
+      "media_type": "IMAGE",
+      "media_url": "assets/images/6a3342a6143842a74816646a_gary-zukav-author-new-york-times-best-seller.webp",
+      "permalink": "https://www.instagram.com/gary_zukav/",
+      "caption": "A new reflection on the spiritual partnership at the heart of The Seat of the Soul.",
+      "timestamp": "2026-06-16T16:25:00+0000",
+      "like_count": 2890,
+      "comments_count": 74
+    },
+    {
+      "id": "17900000000000005",
+      "media_type": "IMAGE",
+      "media_url": "assets/images/Gary_standing_smiling_cb_019-scaled.jpg",
+      "permalink": "https://www.instagram.com/gary_zukav/",
+      "caption": "Reverence for life begins the moment you slow down enough to notice it.",
+      "timestamp": "2026-06-12T18:00:00+0000",
+      "like_count": 3962,
+      "comments_count": 118
+    },
+    {
+      "id": "17900000000000006",
+      "media_type": "IMAGE",
+      "media_url": "assets/images/latest-books.webp",
+      "permalink": "https://www.instagram.com/gary_zukav/",
+      "caption": "The books that have walked beside millions on the path to Authentic Power. 📚",
+      "timestamp": "2026-06-09T14:30:00+0000",
+      "like_count": 5310,
+      "comments_count": 203
+    }
+  ],
+  "paging": {
+    "cursors": { "before": "QVFIU...", "after": "QVFIU..." }
+  }
+}

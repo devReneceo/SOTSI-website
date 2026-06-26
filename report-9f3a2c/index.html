@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Seat of the Soul — Presentation Package</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --navy:#0E1631; --navy-2:#16204a; --cosmic:#3C1951; --gold:#FED457; --ice:#9DB4FF; --line:rgba(255,255,255,.12);
+    --muted:rgba(255,255,255,.64); --faint:rgba(255,255,255,.42); --serif:"Ubuntu",sans-serif; --sans:"Roboto",sans-serif; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--sans);min-height:100vh;color:rgba(255,255,255,.92);
+    background:radial-gradient(1200px 700px at 82% -12%,rgba(60,25,81,.55),transparent 60%),
+               radial-gradient(900px 600px at -12% 112%,rgba(22,32,74,.7),transparent 55%),var(--navy);}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(2.6rem,5vw,5rem) clamp(1.4rem,5vw,3rem) 4rem;}
+  header{display:flex;align-items:center;gap:.7rem;margin-bottom:2.6rem;}
+  .sun{width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 50% 35%,var(--gold),#d9a128);}
+  .brand{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);}
+  .eyebrow{font-size:.76rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:1rem;}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(2rem,1.2rem + 3vw,3.4rem);line-height:1.05;letter-spacing:-.01em;}
+  .sub{color:var(--muted);font-size:1.04rem;max-width:62ch;line-height:1.6;margin:.9rem 0 2.6rem;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;}
+  .card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:1.5rem 1.6rem;
+    display:flex;flex-direction:column;gap:.45rem;transition:border-color .2s,transform .2s,background .2s;}
+  .card:hover{border-color:rgba(254,212,87,.5);transform:translateY(-2px);background:rgba(255,255,255,.07);}
+  .card .num{font-family:var(--serif);font-size:.74rem;color:var(--gold);font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+  .card h2{font-family:var(--serif);font-size:1.32rem;font-weight:700;line-height:1.1;}
+  .card .d{color:var(--muted);font-size:.92rem;line-height:1.5;flex:1;margin:.1rem 0 .3rem;}
+  .card .meta{font-size:.74rem;color:var(--faint);}
+  .card .act{display:flex;gap:.6rem;margin-top:.7rem;}
+  .btn{display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;border-radius:22px;font-weight:600;font-size:.85rem;
+    padding:.5rem 1.1rem;cursor:pointer;border:0;font-family:inherit;}
+  .btn svg{width:14px;height:14px;}
+  .btn-g{background:var(--gold);color:var(--navy);}
+  .btn-g:hover{background:#ffe07a;}
+  .btn-o{background:transparent;color:#fff;border:1px solid var(--line);}
+  .btn-o:hover{border-color:var(--gold);}
+  .card.wide{grid-column:1 / -1;}
+  /* live demo CTA */
+  .demo-cta{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;font-weight:600;
+    font-size:.95rem;color:var(--navy);background:var(--gold);padding:.72rem 1.35rem;border-radius:26px;
+    box-shadow:0 14px 32px -14px rgba(254,212,87,.6);transition:transform .2s,box-shadow .2s;}
+  .demo-cta:hover{transform:translateY(-2px);box-shadow:0 20px 44px -14px rgba(254,212,87,.85);}
+  .demo-cta svg{width:15px;height:15px;}
+  .demo-cta__dot{width:8px;height:8px;border-radius:50%;background:#1c8a4f;
+    box-shadow:0 0 0 4px rgba(28,138,79,.25);animation:demopulse 2.4s ease-in-out infinite;}
+  @keyframes demopulse{0%,100%{box-shadow:0 0 0 3px rgba(28,138,79,.28);}50%{box-shadow:0 0 0 6px rgba(28,138,79,.10);}}
+  @media(prefers-reduced-motion:reduce){.demo-cta__dot{animation:none;}}
+  /* section heading */
+  .block-head{display:flex;align-items:baseline;gap:.9rem;flex-wrap:wrap;margin:2.8rem 0 1.1rem;}
+  .block-head .bt{font-family:var(--serif);font-size:1.26rem;font-weight:700;line-height:1;}
+  .block-head .bs{font-size:.84rem;color:var(--faint);}
+  .block-head .rule{flex:1;height:1px;background:var(--line);min-width:30px;}
+  /* TOP — the two decks, colored glass */
+  .decks{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;}
+  .card.deck{position:relative;border:0;overflow:hidden;border-radius:18px;padding:2rem 1.8rem;
+    -webkit-backdrop-filter:blur(16px) saturate(135%);backdrop-filter:blur(16px) saturate(135%);
+    transition:transform .25s var(--ease,ease),box-shadow .25s;}
+  .card.deck>*{position:relative;z-index:1;}
+  .card.deck::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%);}
+  .card.deck::after{content:"";position:absolute;z-index:0;width:240px;height:240px;right:-60px;top:-90px;
+    border-radius:50%;filter:blur(54px);opacity:.5;pointer-events:none;}
+  .card.deck h2{font-size:1.55rem;}
+  .card.deck .meta{color:rgba(255,255,255,.72);}
+  .card.deck:hover{transform:translateY(-3px);}
+  /* red glass — Presentation 1 (the problem deck) */
+  .deck-red{background:linear-gradient(155deg,rgba(255,86,86,.22),rgba(120,22,30,.10));
+    box-shadow:0 24px 60px -28px rgba(225,40,40,.6),inset 0 1px 0 rgba(255,255,255,.18);}
+  .deck-red::after{background:#ff5a5a;}
+  .deck-red:hover{box-shadow:0 30px 72px -26px rgba(235,46,46,.78),inset 0 1px 0 rgba(255,255,255,.22);}
+  .deck-red .num{color:#ff9b8e;}
+  .deck-red .btn-o{border-color:rgba(255,130,120,.4);}
+  .deck-red .btn-o:hover{border-color:#ff8a7a;}
+  /* green glass — Presentation 2 (the solution deck) */
+  .deck-green{background:linear-gradient(155deg,rgba(46,210,150,.22),rgba(16,80,68,.10));
+    box-shadow:0 24px 60px -28px rgba(20,180,120,.55),inset 0 1px 0 rgba(255,255,255,.18);}
+  .deck-green::after{background:#34e1a0;}
+  .deck-green:hover{box-shadow:0 30px 72px -26px rgba(24,196,132,.72),inset 0 1px 0 rgba(255,255,255,.22);}
+  .deck-green .num{color:#7ef0c0;}
+  .deck-green .btn-o{border-color:rgba(90,230,170,.4);}
+  .deck-green .btn-o:hover{border-color:#5ce8b4;}
+  /* solid themed CTA buttons */
+  .btn-red{background:#ff5a5a;color:#fff;}
+  .btn-red:hover{background:#ff7468;}
+  .btn-green{background:#34e1a0;color:var(--navy);}
+  .btn-green:hover{background:#56ecb4;}
+  /* BOTTOM — evidence / resources, cool accent */
+  .evi-wrap{margin-top:.4rem;padding:1.7rem clamp(1.1rem,2.4vw,1.7rem) 1.9rem;border-radius:20px;
+    background:linear-gradient(180deg,rgba(157,180,255,.08),rgba(157,180,255,.02));
+    border:1px solid rgba(157,180,255,.18);}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+  .card.evi{background:rgba(157,180,255,.07);border-color:rgba(157,180,255,.2);}
+  .card.evi:hover{border-color:rgba(157,180,255,.6);background:rgba(157,180,255,.11);transform:translateY(-2px);}
+  .card.evi .num{color:#aebcff;}
+  .btn-i{background:var(--ice);color:var(--navy);}
+  .btn-i:hover{background:#bccbff;}
+  .raw{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin-top:1.3rem;
+    padding-top:1.2rem;border-top:1px dashed rgba(157,180,255,.22);}
+  .raw .rl{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#aebcff;font-weight:700;margin-right:.2rem;}
+  .raw .btn-o{font-size:.86rem;border-color:rgba(157,180,255,.3);}
+  .raw .btn-o:hover{border-color:var(--ice);}
+  footer{margin-top:3rem;color:var(--faint);font-size:.78rem;line-height:1.6;}
+  /* in-place PDF viewer */
+  .pdfmodal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;
+    background:rgba(6,8,20,.88);backdrop-filter:blur(4px);padding:2.4vh 2.4vw;}
+  .pdfmodal.is-open{display:flex;}
+  .pdfmodal__panel{width:min(1120px,95vw);height:95vh;background:#2a2a2a;border-radius:14px;overflow:hidden;
+    display:flex;flex-direction:column;box-shadow:0 40px 120px -30px rgba(0,0,0,.85);}
+  .pdfmodal__bar{display:flex;align-items:center;gap:1rem;padding:.7rem 1rem;background:var(--navy-2);color:#fff;}
+  .pdfmodal__title{flex:1;font-size:.92rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pdfmodal__open{color:var(--gold);text-decoration:none;font-size:.82rem;font-weight:600;white-space:nowrap;}
+  .pdfmodal__close{background:rgba(255,255,255,.12);border:0;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;}
+  .pdfmodal__close:hover{background:rgba(255,255,255,.24);}
+  .pdfmodal__frame{flex:1;width:100%;border:0;background:#3a3a3a;}
+  @media(max-width:720px){ .grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><span class="sun" aria-hidden="true"></span><span class="brand">22D Marketing</span></header>
+  <p class="eyebrow">Presentation package · June 2026</p>
+  <h1>The Seat of the Soul Institute<br>Website Project</h1>
+  <p class="sub">Start with the <b>two presentations</b> — the current-site assessment and the redesign proposal. The <b>evidence &amp; data</b> behind them (analytics, performance, plugins, raw Lighthouse) sits below. Click <b>View</b> to read any document right here, with scroll.</p>
+
+  <a class="demo-cta" href="../" target="_blank" rel="noopener">
+    <span class="demo-cta__dot" aria-hidden="true"></span>
+    Preview the demo website
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+  </a>
+
+  <div class="block-head">
+    <span class="bt">The presentations</span>
+    <span class="bs">Start here — present these two</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+  <div class="decks">
+    <div class="card deck deck-red">
+      <span class="num">Presentation 1 · Deck</span>
+      <h2>Current Site Assessment</h2>
+      <p class="d">What's wrong with seatofthesoul.com today — first impression, performance, security and search visibility.</p>
+      <span class="meta">11 slides</span>
+      <div class="act">
+        <a class="btn btn-red" href="Seat-of-the-Soul_Current-Site-Presentation.html#s1">Present (live) →</a>
+        <button class="btn btn-o pdf-open" data-pdf="Seat-of-the-Soul_Current-Site-Presentation.pdf" data-title="Current Site Assessment">PDF</button>
+      </div>
+    </div>
+
+    <div class="card deck deck-green">
+      <span class="num">Presentation 2 · Deck</span>
+      <h2>The New Proposal</h2>
+      <p class="d">The redesign, section by section, shown side by side with today's site — a faster, secure, plugin-free build.</p>
+      <span class="meta">16 slides</span>
+      <div class="act">
+        <a class="btn btn-green" href="Seat-of-the-Soul_New-Proposal-Presentation.html#s1">Present (live) →</a>
+        <button class="btn btn-o pdf-open" data-pdf="Seat-of-the-Soul_New-Proposal-Presentation.pdf" data-title="The New Proposal">PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-head">
+    <span class="bt">Evidence &amp; data</span>
+    <span class="bs">The proof behind the decks</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+  <div class="evi-wrap">
+    <div class="grid-3">
+      <div class="card evi">
+        <span class="num">Brief · Analytics</span>
+        <h2>Analytics Brief</h2>
+        <p class="d">Google Analytics 4: 115k sessions, but bounce up to 68% and engagement down to 32% — most of it on mobile.</p>
+        <span class="meta">2 pages · GA4 property 296097870</span>
+        <div class="act">
+          <button class="btn btn-i pdf-open" data-pdf="Seat-of-the-Soul_Analytics-Brief.pdf" data-title="Analytics Brief">View</button>
+          <a class="btn btn-o" href="Seat-of-the-Soul_Analytics-Brief.pdf" target="_blank" rel="noopener">Open ↗</a>
+        </div>
+      </div>
+
+      <div class="card evi">
+        <span class="num">Brief · Performance</span>
+        <h2>Performance Brief</h2>
+        <p class="d">Lighthouse: mobile 52/100 with an 18.5s LCP on a 22.7MB page. Desktop is fine (89) — but 56% of visits are mobile.</p>
+        <span class="meta">2 pages · Lighthouse, Jun 25 2026</span>
+        <div class="act">
+          <button class="btn btn-i pdf-open" data-pdf="Seat-of-the-Soul_Performance-Brief.pdf" data-title="Performance Brief">View</button>
+          <a class="btn btn-o" href="Seat-of-the-Soul_Performance-Brief.pdf" target="_blank" rel="noopener">Open ↗</a>
+        </div>
+      </div>
+
+      <div class="card evi">
+        <span class="num">Brief · Plugins</span>
+        <h2>Plugin Maintenance Audit</h2>
+        <p class="d">WordPress plugin risk: 37 pending updates, expired premium licenses, a broken dependency and a live JavaScript error.</p>
+        <span class="meta">1 page</span>
+        <div class="act">
+          <button class="btn btn-i pdf-open" data-pdf="Seat-of-the-Soul_Plugin-Audit-Brief.pdf" data-title="Plugin Maintenance Audit">View</button>
+          <a class="btn btn-o" href="Seat-of-the-Soul_Plugin-Audit-Brief.pdf" target="_blank" rel="noopener">Open ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="raw">
+      <span class="rl">Raw Lighthouse</span>
+      <a class="btn btn-o pdf-open" data-pdf="lighthouse/Seat-of-the-Soul_Lighthouse-Mobile.pdf" data-title="Lighthouse — Mobile">Mobile (52)</a>
+      <a class="btn btn-o pdf-open" data-pdf="lighthouse/Seat-of-the-Soul_Lighthouse-Desktop.pdf" data-title="Lighthouse — Desktop">Desktop (89)</a>
+    </div>
+  </div>
+
+  <footer>All figures sourced live in June 2026 — Google Analytics 4, Google Lighthouse, and a WordPress admin / browser-console review. Prepared by 22D Marketing for The Seat of the Soul Institute.</footer>
+</div>
+
+<script>
+(function(){
+  var modal=document.createElement('div'); modal.className='pdfmodal'; modal.setAttribute('aria-hidden','true');
+  modal.innerHTML='<div class="pdfmodal__panel" role="dialog" aria-modal="true" aria-label="Document viewer">'
+    +'<div class="pdfmodal__bar"><span class="pdfmodal__title"></span>'
+    +'<a class="pdfmodal__open" target="_blank" rel="noopener">Open in new tab ↗</a>'
+    +'<button class="pdfmodal__close" type="button" aria-label="Close">✕</button></div>'
+    +'<iframe class="pdfmodal__frame" title="Document preview"></iframe></div>';
+  document.body.appendChild(modal);
+  var frame=modal.querySelector('.pdfmodal__frame'), title=modal.querySelector('.pdfmodal__title'), openA=modal.querySelector('.pdfmodal__open');
+  function open(url,label){ frame.src=url; openA.href=url; title.textContent=label||'Document'; modal.classList.add('is-open'); }
+  function close(){ modal.classList.remove('is-open'); frame.src='about:blank'; }
+  modal.querySelector('.pdfmodal__close').addEventListener('click', close);
+  modal.addEventListener('click', function(e){ if(e.target===modal) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && modal.classList.contains('is-open')) close(); });
+  document.querySelectorAll('.pdf-open').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); open(el.getAttribute('data-pdf'), el.getAttribute('data-title')); });
+  });
+})();
+</script>
+</body>
+</html>

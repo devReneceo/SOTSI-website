@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Seat of the Soul — The New Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Roboto+Mono:wght@400;500&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deck.css">
+<style>
+  /* ===== Deck identity: GREEN glass (the "solution" deck) ===== */
+  :root{ --gold:#34e1a0; --gold-bright:#7ef0c0; }
+  /* logo + brandmark orbs → emerald */
+  .logo-dot{ background:radial-gradient(circle at 50% 35%, #5cead0, #16a06f); box-shadow:0 0 40px rgba(52,225,160,.5); }
+  .brandmark .b-sun{ background:radial-gradient(circle at 50% 35%, #5cead0, #16a06f); }
+  /* ambient green-glass wash on the BASE slides only — leave light/cosmic variants alone */
+  .slide:not(.slide--light):not(.slide--cosmic){ background:
+    radial-gradient(1200px 700px at 80% -10%, rgba(20,150,108,.42), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(16,58,72,.72), transparent 55%),
+    var(--navy); }
+  /* light slides → warm ivory (dark ink text stays legible) */
+  .slide--light{ background:
+    radial-gradient(1000px 700px at 85% -10%, rgba(255,236,206,.55), transparent 60%),
+    linear-gradient(180deg, #faf6ee, #f1e7d6); }
+  /* comparison table on ivory: darken the pale/white cells + headers so they read */
+  .slide--light .cmp thead th:nth-child(2){ color:#cf3b2f; }
+  .slide--light .cmp thead th:nth-child(3){ color:#0e8a5b; }
+  .slide--light .cmp td:nth-child(2){ color:var(--ink); }
+  .slide--light .cmp td:nth-child(3){ color:#0c6f48; font-weight:500; }
+  .slide--light .cmp .yes{ color:#0c6f48; }
+  .slide--light .cmp .no{ color:#cf3b2f; }
+  /* before/after slider: "after" side reads green (improvement) */
+  .ba__tag--after{ background:rgba(52,225,160,.92); color:var(--navy); }
+  .ba__line{ box-shadow:0 0 14px rgba(52,225,160,.7); }
+  /* trim sliders ~15% (proportional, no crop) so the description line below stays visible */
+  .ba{ max-width:85%; margin-inline:auto; }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<div class="brandmark"><span class="b-sun"></span> 22D Marketing</div>
+
+<main class="deck">
+
+  <!-- 1 · Title -->
+  <section class="slide title-slide" aria-label="Title">
+    <div class="slide__inner">
+      <div class="logo-dot" aria-hidden="true"></div>
+      <p class="kicker">The New Proposal · June 2026</p>
+      <h1>A home worthy of<br>the <span class="gold">message</span>.</h1>
+      <p class="lead" style="margin-top:1.4rem">A redesigned home experience, a refreshed brand, and a modern, secure platform — shown side by side with the current site so the improvement is visible, not just described.</p>
+      <div class="meta">
+        <span>Prepared for <b>The Seat of the Soul Institute</b></span>
+        <span>By <b>22D Marketing</b></span>
+        <span>Report 2 of 2</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Vision -->
+  <section class="slide slide--cosmic" aria-label="Vision">
+    <div class="slide__inner">
+      <p class="eyebrow">The vision</p>
+      <h2>Calm, premium, and <span class="gold">findable</span></h2>
+      <ul class="ticks">
+        <li><strong>Says what the Institute offers in 5 seconds</strong>, then guides with intention.</li>
+        <li><strong>Built for a multi-generational audience</strong> — large, legible type; high contrast; an unhurried flow.</li>
+        <li><strong>One clear action per section</strong>, led by composition and color, not pressure.</li>
+        <li><strong>Found in the AI-search era</strong> — engineered for SEO + AEO + GEO from day one.</li>
+        <li><strong>Secure &amp; low-maintenance</strong> — delivered on Webflow, no plugins to patch.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 · Brand identity -->
+  <section class="slide slide--light" aria-label="Brand identity">
+    <div class="slide__inner">
+      <p class="eyebrow">A refreshed identity</p>
+      <h2>The same soul, made legible</h2>
+      <div class="cols" style="margin-top:1rem">
+        <div>
+          <ul class="ticks">
+            <li><strong>Redesigned logo</strong> — a rising <strong>sun + book</strong> icon, redrawn to read instantly at any size and age.</li>
+            <li><strong>A real type pairing</strong> — refined serif headlines + a clean sans body; script reserved for rare emotional accents.</li>
+            <li><strong>Three coordinated themes</strong> (Navy · Cosmic · Light) so the brand flexes without ever drifting off.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="swatches">
+            <div class="sw"><div class="sw__chip" style="background:#0E1631"></div><div class="sw__name">Midnight Navy</div><div class="sw__hex">#0E1631</div></div>
+            <div class="sw"><div class="sw__chip" style="background:#3C1951"></div><div class="sw__name">Cosmic Purple</div><div class="sw__hex">#3C1951</div></div>
+            <div class="sw"><div class="sw__chip" style="background:#D2CCFD"></div><div class="sw__name">Periwinkle</div><div class="sw__hex">#D2CCFD</div></div>
+            <div class="sw"><div class="sw__chip" style="background:#FED457"></div><div class="sw__name">Golden</div><div class="sw__hex">#FED457</div></div>
+            <div class="sw"><div class="sw__chip" style="background:#FFEB45"></div><div class="sw__name">Luminous</div><div class="sw__hex">#FFEB45</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Hero -->
+  <section class="slide" aria-label="Hero redesign">
+    <div class="slide__inner">
+      <p class="eyebrow">The hero · drag to compare</p>
+      <h2>One clear message</h2>
+      <div class="ba" style="--pos:50%">
+        <img class="ba__before" src="evidence/before-hero.png" alt="Current hero — mixed carousel" loading="lazy">
+        <img class="ba__after" src="evidence/after-hero.png" alt="Proposed hero — Creating Authentic Power" loading="lazy">
+        <div class="ba__line" aria-hidden="true"></div><div class="ba__handle" aria-hidden="true">⇆</div>
+        <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare current vs proposed hero">
+        <span class="ba__tag ba__tag--before">Current</span><span class="ba__tag ba__tag--after">Proposed</span>
+      </div>
+      <p class="lead" style="margin-top:1rem">From a mixed carousel + hidden menu → a focused promise (<strong>“Creating <span class="gold">Authentic Power</span>”</strong>), a readable menu, two clear entry points (<strong>Get Started</strong> / <strong>Meet Gary</strong>), and subtle edge controls.</p>
+    </div>
+  </section>
+
+  <!-- 5 · Soul Tide -->
+  <section class="slide" aria-label="Aspiration redesign">
+    <div class="slide__inner">
+      <p class="eyebrow">“Do you want…” · drag to compare</p>
+      <h2>The same powerful words — finally easy to read</h2>
+      <div class="ba" style="--pos:50%">
+        <img class="ba__before" src="evidence/before-aspire.png" alt="Current aspiration — hard-to-read handwriting" loading="lazy">
+        <img class="ba__after" src="evidence/after-aspire.png" alt="Proposed Soul Tide section" loading="lazy">
+        <div class="ba__line" aria-hidden="true"></div><div class="ba__handle" aria-hidden="true">⇆</div>
+        <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare current vs proposed aspiration section">
+        <span class="ba__tag ba__tag--before">Current</span><span class="ba__tag ba__tag--after">Proposed</span>
+      </div>
+      <p class="lead" style="margin-top:1rem">Oversized, widely-spaced handwriting on flat yellow → instantly legible, <span class="gold">“creativity”</span> lifted in gold over calm navy with a gentle wave of light. Less is more, done right.</p>
+    </div>
+  </section>
+
+  <!-- 6 · Greeting -->
+  <section class="slide" aria-label="Greeting redesign">
+    <div class="slide__inner">
+      <p class="eyebrow">Greeting from Gary &amp; Linda · drag to compare</p>
+      <h2>Reached fast, felt fully</h2>
+      <div class="ba" style="--pos:50%">
+        <img class="ba__before" src="evidence/before-greeting.png" alt="Current greeting section" loading="lazy">
+        <img class="ba__after" src="evidence/after-greeting.png" alt="Proposed greeting section" loading="lazy">
+        <div class="ba__line" aria-hidden="true"></div><div class="ba__handle" aria-hidden="true">⇆</div>
+        <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare current vs proposed greeting">
+        <span class="ba__tag ba__tag--before">Current</span><span class="ba__tag ba__tag--after">Proposed</span>
+      </div>
+      <p class="lead" style="margin-top:1rem">A tighter flow gets visitors to the welcome video <strong>quickly</strong>, in a warm, distraction-free frame designed to feel like sitting down to watch.</p>
+    </div>
+  </section>
+
+  <!-- 7 · Consciousness -->
+  <section class="slide" aria-label="Consciousness section">
+    <div class="slide__inner">
+      <div class="cols cols--40">
+        <div>
+          <p class="eyebrow">Consciousness</p>
+          <h2>One cohesive section</h2>
+          <p class="lead">The old layout split this idea into three stacked pieces, and the video covered the lines above and below it. Now it’s a single, cinematic composition where color and type-size <strong>guide the eye to the action</strong> — and nothing gets hidden.</p>
+        </div>
+        <figure class="shot">
+          <img src="evidence/after-consciousness.png" alt="Proposed consciousness section" loading="lazy" width="1440" height="900">
+          <figcaption>Proposed: “The emerging global consciousness offers the potential of <em>authentic power</em>.”</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · The journey continues -->
+  <section class="slide slide--cosmic" aria-label="More sections">
+    <div class="slide__inner">
+      <p class="eyebrow">The journey continues</p>
+      <h2>Browse, believe, belong</h2>
+      <div class="showcase">
+        <figure><img src="evidence/after-courses.png" alt="Courses bento" loading="lazy"><figcaption><b>Courses</b>Four practices, one clear entry point.</figcaption></figure>
+        <figure><img src="evidence/after-books.png" alt="Books section" loading="lazy"><figcaption><b>Books</b>Real covers + #1 NYT badge — visible credibility.</figcaption></figure>
+        <figure><img src="evidence/after-founders.png" alt="Founders section" loading="lazy"><figcaption><b>Founders</b>Gary &amp; Linda, with dignity and warmth.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · Big CTA -->
+  <section class="slide" aria-label="Closing call to action">
+    <div class="slide__inner">
+      <div class="cols cols--40">
+        <div>
+          <p class="eyebrow">The closing call</p>
+          <h2>An image that makes you want to belong</h2>
+          <p class="lead">“Are you ready to create <span class="gold">Authentic Power?</span>” A warm, human scene closes the story and leads to one clear next step.</p>
+        </div>
+        <figure class="shot">
+          <img src="evidence/after-bigcta.png" alt="Proposed closing CTA" loading="lazy" width="1440" height="900">
+          <figcaption>Proposed closing section.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · Footer -->
+  <section class="slide" aria-label="Footer redesign">
+    <div class="slide__inner">
+      <p class="eyebrow">A footer that never goes stale · drag to compare</p>
+      <h2>Organized — and self-updating</h2>
+      <div class="ba" style="--pos:50%">
+        <img class="ba__before" src="evidence/before-footer.png" alt="Current footer with hardcoded 2025" loading="lazy">
+        <img class="ba__after" src="evidence/after-footer.png" alt="Proposed footer with auto year" loading="lazy">
+        <div class="ba__line" aria-hidden="true"></div><div class="ba__handle" aria-hidden="true">⇆</div>
+        <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare current vs proposed footer">
+        <span class="ba__tag ba__tag--before">Current</span><span class="ba__tag ba__tag--after">Proposed</span>
+      </div>
+      <p class="lead" style="margin-top:1rem">Grouped by intent (Connect · Explore · Contact), with a copyright year that <strong>updates itself</strong> — no more “© 2025” lingering into the next year.</p>
+    </div>
+  </section>
+
+  <!-- 11 · UX improvements -->
+  <section class="slide slide--light" aria-label="UX improvements">
+    <div class="slide__inner">
+      <p class="eyebrow">UX &amp; interaction</p>
+      <h2>Designed to guide, not to shout</h2>
+      <table class="cmp">
+        <thead><tr><th></th><th>Current site</th><th>Proposal</th></tr></thead>
+        <tbody>
+          <tr><td>Desktop menu</td><td>Hidden behind a hamburger</td><td>Full, readable menu + dropdowns</td></tr>
+          <tr><td>Slider controls</td><td>Easy to mis-click into content</td><td>Subtle, deliberate Back / Next</td></tr>
+          <tr><td>Reading flow</td><td>Centered, even emphasis</td><td>Headline → image → soft CTA</td></tr>
+          <tr><td>Time to the welcome video</td><td>Long scroll</td><td>Reached quickly</td></tr>
+          <tr><td>Motion &amp; accessibility</td><td>Uncontrolled, low contrast</td><td>Purposeful, AA contrast, “reduce motion” aware</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 12 · Performance -->
+  <section class="slide" aria-label="Performance targets">
+    <div class="slide__inner">
+      <p class="eyebrow">Performance</p>
+      <h2>From “unusable on mobile” → <span class="gold">fast</span></h2>
+      <div class="vbars" style="margin-top:1.4rem">
+        <div class="vbar" style="--w:95%">
+          <div class="vbar__top"><span class="vbar__name">Mobile load (LCP)</span><span class="vbar__target">we move it to the gold line</span></div>
+          <div class="vbar__track"><div class="vbar__fill"></div><div class="vbar__goal" style="left:8.3%" data-label="under 2.5s"></div></div>
+          <div class="vbar__nums"><b>28.4s today</b><span>target: under 2.5s</span></div>
+        </div>
+        <div class="vbar" style="--w:92%">
+          <div class="vbar__top"><span class="vbar__name">Page weight</span></div>
+          <div class="vbar__track"><div class="vbar__fill"></div><div class="vbar__goal" style="left:11.5%" data-label="under 3MB"></div></div>
+          <div class="vbar__nums"><b>~24MB today</b><span>target: under 3MB</span></div>
+        </div>
+        <div class="vbar" style="--w:43%">
+          <div class="vbar__top"><span class="vbar__name">Mobile PageSpeed score</span></div>
+          <div class="vbar__track"><div class="vbar__fill" style="background:linear-gradient(90deg,#5ad19a,#9be7c4)"></div><div class="vbar__goal" style="left:80%" data-label="80+"></div></div>
+          <div class="vbar__nums"><b>43 / 100 today</b><span>target: 80+</span></div>
+        </div>
+      </div>
+      <div class="callout">How: modern WebP imagery sized to what’s shown, lazy-loading below the fold, a high-priority hero, preloaded fonts, and GPU-friendly motion. <b>Targets validated against the live build before go-live.</b></div>
+    </div>
+  </section>
+
+  <!-- 13 · SEO/AEO/GEO -->
+  <section class="slide slide--cosmic" aria-label="SEO AEO GEO built in">
+    <div class="slide__inner">
+      <p class="eyebrow">Built for SEO · AEO · GEO</p>
+      <h2>Engineered to be <span class="gold">cited</span></h2>
+      <div class="checks">
+        <div class="check"><span class="check__mark">✓</span><span>One clean <strong>H1</strong> + orderly headings (vs. today’s 0 H1 / 41 H2)</span></div>
+        <div class="check"><span class="check__mark">✓</span><span>Full <strong>JSON-LD</strong>: Organization · WebSite · Person · Course · <strong>FAQPage</strong></span></div>
+        <div class="check"><span class="check__mark">✓</span><span>A <strong>visible FAQ</strong> (8 questions) — the top-cited format in AI answers</span></div>
+        <div class="check"><span class="check__mark">✓</span><span>Gary Zukav linked to his <strong>Wikipedia / Wikidata</strong> entity</span></div>
+        <div class="check"><span class="check__mark">✓</span><span>A <strong>citable definition</strong> of “Authentic Power” under the H1</span></div>
+        <div class="check"><span class="check__mark">✓</span><span><strong><code>llms.txt</code></strong> + author bylines/dates (E-E-A-T) on the blog</span></div>
+      </div>
+      <div class="callout">As more people ask AI “Who is Gary Zukav?” / “What is Authentic Power?”, the Institute becomes the source the assistants quote — recapturing traffic and sales.</div>
+    </div>
+  </section>
+
+  <!-- 14 · Grounded in analytics -->
+  <section class="slide slide--cosmic" aria-label="Grounded in analytics">
+    <div class="slide__inner">
+      <p class="eyebrow">Grounded in your analytics · GA4 · last 12 months</p>
+      <h2>We're improving this for the audience you <span class="gold">already have</span></h2>
+      <table class="cmp">
+        <thead><tr><th></th><th>Today (your data)</th><th>The new site</th></tr></thead>
+        <tbody>
+          <tr><td>Mobile share</td><td>56% — on the slowest pages</td><td>Fast, mobile-first (LCP &lt;2.5s)</td></tr>
+          <tr><td>Home page</td><td>#1 entry (47,975) · ~70% bounce</td><td>Rebuilt — clearer, guided flow</td></tr>
+          <tr><td>Best channel</td><td>Organic 56% eng · only 23% of traffic</td><td>Built-in SEO grows it past the ceiling</td></tr>
+          <tr><td>AI assistants</td><td>9 sessions all year</td><td>FAQ + entity data → citable by AI</td></tr>
+          <tr><td>Key actions</td><td>2.8% of sessions</td><td>One clear CTA per section</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">Traffic is up 55% YoY, but engagement fell (52% → 32%) and bounce rose to 68% — the brand is earning attention the platform can't hold. Full evidence in the separate <b>Analytics Brief (PDF)</b>.</div>
+    </div>
+  </section>
+
+  <!-- 15 · Roadmap (proposal — no dates, no progress claims) -->
+  <section class="slide" aria-label="Roadmap">
+    <div class="slide__inner">
+      <p class="eyebrow">The roadmap</p>
+      <h2>A clear path to launch</h2>
+      <div class="timeline">
+        <div class="tl"><div class="tl__dot"></div><div class="tl__phase">Phase 01</div><div class="tl__title">Design &amp; build</div><div class="tl__body">Home design across breakpoints, 3 themes, a full brand system, pilot blogs and real testimonials in Webflow.</div></div>
+        <div class="tl"><div class="tl__dot"></div><div class="tl__phase">Phase 02</div><div class="tl__title">Go-live setup</div><div class="tl__body">Connect domain, permissive robots, sitemap, Search Console, and a 51-URL redirect map.</div></div>
+        <div class="tl"><div class="tl__dot"></div><div class="tl__phase">Phase 03</div><div class="tl__title">SEO/AEO/GEO layer</div><div class="tl__body">JSON-LD + visible FAQ, H1/heading fix, alt text, and hero priority loading.</div></div>
+        <div class="tl"><div class="tl__dot"></div><div class="tl__phase">Phase 04</div><div class="tl__title">Scale &amp; tune</div><div class="tl__body">CMS schema, blog E-E-A-T, <code>llms.txt</code>, and Core Web Vitals tuning.</div></div>
+      </div>
+      <div class="callout">Migration planned: <b>110 pages</b> triaged (13 rebuild · 39 improve · 25 consolidate · 30 retire) with a <b>51-URL redirect map</b> so existing SEO is protected from day one.</div>
+    </div>
+  </section>
+
+  <!-- 16 · The ask -->
+  <section class="slide title-slide" aria-label="The ask">
+    <div class="slide__inner">
+      <p class="eyebrow">The ask</p>
+      <h2>Three green lights</h2>
+      <ul class="ticks" style="margin-top:1.4rem">
+        <li><strong>Confirm direction</strong> on the home redesign and brand refresh.</li>
+        <li><strong>Verify a short list of facts</strong> before publishing — impact numbers, testimonial rights, credentials for the structured data, and the Linda Francis tribute framing.</li>
+        <li><strong>Green-light the Webflow go-live</strong> sequence (domain, redirects, SEO/AEO/GEO layer).</li>
+      </ul>
+      <p class="lead" style="margin-top:1.6rem">The brand is already exceptional. This gives it a home — <span class="gold">fast, secure, beautiful, and findable</span> — that finally does the work justice.</p>
+    </div>
+  </section>
+
+</main>
+
+<nav class="nav" aria-label="Slide navigation">
+  <a class="nav__home" href="index.html" aria-label="Back to index" title="Back to index"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></a>
+  <button data-prev aria-label="Previous slide">‹</button>
+  <span class="nav__count" aria-live="polite">01 / 16</span>
+  <button data-next aria-label="Next slide">›</button>
+  <button data-fs aria-label="Toggle fullscreen" title="Fullscreen (F)">⤢</button>
+</nav>
+<div class="hint" aria-hidden="true">← → or click to navigate · drag the gold handle to compare · F for fullscreen</div>
+
+<script src="assets/deck.js"></script>
+</body>
+</html>

@@ -121,6 +121,14 @@ body.anim-kinetic .event__connector{transform:scaleX(0);
 body.anim-reveal .event__act.in .event__connector,
 body.anim-kinetic .event__act.in .event__connector{transform:scaleX(1);}
 @media (prefers-reduced-motion:reduce){.event__connector{transform:none!important;}}
+/* móvil: la "Z" pasa a columna → el conector es una línea vertical fina, no un bloque.
+   El fix vive aquí porque section-polish.css carga después de mobile.css y ganaba el min-width:48px. */
+@media (max-width:768px){
+  .event__connector{flex:0 0 auto;width:1px;min-width:0;height:28px;
+    background:linear-gradient(180deg, rgba(254,212,87,.85), rgba(254,212,87,.2));}
+  body.anim-reveal .event__connector,
+  body.anim-kinetic .event__connector{transform:none;}
+}
 
 /* =====================================================================
    4 · TOOLS · minimal centrado (3 textos + botón en medio)
@@ -165,8 +173,7 @@ body.anim-kinetic .event__act.in .event__connector{transform:scaleX(1);}
   .event .sec__inner{max-width:68rem;}
   .event .sec__eyebrow{text-align:right;}
   .event .accent-rule{margin-left:auto;margin-right:0;}
-  .event__headline{margin-left:auto;margin-right:0;text-align:right;max-width:22ch;}
-  .event__support{margin-left:auto;margin-right:0;text-align:right;max-width:36ch;}
+  .event__headline{margin-left:auto;margin-right:0;text-align:right;max-width:30ch;}
   /* cierre como UNIDAD a la izquierda (diagonal: intro der · cierre izq) */
   .event__close{margin-left:0;margin-right:auto;text-align:left;max-width:50rem;}
 }

@@ -13,7 +13,7 @@
   var IG_CONFIG = {
     useMockData: true,                               // ← mañana: false
     jsonUrl: 'assets/data/instagram-feed.json',      // feed estático seguro (server-side)
-    limit: 6,
+    limit: 3,                                        // ← 3 cards por pedido del cliente (2026-06-30)
     profileUrl: 'https://www.instagram.com/gary_zukav/'
   };
 

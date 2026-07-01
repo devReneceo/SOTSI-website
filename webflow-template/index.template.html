@@ -22,6 +22,30 @@
 <link rel="stylesheet" href="styles/responsive-fix.css" />
 <link rel="stylesheet" href="styles/section-polish.css" />
 <link rel="stylesheet" href="styles/instafeed.css" />
+<!-- Image-load resilience (client 2026-06-30): if any image fails (e.g. slow/flaky network), retry once with a cache-bust, then swap to a neutral placeholder so it never shows a broken-image icon. Registered in <head> so it catches images parsed after it. -->
+<script>
+(function(){
+  'use strict';
+  var PLACEHOLDER = 'data:image/svg+xml;charset=utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 4 3%22%3E%3Crect width=%224%22 height=%223%22 fill=%22%23e9e4db%22/%3E%3C/svg%3E';
+  document.addEventListener('error', function(e){
+    var img = e.target;
+    if(!img || img.tagName !== 'IMG' || img.dataset.imgfx) return;
+    if(img.getAttribute('src') === PLACEHOLDER) return;
+    if(!img.dataset.retried){
+      img.dataset.retried = '1';
+      var src = img.currentSrc || img.src;
+      if(src && src.indexOf('data:') !== 0){
+        img.removeAttribute('srcset');
+        img.src = src.split('#')[0] + (src.indexOf('?') > -1 ? '&' : '?') + 'imgretry=1';
+        return;
+      }
+    }
+    img.dataset.imgfx = '1';
+    img.removeAttribute('srcset');
+    img.src = PLACEHOLDER;
+  }, true);
+})();
+</script>
 </head>
 <!-- PRINCIPAL: centrado inmersivo · nav M · logo normal · glow OFF · botón Propuesta 2 · hero original · tipografía marca -->
 <body class="nav-dark cta-grad nl-immersive hero-original heroheight-full heroborder-on navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-fraunces anim-ink">
@@ -50,12 +74,12 @@
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dd" role="menu"><a href="#">Courses</a><a href="#">Events</a><a href="#">Membership</a><a href="#">Soul to Soul Community</a></div>
         </div>
-        <a class="nlink" href="#"><span class="glow"></span>Podcast</a>
+        <a class="nlink" href="#"><span class="glow"></span>Deepcast</a>
         <a class="nlink" href="#"><span class="glow"></span>Blog</a>
       </div>
       <a class="snav__logo" href="index.html" aria-label="Seat of the Soul Institute — home">
-        <img class="logo--for-dark" src="assets/whitelogo.webp" alt="Seat of the Soul Institute" />
-        <img class="logo--for-light" src="assets/darklogo.webp" alt="Seat of the Soul Institute" />
+        <img class="logo--for-dark" src="assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
       </a>
       <div class="snav__side right">
         <div class="has-dd">
@@ -65,7 +89,7 @@
         </div>
         <a class="nlink" href="#"><span class="glow"></span>In Celebration of Linda Francis</a>
         <a class="btn-cta btn-cta--sm" href="#" style="margin-left:.5rem;">
-          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span>
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
           <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
         </a>
       </div>
@@ -73,8 +97,8 @@
     </div>
   </nav>
   <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
-    <a href="about/">About</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Podcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
-    <a class="btn btn--primary" href="#">Get Started</a>
+    <a href="about/">About</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Deepcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
+    <a class="btn btn--primary" href="#">Soul Store</a>
   </div></div>
 </header>
 
@@ -83,15 +107,15 @@
   <nav class="snav__main" aria-label="Main navigation (bar)">
     <div class="wrap">
       <a class="snav__logo" href="index.html" aria-label="Seat of the Soul Institute — home">
-        <img class="logo--for-dark" src="assets/whitelogo.webp" alt="Seat of the Soul Institute" />
-        <img class="logo--for-light" src="assets/darklogo.webp" alt="Seat of the Soul Institute" />
+        <img class="logo--for-dark" src="assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
       </a>
       <div class="snav__row">
         <div class="has-dd"><a class="nlink" href="about/"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dd" role="menu"><a href="about/gary-zukav/">About Gary</a><a href="about/linda-francis/">About Linda</a><a href="about/seat-of-the-soul-institute/">About SOTS</a><a href="about/">About Hub</a></div></div>
         <div class="has-dd"><a class="nlink" href="#"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dd" role="menu"><a href="#">Courses</a><a href="#">Events</a><a href="#">Membership</a></div></div>
-        <a class="nlink" href="#"><span class="glow"></span>Podcast</a>
+        <a class="nlink" href="#"><span class="glow"></span>Deepcast</a>
         <a class="nlink" href="#"><span class="glow"></span>Blog</a>
         <div class="has-dd"><a class="nlink" href="#"><span class="glow"></span>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dd" role="menu"><a href="#">Soul Connections Newsletter</a><a href="#">Free Tools</a><a href="#">Blog · Soul Feed</a></div></div>
@@ -99,7 +123,7 @@
       </div>
       <div class="snav__end">
         <a class="btn-cta btn-cta--sm" href="#">
-          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span>
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
           <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
         </a>
       </div>
@@ -107,8 +131,8 @@
     </div>
   </nav>
   <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
-    <a href="about/">About</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Podcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
-    <a class="btn btn--primary" href="#">Get Started</a>
+    <a href="about/">About</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Deepcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
+    <a class="btn btn--primary" href="#">Soul Store</a>
   </div></div>
 </header>
 
@@ -117,20 +141,20 @@
   <nav class="snav__main" aria-label="Main navigation (immersive)">
     <div class="wrap">
       <a class="snav__logo" href="index.html" aria-label="Seat of the Soul Institute — home">
-        <img class="logo--for-dark" src="assets/whitelogo.webp" alt="Seat of the Soul Institute" />
-        <img class="logo--for-light" src="assets/darklogo.webp" alt="Seat of the Soul Institute" />
+        <img class="logo--for-dark" src="assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
       </a>
       <div class="snav__row">
         <a class="nlink" href="about/"><span class="glow"></span>About</a>
         <a class="nlink" href="#"><span class="glow"></span>Courses, Events &amp; Activities</a>
-        <a class="nlink" href="#"><span class="glow"></span>Podcast</a>
+        <a class="nlink" href="#"><span class="glow"></span>Deepcast</a>
         <a class="nlink" href="#"><span class="glow"></span>Blog</a>
         <a class="nlink" href="#"><span class="glow"></span>Resources</a>
         <a class="nlink" href="#"><span class="glow"></span>In Celebration of Linda Francis</a>
       </div>
       <div class="snav__end">
         <a class="btn-cta btn-cta--sm" href="#">
-          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span>
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
           <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
         </a>
       </div>
@@ -138,8 +162,8 @@
     </div>
   </nav>
   <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
-    <a href="about/">About</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Podcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
-    <a class="btn btn--primary" href="#">Get Started</a>
+    <a href="about/">About</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Deepcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
+    <a class="btn btn--primary" href="#">Soul Store</a>
   </div></div>
 </header>
 
@@ -147,7 +171,7 @@
 <!-- ====================== HERO · SLIDER ====================== -->
 <div class="hero-slider-wrap">
   <section class="hslider" aria-label="Hero" aria-roledescription="carousel">
-    <div class="hslide hslide--bottom is-active" data-slide="0" data-status="Authentic Power" role="group" aria-roledescription="slide" aria-label="1 of 4">
+    <div class="hslide hslide--bottom is-active" data-slide="0" data-status="Authentic Power" role="group" aria-roledescription="slide" aria-label="1 of 3">
       <div class="hslide__mediafx">
         <video class="hslide__media" autoplay muted loop playsinline poster="assets/images/Home-page-video-Thumbnail_image.webp">
           <source src="assets/SOTS-Homepage-Video-web.mp4" type="video/mp4" /></video>
@@ -166,7 +190,7 @@
         </div>
       </div></div>
     </div>
-    <div class="hslide hslide--right" data-slide="1" data-status="Live with Gary" role="group" aria-roledescription="slide" aria-label="2 of 4" hidden>
+    <div class="hslide hslide--right" data-slide="1" data-status="Live with Gary" role="group" aria-roledescription="slide" aria-label="2 of 3" hidden>
       <div class="hslide__mediafx">
         <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-2.webp" srcset="assets/images/slides/SOTSI-Site-Carousel-2-768.webp 768w, assets/images/slides/SOTSI-Site-Carousel-2.webp 1200w" sizes="100vw" width="1200" height="630" decoding="async" alt="Gary Zukav under a starlit sky" />
       </div>
@@ -178,7 +202,7 @@
         <div class="hslide__cta" style="margin-top:1.8rem;"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Register Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
       </div></div>
     </div>
-    <div class="hslide" data-slide="2" data-status="Begin" role="group" aria-roledescription="slide" aria-label="3 of 4" hidden>
+    <div class="hslide" data-slide="2" data-status="Begin" role="group" aria-roledescription="slide" aria-label="3 of 3" hidden>
       <div class="hslide__mediafx">
         <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-4.webp" width="1200" height="630" decoding="async" alt="A dove resting on an open hand at sunrise" />
       </div>
@@ -190,7 +214,7 @@
         <div class="hslide__cta" style="margin-top:1.8rem;"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Learn More</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
       </div></div>
     </div>
-    <!-- Slide 4: AI robot · AI & Human Evolution (PM likes the robot) -->
+    <!-- Slide 4 (AI · "AI & Human Evolution") removed per client request 2026-06-30 — reversible: delete these comment markers to restore. Slider count/dots recompute from the DOM.
     <div class="hslide" data-slide="3" data-status="Soul Feed" role="group" aria-roledescription="slide" aria-label="4 of 4" hidden>
       <div class="hslide__mediafx">
         <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-6.webp" width="1200" height="630" decoding="async" alt="A humanoid robot reading a tablet" />
@@ -203,11 +227,13 @@
         <div class="hslide__cta" style="margin-top:1.8rem;"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Read Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
       </div></div>
     </div>
+    -->
+    <!-- /Slide 4 removed -->
     <div class="hslider__chrome" aria-hidden="true">
       <div class="hslider__count">
         <span class="hslider__count-current" id="hcurrent">01</span>
         <span class="hslider__count-line"><span class="hslider__count-progress" id="hprogress"></span></span>
-        <span class="hslider__count-total" id="htotal">04</span>
+        <span class="hslider__count-total" id="htotal">03</span>
       </div>
       <div class="hslider__status">Authentic Power</div>
     </div>
@@ -231,7 +257,7 @@
 <div class="hero-original-wrap">
   <section class="oslider" aria-label="Hero (réplica original)" aria-roledescription="carousel">
     <!-- 1 · Beach sunset — Creating Authentic Power (entrada · texto recreado con nuestra tipografía) -->
-    <div class="oslide oslide--center is-active" data-oslide="0" data-status="Authentic Power" role="group" aria-roledescription="slide" aria-label="1 of 5">
+    <div class="oslide oslide--center is-active" data-oslide="0" data-status="Authentic Power" role="group" aria-roledescription="slide" aria-label="1 of 4">
       <img class="oslide__media" src="assets/images/slides/beach-creating-authentic-power-clean.webp" srcset="assets/images/slides/beach-creating-authentic-power-clean-768.webp 768w, assets/images/slides/beach-creating-authentic-power-clean-1280.webp 1280w, assets/images/slides/beach-creating-authentic-power-clean.webp 1920w" sizes="100vw" alt="A calm beach at sunset, soft pink sky over the ocean" width="1920" height="1080" fetchpriority="high" loading="eager" decoding="async" />
       <span class="oslide__scrim" aria-hidden="true" style="background:radial-gradient(62% 52% at 50% 47%, rgba(14,22,49,.44), rgba(14,22,49,.16) 68%, transparent);"></span>
       <div class="wrap oslide__inner"><div class="oslide__content">
@@ -248,7 +274,7 @@
       </div></div>
     </div>
     <!-- 2 · Gary + starfield — Spend an Evening with Gary Zukav -->
-    <div class="oslide oslide--right" data-oslide="1" data-status="Live with Gary" role="group" aria-roledescription="slide" aria-label="2 of 5" hidden>
+    <div class="oslide oslide--right" data-oslide="1" data-status="Live with Gary" role="group" aria-roledescription="slide" aria-label="2 of 4" hidden>
       <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-2.webp" srcset="assets/images/slides/SOTSI-Site-Carousel-2-768.webp 768w, assets/images/slides/SOTSI-Site-Carousel-2.webp 1200w" sizes="100vw" width="1200" height="630" decoding="async" alt="Gary Zukav under a starlit sky" />
       <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(90deg,rgba(8,12,32,.82) 0%,rgba(8,12,32,.52) 48%,rgba(8,12,32,.3) 100%);"></span>
       <div class="wrap oslide__inner"><div class="oslide__content">
@@ -259,7 +285,7 @@
       </div></div>
     </div>
     <!-- 3 · Capitol red/blue — What To Do About Failing Governments? -->
-    <div class="oslide oslide--center" data-oslide="2" data-status="Perspective" role="group" aria-roledescription="slide" aria-label="3 of 5" hidden>
+    <div class="oslide oslide--center" data-oslide="2" data-status="Perspective" role="group" aria-roledescription="slide" aria-label="3 of 4" hidden>
       <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-1.webp" srcset="assets/images/slides/SOTSI-Site-Carousel-1-768.webp 768w, assets/images/slides/SOTSI-Site-Carousel-1.webp 1200w" sizes="100vw" width="1200" height="630" decoding="async" alt="The US Capitol lit in red and blue" />
       <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(180deg,rgba(12,9,26,.4),rgba(12,9,26,.66));"></span>
       <div class="wrap oslide__inner"><div class="oslide__content">
@@ -269,7 +295,7 @@
         <div class="oslide__cta"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Read Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
       </div></div>
     </div>
-    <!-- 4 · AI robot — AI &amp; Human Evolution -->
+    <!-- 4 · AI robot — "AI & Human Evolution" removed per client request 2026-06-30 — reversible: delete these comment markers to restore. Slider count/dots recompute from the DOM.
     <div class="oslide oslide--left" data-oslide="3" data-status="Human Evolution" role="group" aria-roledescription="slide" aria-label="4 of 5" hidden>
       <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-6.webp" width="1200" height="630" decoding="async" alt="A humanoid robot reading a tablet" />
       <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(90deg,rgba(10,16,40,.72),rgba(10,16,40,.35) 60%,rgba(10,16,40,.15));"></span>
@@ -279,8 +305,10 @@
         <div class="oslide__cta"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Read Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
       </div></div>
     </div>
+    -->
+    <!-- /Slide 4 removed -->
     <!-- 5 · Dove + hand sunset — Start Your Journey -->
-    <div class="oslide oslide--left" data-oslide="4" data-status="Begin" role="group" aria-roledescription="slide" aria-label="5 of 5" hidden>
+    <div class="oslide oslide--left" data-oslide="4" data-status="Begin" role="group" aria-roledescription="slide" aria-label="4 of 4" hidden>
       <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-8.webp" width="1200" height="630" decoding="async" alt="A dove resting on an open hand at sunrise" />
       <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(90deg,rgba(40,30,20,.5),rgba(40,30,20,.18) 55%,transparent);"></span>
       <div class="wrap oslide__inner"><div class="oslide__content">
@@ -294,7 +322,7 @@
       <div class="hslider__count">
         <span class="hslider__count-current" id="ocurrent">01</span>
         <span class="hslider__count-line"><span class="hslider__count-progress" id="oprogress"></span></span>
-        <span class="hslider__count-total" id="ototal">05</span>
+        <span class="hslider__count-total" id="ototal">04</span>
       </div>
       <div class="hslider__status" id="ostatus">Authentic Power</div>
     </div>
@@ -466,7 +494,7 @@
         <p class="event__ready">Are you ready?</p>
         <span class="event__connector" aria-hidden="true"></span>
         <div class="event__cta-row">
-          <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Register Today!</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+          <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Learn more</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
         </div>
       </div>
     </div>
@@ -488,12 +516,12 @@
       </h2>
       <p class="books__script reveal">Follow your spiritual path</p>
       <div class="books__cta reveal">
-        <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the Books</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+        <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Buy Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
       </div>
     </div>
     <div class="books__stage reveal">
       <span class="books__circle" aria-hidden="true"></span>
-      <img class="books__img" src="assets/images/latest-books.webp" width="1000" height="1000" decoding="async" loading="lazy" alt="Gary Zukav's books: Universal Human (latest) and the #1 New York Times bestseller The Seat of the Soul" />
+      <img class="books__img" src="assets/images/latest-books.webp" width="1254" height="1254" decoding="async" loading="lazy" alt="Gary Zukav's books: Universal Human (latest) and the #1 New York Times bestseller The Seat of the Soul" />
     </div>
   </div>
 </section>
@@ -514,7 +542,7 @@
         <span class="post__body">
           <h3 class="post__title">Authentic Power</h3>
           <span class="post__meta">The alignment of your personality with your soul — with harmony, cooperation, sharing, and reverence for life.</span>
-          <span class="post__cta">Explore the course<span class="post__cta-ico" aria-hidden="true">→</span></span>
+          <span class="post__cta">Explore<span class="post__cta-ico" aria-hidden="true">→</span></span>
         </span>
       </a>
       <a class="post post--glow reveal" href="#">
@@ -547,7 +575,7 @@
         <span class="post__body">
           <h3 class="post__title">Spiritual Partnership</h3>
           <span class="post__meta">A partnership between equals for the purpose of spiritual growth.</span>
-          <span class="post__cta">Join the community<span class="post__cta-ico" aria-hidden="true">→</span></span>
+          <span class="post__cta">Explore<span class="post__cta-ico" aria-hidden="true">→</span></span>
         </span>
       </a>
     </div>
@@ -564,7 +592,7 @@
     <h2 class="sec__title membership__title reveal" style="color:#fff;">If you are ready to create a life of connection, meaning, and <span class="accent">fulfillment.</span></h2>
     <p class="sec__lead reveal" style="margin-inline:auto;color:rgba(255,255,255,.84);">Begin your transformational journey into freedom, joy, and love.</p>
     <div class="reveal" style="margin-top:2.2rem;">
-      <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Join the Soul School Community</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+      <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Learn more</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
     </div>
   </div>
 </section>
@@ -581,13 +609,14 @@
       <div class="stat"><div class="stat__num" data-count="6" data-suffix="M+">0</div><div class="stat__label">books sold</div></div>
       <div class="stat"><div class="stat__num" data-count="32" data-suffix="">0</div><div class="stat__label">languages</div></div>
       <div class="stat"><div class="stat__num" data-count="30" data-suffix="+">0</div><div class="stat__label">years of teaching</div></div>
-      <div class="stat"><div class="stat__num" data-count="100" data-suffix="+">0</div><div class="stat__label">podcast episodes</div></div>
+      <div class="stat"><div class="stat__num" data-count="36" data-suffix="">0</div><div class="stat__label">appearances on Oprah</div></div>
     </div>
   </div>
 </section>
 
 <!-- ========== 7b · PRAISE (testimonios · carrusel de una cita · ref. seatofthesoul) ========== -->
-<section class="sec praise stories-sec" aria-label="Stories from our community">
+<!-- Testimonials section hidden per client request 2026-06-30 (reversible: remove hidden + the display:none style + this note to restore) -->
+<section class="sec praise stories-sec" aria-label="Stories from our community" hidden style="display:none">
   <div class="sec__inner">
     <div class="stories__head">
       <p class="sec__eyebrow reveal">(testimonials)</p>
@@ -745,7 +774,6 @@
       <a class="post post--glow reveal" href="#">
         <span class="post__media">
           <img src="assets/images/slides/SOTSI-Site-Carousel-6.webp" alt="" loading="lazy" width="1200" height="630" decoding="async" />
-          <span class="post__chip">Soul Feast</span>
         </span>
         <span class="post__body">
           <h3 class="post__title">AI &amp; Human Evolution</h3>
@@ -756,7 +784,6 @@
       <a class="post post--glow reveal" href="#">
         <span class="post__media">
           <img src="assets/images/slides/SOTSI-Site-Carousel-1.webp" srcset="assets/images/slides/SOTSI-Site-Carousel-1-768.webp 768w, assets/images/slides/SOTSI-Site-Carousel-1.webp 1200w" sizes="100vw" alt="" loading="lazy" width="1200" height="630" decoding="async" />
-          <span class="post__chip">Soul Feast</span>
         </span>
         <span class="post__body">
           <h3 class="post__title">What To Do About Failing Governments?</h3>
@@ -767,7 +794,6 @@
       <a class="post post--glow reveal" href="#">
         <span class="post__media">
           <img src="assets/images/6a3342a6143842a748166452_authentic-power-spiritual-growth-community.webp" width="1200" height="799" decoding="async" alt="" loading="lazy" />
-          <span class="post__chip">Soul Snack</span>
         </span>
         <span class="post__body">
           <h3 class="post__title">Choosing Love Over Fear</h3>
@@ -799,7 +825,7 @@
     <!-- TIER 1 · marca + newsletter -->
     <div class="foot__top">
       <div class="foot__brandblock">
-        <a class="foot__logo" href="index.html" aria-label="Seat of the Soul Institute — home"><img src="assets/whitelogo.webp" alt="Seat of the Soul Institute" /></a>
+        <a class="foot__logo" href="index.html" aria-label="Seat of the Soul Institute — home"><img src="assets/whitelogo.webp" width="1014" height="183" loading="lazy" decoding="async" alt="Seat of the Soul Institute" /></a>
         <!-- Karol copy audit 2026-06-26: tagline inventado — oculto hasta copy oficial
         <p class="foot__tag">Create Authentic Power. Choose Love.</p>
         -->
@@ -843,7 +869,7 @@
         <a href="https://seatofthesoul.com/about-gary-zukav/" target="_blank" rel="noopener noreferrer">About Gary</a>
         <a href="https://seatofthesoul.com/about-linda-francis/" target="_blank" rel="noopener noreferrer">About Linda</a>
         <a href="https://seatofthesoul.com/remember-linda-homepage/" target="_blank" rel="noopener noreferrer">In Celebration of Linda Francis</a>
-        <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Podcast</a>
+        <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Deepcast</a>
         <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Blog · Soul Feed</a>
         <a href="https://seatofthesoul.com/apg-optin/" target="_blank" rel="noopener noreferrer">Resources</a>
         <a href="https://seatofthesoul.com/shop/" target="_blank" rel="noopener noreferrer">Courses, Events &amp; Activities</a>

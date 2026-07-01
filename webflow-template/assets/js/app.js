@@ -58,7 +58,10 @@
 
   /* mobile drawers (each header) */
   document.querySelectorAll('[data-burger]').forEach(function(burger){
-    var panel = burger.closest('header').querySelector('[data-mobile]');
+    var header = burger.closest('header');
+    var panel = header ? header.querySelector('[data-mobile]') : null;
+    if(!panel) return;
+    if(!panel.hasAttribute('hidden')) panel.setAttribute('hidden','');   /* Webflow publica sin el atributo booleano hidden — normaliza el drawer cerrado */
     burger.addEventListener('click', function(){
       var open = panel.hasAttribute('hidden');
       if(open){ panel.removeAttribute('hidden'); burger.setAttribute('aria-expanded','true'); }
@@ -266,6 +269,8 @@
     }
   };
   var timer=null, DELAY=12000;
+  /* Webflow publica sin el atributo booleano hidden — re-aplica el estado inicial de los slides */
+  slides.forEach(function(s){ if(s.classList.contains('is-active')) s.removeAttribute('hidden'); else s.setAttribute('hidden',''); });
   slides.forEach(function(s,i){ var b=document.createElement('button');
     b.className='hdot'+(i===0?' is-active':''); b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
     b.addEventListener('click', function(){
@@ -406,6 +411,8 @@
       onTransition: function(){ triggerOriginalRipple(); }
     };
     var otimer=null, ODELAY=12000;
+    /* Webflow publica sin el atributo booleano hidden — re-aplica el estado inicial de los slides */
+    oslides.forEach(function(s){ if(s.classList.contains('is-active')) s.removeAttribute('hidden'); else s.setAttribute('hidden',''); });
     oslides.forEach(function(s,i){ var b=document.createElement('button');
       b.className='hdot'+(i===0?' is-active':''); b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
       b.addEventListener('click', function(){

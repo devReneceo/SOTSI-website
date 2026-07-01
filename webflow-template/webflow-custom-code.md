@@ -5,6 +5,10 @@ Estos son los **snippets exactos** para el sitio Webflow. Reemplaza `{BASE_URL}`
 > Ejemplo de `{BASE_URL}` con jsDelivr sobre el repo público:
 > `https://cdn.jsdelivr.net/gh/devReneceo/SOTSI-website@main/webflow-template`
 > (requiere haber empujado `webflow-template/` a ese repo). Tras publicar, fija una versión/tag en vez de `@main` para producción.
+>
+> **Pin ACTUAL en el sitio "SOTSI Demo" (2026-07-01, rama `webflow-mcp-assets`):**
+> `https://cdn.jsdelivr.net/gh/devReneceo/SOTSI-website@6ef76d45929d6a02e5bbfec2794f6ff0607c15ff/webflow-template`
+> (incluye el sync del lote del cliente 2026-06-30 + guards del hslider en `app.js`. El head del sitio lleva además el script inline de image-resilience — ver `index.template.html` head.)
 
 ---
 

@@ -7,8 +7,8 @@ Estos son los **snippets exactos** para el sitio Webflow. Reemplaza `{BASE_URL}`
 > (requiere haber empujado `webflow-template/` a ese repo). Tras publicar, fija una versión/tag en vez de `@main` para producción.
 >
 > **Pin ACTUAL en el sitio "SOTSI Demo" (2026-07-01, rama `webflow-mcp-assets`):**
-> `https://cdn.jsdelivr.net/gh/devReneceo/SOTSI-website@6ef76d45929d6a02e5bbfec2794f6ff0607c15ff/webflow-template`
-> (incluye el sync del lote del cliente 2026-06-30 + guards del hslider en `app.js`. El head del sitio lleva además el script inline de image-resilience — ver `index.template.html` head.)
+> `https://cdn.jsdelivr.net/gh/devReneceo/SOTSI-website@20b44d760a558d3059c426f69a5e0e39ee08a8b0/webflow-template`
+> (incluye el sync del lote del cliente 2026-06-30, guards del hslider y la normalización de `hidden` en `app.js` — Webflow elimina los atributos booleanos `hidden` al publicar. El head del sitio lleva además el script inline de image-resilience — ver `index.template.html` head.)
 
 ---
 

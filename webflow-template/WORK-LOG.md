@@ -58,9 +58,21 @@ Todo el detalle está en **`BUILD-GUIDE.md`**. Resumen:
 
 ---
 
+## 2026-07-01 (a) · Build nativo por MCP — slice Nav + Hero + Courses ✅
+
+Se eligió **Ruta A ampliada**: reconstrucción **NATIVA** (no embeds) vía Webflow MCP en el sitio **"SOTSI Demo"** (`6a38f15a089da087cc76f81b`, staging **proposal-03.webflow.io**), página Home `6a38f15d089da087cc76f8a7`. Técnica: `data_whtml_builder` con CSS de reglas vacías para crear/aplicar clases + CSS/JS externos por jsDelivr + body-class por script de footer. Detalle completo en la memoria de proyecto `sotsi-webflow-native-build`. Hecho: custom code global, Nav immersive, Hero `.oslider` (5 slides), Courses con colección CMS (4 items). Publicado a staging.
+
+## 2026-07-01 (b) · Sync lote cliente + fix del hero slider en el publicado ✅
+
+**Bug (encontrado y arreglado):** en proposal-03 el nav funcionaba pero el slider del hero no corría. Causa: `app.js` truena sin el DOM del **hslider** (showcase) que en Webflow no se construyó — `syncHeroChrome(0)` dereferenciaba `slides[0]` (la clase `.hslider__status` la reusa el chrome del oslider → `hstatus` no era null), `dotsWrap.children` con `#hdots` null, y `#hnext/#hprev.addEventListener` sin guard. El IIFE moría ANTES del init del oslider (el nav se inicializa antes → por eso sí funcionaba). **Fix:** guards quirúrgicos en `app.js` + probado con repro local (página sin hslider).
+
+**Gotcha Webflow (importante para las 13 secciones restantes):** el publish de Webflow **elimina los atributos booleanos `hidden`** (el Designer los conserva; el HTML publicado no) → el drawer móvil salía abierto y con el toggle invertido, y los slides no-activos perdían su estado a11y. **Fix:** `app.js` normaliza al iniciar (drawer cerrado; slides sin `.is-active` → `hidden`). OJO: la sección Testimonials usa `hidden style="display:none"` — al construirla, verificar que el `style` inline sobreviva o replicar el hide por otra vía.
+
+**Sync del template con el lote del cliente 2026-06-30** (antes solo estaba en `index.html`): nav CTA → "Soul Store", "Podcast" → "Deepcast" (nav+drawer+footer), slide IA comentado en ambos sliders (contadores/aria 4 y 3), CTAs (Event "Learn more" · Books "Buy Now" · Courses ×4 "Explore" · Membership "Learn more"), stat "36 appearances on Oprah", Testimonials `hidden`, chips del blog fuera, script image-resilience en head, dims de logos, books img 1254², `instafeed.js` limit 3, `latest-books.webp` transparente.
+
+**Cambios aplicados en Webflow (Designer + publicados):** slide IA eliminado (quedan 4: data-oslide 0,1,2,4, aria "x of 4", `#ototal` 04), textos nav "Soul Store"/"Deepcast" (desktop + drawer; `set_text` funciona directo sobre String nodes → no rompe spans hermanos como glow/flecha), Courses CTA "Explore". Custom code re-pineado; **pin actual: commit `20b44d760a558d3059c426f69a5e0e39ee08a8b0`**. Publicado y verificado headless: slider autoavanza (01→02, dots ×4, status), drawer cerrado en 390, 0 errores JS.
+
 ## Pendiente
-- [ ] Aprobación del cliente para construir en Webflow.
-- [ ] Elegir Ruta A (MCP) o B (manual).
-- [ ] (Ruta A) recibir auth MCP + Designer abierto + confirmar plan de pago.
-- [ ] Construir Home → QA → publicar staging → generar clone link.
-- [ ] Decidir hosting final (jsDelivr con tag fijo vs. autocontenido en Webflow).
+- [ ] 13 secciones restantes (Aspiration/Statement/Greeting/Consciousness/Tools/Event/Books/Membership/Stats/Praise/Instafeed/Founders/Blog/BigCTA/Footer) + colecciones Testimonials/Blog (verificar límite del plan).
+- [ ] Al re-pinear jsDelivr tras cada push: actualizar head+footer freeform y **republicar**.
+- [ ] Generar el clone link al terminar.

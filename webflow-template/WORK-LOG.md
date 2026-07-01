@@ -72,7 +72,16 @@ Se eligió **Ruta A ampliada**: reconstrucción **NATIVA** (no embeds) vía Webf
 
 **Cambios aplicados en Webflow (Designer + publicados):** slide IA eliminado (quedan 4: data-oslide 0,1,2,4, aria "x of 4", `#ototal` 04), textos nav "Soul Store"/"Deepcast" (desktop + drawer; `set_text` funciona directo sobre String nodes → no rompe spans hermanos como glow/flecha), Courses CTA "Explore". Custom code re-pineado; **pin actual: commit `20b44d760a558d3059c426f69a5e0e39ee08a8b0`**. Publicado y verificado headless: slider autoavanza (01→02, dots ×4, status), drawer cerrado en 390, 0 errores JS.
 
+## 2026-07-01 (c) · Sección 2 · ASPIRATION construida y publicada ✅
+
+Construida NATIVA con `data_whtml_builder` (markup verbatim de `index.template.html` 363-381 + CSS de reglas vacías), insertada `after` el `.hero-original-wrap` → orden **hero → aspire → courses** dentro del `<main>`. Estilos `sec`/`sec__inner` REUSADOS (sin duplicados). Publicada y QA'd headless: canvas Soul Tide **montado y dibujando** (JS le puso 1425×1241), SplitText generó 60 `.asp-char` (text-wave activo), slider del hero sin regresión, 0 errores JS. Screenshot 1440 = idéntico al template local.
+
+**Gotchas confirmados en esta pasada:**
+- Los `data-*` SIN valor (`data-asp-line`) **SÍ sobreviven** el publish (salen como `data-asp-line=""`) — solo los booleanos HTML estándar (`hidden`) se pierden.
+- `<canvas>` via whtml → elemento DOM tag canvas, perfecto.
+- Screenshot headless con fragment `#aspire` + virtual-time sale en blanco (artefacto del ink-reveal a mitad de animación) — QA visual mejor con ventana alta sin fragment.
+
 ## Pendiente
-- [ ] 13 secciones restantes (Aspiration/Statement/Greeting/Consciousness/Tools/Event/Books/Membership/Stats/Praise/Instafeed/Founders/Blog/BigCTA/Footer) + colecciones Testimonials/Blog (verificar límite del plan).
+- [ ] 14 secciones restantes (Statement/Greeting/Consciousness/Tools/Event/Books/Membership/Stats/Praise[oculta por cliente — probablemente saltar]/Instafeed/Founders/Blog/BigCTA/Footer) + colecciones Testimonials/Blog (verificar límite del plan).
 - [ ] Al re-pinear jsDelivr tras cada push: actualizar head+footer freeform y **republicar**.
 - [ ] Generar el clone link al terminar.

@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seat of the Soul — Webflow Template</title>
+<meta name="description" content="Spiritual growth and emotional awareness with Gary Zukav. Create authentic power, at your own pace." />
+<link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+<!-- Preload the LCP hero image (first slide) so it starts fetching before CSS -->
+<link rel="preload" as="image" href="assets/images/slides/beach-creating-authentic-power-clean.webp" fetchpriority="high" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Pinyon+Script&family=Allura&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Mulish:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=Libre+Caslon+Display&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles/tokens.css" />
+<link rel="stylesheet" href="styles/concepts.css" />
+<link rel="stylesheet" href="styles/brand.css" />
+<link rel="stylesheet" href="styles/sections.css" />
+<link rel="stylesheet" href="styles/theme.css" />
+<link rel="stylesheet" href="styles/mobile.css" />
+<link rel="stylesheet" href="styles/responsive-fix.css" />
+<link rel="stylesheet" href="styles/section-polish.css" />
+<link rel="stylesheet" href="styles/instafeed.css" />
+</head>
+<!-- PRINCIPAL: centrado inmersivo · nav M · logo normal · glow OFF · botón Propuesta 2 · hero original · tipografía marca -->
+<body class="nav-dark cta-grad nl-immersive hero-original heroheight-full heroborder-on navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-fraunces anim-ink">
+
+<!-- ============ NAV 3 · CENTERED TWO-TIER (default) ============ -->
+<header class="snav snav--centered" id="navCentered">
+  <div class="snav__utility">
+    <div class="wrap">
+      <span class="script" style="font-size:1.3rem;color:var(--gold);">Create Authentic Power · Choose Love</span>
+      <span style="display:flex;gap:.3rem;align-items:center;">
+        <a href="#">Soul Connections</a><span aria-hidden="true">·</span>
+        <a href="#">Contact</a><span aria-hidden="true">·</span><a href="#">EN</a>
+      </span>
+    </div>
+  </div>
+  <nav class="snav__main" aria-label="Main navigation (centered)">
+    <div class="wrap">
+      <div class="snav__side left">
+        <div class="has-dd">
+          <a class="nlink" href="about/" aria-haspopup="true"><span class="glow"></span>About
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="about/gary-zukav/">About Gary</a><a href="about/linda-francis/">About Linda</a><a href="about/seat-of-the-soul-institute/">About SOTS</a><a href="about/">About Hub</a></div>
+        </div>
+        <div class="has-dd">
+          <a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="#">Courses</a><a href="#">Events</a><a href="#">Membership</a><a href="#">Soul to Soul Community</a></div>
+        </div>
+        <a class="nlink" href="#"><span class="glow"></span>Podcast</a>
+        <a class="nlink" href="#"><span class="glow"></span>Blog</a>
+      </div>
+      <a class="snav__logo" href="index.html" aria-label="Seat of the Soul Institute — home">
+        <img class="logo--for-dark" src="assets/whitelogo.webp" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="assets/darklogo.webp" alt="Seat of the Soul Institute" />
+      </a>
+      <div class="snav__side right">
+        <div class="has-dd">
+          <a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>Resources
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="#">Soul Connections Newsletter</a><a href="#">Free Tools</a><a href="#">Blog · Soul Feed</a></div>
+        </div>
+        <a class="nlink" href="#"><span class="glow"></span>In Celebration of Linda Francis</a>
+        <a class="btn-cta btn-cta--sm" href="#" style="margin-left:.5rem;">
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span>
+          <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+        </a>
+      </div>
+      <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    </div>
+  </nav>
+  <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
+    <a href="about/">About</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Podcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
+    <a class="btn btn--primary" href="#">Get Started</a>
+  </div></div>
+</header>
+
+<!-- ============ NAV 1 · PERSISTENT BAR ============ -->
+<header class="snav snav--bar" id="navBar">
+  <nav class="snav__main" aria-label="Main navigation (bar)">
+    <div class="wrap">
+      <a class="snav__logo" href="index.html" aria-label="Seat of the Soul Institute — home">
+        <img class="logo--for-dark" src="assets/whitelogo.webp" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="assets/darklogo.webp" alt="Seat of the Soul Institute" />
+      </a>
+      <div class="snav__row">
+        <div class="has-dd"><a class="nlink" href="about/"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="about/gary-zukav/">About Gary</a><a href="about/linda-francis/">About Linda</a><a href="about/seat-of-the-soul-institute/">About SOTS</a><a href="about/">About Hub</a></div></div>
+        <div class="has-dd"><a class="nlink" href="#"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="#">Courses</a><a href="#">Events</a><a href="#">Membership</a></div></div>
+        <a class="nlink" href="#"><span class="glow"></span>Podcast</a>
+        <a class="nlink" href="#"><span class="glow"></span>Blog</a>
+        <div class="has-dd"><a class="nlink" href="#"><span class="glow"></span>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="#">Soul Connections Newsletter</a><a href="#">Free Tools</a><a href="#">Blog · Soul Feed</a></div></div>
+        <a class="nlink" href="#"><span class="glow"></span>In Celebration of Linda Francis</a>
+      </div>
+      <div class="snav__end">
+        <a class="btn-cta btn-cta--sm" href="#">
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span>
+          <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+        </a>
+      </div>
+      <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    </div>
+  </nav>
+  <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
+    <a href="about/">About</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Podcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
+    <a class="btn btn--primary" href="#">Get Started</a>
+  </div></div>
+</header>
+
+<!-- ============ NAV 2 · IMMERSIVE (transparent → solid) ============ -->
+<header class="snav snav--immersive" id="navImmersive">
+  <nav class="snav__main" aria-label="Main navigation (immersive)">
+    <div class="wrap">
+      <a class="snav__logo" href="index.html" aria-label="Seat of the Soul Institute — home">
+        <img class="logo--for-dark" src="assets/whitelogo.webp" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="assets/darklogo.webp" alt="Seat of the Soul Institute" />
+      </a>
+      <div class="snav__row">
+        <a class="nlink" href="about/"><span class="glow"></span>About</a>
+        <a class="nlink" href="#"><span class="glow"></span>Courses, Events &amp; Activities</a>
+        <a class="nlink" href="#"><span class="glow"></span>Podcast</a>
+        <a class="nlink" href="#"><span class="glow"></span>Blog</a>
+        <a class="nlink" href="#"><span class="glow"></span>Resources</a>
+        <a class="nlink" href="#"><span class="glow"></span>In Celebration of Linda Francis</a>
+      </div>
+      <div class="snav__end">
+        <a class="btn-cta btn-cta--sm" href="#">
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span>
+          <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+        </a>
+      </div>
+      <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    </div>
+  </nav>
+  <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
+    <a href="about/">About</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Podcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
+    <a class="btn btn--primary" href="#">Get Started</a>
+  </div></div>
+</header>
+
+<main>
+<!-- ====================== HERO · SLIDER ====================== -->
+<div class="hero-slider-wrap">
+  <section class="hslider" aria-label="Hero" aria-roledescription="carousel">
+    <div class="hslide hslide--bottom is-active" data-slide="0" data-status="Authentic Power" role="group" aria-roledescription="slide" aria-label="1 of 4">
+      <div class="hslide__mediafx">
+        <video class="hslide__media" autoplay muted loop playsinline poster="assets/images/Home-page-video-Thumbnail_image.webp">
+          <source src="assets/SOTS-Homepage-Video-web.mp4" type="video/mp4" /></video>
+      </div>
+      <span class="hslide__scrim" aria-hidden="true" style="background:linear-gradient(0deg,rgba(14,22,49,.92) 0%,rgba(14,22,49,.55) 35%,rgba(14,22,49,.12) 70%,transparent 100%);"></span><span class="hslide__glow" aria-hidden="true"></span>
+      <div class="wrap hslide__inner"><div class="hslide__content">
+        <p class="hslide__kicker">Supporting you in</p>
+        <h1 class="hslide__title hslide__title--xl">Creating <span class="gold">Authentic Power</span></h1>
+        <span class="hslide__accent-rule" aria-hidden="true"></span>
+        <!-- Karol copy audit 2026-06-26: subtítulo inventado (no está en el sitio viejo) — oculto hasta copy oficial
+        <p class="hslide__deck">A calm place to align personality and soul, one choice at a time.</p>
+        -->
+        <div class="hslide__cta" style="margin-top:2.2rem;">
+          <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+          <a class="link-anim link-anim--hero" href="about/gary-zukav/">Meet Gary <span class="arrow">→</span></a>
+        </div>
+      </div></div>
+    </div>
+    <div class="hslide hslide--right" data-slide="1" data-status="Live with Gary" role="group" aria-roledescription="slide" aria-label="2 of 4" hidden>
+      <div class="hslide__mediafx">
+        <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-2.webp" srcset="assets/images/slides/SOTSI-Site-Carousel-2-768.webp 768w, assets/images/slides/SOTSI-Site-Carousel-2.webp 1200w" sizes="100vw" width="1200" height="630" decoding="async" alt="Gary Zukav under a starlit sky" />
+      </div>
+      <span class="hslide__scrim" aria-hidden="true" style="background:linear-gradient(250deg,rgba(14,22,49,.9),rgba(14,22,49,.4) 55%,transparent 85%);"></span>
+      <div class="wrap hslide__inner"><div class="hslide__content">
+        <p class="hslide__eyebrow">Live with Gary</p>
+        <h2 class="hslide__title">Spend an Evening<br>with <span class="gold">Gary Zukav</span></h2>
+        <p class="hslide__lead">Join monthly live Zoom calls with spiritual teacher and New York Times best selling author, Gary Zukav, for wisdom you can apply now to create a fulfilling life of love and joy.</p>
+        <div class="hslide__cta" style="margin-top:1.8rem;"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Register Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
+      </div></div>
+    </div>
+    <div class="hslide" data-slide="2" data-status="Begin" role="group" aria-roledescription="slide" aria-label="3 of 4" hidden>
+      <div class="hslide__mediafx">
+        <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-4.webp" width="1200" height="630" decoding="async" alt="A dove resting on an open hand at sunrise" />
+      </div>
+      <span class="hslide__scrim" aria-hidden="true" style="background:linear-gradient(110deg,rgba(60,25,81,.8),rgba(14,22,49,.45) 60%,transparent);"></span>
+      <div class="wrap hslide__inner"><div class="hslide__content">
+        <p class="hslide__eyebrow">Begin</p>
+        <h2 class="hslide__title">Start Your Journey</h2>
+        <p class="hslide__script">The time is now.</p>
+        <div class="hslide__cta" style="margin-top:1.8rem;"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Learn More</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
+      </div></div>
+    </div>
+    <!-- Slide 4: AI robot · AI & Human Evolution (PM likes the robot) -->
+    <div class="hslide" data-slide="3" data-status="Soul Feed" role="group" aria-roledescription="slide" aria-label="4 of 4" hidden>
+      <div class="hslide__mediafx">
+        <img class="hslide__media" src="assets/images/slides/SOTSI-Site-Carousel-6.webp" width="1200" height="630" decoding="async" alt="A humanoid robot reading a tablet" />
+      </div>
+      <span class="hslide__scrim" aria-hidden="true" style="background:linear-gradient(110deg,rgba(14,22,49,.9),rgba(14,22,49,.5) 55%,transparent 90%);"></span>
+      <div class="wrap hslide__inner"><div class="hslide__content">
+        <p class="hslide__eyebrow">Soul Feed</p>
+        <h2 class="hslide__title">AI &amp; Human Evolution</h2>
+        <p class="hslide__lead">Gary Zukav on what AI means for our evolution.</p>
+        <div class="hslide__cta" style="margin-top:1.8rem;"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Read Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
+      </div></div>
+    </div>
+    <div class="hslider__chrome" aria-hidden="true">
+      <div class="hslider__count">
+        <span class="hslider__count-current" id="hcurrent">01</span>
+        <span class="hslider__count-line"><span class="hslider__count-progress" id="hprogress"></span></span>
+        <span class="hslider__count-total" id="htotal">04</span>
+      </div>
+      <div class="hslider__status">Authentic Power</div>
+    </div>
+    <div class="hslider__arrows">
+      <button class="harrow harrow--prev" id="hprev" aria-label="Previous slide"><span class="harrow__line"></span><span class="harrow__label" id="hprevLabel">Back</span></button>
+      <button class="harrow harrow--next" id="hnext" aria-label="Next slide"><span class="harrow__label" id="hnextLabel">Next</span><span class="harrow__line"></span></button>
+    </div>
+    <div class="hslider__dots" id="hdots" role="tablist" aria-label="Slides"></div>
+    <div class="hslider__cursor" id="hcursor" aria-hidden="true"><span>Next</span></div>
+  </section>
+</div>
+
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <filter id="sotsi-water-distort" x="-15%" y="-15%" width="130%" height="130%">
+    <feTurbulence id="sotsiWaterNoise" type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="14" result="noise" />
+    <feDisplacementMap id="sotsiWaterMap" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" />
+  </filter>
+</svg>
+
+<!-- ====================== HERO · ORIGINAL (réplica fiel del sitio en vivo) ====================== -->
+<div class="hero-original-wrap">
+  <section class="oslider" aria-label="Hero (réplica original)" aria-roledescription="carousel">
+    <!-- 1 · Beach sunset — Creating Authentic Power (entrada · texto recreado con nuestra tipografía) -->
+    <div class="oslide oslide--center is-active" data-oslide="0" data-status="Authentic Power" role="group" aria-roledescription="slide" aria-label="1 of 5">
+      <img class="oslide__media" src="assets/images/slides/beach-creating-authentic-power-clean.webp" srcset="assets/images/slides/beach-creating-authentic-power-clean-768.webp 768w, assets/images/slides/beach-creating-authentic-power-clean-1280.webp 1280w, assets/images/slides/beach-creating-authentic-power-clean.webp 1920w" sizes="100vw" alt="A calm beach at sunset, soft pink sky over the ocean" width="1920" height="1080" fetchpriority="high" loading="eager" decoding="async" />
+      <span class="oslide__scrim" aria-hidden="true" style="background:radial-gradient(62% 52% at 50% 47%, rgba(14,22,49,.44), rgba(14,22,49,.16) 68%, transparent);"></span>
+      <div class="wrap oslide__inner"><div class="oslide__content">
+        <p class="oslide__script">Supporting You in</p>
+        <h1 class="oslide__title">Creating <span class="gold">Authentic Power</span></h1>
+        <span class="oslide__accent-rule" aria-hidden="true"></span>
+        <!-- Karol copy audit 2026-06-26: subtítulo inventado (no está en el sitio viejo) — oculto hasta copy oficial
+        <p class="oslide__deck">A calm place to align personality and soul, one choice at a time.</p>
+        -->
+        <div class="oslide__cta oslide__cta--quiet">
+          <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+          <a class="link-anim link-anim--original" href="about/gary-zukav/">Meet Gary <span class="arrow">→</span></a>
+        </div>
+      </div></div>
+    </div>
+    <!-- 2 · Gary + starfield — Spend an Evening with Gary Zukav -->
+    <div class="oslide oslide--right" data-oslide="1" data-status="Live with Gary" role="group" aria-roledescription="slide" aria-label="2 of 5" hidden>
+      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-2.webp" srcset="assets/images/slides/SOTSI-Site-Carousel-2-768.webp 768w, assets/images/slides/SOTSI-Site-Carousel-2.webp 1200w" sizes="100vw" width="1200" height="630" decoding="async" alt="Gary Zukav under a starlit sky" />
+      <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(90deg,rgba(8,12,32,.82) 0%,rgba(8,12,32,.52) 48%,rgba(8,12,32,.3) 100%);"></span>
+      <div class="wrap oslide__inner"><div class="oslide__content">
+        <p class="oslide__eyebrow">Live with Gary</p>
+        <h2 class="oslide__title">Spend an Evening<br>with <span class="gold">Gary Zukav</span></h2>
+        <p class="oslide__lead">Join monthly live Zoom calls with spiritual teacher and New York Times best selling author, Gary Zukav, for wisdom you can apply now to create a fulfilling life of love and joy.</p>
+        <div class="oslide__cta"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Register Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
+      </div></div>
+    </div>
+    <!-- 3 · Capitol red/blue — What To Do About Failing Governments? -->
+    <div class="oslide oslide--center" data-oslide="2" data-status="Perspective" role="group" aria-roledescription="slide" aria-label="3 of 5" hidden>
+      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-1.webp" srcset="assets/images/slides/SOTSI-Site-Carousel-1-768.webp 768w, assets/images/slides/SOTSI-Site-Carousel-1.webp 1200w" sizes="100vw" width="1200" height="630" decoding="async" alt="The US Capitol lit in red and blue" />
+      <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(180deg,rgba(12,9,26,.4),rgba(12,9,26,.66));"></span>
+      <div class="wrap oslide__inner"><div class="oslide__content">
+        <p class="oslide__eyebrow">Perspective</p>
+        <h2 class="oslide__title">What To Do About<br><span class="gold">Failing Governments?</span></h2>
+        <p class="oslide__lead">Social structures are crumbling. The old consciousness is dying. Gary Zukav shares what those with the new consciousness can do NOW.</p>
+        <div class="oslide__cta"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Read Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
+      </div></div>
+    </div>
+    <!-- 4 · AI robot — AI &amp; Human Evolution -->
+    <div class="oslide oslide--left" data-oslide="3" data-status="Human Evolution" role="group" aria-roledescription="slide" aria-label="4 of 5" hidden>
+      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-6.webp" width="1200" height="630" decoding="async" alt="A humanoid robot reading a tablet" />
+      <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(90deg,rgba(10,16,40,.72),rgba(10,16,40,.35) 60%,rgba(10,16,40,.15));"></span>
+      <div class="wrap oslide__inner"><div class="oslide__content">
+        <h2 class="oslide__title">AI &amp; <span class="gold">Human Evolution</span></h2>
+        <p class="oslide__lead">AI will change human history, but will it affect our evolution? Gary Zukav shares his thoughts.</p>
+        <div class="oslide__cta"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Read Now</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
+      </div></div>
+    </div>
+    <!-- 5 · Dove + hand sunset — Start Your Journey -->
+    <div class="oslide oslide--left" data-oslide="4" data-status="Begin" role="group" aria-roledescription="slide" aria-label="5 of 5" hidden>
+      <img class="oslide__media" src="assets/images/slides/SOTSI-Site-Carousel-8.webp" width="1200" height="630" decoding="async" alt="A dove resting on an open hand at sunrise" />
+      <span class="oslide__scrim" aria-hidden="true" style="background:linear-gradient(90deg,rgba(40,30,20,.5),rgba(40,30,20,.18) 55%,transparent);"></span>
+      <div class="wrap oslide__inner"><div class="oslide__content">
+        <h2 class="oslide__title">Start Your <span class="gold">Journey</span></h2>
+        <p class="oslide__lead">You are here to give the gifts you were born to give. We are here to support you.</p>
+        <p class="oslide__note">The Time is Now.</p>
+        <div class="oslide__cta"><a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Learn More</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a></div>
+      </div></div>
+    </div>
+    <div class="hslider__chrome" aria-hidden="true">
+      <div class="hslider__count">
+        <span class="hslider__count-current" id="ocurrent">01</span>
+        <span class="hslider__count-line"><span class="hslider__count-progress" id="oprogress"></span></span>
+        <span class="hslider__count-total" id="ototal">05</span>
+      </div>
+      <div class="hslider__status" id="ostatus">Authentic Power</div>
+    </div>
+    <div class="hslider__arrows">
+      <button class="harrow harrow--prev" id="oprev" aria-label="Previous slide"><span class="harrow__line"></span><span class="harrow__label" id="oprevLabel">Back</span></button>
+      <button class="harrow harrow--next" id="onext" aria-label="Next slide"><span class="harrow__label" id="onextLabel">Next</span><span class="harrow__line"></span></button>
+    </div>
+    <div class="hslider__dots" id="odots" role="tablist" aria-label="Slides"></div>
+    <div class="hslider__cursor" id="ocursor" aria-hidden="true"><span>Next</span></div>
+  </section>
+</div>
+
+<!-- ====================== HERO · STATIC (Editorial Stillness) ====================== -->
+<section class="heroA hero-static" aria-labelledby="hs-h1">
+  <div class="wrap heroA__grid">
+    <div>
+      <p class="eyebrow">Spiritual growth &amp; emotional awareness with Gary Zukav</p>
+      <h1 class="heroA__title" id="hs-h1">Authentic<br>Power</h1>
+      <p class="heroA__sub">Align your personality with your soul — one choice at a time.</p>
+      <p class="heroA__body">A calm, guided space to recognize your emotions as messages from the soul and choose from love instead of fear. No rush. No perfection.</p>
+      <div class="heroA__cta">
+        <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+        <a class="link-anim" href="about/gary-zukav/">Meet Gary <span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="heroA__media">
+      <span class="heroA__glow" aria-hidden="true"></span>
+      <img class="heroA__img" src="assets/images/6a3342a6143842a748166485_1220.webp" width="1500" height="841" decoding="async" alt="A community gathered together at sunset, practicing authentic power" />
+      <div class="heroA__chip">
+        <img src="assets/images/6a3342a6143842a74816646a_gary-zukav-author-new-york-times-best-seller.webp" width="120" height="158" decoding="async" alt="" aria-hidden="true" />
+        <span><strong>#1 New York Times</strong> bestselling author</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 1 · ASPIRATION — "Soul Tide" dotted-wave (su propia sección, como estaba) ========== -->
+<section class="sec aspire" id="aspire" aria-label="Do you want a life of meaning, creativity, joy and love?">
+  <canvas class="aspire__waves" aria-hidden="true"></canvas>
+  <span class="aspire__veil" aria-hidden="true"></span>
+  <div class="sec__inner aspire__inner">
+    <p class="aspire__intro" data-asp-line>Do you want…</p>
+    <h2 class="aspire__list">
+      <span class="aspire__row">
+        <span class="aspire__word" data-asp-line>meaning</span><span class="aspire__tag" data-asp-line>&amp; purpose</span>
+      </span>
+      <span class="aspire__row aspire__row--mid">
+        <span class="aspire__word aspire__word--accent" data-asp-line>creativity</span><span class="aspire__tag" data-asp-line>&amp; health</span>
+      </span>
+      <span class="aspire__row">
+        <span class="aspire__word" data-asp-line>joy &amp; love</span><span class="aspire__tag" data-asp-line>in your life</span>
+      </span>
+    </h2>
+    <span class="aspire__cue" aria-hidden="true"><span class="aspire__cue-line"></span></span>
+  </div>
+</section>
+
+<!-- ========== INMERSIVE FLOW — Statement + Greeting. Plasma DESACTIVADO (ver más abajo); el wave de puntos se queda en Aspiration. ========== -->
+<div class="immersive-flow">
+  <!-- SEGUNDO EFECTO (plasma) DESACTIVADO — reactivar: descomentar este canvas + el <script id="statement-plasma">
+  <canvas class="flow__plasma" aria-hidden="true"></canvas>
+  -->
+
+<!-- ========== 2 · STATEMENT (Authentic Power) — antecede al video, como el sitio original ========== -->
+<section class="sec statement statement--tide" aria-label="These are experiences of Authentic Power">
+  <span class="statement__veil" aria-hidden="true"></span>
+  <div class="sec__inner">
+    <p class="sec__eyebrow reveal">The experience</p>
+    <hr class="accent-rule reveal" />
+    <h2 class="statement__big sec__title reveal">These are experiences of <span class="accent">Authentic&nbsp;Power</span></h2>
+    <p class="statement__lead reveal">The alignment of your personality and soul.</p>
+  </div>
+</section>
+
+<!-- ========== 3 · GREETING (video Gary & Linda) ========== -->
+<section class="sec greeting sec--dark" aria-label="A greeting from Gary and Linda">
+  <span class="greeting__glow" aria-hidden="true"></span>
+  <span class="greeting__backdrop" id="greetBackdrop" aria-hidden="true"></span>
+  <div class="sec__inner">
+    <div class="greeting__stage" id="greetStage">
+    <div class="greeting__card reveal" id="greetCard">
+      <video id="greetVideo" poster="assets/images/greeting-poster.webp" playsinline preload="metadata">
+        <source src="assets/SOTS-Homepage-Video-web.mp4" type="video/mp4" /></video>
+      <span class="greeting__scrim" aria-hidden="true"></span>
+      <span class="greeting__bokeh" aria-hidden="true"></span>
+      <div class="greeting__overlay" id="greetOverlay">
+        <p class="greeting__from">A greeting from</p>
+        <button class="greeting__play" id="greetPlay" aria-label="Play or pause the greeting from Gary and Linda">
+          <svg class="greeting__icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="greeting__icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.2v14H7zM13.8 5H17v14h-3.2z"/></svg>
+          <span class="greeting__spinner" aria-hidden="true"></span>
+        </button>
+        <p class="greeting__names"><span class="greeting__amp">Gary &amp;</span> <span class="greeting__script">Linda</span></p>
+      </div>
+      <div class="greeting__hint" id="greetHint" aria-live="polite" hidden>Pause or press <kbd>Esc</kbd> to keep exploring</div>
+      <span class="greeting__bloom" aria-hidden="true"></span>
+    </div>
+    </div>
+  </div>
+</section>
+</div><!-- /.immersive-flow -->
+
+<!-- ========== 4 · CONSCIOUSNESS (video full-bleed + texto bookend) ========== -->
+<!-- "soul calm" cinematográfico (ref. página antigua): el video es el fondo a
+     todo lo ancho; título arriba y lead+CTA abajo, ambos sobre el video. -->
+<section class="sec consciousness sec--deep" aria-labelledby="cons-h">
+  <div class="consciousness__media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata"
+           poster="assets/images/6a3342a6143842a748166454_people-with-authentic-power-gary-zukav.webp">
+      <source src="assets/The-Seat-Of-The-Soul-Home_Woman.mp4" type="video/mp4" />
+    </video>
+    <span class="consciousness__scrim" aria-hidden="true"></span>
+    <span class="consciousness__readpane" aria-hidden="true"></span>
+  </div>
+  <span class="consciousness__orb consciousness__orb--top" aria-hidden="true"></span>
+  <span class="consciousness__orb consciousness__orb--bottom" aria-hidden="true"></span>
+  <div class="sec__inner consciousness__inner">
+    <div class="consciousness__top">
+      <p class="sec__eyebrow reveal">A new consciousness</p>
+      <h2 id="cons-h" class="sec__title consciousness__title reveal">The emerging global consciousness offers the potential of <span class="accent">authentic power</span>.</h2>
+    </div>
+    <div class="consciousness__bottom">
+      <h3 class="consciousness__subtitle reveal">A power based on <span class="accent">compassion and wisdom</span>.</h3>
+      <p class="sec__lead reveal">It calls you to act from love rather than fear. It connects you to the seat of your soul — the place of purpose, fulfillment and joy.</p>
+      <div class="consciousness__cta reveal">
+        <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Start Your Journey</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5 · TOOLS (statement potente · wave de texto) — movido tras Consciousness (orden old site) ========== -->
+<section class="sec tools sec--lilac textwave" id="tools" aria-label="Explore powerful tools">
+  <span class="tools__glow tools__glow--a" aria-hidden="true"></span>
+  <span class="tools__glow tools__glow--b" aria-hidden="true"></span>
+  <div class="sec__inner tools__inner">
+    <h2 class="sec__title tools__title reveal"><span data-wave-line data-wave-base="#0E1631" data-wave-crest="#3C1951">Explore</span> <span class="accent" data-wave-line data-wave-base="#3C1951" data-wave-crest="#FED457">powerful</span> <span data-wave-line data-wave-base="#0E1631" data-wave-crest="#3C1951">tools.</span></h2>
+    <div class="tools__cta reveal">
+      <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the Tools</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+    </div>
+    <p class="tools__kicker reveal">Use these tools</p>
+    <p class="tools__script reveal">on your journey to love</p>
+  </div>
+</section>
+
+<!-- ========== 6 · LIVE EVENT (Join Gary · Soul Tide + wave de texto) ========== -->
+<section class="sec event sec--deep textwave" id="event" aria-label="Join Gary — a live event">
+  <canvas class="event__waves tw-tide" aria-hidden="true"></canvas>
+  <span class="event__veil" aria-hidden="true"></span>
+  <span class="sec__glow" style="bottom:-12%;right:-10%;"></span>
+  <div class="sec__inner">
+    <p class="sec__eyebrow reveal">Join Gary — Live</p>
+    <hr class="accent-rule reveal" aria-hidden="true" />
+    <h2 class="sec__title event__headline reveal">A live event with Gary Zukav and the energy of Linda Francis is a <em class="accent">profound, life-changing experience.</em></h2>
+    <div class="event__close reveal">
+      <p class="event__statement">
+        <span class="es es--1">Accelerate your personal journey into</span>
+        <span class="es es--2">evolutionary spiritual growth today,</span>
+        <span class="es es--3">and become the <span class="es-key">creator of your life</span>!</span>
+      </p>
+      <!-- Karol copy audit 2026-06-26: metadata bar inventada (no está en el sitio viejo) — oculta hasta verificación
+      <ul class="event__meta">
+        <li><span class="em-k">Format</span><span class="em-v">Live online</span></li>
+        <li><span class="em-k">Host</span><span class="em-v">With Gary Zukav</span></li>
+        <li><span class="em-k">Reach</span><span class="em-v">Worldwide</span></li>
+      </ul>
+      -->
+      <div class="event__act reveal">
+        <p class="event__ready">Are you ready?</p>
+        <span class="event__connector" aria-hidden="true"></span>
+        <div class="event__cta-row">
+          <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Register Today!</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 7 · BOOKS ========== -->
+<section class="sec books sec--dark textwave" aria-label="The legendary books">
+  <div class="books__paths" id="booksPaths" aria-hidden="true"></div>
+  <!-- Nubes feTurbulence (top/bottom) ocultas a pedido del PM (2026-06-25). Descomentar para reactivar; CSS sigue en section-polish.css (.books__clouds/.books__sky).
+  <div class="books__clouds books__clouds--top" aria-hidden="true"><div class="books__sky"></div></div>
+  <div class="books__clouds books__clouds--bottom" aria-hidden="true"><div class="books__sky"></div></div>
+  -->
+  <div class="sec__inner">
+    <div class="books__copy">
+      <h2 class="books__title sec__title reveal">
+        <span class="books__lead">Read the Legendary Books that</span>
+        <span class="books__statement"><span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">Revolutionized</span> <span data-wave-line data-wave-base="#ffffff" data-wave-crest="#FED457">Self-Transformation</span></span>
+      </h2>
+      <p class="books__script reveal">Follow your spiritual path</p>
+      <div class="books__cta reveal">
+        <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the Books</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+      </div>
+    </div>
+    <div class="books__stage reveal">
+      <span class="books__circle" aria-hidden="true"></span>
+      <img class="books__img" src="assets/images/latest-books.webp" width="1000" height="1000" decoding="async" loading="lazy" alt="Gary Zukav's books: Universal Human (latest) and the #1 New York Times bestseller The Seat of the Soul" />
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4b · COURSES (bento de 4 pilares) ========== -->
+<section class="sec courses sec--paper" aria-label="Courses and pathways">
+  <div class="sec__inner">
+    <div class="sec__head">
+      <p class="sec__eyebrow reveal">The path of authentic power</p>
+      <h2 class="sec__title reveal">Four practices to align your personality with your soul.</h2>
+    </div>
+    <div class="courses__grid" id="coursesGrid">
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/6a3342a6143842a748166454_people-with-authentic-power-gary-zukav.webp" width="1200" height="800" decoding="async" alt="" loading="lazy" />
+          <span class="post__chip">Practice 01</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">Authentic Power</h3>
+          <span class="post__meta">The alignment of your personality with your soul — with harmony, cooperation, sharing, and reverence for life.</span>
+          <span class="post__cta">Explore the course<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
+      </a>
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/6a3342a6143842a748166468_gary-zukav-emotional-awareness-spiritual-growth.webp" style="object-position:30% top" width="1200" height="800" decoding="async" alt="" loading="lazy" />
+          <span class="post__chip">Practice 02</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">Emotional Awareness</h3>
+          <span class="post__meta">Awareness of the physical sensations in and near your energy centers, in every moment.</span>
+          <span class="post__cta">Explore<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
+      </a>
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/6a3342a6143842a74816646c_millions-of-people-reached-via-gary-zukav-teachings.webp" width="1200" height="800" decoding="async" alt="" loading="lazy" />
+          <span class="post__chip">Practice 03</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">Responsible Choice</h3>
+          <span class="post__meta">A choice whose consequences you're willing to take responsibility for.</span>
+          <span class="post__cta">Explore<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
+      </a>
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/6a3342a6143842a748166472_spiritual-partnership-card-image.webp" width="1200" height="800" decoding="async" alt="" loading="lazy" />
+          <span class="post__chip">Practice 04</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">Spiritual Partnership</h3>
+          <span class="post__meta">A partnership between equals for the purpose of spiritual growth.</span>
+          <span class="post__cta">Join the community<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4c · MEMBERSHIP (Soul to Soul Community) ========== -->
+<section class="sec membership" aria-label="Soul to Soul Community membership">
+  <img class="membership__media" src="assets/images/6a3342a6143842a748166485_1220.webp" width="1500" height="841" decoding="async" alt="" loading="lazy" />
+  <span class="membership__scrim" aria-hidden="true"></span>
+  <div class="sec__inner">
+    <p class="sec__eyebrow reveal" style="color:var(--gold);">Soul to Soul Community</p>
+    <hr class="accent-rule reveal" aria-hidden="true" />
+    <h2 class="sec__title membership__title reveal" style="color:#fff;">If you are ready to create a life of connection, meaning, and <span class="accent">fulfillment.</span></h2>
+    <p class="sec__lead reveal" style="margin-inline:auto;color:rgba(255,255,255,.84);">Begin your transformational journey into freedom, joy, and love.</p>
+    <div class="reveal" style="margin-top:2.2rem;">
+      <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Join the Soul School Community</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 6b · IMPACT STATS (count-up) ========== -->
+<!-- Cifras verificadas vs seatofthesoul.com/about-gary-zukav (2026-06-25): "Six million copies of his books have been published in 32 languages" · 4 #1 NYT bestsellers · 36× Oprah. Años de enseñanza: desde 1989 (The Seat of the Soul). Episodios 100+: el podcast va por Soul Feast #90 + Soul Snacks → confirmar total exacto con cliente. -->
+<section class="sec stats" aria-label="Impact">
+  <span class="sec__glow" style="top:-12%;right:-6%;"></span>
+  <div class="sec__inner">
+    <p class="sec__eyebrow reveal">Decades of teaching</p>
+    <hr class="accent-rule reveal" aria-hidden="true" />
+    <h2 class="sec__title stats__title reveal">A work that has <span class="accent">reached the world.</span></h2>
+    <div class="stats__grid reveal">
+      <div class="stat"><div class="stat__num" data-count="6" data-suffix="M+">0</div><div class="stat__label">books sold</div></div>
+      <div class="stat"><div class="stat__num" data-count="32" data-suffix="">0</div><div class="stat__label">languages</div></div>
+      <div class="stat"><div class="stat__num" data-count="30" data-suffix="+">0</div><div class="stat__label">years of teaching</div></div>
+      <div class="stat"><div class="stat__num" data-count="100" data-suffix="+">0</div><div class="stat__label">podcast episodes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 7b · PRAISE (testimonios · carrusel de una cita · ref. seatofthesoul) ========== -->
+<section class="sec praise stories-sec" aria-label="Stories from our community">
+  <div class="sec__inner">
+    <div class="stories__head">
+      <p class="sec__eyebrow reveal">(testimonials)</p>
+      <h2 class="sec__title reveal">Stories from our <em class="serif-em">community</em></h2>
+    </div>
+  </div>
+  <div class="stories" id="storiesWrap">
+    <span class="stories__arrow stories__arrow--prev" id="storiesPrev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span class="stories__arrow stories__arrow--next" id="storiesNext" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <div class="stories__track" id="storiesTrack">
+
+      <!-- cada testimonio = par: foto cuadrada + burbuja de cita con esquina cortada (chamfer) -->
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166405_oprah-winfrey-authentic-power-endorsement.webp?v=2" alt="Oprah Winfrey" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;The Seat of the Soul changed the way I see myself. It changed the way I view the world.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Oprah Winfrey</span><span class="story-quote__role">Media Leader, Producer &amp; Philanthropist</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166415_paulo-coelho-consciousness-testimonial.webp?v=2" alt="Paulo Coelho" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;The Seat of the Soul is a very important book to me.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Paulo Coelho</span><span class="story-quote__role">Author &amp; Spiritual Thinker</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166416_julianne-hough-conscious-living-testimonial.webp?v=2" alt="Julianne Hough" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;This is an opportunity. This is a soul agreement. This is a moment for me to level up and learn something.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Julianne Hough</span><span class="story-quote__role">Actress, Dancer &amp; Wellness Advocate</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166417_andre-duqum-authentic-power-testimonial.webp?v=2" alt="André Duqum" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;His teachings have supported millions of people for decades now, transforming their perspective and way of being in the world.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">André Duqum</span><span class="story-quote__role">Podcast Host &amp; Consciousness Educator</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166458_maya-angelou-spiritual-wisdom-testimonial.webp?v=2" alt="Maya Angelou" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;The intrepid, daring Gary Zukav tells the hard truths.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Maya Angelou</span><span class="story-quote__role">Poet, Author &amp; Civil Rights Activist</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166419_lewis-howes-spiritual-growth-testimonial.webp?v=2" alt="Lewis Howes" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;If you&rsquo;re feeling confused, this is going to give you a lot of clarity.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Lewis Howes</span><span class="story-quote__role">Author, Entrepreneur &amp; Podcast Host</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166406_gwyneth-paltrow-authentic-power-review.webp?v=2" alt="Gwyneth Paltrow" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;A powerful reminder that we&rsquo;re all connected.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Gwyneth Paltrow</span><span class="story-quote__role">Actress &amp; Wellness Entrepreneur</span></figcaption>
+      </figure>
+
+      <div class="story-photo"><img src="assets/images/6a3342a6143842a748166418_jay-z-personal-growth-testimonial.webp?v=2" alt="Jay-Z" loading="lazy" decoding="async" /></div>
+      <figure class="story-quote">
+        <blockquote class="story-quote__q">&ldquo;There are two books that I absolutely live my life by. This is one of them.&rdquo;</blockquote>
+        <span class="story-quote__line" aria-hidden="true"></span>
+        <figcaption class="story-quote__cite"><span class="story-quote__name">Jay-Z</span><span class="story-quote__role">Artist, Producer &amp; Entrepreneur</span></figcaption>
+      </figure>
+
+    </div>
+  </div>
+  <!-- TODO cliente (LEGAL): citas reales (endorsements públicos) · confirmar derechos de uso de nombres/retratos antes de publicar. -->
+</section>
+
+<!-- ========== 7c · INSTAGRAM FEED (latest from @gary_zukav · mock → Meta Graph API) ========== -->
+<!-- TODO cliente: conectar Instagram Graph API (Meta). Captions/likes/fechas reales vienen del API.
+     Mockup hoy en assets/js/instafeed.js (useMockData:true). Mañana: useMockData:false. -->
+<section class="sec blog instafeed" aria-label="Latest on Instagram">
+  <div class="sec__inner">
+    <div class="blog__head">
+      <div class="blog__intro">
+        <p class="sec__eyebrow reveal">@gary_zukav · Instagram</p>
+        <h2 class="sec__title reveal">Latest from the feed</h2>
+        <p class="blog__deck reveal">Fresh reflections and reminders — straight from Gary&rsquo;s Instagram.</p>
+        <span class="instafeed__mockbadge reveal">&#10038; Mockup · example data</span>
+      </div>
+      <a class="blog__all instafeed__follow reveal" href="https://www.instagram.com/gary_zukav/" target="_blank" rel="noopener noreferrer">
+        <span class="instafeed__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+        <span>Follow</span>
+        <span class="blog__all-ico" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <!-- Tarjetas renderizadas por assets/js/instafeed.js (reusan .post .post--glow del Soul Feed) -->
+    <div class="blog__grid instafeed__grid" id="instaFeedGrid" data-ig-source="mock">
+      <noscript>
+        <a class="post post--insta" href="https://www.instagram.com/gary_zukav/" target="_blank" rel="noopener noreferrer">
+          <span class="post__media post__media--square post__media--ph">
+            <span class="post__ph-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+            <span class="post__chip post__chip--insta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Example</span>
+          </span>
+          <span class="post__body">
+            <h3 class="post__title post__title--insta">Connect @gary_zukav on Instagram — your latest posts will appear here.</h3>
+            <span class="post__cta">View<span class="post__cta-ico" aria-hidden="true">→</span></span>
+          </span>
+        </a>
+      </noscript>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 8 · FOUNDERS (Gary & Linda) ========== -->
+<section class="sec founders founders--immersive" aria-label="Gary and Linda">
+  <div class="sec__inner">
+    <div class="founders__copy">
+      <p class="sec__eyebrow reveal">The Founders</p>
+      <p class="founders__name reveal"><span class="founders__amp">Gary &amp;</span> <span class="founders__script">Linda</span></p>
+      <hr class="accent-rule reveal" aria-hidden="true" />
+      <p class="sec__lead founders__lead reveal">We've spent more than 25 years experimenting with our lives together as spiritual partners and sharing our experiments with the world.</p>
+      <div class="founders__cta reveal">
+        <a class="founders__meet" href="https://seatofthesoul.com/about-gary-zukav/" target="_blank" rel="noopener noreferrer">
+          <span class="founders__meet-avatar"><img src="assets/images/Gary_outside_smiling_cb_146-scaled.jpg" width="60" height="60" loading="lazy" decoding="async" alt="" /></span>
+          <span class="founders__meet-text"><span class="founders__meet-kicker">Learn more</span><span class="founders__meet-name">Meet Gary</span></span>
+          <svg class="founders__meet-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="founders__meet" href="https://seatofthesoul.com/about-linda-francis/" target="_blank" rel="noopener noreferrer">
+          <span class="founders__meet-avatar"><img src="assets/images/Linda_cb_015.jpg" width="60" height="60" loading="lazy" decoding="async" alt="" /></span>
+          <span class="founders__meet-text"><span class="founders__meet-kicker">Learn more</span><span class="founders__meet-name">Meet Linda</span></span>
+          <svg class="founders__meet-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="founders__portrait reveal">
+      <span class="founders__halo" aria-hidden="true"></span>
+      <span class="founders__ring" aria-hidden="true"></span>
+      <img class="founders__photo" src="assets/images/seat.webp" width="682" height="682" decoding="async" alt="Gary Zukav and Linda Francis" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ========== 9 · BLOG · SOUL FEED ========== -->
+<!-- TODO cliente: alinear con posts reales del WordPress (títulos/imágenes/links). Sin fechas inventadas. -->
+<section class="sec blog" aria-label="Blog · Soul Feed">
+  <div class="sec__inner">
+    <div class="blog__head">
+      <div class="blog__intro">
+        <p class="sec__eyebrow reveal">Soul Feed · Blog</p>
+        <h2 class="sec__title reveal">Wisdom for your journey</h2>
+        <p class="blog__deck reveal">Soul Snacks and Soul Feasts — short reflections and longer reads to support your path to Authentic Power.</p>
+      </div>
+      <a class="blog__all reveal" href="#">
+        <span>All posts</span>
+        <span class="blog__all-ico" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="blog__grid" id="blogGrid">
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/slides/SOTSI-Site-Carousel-6.webp" alt="" loading="lazy" width="1200" height="630" decoding="async" />
+          <span class="post__chip">Soul Feast</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">AI &amp; Human Evolution</h3>
+          <span class="post__meta">7 min read</span>
+          <span class="post__cta">Read<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
+      </a>
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/slides/SOTSI-Site-Carousel-1.webp" srcset="assets/images/slides/SOTSI-Site-Carousel-1-768.webp 768w, assets/images/slides/SOTSI-Site-Carousel-1.webp 1200w" sizes="100vw" alt="" loading="lazy" width="1200" height="630" decoding="async" />
+          <span class="post__chip">Soul Feast</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">What To Do About Failing Governments?</h3>
+          <span class="post__meta">9 min read</span>
+          <span class="post__cta">Read<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
+      </a>
+      <a class="post post--glow reveal" href="#">
+        <span class="post__media">
+          <img src="assets/images/6a3342a6143842a748166452_authentic-power-spiritual-growth-community.webp" width="1200" height="799" decoding="async" alt="" loading="lazy" />
+          <span class="post__chip">Soul Snack</span>
+        </span>
+        <span class="post__body">
+          <h3 class="post__title">Choosing Love Over Fear</h3>
+          <span class="post__meta">4 min read</span>
+          <span class="post__cta">Read<span class="post__cta-ico" aria-hidden="true">→</span></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 10 · BIG CLOSING CTA (océano/horizonte, brand-correct) ========== -->
+<section class="sec bigcta" aria-label="Are you ready to create authentic power?">
+  <img class="bigcta__media" src="assets/images/6a3342a6143842a748166484_spiritual-growth-membership-community-sunset-100.webp" width="1920" height="1076" decoding="async" alt="" loading="lazy" />
+  <span class="bigcta__scrim" aria-hidden="true"></span>
+  <div class="sec__inner">
+    <h2 class="bigcta__title sec__title reveal">Are you ready to create <span class="accent">Authentic Power?</span></h2>
+    <div class="reveal">
+      <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Start Your Journey</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <span class="foot__accent" aria-hidden="true"></span>
+  <div class="sec__inner">
+
+    <!-- TIER 1 · marca + newsletter -->
+    <div class="foot__top">
+      <div class="foot__brandblock">
+        <a class="foot__logo" href="index.html" aria-label="Seat of the Soul Institute — home"><img src="assets/whitelogo.webp" alt="Seat of the Soul Institute" /></a>
+        <!-- Karol copy audit 2026-06-26: tagline inventado — oculto hasta copy oficial
+        <p class="foot__tag">Create Authentic Power. Choose Love.</p>
+        -->
+        <div class="foot__social" aria-label="Follow Gary Zukav on social media">
+          <a href="https://www.facebook.com/GaryZukav/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 22v-9h3l.5-3.5H13V7.3c0-1 .3-1.7 1.7-1.7H16V2.4C15.7 2.4 14.7 2.3 13.6 2.3 11.3 2.3 9.8 3.7 9.8 6.3V9.5H7V13h2.8v9z"/></svg></a>
+          <a href="https://x.com/gary_zukav" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h3l-7 8 8 12h-6l-5-7-6 7H2l8-9L2 2h6l4 6z"/></svg></a>
+          <a href="https://www.instagram.com/gary_zukav/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.tiktok.com/@gary.zukav.soul" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 2h3c.25 1.86 1.32 3.4 3 3.94v3.02c-1.5 0-2.9-.48-4-1.3v6.74A6 6 0 1 1 11 8.46c.34 0 .67.03 1 .08v3.12a2.9 2.9 0 1 0 2 2.76V2z"/></svg></a>
+          <a href="https://www.youtube.com/@TheGaryZukav" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.8 12 4.8 12 4.8s-7 0-8.9.6A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6A3 3 0 0 0 23 16.5 31 31 0 0 0 23.4 12 31 31 0 0 0 23 7.5zM9.75 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Karol copy audit 2026-06-26: newsletter box inventado ("Wisdom for your journey...") — oculto hasta copy oficial
+      <div class="foot__news">
+        <p class="foot__news-eyebrow">Soul Connections</p>
+        <h2 class="foot__news-title">Wisdom for your journey, in your inbox.</h2>
+        <form class="foot__news-form" onsubmit="return false;">
+          <input type="email" class="foot__news-input" placeholder="Your email address" aria-label="Email address" />
+          <button class="foot__news-btn" type="submit">Sign Up
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </form>
+        <p class="foot__news-note">No noise. Just soul. Unsubscribe anytime.</p>
+      </div>
+      -->
+    </div>
+
+    <!-- TIER 2 · columnas de enlaces -->
+    <div class="foot__cols">
+      <div class="foot">
+        <h5>Connect</h5>
+        <a href="index.html">Return to Homepage</a>
+        <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">Career Opportunities</a>
+        <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">View Opportunities</a>
+      </div>
+      <div class="foot">
+        <h5>Explore</h5>
+        <a href="https://seatofthesoul.com/get-started/" target="_blank" rel="noopener noreferrer">Get Started</a>
+        <a href="https://seatofthesoul.com/about/" target="_blank" rel="noopener noreferrer">About</a>
+        <a href="https://seatofthesoul.com/about/seat-of-the-soul-institute/" target="_blank" rel="noopener noreferrer">About SOTS</a>
+        <a href="https://seatofthesoul.com/about-gary-zukav/" target="_blank" rel="noopener noreferrer">About Gary</a>
+        <a href="https://seatofthesoul.com/about-linda-francis/" target="_blank" rel="noopener noreferrer">About Linda</a>
+        <a href="https://seatofthesoul.com/remember-linda-homepage/" target="_blank" rel="noopener noreferrer">In Celebration of Linda Francis</a>
+        <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Podcast</a>
+        <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Blog · Soul Feed</a>
+        <a href="https://seatofthesoul.com/apg-optin/" target="_blank" rel="noopener noreferrer">Resources</a>
+        <a href="https://seatofthesoul.com/shop/" target="_blank" rel="noopener noreferrer">Courses, Events &amp; Activities</a>
+      </div>
+      <div class="foot">
+        <h5>Contact</h5>
+        <a href="mailto:info@seatofthesoul.com">info@seatofthesoul.com</a>
+        <form class="foot__search" role="search" onsubmit="return false;">
+          <input type="search" class="foot__search-input" placeholder="Search…" aria-label="Search the site" />
+          <button class="foot__search-btn" type="submit" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="foot__bottom">
+      <span>©<span id="footYear">2026</span> The Seat of the Soul Institute. All rights reserved.</span>
+      <span class="foot__legal">
+        <a href="https://seatofthesoul.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a><a href="https://seatofthesoul.com/terms-of-use/" target="_blank" rel="noopener noreferrer">Terms of Use</a><a href="https://seatofthesoul.com/refund-cancellation/" target="_blank" rel="noopener noreferrer">Refund Policy</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- ====================== VARIANT SWITCHER ====================== -->
+
+<script src="assets/js/app.js"></script>
+
+<!-- ===== GSAP (core + ScrollTrigger + SplitText, ya gratuito en 3.13) — para el wave de texto ===== -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+
+<!-- ===== Aspiration · "Soul Tide" — campo de puntos en oleaje + wave de texto ===== -->
+<script src="assets/js/soul-tide.js"></script>
+
+
+<!-- Instagram Feed (sección 7c): mock → Meta Graph API. Ver assets/js/instafeed.js -->
+<script src="assets/js/instafeed.js" defer></script>
+
+</body>
+</html>

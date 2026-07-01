@@ -1,0 +1,87 @@
+/* =====================================================================
+   SOTSI · RESPONSIVE-FIX  — loaded LAST (after mobile.css)
+   Dos objetivos:
+   1) Red de seguridad global: nada puede provocar scroll horizontal.
+   2) Tiers para monitores grandes (1440 / 1920 / 2560). El resto del
+      sistema se detenía en 1040px → en pantallas grandes el contenido
+      quedaba enano con márgenes enormes. Aquí el rail (--maxw-wide) y
+      los grids respiran de forma progresiva, y el hero llena monitores
+      altos sin dejar banda muerta. Sólo min-width → puramente aditivo,
+      no toca el comportamiento ≤1280.
+   Tokens, clamp() y propiedades compositor-friendly del sistema actual.
+   ===================================================================== */
+
+/* ---- 0 · Red de seguridad global (todas las anchuras) ----
+   overflow-x:clip no crea contenedor de scroll → seguro con position:sticky. */
+html, body { overflow-x: clip; }
+
+/* =====================================================================
+   1 · DESKTOP GRANDE  ≥1440px
+   El rail se ensancha, los grids ganan aire, el hero llena un poco más.
+   ===================================================================== */
+@media (min-width: 1440px){
+  :root{ --maxw-wide: 1320px; }
+
+  /* hero: llena monitores altos sin banda muerta (cap suave) */
+  body.heroheight-full{
+    --hero-h-original:min(100svh, 960px);
+    --hero-h-slider:min(100svh, 980px);
+  }
+
+  /* grids: misma cuenta de columnas (la composición bento está fijada a
+     4-col), pero más separación → tarjetas más grandes, no más densas */
+  .blog__grid{ gap: clamp(2rem, 1.4rem + 1.4vw, 3rem); }
+  .courses__grid{ gap: 22px; }
+  .stats__grid{ gap: clamp(2.4rem, 1.6rem + 1.6vw, 3.6rem); }
+}
+
+/* =====================================================================
+   2 · FULL HD  ≥1920px
+   ===================================================================== */
+@media (min-width: 1920px){
+  :root{
+    --maxw-wide: 1440px;
+    --gutter: clamp(1.25rem, 0.8rem + 2vw, 3.25rem);
+  }
+
+  body.heroheight-full{
+    --hero-h-original:min(100svh, 1020px);
+    --hero-h-slider:min(100svh, 1040px);
+  }
+
+  .blog__grid{ gap: 3rem; }
+  .courses__grid{ gap: 26px; }
+  .ccard--feature{ min-height: 480px; }   /* mantiene la proporción 2×2 al crecer las tarjetas */
+  .stats__grid{ gap: 4rem; }
+}
+
+@supports (height: 100dvh){
+  @media (min-width: 1440px){
+    body.heroheight-full{
+      --hero-h-original:min(100dvh, 960px);
+      --hero-h-slider:min(100dvh, 980px);
+    }
+  }
+
+  @media (min-width: 1920px){
+    body.heroheight-full{
+      --hero-h-original:min(100dvh, 1020px);
+      --hero-h-slider:min(100dvh, 1040px);
+    }
+  }
+}
+
+/* =====================================================================
+   3 · ULTRA-WIDE / 4K  ≥2560px
+   Techo de contenido: márgenes intencionales (editorial), no una cinta
+   delgada perdida ni contenido pegado al bisel. La nav se ensancha para
+   no quedar más angosta que el contenido.
+   ===================================================================== */
+@media (min-width: 2560px){
+  :root{ --maxw-wide: 1560px; }
+
+  .snav .wrap{ width: min(100% - 2*var(--gutter), 1680px); }
+
+  .courses__grid{ gap: 30px; }
+  .ccard--feature{ min-height: 520px; }
+}

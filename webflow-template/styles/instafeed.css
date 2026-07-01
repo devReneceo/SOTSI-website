@@ -1,0 +1,122 @@
+/* =============================================================================
+ * Instagram Feed (sección 7c) — toques propios sobre el chrome del Blog/Soul Feed.
+ * Todo lo demás (tarjeta .post, glow, rejilla .blog__grid, enrutado por tema,
+ * reduced-motion) se HEREDA de styles/sections.css. Aquí solo lo específico de IG.
+ * ===========================================================================*/
+
+/* Media cuadrada 1:1 (override del 16/10 del blog) ------------------------- */
+.instafeed .post__media--square { aspect-ratio: 1 / 1; }
+
+/* Tile placeholder (modo MOCKUP, sin fotos): icono IG centrado, todas iguales.
+   Cuando se conecte la data real (useMockData:false) se usan <img> normales. */
+.post__media--ph {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(130% 120% at 50% 0%, color-mix(in srgb, var(--purple) 16%, transparent), transparent 62%),
+    linear-gradient(150deg, color-mix(in srgb, var(--periwinkle) 52%, #fff),
+                            color-mix(in srgb, var(--lilac) 46%, #fff));
+}
+.post__media--ph::after { content: none; }   /* sin la veladura inferior del .post__media */
+.post__ph-ico {
+  display: grid;
+  place-items: center;
+  width: clamp(52px, 26%, 92px);
+  aspect-ratio: 1 / 1;
+  color: color-mix(in srgb, var(--purple) 66%, var(--navy));
+  opacity: 0.92;
+  transition: transform 0.5s var(--ease);
+}
+.post__ph-ico svg { width: 100%; height: 100%; }
+.post:hover .post__ph-ico { transform: scale(1.06); }
+
+/* Badge "Mockup · example data" en el header (se oculta solo al ir a data real) */
+.instafeed__mockbadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.95rem;
+  padding: 0.34rem 0.72rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--purple);
+  background: color-mix(in srgb, var(--purple) 9%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--purple) 40%, transparent);
+}
+
+/* Chip "Instagram": reusa el chip glass, cambia el punto dorado por el glifo IG,
+   en tono de marca (navy sobre glass) — sin el degradado fuerte de Instagram. */
+.post__chip--insta::before { display: none; }
+.post__chip--insta {
+  gap: 0.4rem;
+  padding-left: 0.6rem;
+}
+.post__chip--insta svg {
+  width: 0.92rem;
+  height: 0.92rem;
+  flex: none;
+}
+
+/* Caption en el slot del título: serif editorial, recortada a 2 líneas limpias */
+.post__title--insta {
+  font-size: clamp(1.05rem, 0.98rem + 0.4vw, 1.22rem);
+  line-height: 1.32;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Stats ♥ / 💬 — reusa el color muted de .post__meta */
+.instafeed__stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.instafeed__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.instafeed__stat svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: none;
+  opacity: 0.78;
+}
+
+/* Botón "Follow" — reusa el pill .blog__all, con mini-avatar a la izquierda */
+.instafeed__follow {
+  padding-left: 0.5rem;
+  gap: 0.6rem;
+}
+.instafeed__avatar {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  overflow: hidden;
+  flex: none;
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--purple) 42%, transparent),
+              0 0 0 3px color-mix(in srgb, var(--gold) 30%, transparent);
+}
+.instafeed__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.instafeed__avatar svg {     /* en el mockup el avatar es el glifo IG (sin foto) */
+  width: 0.98rem;
+  height: 0.98rem;
+  color: var(--purple);
+}
+body.theme-dawn .instafeed__avatar {
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--purple) 48%, transparent),
+              0 0 0 3px color-mix(in srgb, var(--periwinkle) 60%, transparent);
+}

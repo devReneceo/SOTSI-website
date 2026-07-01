@@ -1,0 +1,927 @@
+/* ============================================================
+   SOTSI · sections.css — Home sections (Stage 3 · REDISEÑO)
+   Dirección: quiet-luxury editorial. Superficies SÓLIDAS (sin
+   gradientes arcoíris), mucho whitespace, jerarquía por escala +
+   peso. SIN fuente script (se sentía tosca) — Canela serif recto
+   + Jost sans. Tipografía sigue el switcher (--font-display/body).
+   ============================================================ */
+
+/* ---- ritmo vertical generoso ---- */
+.sec{position:relative;padding-block:clamp(5.5rem,4rem + 7vw,11rem);overflow:hidden;}
+.sec__inner{width:min(var(--maxw-wide,1180px),100% - 2*var(--gutter));margin-inline:auto;position:relative;z-index:1;}
+
+/* tipografía base de sección */
+.sec__eyebrow{font-family:var(--font-body);font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;
+  font-weight:600;margin:0 0 1.8rem;opacity:.9;}
+.sec__title{font-family:var(--font-display);font-weight:400;line-height:1.12;letter-spacing:-.015em;
+  font-size:clamp(2rem,1.3rem + 2.8vw,3.5rem);margin:0;}
+.sec__title .accent{color:var(--gold);}
+.sec__lead{font-family:var(--font-body);font-weight:300;font-size:clamp(1.1rem,1rem + .5vw,1.32rem);
+  line-height:1.75;margin:2rem 0 0;max-width:52ch;}
+
+/* superficies SÓLIDAS (sin gradientes) */
+.sec--dark{background:var(--navy);color:#fff;}
+.sec--deep{background:#181033;color:#fff;}                 /* púrpura-navy sólido (reemplaza el grad inmersivo) */
+.sec--lilac{background:var(--lilac,#E7D4F1);color:var(--navy);}
+.sec--light{background:#fff;color:var(--navy);}
+.sec--paper{background:#FAF8F3;color:var(--navy);}          /* off-white cálido para áreas de lectura */
+.sec--dark .sec__eyebrow,.sec--deep .sec__eyebrow{color:var(--gold);}
+.sec--lilac .sec__eyebrow,.sec--light .sec__eyebrow,.sec--paper .sec__eyebrow{color:var(--purple);}
+.sec--dark .sec__lead,.sec--deep .sec__lead{color:rgba(255,255,255,.78);}
+
+/* glow sutil (atmósfera, no gradiente duro) */
+.sec__glow{position:absolute;width:46vw;max-width:600px;aspect-ratio:1;border-radius:50%;z-index:0;
+  background:radial-gradient(circle,rgba(254,212,87,.10),transparent 68%);filter:blur(10px);pointer-events:none;}
+
+/* línea-acento dorada fina (reemplaza adornos script) */
+.accent-rule{width:56px;height:2px;background:var(--gold);border:0;margin:0 0 1.8rem;}
+.statement .accent-rule,.tools .accent-rule,.event .accent-rule{margin-inline:auto;}
+
+/* ===== 1 · Aspiration — "Soul Tide" =========================================
+   Campo de puntos en oleaje (canvas, perspectiva) detrás de tipografía editorial.
+   Las aspiraciones entran letra-a-letra en ola (GSAP SplitText, color shift dorado
+   → calma). Solo tokens de marca · compositor-friendly · reduced-motion safe. */
+/* ===== INMERSIVE FLOW: Aspiration + Statement + Greeting sobre UN plasma continuo =====
+   El canvas vive en el wrapper y cubre las 3 secciones → la animación no se corta;
+   los bloques de texto son la "división". Secciones transparentes para dejar ver el plasma. */
+.immersive-flow{position:relative;background:var(--navy);}
+/* UN canvas que cubre TODO el flujo (las 3 secciones) → la animación nunca se corta.
+   El plasma alcanza su clímax al centro (Statement) y se calma hacia arriba/abajo. */
+.flow__plasma{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none;}
+.immersive-flow > .sec{position:relative;z-index:1;background:transparent;}
+
+.aspire{position:relative;overflow:hidden;isolation:isolate;background:var(--navy);color:#fff;
+  padding-block:clamp(6rem,4rem + 12vw,12rem);}
+.aspire__waves{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none;}
+/* velo radial: mantiene el texto legible sobre el campo de puntos */
+.aspire__veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(82% 64% at 30% 44%, rgba(14,22,49,.88) 0%, rgba(14,22,49,.52) 40%, rgba(14,22,49,0) 80%);}
+.aspire .sec__inner{position:relative;z-index:2;max-width:1180px;}
+
+.aspire__intro{font-family:var(--font-body);font-weight:300;
+  font-size:clamp(1rem,.8rem + 1vw,1.4rem);letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);margin:0 0 clamp(2.2rem,5vw,4.2rem);}
+
+.aspire__list{margin:0;font-weight:400;display:flex;flex-direction:column;}
+.aspire__row{display:flex;align-items:baseline;gap:.32em 1.1rem;flex-wrap:wrap;}
+.aspire__row + .aspire__row{margin-top:clamp(1.6rem,4vw,3.4rem);padding-top:clamp(1.6rem,4vw,3.4rem);
+  border-top:1px solid rgba(255,255,255,.09);}
+.aspire__row--mid{padding-left:clamp(0rem,6vw,7rem);}            /* paso editorial */
+
+.aspire__word{font-family:var(--font-display);font-weight:400;letter-spacing:-.022em;line-height:.9;
+  font-size:clamp(3.2rem,2rem + 8vw,9rem);color:#fff;}
+.aspire__word--accent{color:var(--gold);}                        /* único acento dorado grande, sobre oscuro */
+.aspire__tag{font-family:var(--font-body);font-weight:300;letter-spacing:.18em;text-transform:uppercase;
+  font-size:clamp(.9rem,.7rem + .7vw,1.2rem);color:rgba(255,255,255,.6);align-self:center;}
+
+/* chars que crea SplitText — no deben romper el layout y entran por compositor */
+.aspire .asp-char{display:inline-block;will-change:transform,opacity;}
+
+/* scroll cue minimal (línea que respira hacia la siguiente sección) */
+.aspire__cue{display:block;margin-top:clamp(3rem,6vw,5rem);height:64px;}
+.aspire__cue-line{display:block;width:1px;height:100%;margin-left:2px;transform-origin:top;
+  background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,0));
+  animation:aspireCue 2.6s cubic-bezier(.16,1,.3,1) infinite;}
+@keyframes aspireCue{0%{transform:scaleY(.2);opacity:0}30%{opacity:1}100%{transform:scaleY(1);opacity:0}}
+@media (prefers-reduced-motion:reduce){ .aspire__cue-line{animation:none;opacity:.5;} }
+
+/* ---- 2 · Greeting (video card · expand inmersivo al play) ---- */
+/* más aire arriba (separa el video del texto del Statement) — ~1.5× el padding base */
+.greeting{background:var(--navy);padding-top:clamp(8rem,6rem + 10vw,16.5rem);}
+.greeting.is-playing{z-index:60;overflow:visible;}   /* modo foco "siéntate y ve": eleva sobre las vecinas + deja salir el dim fijo */
+/* aura de gradiente de marca detrás de la tarjeta — tenue SIEMPRE (da atmósfera, menos "seco"),
+   se intensifica y respira al reproducir */
+.greeting__glow{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;transition:opacity .9s ease;
+  background:
+    radial-gradient(50% 58% at 50% 52%, rgba(60,25,81,.6), transparent 72%),
+    radial-gradient(40% 44% at 22% 30%, rgba(210,204,253,.24), transparent 70%),
+    radial-gradient(42% 46% at 80% 72%, rgba(254,212,87,.13), transparent 72%);}
+.greeting.is-playing .greeting__glow{opacity:1;animation:greetAura 9s ease-in-out infinite;}
+@keyframes greetAura{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.07);opacity:1}}
+.greeting .sec__inner{position:relative;z-index:1;}
+/* backdrop transparente al reproducir → deja VER el flow-field detrás del video; clic = cerrar */
+.greeting__backdrop{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;
+  background:transparent;transition:opacity .4s ease;}
+.greeting.is-playing .greeting__backdrop{position:fixed;inset:0;z-index:0;opacity:1;pointer-events:auto;cursor:zoom-out;
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(60,25,81,.72), transparent 60%),
+    radial-gradient(120% 120% at 50% 100%, rgba(20,30,70,.6), transparent 62%),
+    #05070f;
+  transition:opacity .6s ease;}   /* teatro inmersivo on-brand (navy ↔ púrpura) */
+/* atmósfera viva: capa de gradiente que deriva muy lento (transform → compositor-friendly) */
+.greeting.is-playing .greeting__backdrop::before{content:"";position:absolute;inset:-20%;pointer-events:none;
+  background:
+    radial-gradient(38% 38% at 28% 30%, rgba(254,212,87,.10), transparent 70%),
+    radial-gradient(42% 42% at 76% 72%, rgba(210,204,253,.12), transparent 72%);
+  animation:greetTheater 32s ease-in-out infinite;}
+@keyframes greetTheater{0%,100%{transform:rotate(0deg) scale(1)}50%{transform:rotate(8deg) scale(1.08)}}
+/* STAGE: contenedor SIN recorte → aloja el marco de gradiente; define tamaño/centro/escala */
+.greeting__stage{position:relative;max-width:1160px;margin-inline:auto;aspect-ratio:16/9;
+  border-radius:var(--radius-lg,24px);transform-origin:center;
+  transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.greeting__card{position:relative;width:100%;height:100%;border-radius:var(--radius-lg,24px);
+  overflow:hidden;box-shadow:0 40px 90px -34px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.05);transform-origin:center;
+  transition:box-shadow .6s ease;}
+.greeting__card video{width:100%;height:100%;object-fit:cover;display:block;background:#0b0f1f;}
+/* marco de gradiente de marca (oro ↔ periwinkle ↔ púrpura), glow suave que gira lento — SOLO al reproducir */
+@property --ga{syntax:"<angle>";inherits:false;initial-value:0deg;}
+.greeting.is-playing .greeting__stage::before{content:"";position:absolute;inset:-7px;z-index:-1;pointer-events:none;
+  border-radius:calc(var(--radius-lg,24px) + 7px);opacity:.7;filter:blur(11px) saturate(116%);
+  background:conic-gradient(from var(--ga), #fed457, #d2ccfd, #3c1951, #fed457);
+  animation:greetFrameSpin 14s linear infinite;}
+@keyframes greetFrameSpin{to{--ga:360deg;}}
+/* zoom TENUE al reproducir: escala el STAGE (el marco escala con él) + sombra del card */
+.greeting.is-playing .greeting__stage{transform:scale(1.05);}
+.greeting.is-playing .greeting__card{box-shadow:0 48px 110px -30px rgba(0,0,0,.7),0 0 0 1px rgba(254,212,87,.18);}
+/* scrim NUNCA bloquea → los clics llegan a los controles del video (pausa funciona) */
+.greeting__scrim{position:absolute;inset:0;pointer-events:none;transition:opacity .5s ease;
+  background:radial-gradient(62% 60% at 50% 58%, rgba(14,22,49,.5), rgba(14,22,49,.1) 72%),
+             linear-gradient(180deg, rgba(14,22,49,.06), rgba(14,22,49,.28));}
+.greeting.is-playing .greeting__scrim{opacity:0;}
+/* bokeh suave de marca (dorado + periwinkle) que juega con los círculos del video — se va al play */
+.greeting__bokeh{position:absolute;inset:0;z-index:3;pointer-events:none;transition:opacity .5s ease;filter:blur(3px);
+  background:
+    radial-gradient(circle at 90% 20%, rgba(254,212,87,.24) 0 1.5%, transparent 3.2%),
+    radial-gradient(circle at 82% 11%, rgba(254,212,87,.16) 0 1%, transparent 2.4%),
+    radial-gradient(circle at 95% 32%, rgba(254,212,87,.13) 0 1.2%, transparent 2.8%),
+    radial-gradient(circle at 12% 16%, rgba(210,204,253,.18) 0 1.3%, transparent 2.8%),
+    radial-gradient(circle at 6% 38%, rgba(210,204,253,.12) 0 .9%, transparent 2.2%);}
+.greeting.is-playing .greeting__bokeh{opacity:0;}
+/* overlay: "A greeting from" · play dorado · "Gary & Linda" — se desvanece al reproducir */
+.greeting__overlay{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1rem;text-align:center;color:#fff;
+  pointer-events:none;transition:opacity .5s ease;}
+/* capa de vidrio esmerilado detrás del texto: blur del video + tinte púrpura de marca,
+   bordes difuminados (máscara radial) → premium soft, sin rectángulo */
+.greeting__overlay::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:rgba(60,25,81,.28);
+  -webkit-backdrop-filter:blur(14px) saturate(112%);backdrop-filter:blur(14px) saturate(112%);}
+/* al reproducir: se van el texto + el vidrio esmerilado; el overlay queda para alojar el botón play/pausa */
+.greeting.is-playing .greeting__from,
+.greeting.is-playing .greeting__names{opacity:0;}
+.greeting.is-playing .greeting__overlay::before{opacity:0;transition:opacity .5s ease;}
+/* botón play/pausa: en reproducción se va a la ESQUINA inf-izq (no tapa las caras), más chico;
+   oculto mientras reproduce, reaparece al PAUSAR o al pasar el cursor (para pausar) */
+.greeting.is-playing .greeting__play{opacity:0;position:absolute;left:18px;bottom:18px;width:54px;height:54px;}
+.greeting.is-playing .greeting__play svg{width:22px;height:22px;}
+.greeting.is-playing:hover .greeting__play,
+.greeting.is-playing.is-loading .greeting__play,
+.greeting.is-playing.is-paused .greeting__play{opacity:1;}
+/* leve scrim al pausar → contraste del botón sobre el cuadro congelado */
+.greeting.is-playing.is-paused .greeting__scrim{opacity:.5;}
+/* iconos del botón: SIEMPRE uno solo — ▶ reposo/pausado · ❚❚ reproduciendo · ⟳ cargando.
+   Los 3 comparten la MISMA celda (grid-area:1/1, ver abajo) → nunca se apilan ni se ven dos a la vez. */
+.greeting__icon-pause,.greeting__spinner{display:none;}
+.greeting.is-playing:not(.is-paused) .greeting__icon-play{display:none;}
+.greeting.is-playing:not(.is-paused) .greeting__icon-pause{display:block;}
+/* cargando (buffering): oculta ▶ y ❚❚, muestra el spinner — va DESPUÉS para ganar por orden de fuente */
+.greeting.is-playing.is-loading .greeting__icon-play,
+.greeting.is-playing.is-loading .greeting__icon-pause{display:none;}
+.greeting.is-playing.is-loading .greeting__spinner{display:block;}
+/* "A greeting from" — serif de marca (Canela), grande pero refinado, tracking editorial */
+.greeting__from{margin:0 0 .18em;font-family:var(--font-display);font-weight:400;letter-spacing:.04em;
+  font-size:clamp(1.9rem,1.2rem + 2.2vw,3rem);color:rgba(255,255,255,.9);text-shadow:0 2px 18px rgba(8,10,26,.5);}
+/* "Gary & Linda" — MISMO formato que Founders: "Gary &" Fraunces + "Linda" script dorado (Pinyon) */
+.greeting__names{margin:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:.14em;
+  font-family:var(--font-display);font-weight:400;line-height:.92;}
+.greeting__amp{font-size:clamp(2rem,1.3rem + 3vw,4.6rem);letter-spacing:-.018em;color:#fff;
+  text-shadow:0 6px 30px rgba(8,10,26,.55);}
+.greeting__script{font-family:var(--font-accent);font-weight:400;color:var(--gold);line-height:.82;
+  font-size:clamp(3.2rem,2rem + 5.5vw,7.5rem);text-shadow:0 6px 34px rgba(8,10,26,.5);
+  animation:foundersScriptGlow 5.5s ease-in-out infinite;}
+/* play dorado — MEDALLÓN dimensional (anillo elevado + cara con relieve + sheen) · flecha navy */
+.greeting__play{position:relative;isolation:isolate;pointer-events:auto;width:86px;height:86px;border-radius:50%;border:0;cursor:pointer;
+  display:grid;place-items:center;
+  background:linear-gradient(180deg,#ffe486 0%,#fed457 52%,#f3bf3b 100%);
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,.6),
+    inset 0 -5px 10px rgba(120,75,8,.32),
+    0 14px 34px rgba(8,10,26,.46),
+    0 0 0 1px rgba(120,75,8,.18),
+    0 0 0 9px rgba(254,212,87,.14);
+  transition:transform .35s var(--ease),background .35s ease,box-shadow .35s ease,opacity .35s ease;}
+/* sheen "vidrio" arriba — recortado al círculo, sobre la cara y bajo el ícono */
+.greeting__play::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.6) 0%,rgba(255,255,255,.12) 34%,transparent 58%);}
+.greeting__play svg{position:relative;z-index:2;width:30px;height:30px;fill:var(--navy);grid-area:1/1;}
+.greeting__icon-play{margin-left:4px;}   /* centrado óptico del triángulo ▶ */
+/* spinner "cargando" — anillo girando, misma celda que los iconos */
+.greeting__spinner{position:relative;z-index:2;grid-area:1/1;width:30px;height:30px;border-radius:50%;margin:0 auto;
+  border:3px solid rgba(8,10,26,.22);border-top-color:var(--navy);animation:greetSpin .8s linear infinite;}
+@keyframes greetSpin{to{transform:rotate(360deg);}}
+/* bloom dorado al dar play: nace del centro (donde está el botón ▶) y se expande hacia afuera sobre el video */
+.greeting__bloom{position:absolute;top:50%;left:50%;width:min(64%,520px);aspect-ratio:1;
+  transform:translate(-50%,-50%) scale(.12);transform-origin:center;border-radius:50%;
+  pointer-events:none;z-index:4;opacity:0;
+  background:radial-gradient(circle, rgba(254,212,87,.34) 0%, rgba(254,212,87,.12) 42%, transparent 64%);
+  box-shadow:0 0 0 2px rgba(254,212,87,.5) inset;}
+.greeting.is-blooming .greeting__bloom{animation:greetBloom .85s var(--ease) forwards;}
+@keyframes greetBloom{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.12);}
+  22%{opacity:.85;}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.5);}
+}
+.greeting__play:hover{transform:scale(1.08) translateY(-1px);
+  background:linear-gradient(180deg,#fff0b0 0%,#ffe07f 52%,#f6c845 100%);
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,.72),
+    inset 0 -5px 10px rgba(120,75,8,.3),
+    0 20px 48px rgba(8,10,26,.52),
+    0 0 0 1px rgba(120,75,8,.16),
+    0 0 0 13px rgba(254,212,87,.22);}
+.greeting__play:focus-visible{outline:none;box-shadow:0 0 0 3px #fff,0 0 0 7px var(--gold),0 12px 36px rgba(8,10,26,.42);}
+/* aviso cálido "soft hold": aparece al intentar hacer scroll con el video en marcha */
+.greeting__hint{position:absolute;left:50%;bottom:18px;transform:translate(-50%,8px);z-index:5;
+  display:inline-flex;align-items:center;gap:.5ch;pointer-events:none;text-align:center;
+  padding:.5rem .9rem;border-radius:999px;font-family:var(--font-body);font-size:.82rem;letter-spacing:.01em;
+  color:#fff7e2;background:rgba(36,16,42,.62);border:1px solid rgba(254,212,87,.4);
+  box-shadow:0 10px 30px rgba(0,0,0,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:0;transition:opacity .35s ease,transform .35s var(--ease);}
+.greeting__hint[hidden]{display:none;}
+.greeting__hint kbd{font-family:var(--font-body);font-size:.78em;padding:.05em .45em;border-radius:5px;
+  background:rgba(254,212,87,.92);color:var(--navy);font-weight:600;}
+.greeting.is-hinting .greeting__hint{opacity:1;transform:translate(-50%,0);}
+@media (max-width:768px){
+  .greeting__play{width:72px;height:72px;}
+  .greeting__play svg{width:26px;height:26px;}
+  .greeting__overlay{gap:.7rem;}
+  .greeting.is-playing .greeting__play{width:46px;height:46px;left:12px;bottom:12px;}
+  .greeting.is-playing .greeting__play svg{width:19px;height:19px;}
+  .greeting__hint{bottom:12px;font-size:.76rem;}
+}
+@media (prefers-reduced-motion:reduce){.greeting__card{transition:none;}.greeting__glow{animation:none;}.greeting__spinner{animation:none;}.greeting__bloom,.greeting__script{animation:none;}
+  .greeting__stage{transition:none;}
+  .greeting.is-playing .greeting__stage::before{animation:none;}
+  .greeting.is-playing .greeting__backdrop::before{animation:none;}
+  .greeting__hint{transition:opacity .2s linear;}}
+
+/* ---- 3 · Statement (Authentic Power) — inmersivo oscuro fijo + Soul Tide wave ---- */
+.statement{position:relative;overflow:hidden;text-align:center;isolation:isolate;
+  background:var(--navy);color:#fff;min-height:clamp(520px,72vh,760px);display:flex;align-items:center;}
+.statement__waves{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none;}
+/* veil: oscurece el centro lo justo para legibilidad sin tapar el oleaje en los bordes */
+.statement__veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(64% 86% at 50% 52%, rgba(14,22,49,.62) 0, rgba(14,22,49,.18) 64%, transparent 88%),
+             linear-gradient(180deg, rgba(14,22,49,.5), rgba(14,22,49,.12) 34%, rgba(14,22,49,.5));}
+.statement .sec__inner{max-width:56rem;margin-inline:auto;position:relative;z-index:2;}
+.statement .sec__eyebrow{margin-bottom:1.1rem;color:var(--gold);}
+.statement .accent-rule{margin-inline:auto;margin-bottom:2.1rem;background:var(--gold);}
+.statement__big{font-family:var(--font-display);font-weight:400;line-height:1.1;letter-spacing:-.02em;
+  font-size:clamp(2.3rem,1.3rem + 3.6vw,4.6rem);margin:0;text-wrap:balance;color:#fff;}
+/* regla de marca: acento DORADO sobre oscuro (Golden Yellow) */
+.statement__big .accent{color:var(--gold);}
+.statement__lead{font-family:var(--font-body);font-weight:300;line-height:1.5;letter-spacing:.005em;
+  font-size:clamp(1.15rem,.95rem + .7vw,1.5rem);color:rgba(255,255,255,.78);
+  margin:1.7rem auto 0;max-width:34rem;}
+
+/* ---- 4 · Split (text + media) ---- */
+.split .sec__inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,2rem + 5vw,7rem);align-items:center;}
+.split--media-left .split__media{order:-1;}
+.split__media img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-lg,24px);box-shadow:var(--shadow-lg);}
+.split__title{font-family:var(--font-display);font-weight:400;line-height:1.18;letter-spacing:-.015em;
+  font-size:clamp(1.7rem,1.2rem + 2.2vw,2.7rem);margin:0;}
+
+/* ---- 4 · Consciousness — editorial cinematográfico (foto full-bleed + texto inmersivo) ---- */
+/* ============================================================
+   4 · Consciousness — video full-bleed + texto bookend (sobre el video)
+   "soul calm" cinematográfico (ref. página antigua): el video es el fondo
+   a todo lo ancho; el título va arriba y el lead+CTA abajo, ambos sobre
+   scrims (la cara respira en el centro). Texto blanco + acento oro fijo en
+   todos los temas (video-bg, como hero/membership).
+   ============================================================ */
+.consciousness{position:relative;overflow:hidden;isolation:isolate;
+  padding-block:0;background:var(--navy);}
+.consciousness__media{position:absolute;inset:0;z-index:0;}
+.consciousness__media video{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;}
+/* scrim DIRECCIONAL MORADO (de marca): denso arriba-izq (título) y abajo-der (lead+CTA) → resalta las letras y guía el ojo al CTA; rostro al centro claro */
+.consciousness__scrim{position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(125deg, rgba(26,14,44,.74) 0%, rgba(26,14,44,.32) 26%, transparent 46%, transparent 58%, rgba(46,20,68,.5) 78%, rgba(20,11,38,.9) 100%),
+    radial-gradient(60% 60% at 14% 14%, rgba(48,22,74,.5), transparent 60%),
+    radial-gradient(72% 72% at 90% 92%, rgba(60,25,81,.62), transparent 64%),
+    linear-gradient(180deg, transparent 54%, rgba(18,10,36,.55) 100%);}
+/* panel de lectura: blur SUAVE + leve velo MORADO difuminado detrás del texto inf-derecho — ayuda a leer SIN tapar ni romper el video */
+.consciousness__readpane{position:absolute;right:0;bottom:0;width:64%;height:62%;pointer-events:none;z-index:0;
+  background:radial-gradient(120% 120% at 90% 92%, rgba(46,20,68,.34), transparent 66%);
+  -webkit-backdrop-filter:blur(7px) saturate(108%);backdrop-filter:blur(7px) saturate(108%);
+  -webkit-mask-image:radial-gradient(125% 125% at 88% 92%, #000 28%, rgba(0,0,0,.5) 54%, transparent 80%);
+          mask-image:radial-gradient(125% 125% at 88% 92%, #000 28%, rgba(0,0,0,.5) 54%, transparent 80%);}
+
+/* orbes/círculos suaves (motivo de marca) — MUY tenues sobre el video,
+   detrás de los bloques de texto (arriba-izq y abajo-izq). Respiran. */
+.consciousness__orb{position:absolute;z-index:0;pointer-events:none;border-radius:50%;aspect-ratio:1;
+  filter:blur(12px);mix-blend-mode:screen;will-change:transform;}
+.consciousness__orb--top{width:clamp(360px,40vw,620px);
+  left:clamp(-220px,-11vw,-90px);top:clamp(-200px,-15vh,-110px);
+  background:radial-gradient(circle, rgba(210,204,253,.18) 0%, rgba(210,204,253,.07) 42%, transparent 70%);
+  animation:consOrbBreath 18s ease-in-out infinite alternate;}
+.consciousness__orb--bottom{width:clamp(300px,34vw,520px);
+  right:clamp(-170px,-8vw,-60px);bottom:clamp(-170px,-13vh,-90px);
+  background:radial-gradient(circle, rgba(254,212,87,.11) 0%, rgba(210,204,253,.07) 44%, transparent 72%);
+  animation:consOrbBreath 22s ease-in-out infinite alternate;}
+@keyframes consOrbBreath{from{transform:scale(1);}to{transform:scale(1.05);}}
+
+/* inner = columna bookend (título arriba · lead+CTA abajo) */
+.consciousness__inner{position:relative;z-index:1;min-height:clamp(640px,90vh,1000px);
+  display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left;
+  padding-block:clamp(2.6rem,5vh,4.5rem);gap:2rem;}
+
+/* —— bookend TOP: eyebrow + título (arriba-izquierda) —— */
+.consciousness__top{align-self:flex-start;max-width:min(58rem,84%);}
+.consciousness .sec__eyebrow{display:flex;align-items:center;gap:.9rem;color:var(--gold);
+  margin:0 0 1.4rem;max-width:max-content;padding:0;background:none;box-shadow:none;}
+.consciousness .sec__eyebrow::before{content:"";width:52px;height:2px;
+  background:linear-gradient(90deg, rgba(254,212,87,.95), rgba(254,212,87,.12));}
+.consciousness__title{font-family:var(--font-display);font-weight:400;line-height:1.07;letter-spacing:-.018em;
+  font-size:clamp(2.4rem,1.4rem + 3.6vw,4.9rem);margin:0;max-width:17ch;text-wrap:balance;color:#fff;
+  text-shadow:0 12px 40px rgba(8,10,26,.5);}
+.consciousness__title .accent{color:var(--gold);}
+/* —— bookend BOTTOM: subtítulo + lead + CTA (abajo-derecha, diagonal) —— */
+.consciousness__bottom{align-self:flex-end;text-align:left;max-width:min(40rem,86%);}
+.consciousness__subtitle{font-family:var(--font-display);font-weight:400;line-height:1.16;letter-spacing:-.012em;
+  font-size:clamp(1.4rem,1.05rem + 1.2vw,2.2rem);margin:0 0 1.1rem;max-width:26ch;text-wrap:balance;
+  color:#fff;text-shadow:0 6px 24px rgba(8,10,26,.5);}
+.consciousness__subtitle .accent{color:var(--gold);}
+.consciousness .sec__lead{margin:0;max-width:46ch;color:rgba(255,255,255,.92);
+  font-weight:400;font-size:clamp(1.18rem,1.02rem + .7vw,1.55rem);line-height:1.62;
+  text-shadow:0 2px 18px rgba(8,10,26,.7);}
+.consciousness .sec__lead .accent{color:var(--gold);font-weight:500;}
+.consciousness__cta{margin-top:2rem;position:relative;}
+/* glow suave detrás del CTA (oro→morado) que respira lento → hace del botón el foco, SIN línea */
+.consciousness__cta::after{content:"";position:absolute;z-index:-1;left:50%;top:50%;
+  width:min(360px,150%);aspect-ratio:1.7;transform:translate(-50%,-50%);pointer-events:none;border-radius:50%;
+  background:radial-gradient(circle, rgba(254,212,87,.22) 0%, rgba(60,25,81,.22) 42%, transparent 70%);
+  filter:blur(10px);animation:consCtaGlow 6s ease-in-out infinite;}
+@keyframes consCtaGlow{0%,100%{opacity:.45;transform:translate(-50%,-50%) scale(1);}50%{opacity:.82;transform:translate(-50%,-50%) scale(1.06);}}
+/* remate sutil: hairline dorada bajo el CTA que crece al revelar (la mirada "aterriza" aquí) */
+.consciousness__cta::before{content:"";position:absolute;left:2px;bottom:-12px;height:2px;width:0;border-radius:2px;
+  background:linear-gradient(90deg, rgba(254,212,87,.9), rgba(254,212,87,0));transition:width 1s var(--ease) 1.1s;}
+.consciousness__cta.in::before,.consciousness.ink-on .consciousness__cta::before{width:128px;}
+@media (prefers-reduced-motion:reduce){
+  .consciousness__cta::after{animation:none;opacity:.5;}
+  .consciousness__cta::before{width:128px;transition:none;}
+}
+
+/* Ken Burns suave (reduced-motion safe) */
+@media (prefers-reduced-motion:no-preference){
+  .consciousness__media video{animation:consKenBurns 26s ease-in-out infinite alternate;will-change:transform;}
+}
+@keyframes consKenBurns{from{transform:scale(1.05)}to{transform:scale(1.13) translateY(-2%)}}
+
+/* responsive */
+@media (max-width:1024px){
+  .consciousness__inner{min-height:clamp(620px,86vh,860px);}
+  .consciousness__top{max-width:min(34rem,90%);}
+  .consciousness__bottom{max-width:min(31rem,90%);}
+}
+/* ≤768: se rompe la diagonal → todo apilado a la izquierda */
+@media (max-width:768px){
+  .consciousness__inner{min-height:clamp(560px,90svh,800px);}
+  .consciousness__top,.consciousness__bottom{align-self:flex-start;max-width:none;}
+  .consciousness__orb--bottom{right:auto;left:clamp(-150px,-22vw,-50px);}
+  .consciousness__media video{object-position:center 24%;}
+  .consciousness__scrim{
+    background:linear-gradient(180deg, rgba(8,10,26,.84) 0%, rgba(8,10,26,.32) 26%, transparent 46%, transparent 52%, rgba(8,10,26,.6) 74%, rgba(8,10,26,.95) 100%);}
+  .consciousness .sec__eyebrow{font-size:.72rem;letter-spacing:.18em;}
+  .consciousness__title{max-width:none;font-size:clamp(2rem,1.3rem + 3.6vw,2.9rem);}
+  .consciousness__subtitle{max-width:none;}
+  .consciousness .sec__lead{max-width:none;}
+  .consciousness__cta{margin-top:1.6rem;width:100%;}
+  .consciousness__cta .btn-cta{width:100%;max-width:22rem;}
+  .consciousness__cta .btn-cta__inner{justify-content:center;}
+  .consciousness__readpane{width:100%;height:52%;
+    -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 38%);mask-image:linear-gradient(180deg, transparent 0%, #000 38%);}
+  .consciousness__cta::before{left:50%;transform:translateX(-50%);}
+}
+
+/* ---- 5 · Tools (centered) ---- */
+.tools{text-align:center;}
+.tools .sec__inner{max-width:48rem;}
+.tools__script{font-family:var(--font-display);font-weight:400;font-style:normal;color:rgba(14,22,49,.6);
+  font-size:clamp(1.3rem,1rem + 1.4vw,1.9rem);line-height:1.4;margin:2.6rem 0 0;letter-spacing:-.01em;}
+.sec--dark .tools__script,.sec--deep .tools__script{color:rgba(255,255,255,.72);}
+
+/* ---- 6 · Live event ---- */
+.event{text-align:center;}
+.event .sec__inner{max-width:52rem;}
+
+/* ---- 7 · Books ---- */
+.books .sec__inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,2rem + 5vw,7rem);align-items:center;}
+.books__copy{max-width:42rem;}
+.books__title{font-family:var(--font-display);font-weight:400;line-height:1.1;letter-spacing:-.015em;margin:0;}
+.books__lead{display:block;font-size:clamp(1.25rem,1rem + .9vw,1.75rem);line-height:1.3;
+  color:var(--sec-fg-soft);font-weight:400;letter-spacing:.005em;margin-bottom:.6rem;}
+.books__statement{display:block;font-weight:500;font-size:clamp(2.3rem,1.5rem + 3.2vw,4.4rem);
+  line-height:1.02;letter-spacing:-.022em;color:var(--sec-fg);}
+.books__statement .tw-word{display:inline-block;}
+.books__script{font-family:var(--font-display);font-style:italic;font-weight:400;
+  font-size:clamp(2.1rem,1.35rem + 2.6vw,3.5rem);line-height:1.05;letter-spacing:-.01em;
+  color:var(--accent-word);margin:1.5rem 0 2.3rem;}
+.books__statement [data-wave-line]{display:block;color:var(--sec-fg);}   /* cada concepto en su línea (Revolutionized / Self-Transformation) + color en reposo */
+.books__stage{position:relative;display:flex;justify-content:center;align-items:center;min-height:380px;}
+.books__circle{position:absolute;width:min(380px,86%);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 40% 34%,#fde9a6,#fed457 48%,#c79a36);z-index:0;}
+
+/* ---- 8 · Founders ---- */
+.founders .sec__inner{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(3rem,2rem + 5vw,6.5rem);align-items:center;}
+.founders__name{font-family:var(--font-display);font-weight:400;color:var(--navy);letter-spacing:-.015em;
+  font-size:clamp(2.4rem,1.6rem + 3vw,3.8rem);line-height:1;margin:0;}
+.founders__photo{width:100%;max-width:440px;aspect-ratio:1;object-fit:cover;border-radius:50%;box-shadow:var(--shadow-lg);margin-inline:auto;display:block;}
+.founders__cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.4rem;}
+
+/* ---- 9 · Blog · Soul Feed (editorial + spotlight glow, brand-adapted) ----
+   El glow sigue al cursor (vars --mx/--my en px, --glow 0→1 al hover/focus).
+   Paleta del brillo enrutada por tema: oro→púrpura sobre paper (Navy/Cosmic),
+   púrpura→periwinkle sobre blanco (Dawn), porque el oro pierde contraste en claro. */
+.blog{background:var(--surf-base,#FAF8F3);color:var(--navy);
+  --g1:var(--gold); --g2:var(--purple);
+  --gw:color-mix(in srgb,var(--gold) 30%,transparent);
+  --post-accent:var(--gold); --post-accent-ink:var(--navy);
+  --post-ring:rgba(14,22,49,.08);}
+body.theme-dawn .blog{
+  --g1:var(--purple); --g2:var(--periwinkle);
+  --gw:color-mix(in srgb,var(--purple) 16%,transparent);
+  --post-accent:var(--purple); --post-accent-ink:#fff;}
+/* Courses reusa las tarjetas .post (estilo Soul Feed) → necesita las mismas variables del glow */
+.courses{--g1:var(--gold); --g2:var(--purple);
+  --gw:color-mix(in srgb,var(--gold) 30%,transparent);
+  --post-accent:var(--gold); --post-accent-ink:var(--navy);
+  --post-ring:rgba(14,22,49,.08);}
+body.theme-dawn .courses{--g1:var(--purple); --g2:var(--periwinkle);
+  --gw:color-mix(in srgb,var(--purple) 16%,transparent);
+  --post-accent:var(--purple); --post-accent-ink:#fff;}
+/* media un poco más ancha en Courses → da headroom (fotos apaisadas no cortan cabezas/caras) */
+.courses .post__media{aspect-ratio:16/9;}
+
+.blog__head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:1.4rem 2rem;
+  margin-bottom:clamp(2.6rem,4vw,4rem);}
+.blog__deck{font-family:var(--font-body);font-size:clamp(1rem,.95rem + .3vw,1.18rem);line-height:1.6;
+  color:rgba(14,22,49,.66);max-width:44ch;margin:1.1rem 0 0;}
+
+/* "All posts" — pill simple pero llamativo (rellena al hover) */
+.blog__all{justify-self:end;align-self:end;display:inline-flex;align-items:center;gap:.7rem;
+  font-family:var(--font-body);font-weight:600;font-size:.95rem;letter-spacing:.01em;color:var(--purple);
+  text-decoration:none;padding:.62rem 1.05rem .62rem 1.3rem;border-radius:999px;white-space:nowrap;
+  border:1.5px solid color-mix(in srgb,var(--purple) 38%,transparent);
+  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);}
+.blog__all-ico{display:grid;place-items:center;width:1.55rem;height:1.55rem;border-radius:999px;
+  background:color-mix(in srgb,var(--purple) 12%,transparent);
+  transition:transform .35s var(--ease),background .35s var(--ease);}
+.blog__all:hover,.blog__all:focus-visible{background:var(--purple);color:#fff;border-color:var(--purple);transform:translateY(-2px);}
+.blog__all:hover .blog__all-ico,.blog__all:focus-visible .blog__all-ico{background:rgba(255,255,255,.2);transform:translateX(3px);}
+.blog__all:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+body.theme-dawn .blog__all:focus-visible{outline-color:var(--purple);}
+
+.blog__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.4rem,1rem + 1.6vw,2.2rem);}
+
+/* Card */
+.post{position:relative;display:flex;flex-direction:column;background:#fff;border-radius:20px;overflow:hidden;
+  isolation:isolate;text-decoration:none;color:inherit;border:1px solid var(--post-ring);
+  box-shadow:0 1px 2px rgba(14,22,49,.05),0 10px 28px -18px rgba(14,22,49,.35);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease);}
+.post:hover{transform:translateY(-7px);
+  box-shadow:0 1px 2px rgba(14,22,49,.05),0 28px 60px -26px rgba(14,22,49,.5);}
+
+/* spotlight — borde encendido que sigue al cursor (truco de máscara para pintar solo el anillo) */
+.post--glow{--mx:50%;--my:50%;--glow:0;}
+.post--glow::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;z-index:3;
+  pointer-events:none;opacity:var(--glow);transition:opacity .4s var(--ease);
+  background:radial-gradient(190px circle at var(--mx) var(--my),var(--g1),var(--g2) 46%,transparent 72%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;}
+/* spotlight — lavado cálido interior */
+.post--glow::after{content:"";position:absolute;inset:0;border-radius:inherit;z-index:2;
+  pointer-events:none;opacity:var(--glow);transition:opacity .4s var(--ease);
+  background:radial-gradient(260px circle at var(--mx) var(--my),var(--gw),transparent 60%);}
+.post--glow:focus-within{--glow:1;}
+.post:focus-visible{outline:2px solid var(--post-accent);outline-offset:3px;}
+
+.post__media{position:relative;z-index:1;display:block;aspect-ratio:16/10;overflow:hidden;}
+.post__media img{width:100%;height:100%;object-fit:cover;transform:scale(1.01);transition:transform .7s var(--ease);}
+.post:hover .post__media img{transform:scale(1.06);}
+.post__media::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(14,22,49,.42),transparent 42%);}
+.post__chip{position:absolute;left:1rem;bottom:1rem;z-index:2;display:inline-flex;align-items:center;gap:.45rem;
+  font-family:var(--font-body);font-weight:600;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--navy);background:rgba(255,255,255,.92);padding:.42rem .72rem;border-radius:999px;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 2px 10px rgba(14,22,49,.18);}
+.post__chip::before{content:"";width:.42rem;height:.42rem;border-radius:999px;background:var(--gold);}
+body.theme-dawn .post__chip::before{background:var(--purple);}
+
+.post__body{position:relative;z-index:4;display:flex;flex-direction:column;gap:.55rem;flex:1;padding:1.5rem 1.5rem 1.6rem;}
+.post__title{font-family:var(--font-display);font-weight:400;font-size:clamp(1.25rem,1.1rem + .5vw,1.5rem);
+  line-height:1.22;letter-spacing:-.012em;margin:0;color:var(--navy);transition:color .3s var(--ease);}
+.post:hover .post__title{color:var(--purple);}
+.post__meta{font-family:var(--font-body);font-size:.82rem;letter-spacing:.02em;color:rgba(14,22,49,.5);}
+.post__cta{margin-top:1.05rem;display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--font-body);font-weight:600;font-size:.95rem;color:var(--purple);}
+.post__cta-ico{display:grid;place-items:center;width:2rem;height:2rem;border-radius:999px;color:var(--purple);
+  border:1.5px solid color-mix(in srgb,var(--purple) 34%,transparent);
+  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);}
+.post:hover .post__cta-ico,.post:focus-within .post__cta-ico{
+  background:var(--post-accent);color:var(--post-accent-ink);border-color:var(--post-accent);transform:translateX(3px);}
+
+/* tablet: 2 columnas (entre el 3-up y el 1-col de ≤880) */
+@media (max-width:1024px) and (min-width:881px){ .blog__grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:680px){ .blog__head{grid-template-columns:1fr;} .blog__all{justify-self:start;} }
+@media (prefers-reduced-motion:reduce){
+  .post,.post__media img,.post--glow::before,.post--glow::after,.post__cta-ico,.blog__all,.blog__all-ico{transition:none;}
+  .post:hover{transform:none;} .post:hover .post__media img{transform:scale(1.01);}
+}
+
+/* ---- 10 · Big closing CTA (foto full-bleed + scrim, más alto) ---- */
+.bigcta{min-height:clamp(620px,84vh,900px);display:grid;place-items:center;text-align:center;color:#fff;
+  position:relative;overflow:hidden;}
+.bigcta__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.bigcta__scrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(14,22,49,.42) 0%, rgba(14,22,49,.5) 55%, rgba(14,22,49,.62) 100%);}
+.bigcta .sec__inner{position:relative;z-index:2;max-width:46rem;}
+.bigcta__title{font-family:var(--font-display);font-weight:400;line-height:1.12;letter-spacing:-.015em;
+  font-size:clamp(2.2rem,1.4rem + 3.4vw,4.4rem);margin:0 0 2.6rem;}
+
+/* ============================================================
+   FOOTER · editorial oscuro con "línea de amanecer" dorada.
+   2 tiers: (marca + newsletter) sobre (3 columnas de enlaces).
+   Oro/amarillo como acento disciplinado (línea, eyebrow, pill,
+   hairlines) — nunca como relleno grande. Navy fijo en los 3 temas.
+   ============================================================ */
+.site-footer{position:relative;isolation:isolate;overflow:hidden;
+  background:var(--navy);color:rgba(255,255,255,.72);
+  padding-block:clamp(3.5rem,3rem + 3vw,5.5rem) 1.8rem;}
+/* profundidad: navy → navy más profundo + glow dorado tenue (amanecer, esquina) */
+.site-footer::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(78% 120% at 88% 0%, rgba(254,212,87,.10), transparent 56%),
+    linear-gradient(180deg, #0b1126 0%, var(--navy) 40%);}
+/* línea de acento superior (oro que se desvanece a los lados) */
+.foot__accent{position:absolute;top:0;left:0;right:0;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(254,212,87,.85) 35%,rgba(255,235,69,.9) 50%,rgba(254,212,87,.85) 65%,transparent);}
+
+/* —— TIER 1 · marca + newsletter —— */
+.foot__top{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(2.5rem,5vw,5rem);
+  align-items:start;padding-bottom:clamp(2.6rem,4vw,3.6rem);
+  border-bottom:1px solid rgba(255,255,255,.1);}
+.foot__brandblock{position:relative;display:flex;flex-direction:column;gap:1.5rem;}
+.foot__brandblock::before{content:"";position:absolute;left:-12%;top:-34%;width:240px;height:240px;z-index:-1;
+  background:var(--glow-yellow);opacity:.45;pointer-events:none;}
+.foot__logo{display:inline-block;align-self:flex-start;}
+.foot__logo img{width:clamp(190px,17vw,236px);height:auto;display:block;}
+.foot__tag{font-family:var(--font-display);font-weight:400;color:var(--gold);
+  font-size:clamp(1.3rem,1.05rem + .9vw,1.62rem);line-height:1.3;max-width:20ch;margin:0;}
+.foot__social{display:flex;flex-wrap:wrap;gap:.7rem;}
+/* MEDALLÓN: disco navy con relieve + sheen (mismo lenguaje que el play); hover → oro */
+.foot__social a{position:relative;isolation:isolate;width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--hairline-on-dark);display:grid;place-items:center;padding:0;color:#fff;
+  background:linear-gradient(180deg,#1b2447 0%,#121a38 100%);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.14),inset 0 -4px 8px rgba(0,0,0,.34),0 8px 18px rgba(8,10,26,.4);
+  transition:color .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease),transform .25s var(--ease);}
+.foot__social a::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.03) 36%,transparent 60%);}
+.foot__social svg{position:relative;z-index:2;width:18px;height:18px;}
+.foot__social a:hover{transform:translateY(-3px);color:var(--navy);border-color:rgba(120,75,8,.25);
+  background:linear-gradient(180deg,#ffe486 0%,#fed457 52%,#f3bf3b 100%);
+  box-shadow:inset 0 2px 1px rgba(255,255,255,.6),inset 0 -4px 8px rgba(120,75,8,.3),0 14px 26px rgba(8,10,26,.46),0 0 0 6px rgba(254,212,87,.16);}
+.foot__social a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--navy),0 0 0 6px var(--gold);}
+
+/* newsletter highlight */
+.foot__news{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--radius-lg,24px);padding:clamp(1.5rem,1rem + 1.6vw,2.2rem);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);}
+.foot__news-eyebrow{font-family:var(--font-body);font-weight:600;font-size:.74rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--yellow);margin:0 0 .7rem;}
+.foot__news-title{font-family:var(--font-display);font-weight:400;color:#fff;
+  font-size:clamp(1.45rem,1.1rem + 1.1vw,1.95rem);line-height:1.2;margin:0 0 1.4rem;max-width:18ch;}
+.foot__news-form{display:flex;gap:.6rem;flex-wrap:wrap;}
+.foot__news-input{flex:1 1 170px;min-width:0;color:#fff;font-family:var(--font-body);font-size:.95rem;
+  background:rgba(11,17,38,.6);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:.85rem 1.25rem;
+  transition:border-color .25s var(--ease),box-shadow .25s var(--ease);}
+.foot__news-input::placeholder{color:rgba(255,255,255,.5);}
+.foot__news-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(254,212,87,.25);}
+.foot__news-btn{display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;cursor:pointer;
+  background:var(--gold);color:var(--navy);border:0;border-radius:999px;padding:.85rem 1.45rem;
+  font-family:var(--font-body);font-weight:700;font-size:.95rem;
+  box-shadow:0 12px 26px -12px rgba(254,212,87,.7);
+  transition:background-color .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);}
+.foot__news-btn:hover{background:#ffe27a;transform:translateY(-2px);box-shadow:0 16px 30px -12px rgba(254,212,87,.8);}
+.foot__news-btn svg{width:16px;height:16px;}
+.foot__news-note{font-size:.82rem;color:rgba(255,255,255,.5);margin:.95rem 0 0;}
+
+/* —— TIER 2 · columnas de enlaces —— */
+.foot__cols{display:grid;grid-template-columns:1.1fr 1.4fr 1fr;gap:clamp(2rem,4vw,3rem);
+  padding-block:clamp(2.6rem,4vw,3.4rem);}
+.foot h5{font-family:var(--font-body);font-weight:600;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;
+  color:#fff;margin:0 0 1.2rem;position:relative;padding-bottom:.7rem;}
+.foot h5::after{content:"";position:absolute;left:0;bottom:0;width:26px;height:2px;border-radius:2px;background:var(--gold);}
+.foot a{display:block;width:fit-content;color:rgba(255,255,255,.72);text-decoration:none;padding:.34rem 0;font-size:.97rem;
+  transition:color .2s var(--ease),transform .2s var(--ease);}
+.foot a:hover{color:var(--yellow);transform:translateX(4px);}
+
+/* —— buscador (recupera el del footer original) —— */
+.foot__search{display:flex;align-items:stretch;margin-top:1.2rem;max-width:240px;border-radius:10px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);transition:border-color .25s var(--ease),box-shadow .25s var(--ease);}
+.foot__search:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(254,212,87,.2);}
+.foot__search-input{flex:1;min-width:0;background:transparent;border:0;color:#fff;font-family:var(--font-body);font-size:.92rem;padding:.6rem .85rem;}
+.foot__search-input::placeholder{color:rgba(255,255,255,.45);}
+.foot__search-input:focus{outline:none;}
+.foot__search-btn{display:grid;place-items:center;width:44px;border:0;cursor:pointer;background:rgba(14,22,49,.55);color:#fff;transition:background-color .25s var(--ease),color .25s var(--ease);}
+.foot__search-btn:hover{background:var(--gold);color:var(--navy);}
+.foot__search-btn svg{width:16px;height:16px;}
+
+/* —— bottom bar —— */
+.foot__bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.7rem;
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.8rem 1.5rem;
+  font-size:.84rem;color:rgba(255,255,255,.6);}
+.foot__legal{display:flex;flex-wrap:wrap;gap:1.25rem;}
+.foot__bottom a{color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s var(--ease);}
+.foot__bottom a:hover{color:var(--yellow);}
+
+/* ---- scroll reveal (respeta el switcher de Animación) ---- */
+body.anim-reveal .reveal,body.anim-kinetic .reveal{opacity:0;transform:translateY(28px);
+  transition:opacity .85s var(--ease),transform .85s var(--ease);}
+body.anim-reveal .reveal.in,body.anim-kinetic .reveal.in{opacity:1;transform:none;}
+body.anim-ink .sec.ink-on .word{opacity:0;transform:scale(0);filter:blur(4px);
+  transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1),filter .5s ease;}
+body.anim-ink .sec.ink-on .word.in{opacity:1;transform:none;filter:blur(0);}
+/* eyebrow entintado letra-por-letra → inline-block para que escale y conserve el tracking */
+body.anim-ink .sec__eyebrow .word{display:inline-block;}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1 !important;transform:none !important;}
+  body.anim-ink .sec .word{opacity:1 !important;transform:none !important;filter:none !important;}
+}
+
+/* ---- responsive ---- */
+@media (max-width:880px){
+  .split .sec__inner,.books .sec__inner,.founders .sec__inner{grid-template-columns:1fr;gap:2.5rem;}
+  .split--media-left .split__media,.founders__photo{order:-1;}
+  .blog__grid{grid-template-columns:1fr;}
+  .foot__top{grid-template-columns:1fr;gap:2.5rem;}
+  .foot__cols{grid-template-columns:1fr 1fr;gap:2rem 2.5rem;}
+}
+@media (max-width:520px){
+  .foot__cols{grid-template-columns:1fr;}
+  .foot__bottom{flex-direction:column;justify-content:center;text-align:center;}
+  /* newsletter: apilar input + botón (evita que "Sign Up" se corte) */
+  .foot__news-input{flex:1 1 100%;}
+  .foot__news-btn{width:100%;justify-content:center;}
+  .aspire__row,.aspire__row--mid{justify-content:flex-start;text-align:left;padding-left:0;}
+  .aspire__row{gap:.1em .8rem;}
+}
+
+/* ============================================================
+   STAGE 3 · secciones de conversión añadidas (Courses · Membership
+   · Stats · Praise). Mismo sistema .sec / quiet-luxury.
+   ============================================================ */
+
+/* ---- Courses · bento de 4 pilares ---- */
+.courses .sec__head{max-width:48rem;margin-bottom:clamp(2.5rem,3vw+1rem,4rem);}
+.courses__grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:18px;}
+.ccard{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:240px;padding:1.7rem;
+  border-radius:var(--radius-lg,22px);overflow:hidden;text-decoration:none;color:var(--navy);background:#fff;
+  border:1px solid rgba(14,22,49,.08);box-shadow:0 1px 3px rgba(14,22,49,.05);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);}
+.ccard:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(14,22,49,.16);}
+.ccard:focus-visible{outline:none;box-shadow:0 0 0 3px var(--purple);}
+.ccard--feature{grid-column:span 2;grid-row:span 2;color:#fff;min-height:420px;}
+.ccard--wide{grid-column:span 2;}
+.ccard__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.ccard__scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,22,49,.15),rgba(14,22,49,.84));z-index:1;}
+.ccard>*{position:relative;z-index:2;}
+.ccard__icon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--gold);color:var(--navy);margin-bottom:auto;}
+.ccard--feature .ccard__icon{background:var(--yellow);}
+.ccard__icon svg{width:26px;height:26px;}
+.ccard h3{font-family:var(--font-display);font-weight:400;font-size:clamp(1.3rem,1rem + 1vw,1.9rem);margin:1.1rem 0 .4rem;letter-spacing:-.01em;}
+.ccard p{font-family:var(--font-body);font-weight:300;font-size:1rem;line-height:1.55;color:rgba(14,22,49,.7);}
+.ccard--feature p{color:rgba(255,255,255,.82);}
+.ccard__more{margin-top:1rem;font-family:var(--font-body);font-weight:600;font-size:.92rem;color:var(--purple);display:inline-flex;gap:.4rem;}
+.ccard--feature .ccard__more{color:var(--gold);}
+.ccard__more .arrow,.ccard__more span{transition:transform .3s var(--ease);}
+.ccard:hover .ccard__more .arrow{transform:translateX(5px);}
+
+/* ---- Membership band (imagen + scrim, centrado) ---- */
+.membership{min-height:clamp(420px,56vh,600px);display:grid;place-items:center;text-align:center;color:#fff;}
+.membership__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.membership__scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(60,25,81,.62),rgba(14,22,49,.8));z-index:1;}
+.membership .sec__inner{z-index:2;max-width:48rem;}
+
+/* ---- Stats (impacto, count-up) ---- */
+.stats{background:#181033;color:#fff;text-align:center;}
+.stats__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.5rem,1rem + 2vw,3rem);margin-top:clamp(2.6rem,4vw,4rem);}
+.stat{position:relative;}
+.stat__num{font-family:var(--font-display);font-weight:400;font-size:clamp(2.8rem,1.8rem + 3vw,4.6rem);line-height:1;color:var(--gold);}
+.stat__label{font-family:var(--font-body);font-weight:300;color:rgba(255,255,255,.74);margin-top:.6rem;font-size:1.02rem;}
+.stat:not(:last-child)::after{content:"";position:absolute;right:calc(-1*clamp(.75rem,1vw,1.5rem));top:14%;height:72%;width:1px;background:rgba(255,255,255,.14);}
+
+/* ---- Praise · testimonios (carrusel de una cita · ref. seatofthesoul) ---- */
+.praise{background:#FAF8F3;color:var(--navy);text-align:center;}
+.praise .sec__inner{max-width:980px;}
+.praise__carousel{position:relative;margin-top:clamp(2.2rem,4vw,3.4rem);
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(.4rem,2vw,1.8rem);}
+.praise__viewport{position:relative;overflow:hidden;min-height:clamp(290px,32vw,360px);}
+.praise__track{position:relative;}
+.praise__slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:clamp(1rem,3vw,2.4rem) clamp(.6rem,3vw,2rem);
+  opacity:0;visibility:hidden;transform:translateY(16px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease),visibility 0s linear .6s;}
+.praise__slide.is-active{position:relative;opacity:1;visibility:visible;transform:none;
+  transition:opacity .6s var(--ease) .06s,transform .6s var(--ease) .06s;}
+.praise__mark{font-family:var(--font-display);font-size:5.5rem;line-height:.5;height:.42em;
+  color:var(--gold);opacity:.55;margin-bottom:.7rem;user-select:none;}
+.praise__photo{width:clamp(82px,9vw,108px);height:clamp(82px,9vw,108px);border-radius:50%;object-fit:cover;
+  display:block;margin:0 auto 1.4rem;box-shadow:0 12px 30px rgba(60,25,81,.2);outline:4px solid #fff;outline-offset:-4px;}
+.praise__quote{font-family:var(--font-display);font-weight:400;
+  font-size:clamp(1.35rem,1rem + 1.55vw,2.15rem);line-height:1.32;letter-spacing:-.012em;
+  color:var(--navy);max-width:26ch;margin:0 auto;text-wrap:balance;}
+.praise__quote .accent{color:var(--purple);}
+.praise__cite{margin-top:1.8rem;}
+.praise__name{display:block;font-family:var(--font-display);font-weight:400;font-size:1.2rem;letter-spacing:-.01em;}
+.praise__role{display:block;font-family:var(--font-body);font-weight:300;font-size:.86rem;
+  color:rgba(14,22,49,.6);margin-top:.32rem;}
+.praise__arrow{flex:0 0 auto;width:52px;height:52px;border-radius:50%;border:1px solid rgba(14,22,49,.22);
+  background:transparent;color:var(--navy);display:grid;place-items:center;cursor:pointer;
+  transition:background-color .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease);}
+.praise__arrow svg{width:20px;height:20px;}
+.praise__arrow:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.praise__arrow:focus-visible{outline:none;box-shadow:0 0 0 3px var(--purple);}
+.praise__arrow:active{transform:scale(.94);}
+.praise__dots{display:flex;justify-content:center;gap:.55rem;margin-top:1.7rem;}
+.praise__dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;cursor:pointer;
+  background:rgba(14,22,49,.22);transition:background-color .3s var(--ease),width .3s var(--ease);}
+.praise__dots button.is-active{background:var(--gold);width:24px;border-radius:5px;}
+.praise__dots button:focus-visible{outline:none;box-shadow:0 0 0 3px var(--purple);}
+.praise__note{font-family:var(--font-body);font-size:.8rem;color:var(--purple);margin-top:2.4rem;opacity:.75;}
+
+@media (max-width:880px){
+  .courses__grid{grid-template-columns:repeat(2,1fr);}
+  .ccard--feature{grid-column:span 2;grid-row:span 1;min-height:300px;}
+  .stats__grid{grid-template-columns:repeat(2,1fr);gap:2.6rem 1rem;}
+  .stat:nth-child(2)::after{display:none;}
+}
+@media (max-width:768px){
+  .praise__carousel{grid-template-columns:1fr;}
+  .praise__arrow{display:none;}
+  .praise__viewport{min-height:clamp(320px,82vw,420px);}
+  .praise__slide{padding-left:1.1rem;padding-right:1.1rem;}
+  .praise__quote{font-size:clamp(1.1rem,1rem + .9vw,1.5rem);max-width:20ch;}
+}
+@media (max-width:520px){
+  .courses__grid{grid-template-columns:1fr;}
+  .ccard--feature,.ccard--wide{grid-column:span 1;}
+  .stats__grid{grid-template-columns:1fr;}
+  .stat::after{display:none !important;}
+}
+
+/* ============================================================
+   STAGE 3 · POLISH (feedback PM — premium, brandbook colors)
+   · menos amarillo sobre blanco → chips periwinkle/lila + icono morado
+   · aire entre texto e imagen + medida de lectura
+   · scrim fuerte en card protagonista para que el título lea
+   ============================================================ */
+
+/* --- Courses bento --- */
+.courses__grid{gap:20px;}
+/* SIN bordes ni líneas (se veía "IA"): superficie lila suave + elevación por sombra */
+.ccard{padding:2rem;border:0;border-radius:22px;overflow:hidden;
+  background:linear-gradient(180deg,#fbfaff 0%,#f1ecff 100%);
+  box-shadow:0 12px 30px -16px rgba(60,25,81,.22), 0 2px 6px rgba(60,25,81,.05);}
+.ccard:hover{transform:translateY(-6px);box-shadow:0 30px 60px -22px rgba(60,25,81,.30);}
+.ccard h3{margin-top:1.2rem;font-size:clamp(1.3rem,1rem + 1vw,1.8rem);}
+.ccard p{color:rgba(14,22,49,.64);line-height:1.6;}
+/* iconos: MEDALLÓN dimensional (periwinkle→lila, relieve+sheen) → oro al hover */
+.ccard__icon{position:relative;width:54px;height:54px;border-radius:16px;color:var(--purple);
+  background:linear-gradient(155deg,#eae6ff 0%,#d8d0fb 60%,#cfc6f8 100%);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.85), inset 0 -3px 7px rgba(60,25,81,.10), 0 8px 18px -8px rgba(60,25,81,.35);
+  transition:transform .35s var(--ease),background .35s ease,color .35s ease,box-shadow .35s ease;}
+.ccard__icon::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.6),transparent 55%);}
+.ccard__icon svg{position:relative;width:25px;height:25px;}
+.ccard:hover .ccard__icon{transform:translateY(-2px) rotate(-3deg);color:var(--navy);
+  background:linear-gradient(155deg,#ffe9a8,#fed457 60%,#f3bf3b);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.7), inset 0 -3px 7px rgba(120,75,8,.22), 0 12px 22px -10px rgba(254,212,87,.5);}
+/* card protagonista: scrim degradado fuerte abajo + icono glass + más espacio */
+.ccard--feature{min-height:440px;padding:2.2rem;}
+.ccard--feature .ccard__scrim{background:linear-gradient(180deg,rgba(14,22,49,0) 26%,rgba(14,22,49,.55) 60%,rgba(14,22,49,.94));}
+.ccard--feature .ccard__icon{border-radius:16px;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.34);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:none;}
+.ccard--feature .ccard__icon::before{display:none;}
+.ccard--feature:hover .ccard__icon{transform:none;color:#fff;background:rgba(255,255,255,.22);box-shadow:none;}
+.ccard--feature h3{font-size:clamp(1.7rem,1.2rem + 1.6vw,2.4rem);}
+/* "Explore" en morado sobre claro (oro solo en la feature, sobre oscuro) */
+.ccard__more{color:var(--purple);}
+.ccard--feature .ccard__more{color:var(--gold);}
+
+/* --- Consciousness / Split: aire + medida + jerarquía --- */
+.split .sec__inner{gap:clamp(3rem,2rem + 6vw,7.5rem);align-items:center;}
+.split__media img{border-radius:26px;box-shadow:0 40px 80px -34px rgba(0,0,0,.65);aspect-ratio:4/5;}
+.split .sec__inner>div:last-child{max-width:46ch;}      /* medida de lectura, no pegado */
+.split__title{font-size:clamp(1.55rem,1.1rem + 1.9vw,2.45rem);line-height:1.24;}
+.split .sec__eyebrow{margin-bottom:1.25rem;}
+.split .sec__lead{margin-top:1.5rem;max-width:46ch;}
+
+/* --- acento dorado: SOLO líneas finas/glyphs (brandbook 5–7%) --- */
+.courses .sec__eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--gold);
+  vertical-align:middle;margin-right:.7rem;transform:translateY(-3px);}
+
+/* FIX: .ccard>* volvía relative también a img/scrim → restaurar absolute */
+.ccard .ccard__img{position:absolute;inset:0;z-index:0;}
+.ccard .ccard__scrim{position:absolute;inset:0;z-index:1;}
+
+/* ============================================================
+   STAGE 3 · REDISEÑO "secciones momento" (PM e1–e4):
+   Membership · Tools · Event · Stats. Tipografía más amplia y
+   llamativa, jerarquía por contraste de escala, ritmo armónico
+   entre las 4 (mismo encabezado eyebrow + línea-acento).
+   Acento: oro sobre oscuro · púrpura sobre claro (lila).
+   El color de acento de Event/Stats lo decide el tema (theme.css)
+   → oro en oscuro, púrpura en Dawn; aquí solo fijo Tools/Membership.
+   ============================================================ */
+
+/* encabezado común: eyebrow + línea-acento centrada (armonía) */
+.membership .accent-rule,.stats .accent-rule{margin-inline:auto;}
+.sec--lilac .accent-rule,.sec--light .accent-rule,.sec--paper .accent-rule{background:var(--purple);}
+.membership .sec__eyebrow,.tools .sec__eyebrow,.event .sec__eyebrow,.stats .sec__eyebrow{
+  font-size:.84rem;letter-spacing:.3em;margin-bottom:1.35rem;}
+
+/* —— TOOLS (lila): titular oversized, subcopy, CTA al final —— */
+.tools{padding-block:clamp(6rem,4.5rem + 7vw,12rem);}
+.tools .sec__inner{max-width:54rem;}
+.tools__title{font-size:clamp(3rem,2rem + 4.6vw,5.8rem);line-height:.98;letter-spacing:-.03em;}
+.tools .sec__title .accent{color:var(--purple);}                 /* "powerful" en morado sobre lila */
+.tools__script{font-size:clamp(1.25rem,1rem + 1vw,1.6rem);color:rgba(14,22,49,.66);line-height:1.5;
+  max-width:32ch;margin:1.5rem auto 2.6rem;}
+.tools__cta{margin-top:0;}
+
+/* —— MEMBERSHIP (foto+scrim, siempre oscuro): título mayor + scrim cinematográfico —— */
+.membership{min-height:clamp(540px,72vh,760px);}
+.membership__scrim{background:
+  radial-gradient(125% 120% at 50% 42%, rgba(14,22,49,.22), rgba(14,22,49,.74) 80%),
+  linear-gradient(180deg, rgba(60,25,81,.42), rgba(14,22,49,.84));}
+.membership .sec__inner{max-width:52rem;}
+.membership__title{font-size:clamp(2.6rem,1.7rem + 3.8vw,5rem);line-height:1.02;letter-spacing:-.025em;
+  text-shadow:0 2px 30px rgba(0,0,0,.35);}
+.membership .sec__title .accent{color:var(--gold);}             /* siempre oro (banda oscura en todo tema) */
+.membership .sec__lead{font-size:clamp(1.18rem,1rem + .7vw,1.45rem);max-width:48ch;margin-top:1.7rem;
+  color:rgba(255,255,255,.86);}
+
+/* —— EVENT (deep): titular fuerte + lead de apoyo (contraste de escala) —— */
+.event .sec__inner{max-width:56rem;}
+.event__headline{font-size:clamp(1.55rem,1.05rem + 1.9vw,2.7rem);line-height:1.3;letter-spacing:-.012em;margin:0;}
+
+/* —— STATS (deep): números más grandes y vivos —— */
+.stats__title{font-size:clamp(2.3rem,1.6rem + 2.8vw,4rem);line-height:1.08;letter-spacing:-.02em;}
+.stats__grid{margin-top:clamp(3rem,5vw,5rem);gap:clamp(1.8rem,1rem + 2.4vw,3.5rem);}
+.stat__num{font-size:clamp(3.4rem,2.2rem + 4.6vw,6.2rem);letter-spacing:-.03em;}
+.stat__label{font-size:clamp(1rem,.9rem + .3vw,1.12rem);margin-top:.8rem;letter-spacing:.01em;}
+.stat:not(:last-child)::after{top:10%;height:80%;}
+
+/* salvaguarda: que los titulares grandes siempre envuelvan bien (nunca recorten) */
+.tools__title,.event__headline,.membership__title,.stats__title{text-wrap:balance;overflow-wrap:break-word;}
+
+/* ============================================================
+   POWERFUL GARY STATEMENTS — Tools + Event con tratamiento
+   "Do you want…": tipografía editorial gigante + wave de texto
+   (entrada en ola + barrido de color al scroll · motor Soul Tide).
+   Event suma el canvas de puntos en oleaje (oscuro, inmersivo).
+   ============================================================ */
+/* chars/words que crea SplitText en estas secciones (entran por compositor) */
+.textwave .asp-char{display:inline-block;will-change:transform,opacity;}
+.textwave .tw-word{display:inline-block;}            /* la palabra no se parte a mitad */
+.textwave [data-wave-line]{will-change:color;}
+
+/* —— TOOLS (lila): statement oversized —— */
+.tools__title{font-size:clamp(2.2rem,1.1rem + 5vw,6.4rem);line-height:.98;letter-spacing:-.03em;}
+.tools__script{font-family:var(--font-display);font-weight:400;
+  font-size:clamp(1.3rem,1.05rem + 1vw,2.2rem);line-height:1.32;letter-spacing:-.012em;
+  color:rgba(14,22,49,.72);max-width:24ch;margin:1.6rem auto 2.8rem;}
+
+/* —— EVENT (deep): Soul Tide canvas + statement oversized —— */
+.event{position:relative;overflow:hidden;isolation:isolate;}
+.event__waves{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none;}
+.event__veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(78% 64% at 50% 44%, rgba(24,16,51,.82) 0%, rgba(24,16,51,.5) 45%, rgba(24,16,51,0) 82%);}
+.event .sec__inner{position:relative;z-index:2;}
+.event__headline{font-size:clamp(1.55rem,1.05rem + 1.9vw,2.7rem);line-height:1.3;letter-spacing:-.012em;margin:0;}
+/* la frase continúa de corrido; "profound, life-changing experience." en oro itálico (ver bloque "color en REPOSO") */
+/* cierre re-estructurado: crescendo de escala + "Are you ready?" + tira de detalle */
+.event__close{margin-top:clamp(2.4rem,4vw,3.6rem);}
+.event__statement{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;
+  margin:0;max-width:40ch;color:#fff;}
+.event__statement .es{display:block;}
+.es--1{font-size:clamp(1.15rem,.9rem + .9vw,1.65rem);line-height:1.5;color:rgba(255,255,255,.7);margin-bottom:.35rem;}
+.es--2{font-size:clamp(1.9rem,1.1rem + 2.5vw,3.1rem);line-height:1.06;color:var(--gold);}
+.es--3{font-size:clamp(2.2rem,1.3rem + 3vw,3.9rem);line-height:1.04;color:#fff;margin-top:.18rem;}
+.es-key{color:var(--gold);}
+.event__ready{font-family:var(--font-display);font-style:italic;font-weight:400;
+  font-size:clamp(1.45rem,1rem + 1.7vw,2.5rem);letter-spacing:-.01em;color:var(--gold);
+  margin:clamp(1.8rem,3vw,2.6rem) 0 clamp(1.6rem,2.6vw,2.2rem);}
+/* (la meta-fila Format/Host/Reach se define una sola vez en section-polish.css) */
+
+/* color en REPOSO (Animación OFF / reduced-motion: el JS no pinta los chars) */
+.tools__title [data-wave-line]{color:var(--navy);}
+.tools__title .accent{color:var(--purple);}
+.tools__script[data-wave-line]{color:rgba(14,22,49,.72);}
+.event__headline [data-wave-line]{color:#fff;}
+.event__headline .accent{color:var(--gold);font-style:italic;}
+.event__statement[data-wave-line]{color:#fff;}
+.event__ready[data-wave-line]{color:var(--gold);}
+
+.tools__title,.event__headline,.event__statement{overflow-wrap:break-word;}

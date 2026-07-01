@@ -1,0 +1,171 @@
+/* ============================================================
+   SOTSI · theme.css — SISTEMA DE TEMAS (brandbook primaries)
+   3 temas liderados por cada color primario, combinando los
+   secundarios con criterio de teoría del color. Carga DESPUÉS
+   de sections.css (override). Las superficies y el texto de
+   sección se enrutan por variables → cambio instantáneo.
+   Footer, hero (sobre foto), greeting y membership conservan
+   tratamiento oscuro por legibilidad sobre imagen/video.
+   ============================================================ */
+
+:root{
+  /* ---- Tema por defecto = Midnight Navy (SOTSI) ---- */
+  --surf-base:#FAF8F3;     /* lectura (paper) */
+  --surf-dark:#0E1631;     /* secciones ancla oscuras */
+  --surf-deep:#181033;     /* inmersivo profundo (navy↔purple) */
+  --surf-soft:#E7D4F1;     /* sección suave (lila) */
+  --sec-fg:#ffffff;        /* texto sobre superficies oscuras */
+  --sec-fg-soft:rgba(255,255,255,.78);
+  --sec-eyebrow:var(--gold);   /* eyebrow sobre oscuro */
+  --accent-word:var(--gold);   /* palabra-acento en títulos */
+}
+
+/* ---- Tema 2 · Cosmic Purple (UHF) ---- */
+body.theme-cosmic{
+  --surf-dark:#241043;
+  --surf-deep:#3C1951;
+  --surf-soft:#E7D4F1;
+  --sec-fg:#ffffff;
+  --sec-fg-soft:rgba(255,255,255,.80);
+  --sec-eyebrow:var(--gold);
+  --accent-word:var(--gold);
+}
+
+/* ---- Tema 3 · Pure White / Dawn (light, airy) ---- */
+body.theme-dawn{
+  --surf-base:#ffffff;
+  --surf-dark:#ECEAFF;     /* periwinkle muy suave como "ancla" clara */
+  --surf-deep:#E7D4F1;     /* lila como inmersivo claro */
+  --surf-soft:#F4F0FB;     /* casi blanco con tinte lila */
+  --sec-fg:#0E1631;        /* texto navy sobre claro */
+  --sec-fg-soft:rgba(14,22,49,.70);
+  --sec-eyebrow:var(--purple);
+  --accent-word:var(--purple);
+}
+
+/* ============================================================
+   Routing de superficies (override sections.css)
+   ============================================================ */
+.sec--dark{background:var(--surf-dark);color:var(--sec-fg);}
+.sec--deep{background:var(--surf-deep);color:var(--sec-fg);}
+.sec--paper{background:var(--surf-base);color:var(--navy);}
+.sec--lilac{background:var(--surf-soft);color:var(--navy);}
+.greeting{background:var(--surf-dark);}
+/* .aspire = "Soul Tide": momento inmersivo oscuro fijo en cualquier tema
+   (como greeting/membership) — su fondo navy lo gobierna sections.css. */
+.stats{background:var(--surf-deep);color:var(--sec-fg);}
+.blog{background:var(--surf-base);}
+
+/* texto sobre oscuro/profundo por variable */
+.sec--dark .sec__title,.sec--deep .sec__title,.stats .sec__title{color:var(--sec-fg);}
+.sec--dark .sec__lead,.sec--deep .sec__lead{color:var(--sec-fg-soft);}
+.sec--dark .sec__eyebrow,.sec--deep .sec__eyebrow,.stats .sec__eyebrow{color:var(--sec-eyebrow);}
+.sec__title .accent{color:var(--accent-word);}
+/* Statement es inmersivo oscuro fijo en todos los temas → acento dorado (regla de marca sobre oscuro) */
+.statement__big .accent{color:var(--gold);}
+
+/* Aspiration "Soul Tide": inmersivo oscuro fijo → sus colores (texto blanco /
+   acento dorado) los gobierna sections.css en cualquier tema. */
+
+/* Books / Stats / Tools detalles */
+.books__script{color:var(--accent-word);}                                  /* oro → púrpura en Dawn */
+body.theme-dawn .books__statement [data-wave-line]{color:var(--sec-fg);}   /* navy en reposo sobre claro */
+.sec--deep .tools__script,.sec--dark .tools__script{color:var(--sec-fg-soft);}
+.stat__label{color:var(--sec-fg-soft);}
+.stat:not(:last-child)::after{background:color-mix(in srgb, var(--sec-fg) 16%, transparent);}
+
+/* glow atmosférico: en Dawn casi nulo (no se ve bien sobre claro) */
+body.theme-dawn .sec__glow{opacity:.5;background:radial-gradient(circle,rgba(60,25,81,.10),transparent 68%);}
+
+/* En Dawn, los números de stats en morado (oro pierde contraste sobre lila) */
+body.theme-dawn .stat__num{color:var(--purple);}
+/* En Dawn, los chips de iconos del bento ya son periwinkle → subir contraste del icono */
+body.theme-dawn .ccard__icon{background:#fff;color:var(--purple);box-shadow:inset 0 0 0 1px rgba(60,25,81,.14);}
+
+/* Books: el círculo dorado se mantiene (es el sol de marca) en todos los temas */
+
+/* ============================================================
+   Membership / BigCTA / Greeting / Footer / Hero:
+   conservan tratamiento sobre imagen/video (no cambian con tema)
+   — el scrim oscuro garantiza legibilidad en cualquier paleta.
+   ============================================================ */
+
+/* ============================================================
+   Dawn → NAV CLARO automático
+   · Sobre el hero (imagen oscura) el nav inmersivo sigue blanco.
+   · Al condensarse sobre secciones claras → nav claro + logo dark.
+   · En layouts sólidos (centrado/barra) → nav claro desde el inicio.
+   ============================================================ */
+
+/* --- inmersivo (centrado-inmersivo e inmersivo): solo el estado condensado --- */
+body.theme-dawn.nl-centered-immersive #navCentered.is-condensed,
+body.theme-dawn.nl-immersive #navImmersive.is-condensed{
+  background:rgba(255,255,255,.93)!important;-webkit-backdrop-filter:blur(14px)!important;backdrop-filter:blur(14px)!important;
+  border-bottom-color:var(--hairline)!important;}
+body.theme-dawn.nl-centered-immersive #navCentered.is-condensed .nlink,
+body.theme-dawn.nl-immersive #navImmersive.is-condensed .nlink{color:var(--navy)!important;}
+body.theme-dawn.nl-centered-immersive #navCentered.is-condensed .nlink[aria-current="page"],
+body.theme-dawn.nl-immersive #navImmersive.is-condensed .nlink[aria-current="page"]{color:var(--purple)!important;}
+body.theme-dawn.nl-centered-immersive #navCentered.is-condensed .logo--for-dark,
+body.theme-dawn.nl-immersive #navImmersive.is-condensed .logo--for-dark{display:none!important;}
+body.theme-dawn.nl-centered-immersive #navCentered.is-condensed .logo--for-light,
+body.theme-dawn.nl-immersive #navImmersive.is-condensed .logo--for-light{display:block!important;}
+
+/* --- layouts sólidos (centrado / barra): nav claro desde el inicio --- */
+body.theme-dawn.nl-centered .snav,
+body.theme-dawn.nl-bar .snav{background:rgba(255,255,255,.92)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline)!important;}
+body.theme-dawn.nl-centered .snav .nlink,
+body.theme-dawn.nl-bar .snav .nlink{color:var(--navy)!important;}
+body.theme-dawn.nl-centered .snav .nlink[aria-current="page"],
+body.theme-dawn.nl-bar .snav .nlink[aria-current="page"]{color:var(--purple)!important;}
+body.theme-dawn.nl-centered .snav .logo--for-dark,
+body.theme-dawn.nl-bar .snav .logo--for-dark{display:none!important;}
+body.theme-dawn.nl-centered .snav .logo--for-light,
+body.theme-dawn.nl-bar .snav .logo--for-light{display:block!important;}
+
+/* utility row claro en Dawn (script morado en vez de oro para contraste) */
+body.theme-dawn .snav__utility{background:#F4F0FB!important;color:rgba(14,22,49,.7)!important;}
+body.theme-dawn .snav__utility a{color:rgba(14,22,49,.7)!important;}
+body.theme-dawn .snav__utility a:hover{color:var(--purple)!important;}
+body.theme-dawn .snav__utility .script{color:var(--purple)!important;}
+/* dropdown del nav en claro */
+body.theme-dawn .dd{background:#fff!important;border-color:var(--hairline)!important;}
+body.theme-dawn .dd a{color:var(--navy)!important;}
+body.theme-dawn .dd a:hover{color:var(--purple)!important;background:var(--surf-soft)!important;}
+
+/* ============================================================
+   Dawn → CTA PRIMARIO sólido Cosmic Purple (recomendación experto)
+   Sólido = legible sobre claro Y sobre el hero oscuro, sin depender
+   del fondo. Anula ghost/glass/gradiente solo dentro de Dawn.
+   El oro queda como acento mínimo (líneas/glyphs), no en botones.
+   ============================================================ */
+body.theme-dawn .btn-cta{background:transparent;padding:0;border:0;
+  box-shadow:0 12px 30px -14px rgba(60,25,81,.55);}
+body.theme-dawn .btn-cta__inner{background:var(--purple)!important;color:#fff!important;border:0!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.25)!important;
+  padding:.8rem 1.05rem .8rem 1.45rem;}
+body.theme-dawn .btn-cta--sm .btn-cta__inner{padding:.62rem .8rem .62rem 1.2rem;}
+body.theme-dawn .btn-cta__inner::before{display:none!important;}   /* mata overlay glass/gradiente */
+body.theme-dawn .btn-cta__icon{background:rgba(255,255,255,.16)!important;color:#fff!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)!important;}
+body.theme-dawn .btn-cta:hover{transform:translateY(-2px);box-shadow:0 18px 42px -16px rgba(60,25,81,.6);}
+body.theme-dawn .btn-cta:hover .btn-cta__inner{background:#4a2168!important;}
+body.theme-dawn .btn-cta:focus-visible .btn-cta__inner{box-shadow:0 0 0 3px var(--gold)!important;}
+
+/* ============================================================
+   #2 · El nav condensado HEREDA el color del tema
+   · Midnight → navy (default, ya estaba)
+   · Cosmic   → morado (combina con secciones moradas)
+   · Dawn     → claro (ya resuelto arriba)
+   ============================================================ */
+body.theme-cosmic.nav-dark .snav{background:rgba(36,16,67,.55)!important;}
+body.theme-cosmic.nav-dark .snav.is-condensed{background:rgba(36,16,67,.9)!important;}
+body.theme-cosmic.nl-centered-immersive #navCentered.is-condensed,
+body.theme-cosmic.nl-immersive #navImmersive.is-condensed{background:rgba(36,16,67,.9)!important;border-bottom-color:var(--glass-border)!important;}
+
+/* ============================================================
+   #3 · "Nav sólido siempre" (toggle nav-solid-always)
+   Reusa el estado condensado siempre → ya hereda el color del tema
+   y el colorway de logo correcto. (El JS mantiene .is-condensed.)
+   ============================================================ */
+body.nav-solid-always .snav__utility{max-height:0;opacity:0;padding:0;}  /* compacto, como condensado */

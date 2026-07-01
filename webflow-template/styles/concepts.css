@@ -1,0 +1,209 @@
+/* ============================================================
+   SOTSI · Stage 1 (Navigation) + Stage 2 (Hero) — concept styles
+   Quiet-luxury editorial · senior-accessible · Webflow-portable.
+   Compositor-friendly motion only. tokens.css holds brand vars.
+   ============================================================ */
+
+*,*::before,*::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; font-family: var(--font-body); font-size: var(--text-body);
+  line-height: var(--leading-body); color: var(--text-on-light);
+  background: var(--surface); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: var(--tracking-title); line-height: 1.04; margin: 0; }
+p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
+.wrap { width: min(100% - 2*var(--gutter), var(--maxw)); margin-inline: auto; }
+.eyebrow { font-size: var(--text-eyebrow); letter-spacing: .22em; text-transform: uppercase; font-weight: 600; color: var(--purple); margin: 0 0 1rem; }
+.eyebrow.on-dark { color: var(--yellow); }
+.script { font-family: var(--font-script); line-height: 1; color: var(--gold); }
+
+/* ---- Buttons (shared) ---- */
+.btn { --btn-bg: var(--purple); --btn-fg:#fff; display:inline-flex; align-items:center; justify-content:center; gap:.6em;
+  min-height: var(--tap); padding: 0 1.9rem; border:0; border-radius: var(--radius-pill); background: var(--btn-bg);
+  color: var(--btn-fg); font-family: var(--font-body); font-size: 1.05rem; font-weight: 600; text-decoration:none; cursor:pointer;
+  will-change: transform; transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background-color var(--dur) var(--ease); }
+.btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow); }
+.btn:active { transform: translateY(-1px) scale(.985); }
+.btn:focus-visible { outline:none; box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--purple); }
+.btn--gold { --btn-bg: var(--gold); --btn-fg: var(--navy); }
+.btn--sm { min-height: 46px; padding: 0 1.35rem; font-size: .98rem; }
+.on-dark .btn--primary { --btn-bg: var(--yellow); --btn-fg: var(--navy); }
+.on-dark .btn--primary:focus-visible { box-shadow: 0 0 0 3px var(--navy), 0 0 0 6px var(--yellow); }
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--navy); border:1.5px solid var(--hairline); }
+.btn--ghost:hover { border-color: var(--purple); box-shadow: var(--shadow-sm); }
+.on-dark .btn--ghost { --btn-fg:#fff; border-color: var(--hairline-on-dark); }
+.on-dark .btn--ghost:hover { border-color: rgba(255,255,255,.55); }
+
+.link-anim { position:relative; text-decoration:none; font-weight:600; color: var(--purple); padding-bottom:2px; }
+.link-anim::after { content:""; position:absolute; left:0; bottom:0; width:100%; height:2px; background: currentColor; transform: scaleX(0); transform-origin:left; transition: transform var(--dur) var(--ease); }
+.link-anim:hover::after, .link-anim:focus-visible::after { transform: scaleX(1); }
+.link-anim .arrow { display:inline-block; transition: transform var(--dur) var(--ease); }
+.link-anim:hover .arrow { transform: translateX(4px); }
+
+/* ---- Showcase scaffolding ---- */
+.doc-head { width: min(100% - 2*var(--gutter), 60rem); margin: 0 auto; padding-block: clamp(2.5rem,1.5rem + 4vw,4.5rem); }
+.doc-head h1 { font-size: var(--text-h2); }
+.proposal { border-top: 1px solid var(--hairline); padding-block: clamp(2.25rem,1.5rem + 2.5vw,3.5rem); }
+.proposal__label { width: min(100% - 2*var(--gutter), var(--maxw)); margin: 0 auto 1.5rem; display:flex; flex-wrap:wrap; align-items:baseline; gap:.6rem 1.1rem; }
+.proposal__tag { font-size:.74rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#fff; background: var(--purple); border-radius: var(--radius-pill); padding:.35em .9em; }
+.proposal__tag--rec { background: var(--gold); color: var(--navy); }
+.proposal__title { font-size: 1.4rem; font-family: var(--font-display); }
+.proposal__note { font-size:.95rem; color: var(--text-on-light-soft); max-width: 64ch; }
+.frame { width: min(100% - 2*var(--gutter), 1320px); margin-inline:auto; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--shadow-md); border:1px solid var(--hairline); }
+.frame--dark { border-color: transparent; }
+.frame--mega { overflow: visible; position: relative; }
+.frame--mega .nav1 { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.demo-scroll-note { width: min(100% - 2*var(--gutter), 1320px); margin: .6rem auto 0; font-size:.82rem; color: var(--text-on-light-soft); font-style: italic; }
+
+/* ============================================================
+   LOGO LOCKUP (text-based, brand-faithful; replace with SVG in WF)
+   ============================================================ */
+.logo { display:inline-flex; flex-direction:column; line-height:1; text-decoration:none; }
+.logo__mark { font-family: var(--font-script); font-size: 1.5rem; color: inherit; }
+.logo__sub { font-family: var(--font-body); font-size:.62rem; letter-spacing:.34em; text-transform:uppercase; margin-top:.18rem; opacity:.8; }
+.logo--lg .logo__mark { font-size: 1.9rem; }
+
+/* ============================================================
+   NAV CONCEPT 1 — Editorial Persistent Bar (light, recommended)
+   ============================================================ */
+.navbar { position: relative; z-index: 5; }
+.nav1 { background:#fff; border-bottom:1px solid var(--hairline); }
+.nav1__inner { display:flex; align-items:center; gap:2rem; min-height:76px; }
+.nav1 .logo { color: var(--navy); }
+.nav1__links { display:flex; align-items:center; gap:.35rem; margin-inline:auto; list-style:none; padding:0; }
+.nav-link { position:relative; display:inline-flex; align-items:center; gap:.35rem; min-height:44px; padding:0 .95rem; border-radius:10px;
+  font-weight:600; font-size:1.02rem; color: var(--navy); text-decoration:none; transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+.nav-link .chev { width:14px; height:14px; transition: transform var(--dur) var(--ease); }
+.nav-link:hover { background: var(--surface-soft); }
+.nav-link::after { content:""; position:absolute; left:.95rem; right:.95rem; bottom:10px; height:2.5px; background: var(--gold); border-radius:2px; transform: scaleX(0); transform-origin:left; transition: transform var(--dur) var(--ease); }
+.nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
+.nav-link[aria-current="page"] { color: var(--purple); }
+.nav-link:focus-visible { outline:none; box-shadow: 0 0 0 3px var(--purple); }
+.nav1__cta { display:flex; align-items:center; gap:1rem; }
+.nav1__icon { display:grid; place-items:center; width:44px; height:44px; border-radius:50%; color: var(--navy); background:transparent; border:0; cursor:pointer; transition: background-color var(--dur) var(--ease); }
+.nav1__icon:hover { background: var(--surface-soft); }
+.nav1__icon:focus-visible { outline:none; box-shadow:0 0 0 3px var(--purple); }
+.nav1__icon svg { width:22px; height:22px; }
+
+/* Mega dropdown (hover/focus reveal in concept) */
+.has-mega { position: static; }
+.mega { position:absolute; left:0; right:0; top:100%; background:#fff; border-top:1px solid var(--hairline); box-shadow: var(--shadow-md);
+  opacity:0; visibility:hidden; transform: translateY(8px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
+  z-index: 20; }
+.has-mega:hover .mega, .has-mega:focus-within .mega { opacity:1; visibility:visible; transform: none; }
+.mega__grid { width: min(100% - 2*var(--gutter), var(--maxw)); margin-inline:auto; display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:2rem; padding: 2rem 0 2.4rem; }
+.mega__feature { background: var(--grad-immersive); color:#fff; border-radius: var(--radius); padding:1.4rem; display:flex; flex-direction:column; justify-content:flex-end; min-height:160px; }
+.mega__feature h4 { color:#fff; font-size:1.3rem; }
+.mega__feature p { color: var(--text-on-dark-soft); font-size:.92rem; margin-top:.4rem; }
+.mega__col h5 { font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color: var(--text-on-light-soft); margin:0 0 .8rem; font-family: var(--font-body); font-weight:700; }
+.mega__col a { display:block; padding:.5rem 0; color: var(--navy); text-decoration:none; font-weight:500; border-bottom:1px solid transparent; transition: color var(--dur) var(--ease); }
+.mega__col a:hover { color: var(--purple); }
+
+/* ============================================================
+   NAV CONCEPT 2 — Immersive transparent→solid (over dark hero)
+   ============================================================ */
+.nav2 { background: transparent; position:absolute; left:0; right:0; top:0; z-index:10; }
+.nav2.is-solid { position:fixed; background: rgba(14,22,49,.82); backdrop-filter: blur(14px); border-bottom:1px solid var(--hairline-on-dark); }
+.nav2 .logo { color:#fff; }
+.nav2 .nav-link { color:#fff; }
+.nav2 .nav-link:hover { background: rgba(255,255,255,.1); }
+.nav2 .nav-link::after { background: var(--yellow); }
+.nav2 .nav1__icon { color:#fff; }
+.nav2 .nav1__icon:hover { background: rgba(255,255,255,.1); }
+/* demo wrapper to show it over an image */
+.nav2-demo { position:relative; min-height: 240px; color:#fff; display:flex; align-items:flex-end; overflow:hidden; }
+.nav2-demo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; }
+.nav2-demo::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(14,22,49,.6), rgba(60,25,81,.25)); z-index:-1; }
+.nav2-demo__cap { padding: 1.5rem var(--gutter); font-size:.9rem; color: rgba(255,255,255,.8); }
+
+/* ============================================================
+   NAV CONCEPT 3 — Two-tier editorial (utility row + centered)
+   ============================================================ */
+.nav3__utility { background: var(--navy); color: var(--text-on-dark-soft); font-size:.85rem; }
+.nav3__utility .wrap { display:flex; align-items:center; justify-content:space-between; min-height:40px; gap:1rem; }
+.nav3__utility a { color: var(--text-on-dark-soft); text-decoration:none; padding:.2rem .4rem; }
+.nav3__utility a:hover { color: var(--yellow); }
+.nav3__main { background:#fff; border-bottom:1px solid var(--hairline); }
+.nav3__main .wrap { display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; min-height:84px; gap:1rem; }
+.nav3__links { display:flex; gap:.3rem; list-style:none; padding:0; margin:0; }
+.nav3__links.right { justify-content:flex-end; }
+.nav3 .logo { color: var(--navy); align-items:center; text-align:center; }
+
+/* ---- Nav 3 APPROVED: sticky + condense + mobile drawer ---- */
+.nav3.is-sticky { position: sticky; top: 0; z-index: 40; box-shadow: var(--shadow-sm); }
+.nav3 .nav3__utility { transition: max-height var(--dur) var(--ease), opacity var(--dur) var(--ease); max-height: 60px; overflow: hidden; }
+.nav3.is-condensed .nav3__utility { max-height: 0; opacity: 0; }      /* utility row collapses on scroll */
+.nav3.is-condensed .nav3__main .wrap { min-height: 68px; }
+.nav3__burger { display:none; width:48px; height:48px; border:0; background:transparent; cursor:pointer; color:var(--navy); border-radius:10px; }
+.nav3__burger:hover { background: var(--surface-soft); }
+.nav3__burger:focus-visible { outline:none; box-shadow:0 0 0 3px var(--purple); }
+.nav3__burger svg { width:26px; height:26px; }
+/* mobile slide-down panel */
+.nav3__mobile { display:none; }
+.nav3__mobile-panel { background:#fff; border-top:1px solid var(--hairline); padding: .5rem var(--gutter) 1.5rem; }
+.nav3__mobile-panel a { display:block; padding: .95rem .25rem; font-size:1.15rem; font-weight:600; color:var(--navy); text-decoration:none; border-bottom:1px solid var(--hairline); }
+.nav3__mobile-panel .btn { margin-top:1.1rem; width:100%; }
+
+/* ============================================================
+   HERO CONCEPT A — Editorial Stillness (recommended)
+   ============================================================ */
+.heroA { background: var(--surface); padding-block: clamp(3rem,2rem + 4vw,6rem); }
+.heroA__grid { display:grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem,1rem + 4vw,5rem); align-items:center; }
+.heroA__title { font-size: var(--text-h1); }
+.heroA__sub { font-size: var(--text-lead); color: var(--text-on-light-soft); margin: 1.4rem 0 0; max-width: 26ch; }
+.heroA__body { margin: 1.6rem 0 2.2rem; max-width: 42ch; }
+.heroA__cta { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; }
+.heroA__media { position:relative; }
+.heroA__img { width:100%; aspect-ratio: 4/5; object-fit:cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.heroA__glow { position:absolute; inset:auto -8% -10% auto; width:60%; aspect-ratio:1; background: var(--glow-yellow); z-index:-1; filter: blur(6px); }
+.heroA__chip { position:absolute; left:-1.5rem; bottom:2rem; background:#fff; border-radius: var(--radius); box-shadow: var(--shadow-md); padding:.9rem 1.2rem; display:flex; align-items:center; gap:.75rem; max-width:17rem; }
+.heroA__chip img { width:48px; height:48px; border-radius:50%; object-fit:cover; }
+.heroA__chip span { font-size:.92rem; line-height:1.35; }
+
+/* ============================================================
+   HERO CONCEPT B — Immersive Calm (full-bleed)
+   ============================================================ */
+.heroB { position:relative; min-height: 86vh; display:grid; place-items:center; text-align:center; color:#fff; overflow:hidden; isolation:isolate; }
+.heroB__bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; }
+.heroB__scrim { position:absolute; inset:0; background: linear-gradient(180deg, rgba(14,22,49,.5), rgba(60,25,81,.8)); z-index:-1; }
+.heroB__content { padding: 6rem var(--gutter); max-width: 60rem; }
+.heroB__title { font-size: var(--text-h1); color:#fff; }
+.heroB__script { font-size: 2.4rem; margin:.3rem 0 0; }
+.heroB__lead { font-size: var(--text-lead); color: var(--text-on-dark-soft); margin: 1.5rem auto 2.4rem; max-width: 42ch; }
+.heroB__cue { position:absolute; left:50%; bottom:1.8rem; transform: translateX(-50%); color: rgba(255,255,255,.7); font-size:.8rem; letter-spacing:.18em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:.4rem; }
+.heroB__cue::after { content:""; width:1px; height:34px; background: rgba(255,255,255,.6); animation: cue 2.2s var(--ease) infinite; }
+@keyframes cue { 0%,100%{opacity:.25; transform: scaleY(.6);} 50%{opacity:1; transform: scaleY(1);} }
+
+/* ============================================================
+   HERO CONCEPT C — Living Story (split + layered photos)
+   ============================================================ */
+.heroC { background: var(--surface-soft); padding-block: clamp(3rem,2rem + 4vw,5.5rem); }
+.heroC__inner { display:grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,1rem + 3vw,3.5rem); align-items:center; }
+.heroC__title { font-size: clamp(2.6rem,1.6rem + 5vw,5.5rem); }
+.heroC__lead { font-size: var(--text-lead); color: var(--text-on-light-soft); margin: 1.3rem 0 2rem; max-width: 38ch; }
+.heroC__stack { position:relative; aspect-ratio: 1/1.02; }
+.heroC__img-main { position:absolute; inset:0 16% 14% 0; width:84%; height:86%; object-fit:cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.heroC__img-sub { position:absolute; right:0; bottom:0; width:46%; aspect-ratio:3/4; object-fit:cover; border-radius: var(--radius); box-shadow: var(--shadow-md); border:5px solid #fff; }
+.heroC__badge { position:absolute; left:0; top:1.5rem; background: var(--navy); color:#fff; border-radius: var(--radius-pill); padding:.5rem 1.1rem; font-size:.85rem; font-weight:600; box-shadow: var(--shadow-md); display:flex; align-items:center; gap:.5rem; }
+.heroC__badge b { color: var(--yellow); }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1000px) {
+  .nav1__links, .nav3__links { display:none; }        /* collapse to trigger */
+  .nav3__burger { display:inline-grid; place-items:center; }
+  .nav3__main .wrap { grid-template-columns: 1fr auto auto; column-gap:.5rem; }
+  .nav3 .logo { justify-self:start; align-items:flex-start; text-align:left; }
+  .nav3__mobile { display:block; }
+  .heroA__grid, .heroC__inner { grid-template-columns: 1fr; }
+  .heroA__media, .heroC__stack { order:-1; }
+  .mega__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .heroA__chip { left:0; }
+  .heroB__script { font-size: 1.8rem; }
+  .nav3__utility { font-size:.78rem; }
+  .nav3__main .nav1__cta .btn span.hide-sm { display:none; }
+}

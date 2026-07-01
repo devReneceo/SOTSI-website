@@ -1,0 +1,439 @@
+/* =====================================================================
+   SOTSI · SECTION-POLISH — loaded LAST (after theme.css / responsive-fix.css)
+   Eleva 3 secciones a nivel premium SIN tocar el sistema base:
+     · TOOLS        → atmósfera de marca + adaptación real por tema
+     · CONSCIOUSNESS→ profundidad cinematográfica (grano + scrim + glow)
+     · EVENT        → jerarquía (meta + 2º CTA) + marco sutil
+   Aditivo y reversible. Reusa tokens, --surf-*/--sec-fg y utilidades.
+   ===================================================================== */
+
+/* grano fino reutilizable (filmic) */
+:root{
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* =====================================================================
+   1 · TOOLS — de bloque plano a estancia de marca, adaptativa por tema
+   ===================================================================== */
+.tools{position:relative;overflow:hidden;isolation:isolate;}
+
+/* superficie con profundidad: halo suave arriba (no fill plano).
+   Usa --surf-soft → adapta navy/dawn; cosmic se sobreescribe abajo. */
+.tools{
+  background:
+    radial-gradient(120% 86% at 50% -12%,
+      color-mix(in srgb, var(--tools-tint, #D2CCFD) 60%, transparent), transparent 58%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--surf-soft) 90%, #ffffff) 0%,
+      var(--surf-soft) 64%);
+}
+:root{ --tools-tint:#D2CCFD; }            /* navy → periwinkle */
+
+/* halos atmosféricos (compositor-friendly: solo filtro/posición) */
+.tools__glow{position:absolute;z-index:0;border-radius:50%;aspect-ratio:1;
+  filter:blur(64px);pointer-events:none;}
+.tools__glow--a{width:46vw;max-width:560px;top:-14%;left:-8%;
+  background:radial-gradient(circle, rgba(210,204,253,.55), transparent 66%);}
+.tools__glow--b{width:40vw;max-width:480px;bottom:-18%;right:-6%;
+  background:radial-gradient(circle, rgba(254,212,87,.20), transparent 68%);}
+
+/* textura sutil */
+.tools::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:var(--grain);background-size:170px;opacity:.05;mix-blend-mode:multiply;}
+
+.tools .sec__inner{position:relative;z-index:1;}
+
+/* sello de marca (sol radiante) — foco premium sobre el eyebrow */
+.tools__mark{display:grid;place-items:center;width:clamp(48px,5.4vw,66px);height:auto;
+  margin:0 auto 1.6rem;color:var(--purple);}
+.tools__mark svg{width:100%;height:auto;display:block;
+  filter:drop-shadow(0 6px 18px rgba(60,25,81,.18));}
+
+/* chips de práctica — dan cuerpo editorial al centro vacío */
+.tools__chips{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
+  gap:.6rem;margin:2.4rem 0 0;padding:0;}
+.tools__chips li{font-family:var(--font-body);font-weight:500;font-size:.86rem;letter-spacing:.01em;
+  color:var(--purple);border:1px solid color-mix(in srgb, var(--purple) 26%, transparent);
+  border-radius:999px;padding:.55rem 1.15rem;
+  background:color-mix(in srgb, #ffffff 50%, transparent);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  transition:transform .3s var(--ease), border-color .3s var(--ease), background-color .3s var(--ease);}
+.tools__chips li:hover{transform:translateY(-2px);
+  border-color:color-mix(in srgb, var(--purple) 50%, transparent);
+  background:color-mix(in srgb, #ffffff 78%, transparent);}
+
+.tools__cta{margin-top:2.7rem;}
+
+/* —— adaptación real por tema —— */
+/* Cosmic: la estancia se vuelve púrpura (antes idéntica a navy) */
+body.theme-cosmic{ --tools-tint:#C8A6E2; }
+body.theme-cosmic .tools{
+  background:
+    radial-gradient(120% 86% at 50% -12%, rgba(60,25,81,.30), transparent 58%),
+    linear-gradient(180deg, #efe2f6 0%, #E7D4F1 64%);
+}
+body.theme-cosmic .tools__glow--a{background:radial-gradient(circle, rgba(170,120,205,.5), transparent 66%);}
+/* Dawn: claro y aireado — sube el oro para que respire */
+body.theme-dawn .tools__glow--b{background:radial-gradient(circle, rgba(254,212,87,.30), transparent 68%);}
+body.theme-dawn .tools::after{opacity:.035;}
+
+/* (Consciousness se rediseñó por completo: statement con orbe + banda de
+   video. Su CSS vive ahora en sections.css → bloque "4 · Consciousness".) */
+
+/* =====================================================================
+   3 · EVENT — jerarquía + marco premium
+   ===================================================================== */
+/* viñeta full-bleed (atmósfera) — SIN marco/card (se veía como tarjeta rara) */
+.event::after{content:"";position:absolute;inset:0;z-index:1;
+  pointer-events:none;
+  box-shadow:inset 0 0 130px rgba(8,8,24,.42);}
+
+/* meta-fila: formato del evento (credibilidad premium) — fila limpia, izquierda en la Z */
+.event__meta{position:relative;z-index:2;list-style:none;padding:0;
+  display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:baseline;
+  gap:.4rem 1.15rem;margin:0 0 clamp(1.8rem,3vw,2.4rem);font-family:var(--font-body);}
+.event__meta li{display:inline-flex;align-items:baseline;gap:.5rem;position:relative;}
+.event__meta li:not(:first-child)::before{content:"";align-self:center;
+  width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.8;}
+.em-k{font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);}
+.em-v{font-size:.94rem;font-weight:500;letter-spacing:.01em;color:rgba(255,255,255,.9);}
+
+/* El Event es un momento inmersivo (canvas Soul Tide diseñado para oscuro):
+   se mantiene oscuro en TODOS los temas — como hero/membership/greeting —
+   para que el titular blanco y el oro conserven contraste (en Dawn, sec--deep
+   se aclaraba a lila y el texto blanco se perdía). */
+body.theme-dawn .event{background:#181033 !important;color:#fff !important;}
+
+/* "Are you ready? ──→ Register Today!" — unidad pregunta→acción */
+.event__act{position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;
+  gap:clamp(1rem,2vw,1.6rem);margin-top:clamp(1.8rem,3vw,2.4rem);}
+.event__act .event__ready{margin:0;flex:0 0 auto;}          /* anula los márgenes grandes */
+.event__connector{flex:1 1 60px;min-width:48px;height:1px;align-self:center;
+  transform-origin:left;
+  background:linear-gradient(90deg, rgba(254,212,87,.85), rgba(254,212,87,.2));}
+.event__cta-row{position:relative;z-index:2;display:flex;flex:0 0 auto;margin:0;}
+
+/* el conector crece de la pregunta al botón al revelarse (.event__act lleva .reveal → .in) */
+body.anim-reveal .event__connector,
+body.anim-kinetic .event__connector{transform:scaleX(0);
+  transition:transform var(--dur-slow) var(--ease);}
+body.anim-reveal .event__act.in .event__connector,
+body.anim-kinetic .event__act.in .event__connector{transform:scaleX(1);}
+@media (prefers-reduced-motion:reduce){.event__connector{transform:none!important;}}
+/* móvil: la "Z" pasa a columna → el conector es una línea vertical fina, no un bloque.
+   El fix vive aquí porque section-polish.css carga después de mobile.css y ganaba el min-width:48px. */
+@media (max-width:768px){
+  .event__connector{flex:0 0 auto;width:1px;min-width:0;height:28px;
+    background:linear-gradient(180deg, rgba(254,212,87,.85), rgba(254,212,87,.2));}
+  body.anim-reveal .event__connector,
+  body.anim-kinetic .event__connector{transform:none;}
+}
+
+/* =====================================================================
+   4 · TOOLS · minimal centrado (3 textos + botón en medio)
+   Estructura del original (2w.png), elevada con tipografía/color/animación.
+   Colorimetría: claro periwinkle→lila; acentos PÚRPURA (oro pierde contraste
+   sobre claro); el ÚNICO oro va en el botón (texto dorado sobre navy = oscuro).
+   ===================================================================== */
+.tools{text-align:center;
+  background:linear-gradient(180deg, #ECEAFF 0%, #E7D4F1 56%, #F4F0FB 100%);}
+.tools .sec__inner{max-width:none;}
+.tools__inner{display:flex;flex-direction:column;align-items:center;
+  max-width:46rem;margin-inline:auto;}
+.tools__title{margin:0;}
+.tools__cta{margin:clamp(2rem,4vw,3rem) 0 clamp(2.2rem,4vw,3.2rem);text-align:center;}
+.tools__kicker{font-family:var(--font-body);font-weight:600;font-size:.92rem;letter-spacing:.34em;
+  text-transform:uppercase;color:rgba(14,22,49,.5);margin:0;}
+.tools__script{font-family:var(--font-script);font-weight:400;
+  font-size:clamp(2.1rem,1.2rem + 3.2vw,3.8rem);line-height:1.04;color:var(--purple);margin:.55rem 0 0;}
+.tools__glow--a{opacity:.7;} .tools__glow--b{opacity:.5;}
+
+/* el script entra con elegancia (visible por defecto; .in refina, no oculta) */
+.tools__script.in{animation:toolsScriptIn 1s var(--ease) both;}
+@keyframes toolsScriptIn{from{opacity:.2;transform:translateY(10px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.tools__script.in{animation:none;}}
+
+/* CTA sólido navy + oro (visible sobre claro, como el original 2w.png) */
+.tools .btn-cta{background:transparent;padding:0;border:0;box-shadow:0 16px 32px -16px rgba(14,22,49,.55);}
+.tools .btn-cta__inner{background:var(--navy)!important;color:var(--gold)!important;border:0!important;
+  padding:.82rem 1.05rem .82rem 1.45rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)!important;}
+.tools .btn-cta__inner::before{display:none!important;}
+.tools .btn-cta__sheen{display:none!important;}
+.tools .btn-cta__label{color:var(--gold)!important;}
+.tools .btn-cta__icon{background:rgba(254,212,87,.18)!important;color:var(--gold)!important;
+  box-shadow:inset 0 0 0 1px rgba(254,212,87,.32)!important;}
+.tools .btn-cta:hover{transform:translateY(-2px);box-shadow:0 22px 44px -18px rgba(14,22,49,.6);}
+.tools .btn-cta:hover .btn-cta__inner{background:#16223f!important;color:var(--gold)!important;}
+
+/* =====================================================================
+   4b · EVENT · zigzag (derecha · IZQUIERDA · derecha) — solo ≥769px
+   ===================================================================== */
+@media (min-width:769px){
+  .event .sec__inner{max-width:68rem;}
+  .event .sec__eyebrow{text-align:right;}
+  .event .accent-rule{margin-left:auto;margin-right:0;}
+  .event__headline{margin-left:auto;margin-right:0;text-align:right;max-width:30ch;}
+  /* cierre como UNIDAD a la izquierda (diagonal: intro der · cierre izq) */
+  .event__close{margin-left:0;margin-right:auto;text-align:left;max-width:50rem;}
+}
+
+/* =====================================================================
+   5 · Secuencia de color sutil — SOLO tema default (navy ↔ púrpura ↔ claro)
+   Rompe el "puro azul" metiendo cosmic purple en oscuras sólidas.
+   No toca video/imagen (Hero/Consciousness/Membership/BigCTA) ni cosmic/dawn.
+   ===================================================================== */
+body:not(.theme-cosmic):not(.theme-dawn) .greeting{background:#241043;}
+body:not(.theme-cosmic):not(.theme-dawn) .event{background:#1d1240;}
+body:not(.theme-cosmic):not(.theme-dawn) .stats{background:#3c1951;}
+
+/* =====================================================================
+   7 · BOOKS — imagen real (2 libros + badges) sobre el círculo dorado
+   ===================================================================== */
+/* (sin textura de fondo — removida a pedido del PM; el fondo queda navy/periwinkle limpio) */
+.books__stage{min-height:clamp(400px,44vw,560px);}
+/* SOL tipo GLASS — mayormente AMARILLO, centro chillón → se desvanece hacia la orilla; mantiene el frost */
+.books__circle{width:min(580px,118%);overflow:visible;
+  background:radial-gradient(circle at 47% 43%, rgba(255,246,150,.96) 0%, rgba(255,214,25,.88) 28%, rgba(243,180,12,.62) 56%, rgba(243,180,12,.28) 78%, rgba(255,235,120,.05) 100%);
+  -webkit-backdrop-filter:blur(16px) saturate(215%);backdrop-filter:blur(16px) saturate(215%);
+  box-shadow:inset 0 2px 2px rgba(255,255,255,.4), inset 0 0 0 1px rgba(255,239,160,.22), inset 0 -22px 46px rgba(60,25,81,.12), 0 40px 90px -38px rgba(0,0,0,.5), 0 0 100px rgba(254,212,87,.2);}
+/* núcleo de SOL chillón — blanco-cálido al centro → amarillo luminoso → cae a transparente (mix screen, respira) */
+.books__circle::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;transform-origin:center;
+  background:radial-gradient(circle at 47% 43%, rgba(255,255,232,1) 0%, rgba(255,224,15,.9) 16%, rgba(245,185,12,.46) 40%, transparent 64%);
+  mix-blend-mode:screen;animation:booksCore 5.5s ease-in-out infinite;will-change:opacity,transform;}
+@keyframes booksCore{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.05);}}
+/* halo exterior suave (amarillo) */
+.books__circle::after{content:"";position:absolute;inset:-26%;border-radius:50%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle, rgba(255,235,120,.2) 0%, rgba(254,212,87,.1) 42%, transparent 72%);
+  filter:blur(28px);animation:booksSun 6.5s ease-in-out infinite;will-change:transform,opacity;}
+@keyframes booksSun{0%,100%{transform:scale(1);opacity:.45;}50%{transform:scale(1.09);opacity:.85;}}
+
+/* ---- Books: "background paths" (port vanilla del efecto framer) — líneas que fluyen hacia el libro ---- */
+.books{position:relative;isolation:isolate;}
+.books .sec__inner{position:relative;z-index:2;}
+.books__paths{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;color:var(--gold);}
+.books__paths svg{position:absolute;inset:0;width:100%;height:100%;display:block;transform:scaleY(-1);}
+.books__paths path{fill:none;stroke:currentColor;vector-effect:non-scaling-stroke;stroke-linecap:round;
+  stroke-dasharray:.5 .5;will-change:stroke-dashoffset;animation:booksFlow linear infinite;}
+@keyframes booksFlow{to{stroke-dashoffset:-1;}}
+
+/* ---------------------------------------------------------------------------
+   Nubes realistas con SVG feTurbulence (ruido fractal). El SHAPE de nube lo da
+   un feTurbulence embebido como data-URI usado de máscara (alfa); el COLOR
+   (gris-carbón + brillo cálido tenue del sol, estilo portada Seat of the Soul)
+   lo pone .books__sky. Franjas en el borde superior (sobre Event) e inferior
+   (disolviéndose hacia Courses). Reemplaza los blobs. ~0 KB JS, porta a Webflow. */
+.books__clouds{
+  position:absolute;
+  left:0;
+  right:0;
+  top:clamp(-3.8rem,-2.2rem - 2vw,-1.6rem);
+  height:clamp(8.5rem,11vw,12rem);
+  z-index:1;
+  pointer-events:none;
+  overflow:visible;
+  opacity:.95;
+  /* desvanecido vertical: las nubes se funden con la sección en ambos bordes */
+  -webkit-mask:linear-gradient(180deg, transparent 0%, #000 24%, #000 76%, transparent 100%);
+          mask:linear-gradient(180deg, transparent 0%, #000 24%, #000 76%, transparent 100%);
+}
+.books__sky{
+  position:absolute;
+  inset:-12% -14%;
+  --bc-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='240' preserveAspectRatio='none'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0095 0.017' numOctaves='4' seed='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 2.2 0 0 0 -0.72'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='gamma' amplitude='1.3' exponent='1.1' offset='0'/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur stdDeviation='1.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
+  background:
+    radial-gradient(160% 145% at 80% 12%, rgba(255,211,146,.58), rgba(255,196,120,.18) 36%, transparent 70%),
+    linear-gradient(180deg, #4b5162 0%, #333845 100%);
+  -webkit-mask:var(--bc-mask) center/cover no-repeat;
+          mask:var(--bc-mask) center/cover no-repeat;
+  animation:booksCloudDrift 72s ease-in-out infinite alternate;
+  will-change:transform;
+}
+/* franja INFERIOR: "horizonte que se disuelve" hacia Courses (claro). Vive en el
+   borde oscuro; se voltea (scaleY -1) y una máscara vertical la desvanece hacia el papel. */
+.books__clouds--bottom{
+  top:auto;
+  bottom:clamp(-3.2rem,-1.8rem - 2vw,-1.2rem);
+  opacity:.88;
+  transform:scaleY(-1);
+  -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 30%, #000 64%, transparent 100%);
+          mask-image:linear-gradient(180deg, transparent 0%, #000 30%, #000 64%, transparent 100%);
+}
+/* Dawn (claro): gris-carbón más alto para que no quede como manchón oscuro sobre el papel */
+body.theme-dawn .books__sky{
+  background:
+    radial-gradient(135% 110% at 74% 28%, rgba(255,201,122,.5), rgba(255,186,104,.14) 34%, transparent 66%),
+    linear-gradient(180deg, #6e7280 0%, #585c69 100%);
+  opacity:.92;
+}
+@keyframes booksCloudDrift{
+  0%{transform:translate3d(-2.4%,0,0) scale(1.03);}
+  100%{transform:translate3d(2.6%,-0.6%,0) scale(1.07);}
+}
+@media (prefers-reduced-motion:reduce){
+  .books__circle::before{animation:none;opacity:.85;}
+  .books__circle::after{animation:none;opacity:.7;}
+  .books__paths path{animation:none;stroke-dasharray:none;}
+  .books__sky{animation:none;transform:none;}
+}
+
+/* ============ Stories / Testimonials (rediseño tipo Webflow "Stories from our community") ============ */
+/* sección clara (paper) — fotos verticales nítidas + burbujas blancas con esquina cortada */
+.stories-sec{overflow:hidden;padding-block:clamp(4.5rem,3.5rem + 5vw,9rem);}
+.stories-sec .stories__head{text-align:center;}
+.stories{position:relative;margin-top:clamp(2.8rem,4.5vw,4.2rem);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;}
+.stories::-webkit-scrollbar{display:none;}
+.stories.is-glide{overflow:hidden;scroll-snap-type:none;}            /* desktop mouse-move → el track se mueve por transform */
+.stories__track{display:flex;align-items:flex-start;gap:clamp(1rem,1.6vw,1.8rem);
+  padding-inline:clamp(1.25rem,6vw,7rem);width:max-content;will-change:transform;
+  --photo-h:clamp(360px,38vw,440px);}   /* tope ~440px: a más px sobre 457×564 se re-escala y pierde nitidez en retina */
+
+/* —— foto vertical (4:5) grande y nítida, con Ken Burns —— */
+.story-photo{flex:0 0 auto;height:var(--photo-h);width:calc(var(--photo-h) * 457 / 564);
+  overflow:hidden;border-radius:0;background:#1a1330;scroll-snap-align:center;
+  box-shadow:0 28px 60px -30px rgba(60,25,81,.45);}
+.story-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.03);
+  animation:storyKen 22s ease-in-out infinite;will-change:transform;}
+@keyframes storyKen{0%,100%{transform:scale(1.03)}50%{transform:scale(1.11)}}
+
+/* —— SPEECH BUBBLE blanco: esquinas redondeadas + pico apuntando a la foto —— */
+.story-quote{position:relative;flex:0 0 auto;align-self:flex-start;margin-top:clamp(.6rem,1.4vw,1.4rem);width:clamp(228px,21vw,296px);
+  display:flex;flex-direction:column;padding:1.6rem 1.5rem 1.75rem;
+  background:#fff;color:var(--navy);scroll-snap-align:center;border-radius:0;text-align:left;
+  --hs:1;transform:scale(var(--hs));
+  filter:drop-shadow(0 18px 30px rgba(60,25,81,.16));
+  transition:transform .45s var(--ease), filter .45s var(--ease);}
+/* hover SÓLO en el bubble: zoom + glow dorado tenue (el filter del padre envuelve también el pico) */
+.story-quote:hover{--hs:1.04;
+  filter:drop-shadow(0 20px 32px rgba(60,25,81,.18)) drop-shadow(0 0 7px rgba(254,212,87,.55));}
+/* pico/cola del bocadillo: sale por la izquierda hacia el retrato (filter del padre le da la misma sombra) */
+.story-quote::before{content:"";position:absolute;left:-20px;top:44px;width:0;height:0;
+  border-top:17px solid transparent;border-bottom:17px solid transparent;border-right:22px solid #fff;}
+
+/* —— entrada scroll-reveal (rise + fade) — gated por .rev-ready que añade el JS sólo si NO reduced —— */
+.stories.rev-ready .story-photo,
+.stories.rev-ready .story-quote{opacity:0;}
+.stories.rev-ready .story-photo{transform:translateY(28px);
+  transition:opacity .7s var(--ease), transform .6s var(--ease);}
+.stories.rev-ready .story-quote{transform:translateY(28px) scale(var(--hs));
+  transition:opacity .7s var(--ease), transform .55s var(--ease), filter .45s var(--ease);}
+.stories.rev-ready .story-photo.in{opacity:1;transform:translateY(0);}
+.stories.rev-ready .story-quote.in{opacity:1;transform:translateY(0) scale(var(--hs));}
+.story-quote__q{font-family:var(--font-display);font-weight:400;letter-spacing:-.01em;
+  font-size:clamp(1rem,.92rem + .4vw,1.18rem);line-height:1.42;color:var(--navy);margin:0;}
+.story-quote__line{height:2px;width:44px;border-radius:2px;margin-top:.95rem;
+  background:linear-gradient(90deg,var(--gold),rgba(254,212,87,.1));}
+.story-quote__cite{display:flex;flex-direction:column;gap:.18rem;margin-top:.7rem;}
+.story-quote__name{font-family:var(--font-display);font-style:italic;font-size:1.1rem;color:var(--navy);line-height:1.12;}
+.story-quote__role{font-family:var(--font-body);font-size:.78rem;letter-spacing:.02em;color:rgba(14,22,49,.58);}
+
+/* chevrons indicadores — se encienden en oro según la dirección del movimiento */
+.stories__arrow{position:absolute;top:46%;z-index:5;width:52px;height:52px;border-radius:50%;pointer-events:none;
+  display:grid;place-items:center;color:#fff;background:rgba(14,22,49,.5);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 8px 24px rgba(14,22,49,.3);
+  opacity:0;transition:opacity .3s ease,color .25s ease;}
+.stories.is-glide .stories__arrow{opacity:.9;}
+.stories__arrow svg{width:24px;height:24px;}
+.stories__arrow--prev{left:clamp(.6rem,2.5vw,1.6rem);}
+.stories__arrow--next{right:clamp(.6rem,2.5vw,1.6rem);}
+.stories__arrow.is-active{color:#FFEB45;}
+@media (max-width:768px){
+  .stories__arrow{display:none;}
+  .stories__track{--photo-h:clamp(340px,80vw,420px);gap:1rem;}
+  .story-quote{width:74vw;max-width:300px;}
+}
+@media (prefers-reduced-motion:reduce){
+  .story-photo img{animation:none;transform:scale(1.03);}
+  .story-quote{transition:filter .3s ease;}
+  .story-quote:hover{--hs:1;}   /* sin zoom; el glow dorado se aplica al instante */
+}
+.books__img{position:relative;z-index:1;display:block;width:min(140%,620px);max-width:140%;height:auto;
+  transform:translateY(-16px);filter:drop-shadow(0 26px 40px rgba(0,0,0,.42));
+  animation:booksFloat 7s var(--ease) infinite;will-change:transform;}
+.books__img:hover{filter:drop-shadow(0 34px 56px rgba(0,0,0,.5));}
+@keyframes booksFloat{0%,100%{transform:translateY(-8px);}50%{transform:translateY(-24px);}}
+@media (prefers-reduced-motion:reduce){.books__img{animation:none;transform:translateY(-16px);}}
+
+@media (max-width:880px){
+  .books__clouds{
+    top:-2.2rem;
+    height:7rem;
+    opacity:.78;
+  }
+  .books__clouds--bottom{top:auto;bottom:-1.6rem;height:6rem;opacity:.74;}
+}
+
+/* CTA "Get the Books": usa el CTA ESTÁNDAR del sitio (pill morado + flecha + brillo), igual que el resto → consistencia */
+
+/* =====================================================================
+   8 · FOUNDERS — momento inmersivo brand-book (gradiente + halo sol + script)
+   ===================================================================== */
+.founders--immersive{background:var(--grad-immersive);color:#fff;
+  position:relative;overflow:hidden;isolation:isolate;}
+.founders--immersive::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 80% at 16% 28%, rgba(60,25,81,.55), transparent 60%),
+             radial-gradient(54% 72% at 92% 84%, rgba(14,22,49,.55), transparent 60%);}
+.founders--immersive .sec__inner{position:relative;z-index:1;align-items:center;}
+.founders--immersive .sec__eyebrow{color:var(--gold);letter-spacing:.16em;}
+.founders__lead{color:rgba(255,255,255,.84);max-width:46ch;
+  font-size:clamp(1.12rem,1rem + .7vw,1.5rem);line-height:1.62;}
+
+/* nombre editorial GRANDE: "Gary &" Fraunces + "Linda" script dorado con glow que respira */
+.founders__name{color:#fff;font-family:var(--font-display);font-weight:400;line-height:.96;margin:0;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.16em;}
+.founders__amp{font-size:clamp(2.8rem,1.7rem + 4vw,5rem);letter-spacing:-.018em;}
+.founders__script{font-family:var(--font-accent);font-weight:400;color:var(--gold);
+  font-size:clamp(4.6rem,2.4rem + 7vw,8.4rem);line-height:.82;
+  animation:foundersScriptGlow 5.5s ease-in-out infinite;}
+.founders .accent-rule{margin:1.5rem 0 1.7rem;}
+@keyframes foundersScriptGlow{
+  0%,100%{text-shadow:0 0 22px rgba(254,212,87,.18);}
+  50%{text-shadow:0 0 42px rgba(254,212,87,.44);}
+}
+
+/* CTAs invitacionales "Meet Gary / Meet Linda" con mini-retrato + halo al hover */
+.founders__cta{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:2.6rem;}
+.founders__meet{display:inline-flex;align-items:center;gap:.95rem;text-decoration:none;color:#fff;
+  padding:.65rem 1.5rem .65rem .65rem;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(254,212,87,.28);backdrop-filter:blur(6px);
+  transition:transform .35s var(--ease),background-color .35s ease,border-color .35s ease,box-shadow .35s ease;}
+.founders__meet-avatar{position:relative;width:60px;height:60px;border-radius:50%;flex:0 0 auto;
+  box-shadow:0 0 0 2px rgba(254,212,87,.55);transition:box-shadow .35s ease;}
+.founders__meet-avatar::before{content:"";position:absolute;inset:-9px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle, rgba(254,212,87,.5), transparent 66%);opacity:0;transition:opacity .35s ease;}
+.founders__meet-avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;}
+.founders__meet-text{display:flex;flex-direction:column;line-height:1.12;text-align:left;}
+.founders__meet-kicker{font-family:var(--font-body);font-size:.72rem;letter-spacing:.15em;
+  text-transform:uppercase;color:rgba(255,255,255,.6);}
+.founders__meet-name{font-family:var(--font-display);font-size:1.35rem;color:#fff;}
+.founders__meet-arrow{width:22px;height:22px;color:var(--gold);flex:0 0 auto;transition:transform .35s var(--ease);}
+.founders__meet:hover,.founders__meet:focus-visible{transform:translateY(-3px);
+  background:rgba(254,212,87,.12);border-color:var(--gold);box-shadow:0 24px 52px -24px rgba(254,212,87,.5);}
+.founders__meet:hover .founders__meet-avatar,.founders__meet:focus-visible .founders__meet-avatar{box-shadow:0 0 0 2px var(--gold);}
+.founders__meet:hover .founders__meet-avatar::before,.founders__meet:focus-visible .founders__meet-avatar::before{opacity:1;}
+.founders__meet:hover .founders__meet-arrow,.founders__meet:focus-visible .founders__meet-arrow{transform:translateX(5px);}
+.founders__meet:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+
+/* retrato GRANDE: círculo + doble anillo dorado + halo que respira (pulse) + float suave (sin rayos) */
+.founders__portrait{position:relative;flex:0 0 auto;margin-inline:auto;display:grid;place-items:center;
+  width:clamp(300px,38vw,560px);height:clamp(300px,38vw,560px);}
+.founders__halo{position:absolute;inset:-22%;z-index:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle, rgba(254,212,87,.26) 0%, rgba(254,212,87,.10) 42%, transparent 66%);
+  animation:foundersAura 7s ease-in-out infinite;will-change:transform,opacity;}
+.founders__halo::after{content:"";position:absolute;inset:13%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle, rgba(255,236,150,.22) 0%, transparent 60%);
+  animation:foundersAura 9s ease-in-out infinite reverse;}
+@keyframes foundersAura{0%,100%{transform:scale(1);opacity:.85;}50%{transform:scale(1.06);opacity:1;}}
+.founders__ring{position:absolute;inset:0;z-index:2;border-radius:50%;pointer-events:none;
+  box-shadow:0 0 0 3px var(--gold), 0 0 0 12px rgba(254,212,87,.16), 0 40px 90px -30px rgba(0,0,0,.65);
+  animation:foundersFloat 8s ease-in-out infinite;will-change:transform;}
+.founders__photo{position:relative;z-index:1;width:100%;height:100%;max-width:none;object-fit:cover;
+  border-radius:50%;box-shadow:none;margin:0;display:block;
+  animation:foundersFloat 8s ease-in-out infinite;will-change:transform;}
+@keyframes foundersFloat{0%,100%{transform:translateY(-5px);}50%{transform:translateY(-17px);}}
+
+@media (prefers-reduced-motion: reduce){
+  .founders__script,.founders__halo,.founders__halo::after,.founders__ring,.founders__photo{animation:none!important;}
+}
+
+/* (Big CTA volvió al original: foto full-bleed + scrim, definido en sections.css) */

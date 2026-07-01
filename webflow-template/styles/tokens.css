@@ -1,0 +1,88 @@
+/* ============================================================
+   SOTSI · Design tokens — Seat of the Soul Institute
+   Fuente: BRAND_REFERENCE.md. Mismos valores que las variables
+   del site Webflow → portar 1:1.
+   ============================================================ */
+
+:root {
+  /* ---- Color de marca ---- */
+  --navy: #0e1631;          /* Midnight Navy  — fondo primario SOTSI */
+  --purple: #3c1951;        /* Cosmic Purple  — inmersivo / storytelling */
+  --white: #ffffff;
+  --periwinkle: #d2ccfd;    /* Soft Periwinkle */
+  --lilac: #e7d4f1;         /* Light Lilac */
+  --yellow: #ffeb45;        /* Luminous Yellow — acento SOBRE OSCURO */
+  --gold: #fed457;          /* Golden Yellow   — acento SOBRE CLARO */
+
+  /* ---- Texto (contraste AA+) ---- */
+  --text-on-light: #0e1631;          /* navy sobre claro */
+  --text-on-light-soft: #4a4660;     /* secundario sobre claro */
+  --text-on-dark: #ffffff;
+  --text-on-dark-soft: rgba(255, 255, 255, 0.72);
+
+  /* ---- Superficies ---- */
+  --surface: #ffffff;
+  --surface-soft: #f6f4fb;           /* casi blanco con tinte lila */
+  --surface-periwinkle: #eceaff;
+  --hairline: rgba(14, 22, 49, 0.1); /* líneas finas divisorias */
+  --hairline-on-dark: rgba(255, 255, 255, 0.16);
+
+  /* ---- Gradientes de marca (solo fondo) ---- */
+  --grad-immersive: linear-gradient(155deg, #0e1631 0%, #2a1342 55%, #3c1951 100%);
+  --grad-airy: linear-gradient(160deg, #e7d4f1 0%, #d2ccfd 100%);
+  --grad-gold: linear-gradient(120deg, #fed457 0%, #ffeb45 100%);
+  --glow-yellow: radial-gradient(circle, rgba(255, 235, 69, 0.55) 0%, rgba(255, 235, 69, 0) 70%);
+
+  /* ---- Tipografía ----
+     Canela (títulos) → fallback Cormorant Garamond/Fraunces.
+     Jost (cuerpo). Cargadas en cada HTML desde Google Fonts. */
+  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+  --font-body: "Jost", "Inter", system-ui, -apple-system, sans-serif;
+  --font-script: "Dancing Script", "Pinyon Script", cursive;
+  --font-accent: "Pinyon Script", "Allura", "Fraunces", cursive;   /* script elegante para frases emotivas (brand book) */
+
+  /* Escala fluida — cuerpo grande (senior-friendly: base 20px) */
+  --text-body: clamp(1.18rem, 1.08rem + 0.4vw, 1.3rem);     /* ~19–21px */
+  --text-lead: clamp(1.35rem, 1.2rem + 0.6vw, 1.6rem);      /* intro */
+  --text-eyebrow: 0.95rem;
+  --text-h3: clamp(1.6rem, 1.3rem + 1.4vw, 2.3rem);
+  --text-h2: clamp(2.3rem, 1.7rem + 2.8vw, 4rem);
+  --text-h1: clamp(3rem, 1.8rem + 6vw, 6.5rem);
+  --leading-body: 1.65;
+  --tracking-title: -0.01em;
+
+  /* ---- Espaciado / ritmo ---- */
+  --space-section: clamp(5rem, 3.5rem + 6vw, 9rem);
+  --radius: 18px;          /* esquinas redondeadas de marca */
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --maxw: 1240px;
+  --maxw-wide: 1180px;     /* rail de secciones — sube progresivamente en monitores grandes (ver responsive-fix.css) */
+  --gutter: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+
+  /* ---- Sombras (profundidad/layering) ---- */
+  --shadow-sm: 0 2px 8px rgba(14, 22, 49, 0.06);
+  --shadow-md: 0 18px 40px -18px rgba(14, 22, 49, 0.28);
+  --shadow-lg: 0 40px 80px -30px rgba(14, 22, 49, 0.45);
+  --shadow-glow: 0 20px 50px -16px rgba(60, 25, 81, 0.55);
+
+  /* ---- Motion ---- */
+  --dur-fast: 160ms;
+  --dur: 320ms;
+  --dur-slow: 600ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Objetivo táctil mínimo (accesibilidad senior) */
+  --tap: 52px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

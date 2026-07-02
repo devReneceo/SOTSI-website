@@ -622,7 +622,7 @@
       gv.pause(); try{ gv.currentTime=0; }catch(e){}
       gsec.classList.remove('is-playing','is-paused','is-loading');
     }
-    gp.addEventListener('click', function(e){ e.stopPropagation(); greetToggle(); });   /* botón → play/pausa */
+    gp.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); greetToggle(); });   /* botón → play/pausa (preventDefault: en Webflow el button publica como <a href="#">) */
     gv.addEventListener('click', greetToggle);                                          /* clic en el video → play/pausa */
     if(gbd) gbd.addEventListener('click', greetClose);                                  /* clic fuera (backdrop) → cerrar */
     /* sincroniza las clases con el estado REAL del <video> (cubre cualquier ruta de pausa/play/buffer) */

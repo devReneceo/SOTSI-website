@@ -11,75 +11,58 @@
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
-<body class="about-page nav-dark nl-centered-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
-  <header class="snav snav--centered" id="navCentered">
-    <div class="snav__utility">
+<body class="about-page nav-dark cta-grad nl-immersive nav-solid-always navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
+  <!-- Header portado del Home (#navImmersive) 2026-07-02 — mismas clases/estructura para integrar About al Home -->
+  <header class="snav snav--immersive" id="navImmersive">
+    <nav class="snav__main" aria-label="Main navigation (immersive)">
       <div class="wrap">
-        <span class="script" style="font-size:1.3rem;color:var(--gold);">Create Authentic Power · Choose Love</span>
-        <span style="display:flex;gap:.3rem;align-items:center;">
-          <a href="#">Soul Connections</a><span aria-hidden="true">·</span>
-          <a href="mailto:info@seatofthesoul.com">Contact</a><span aria-hidden="true">·</span><a href="#">EN</a>
-        </span>
-      </div>
-    </div>
-    <nav class="snav__main" aria-label="Main navigation (centered)">
-      <div class="wrap">
-        <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
         <a class="snav__logo" href="../index.html" aria-label="Seat of the Soul Institute — home">
-          <img class="logo--for-dark" src="../assets/whitelogo.webp" alt="Seat of the Soul Institute" />
-          <img class="logo--for-light" src="../assets/darklogo.webp" alt="Seat of the Soul Institute" />
+          <img class="logo--for-dark" src="../assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
+          <img class="logo--for-light" src="../assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
         </a>
-        <div class="snav__side right">
-          <div class="has-dd">
-            <a class="nlink" href="./" aria-haspopup="true" aria-current="page"><span class="glow"></span>About
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="./seat-of-the-soul-institute/">About SOTS</a>
-              <a href="./gary-zukav/">About Gary</a>
-              <a href="./linda-francis/">About Linda</a>
-            </div>
-          </div>
-          <a class="nlink" href="#"><span class="glow"></span>Podcast</a>
+        <div class="snav__row">
+          <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+            <div class="dd" role="menu"><a href="./seat-of-the-soul-institute/">About SOTSI</a><a href="#">About Gary</a><!-- oculto 2026-07-02 (cliente: About solo dropdown, sin Linda) <a href="./linda-francis/">About Linda</a> --></div></div>
+          <a class="nlink" href="#"><span class="glow"></span>Courses, Events &amp; Activities</a>
+          <a class="nlink" href="#"><span class="glow"></span>Deepcast</a>
+          <a class="nlink" href="#"><span class="glow"></span>Blog</a>
           <a class="nlink" href="#"><span class="glow"></span>Resources</a>
-          <a class="btn-cta btn-cta--sm" href="#" style="margin-left:.5rem;">
-            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span>
+          <a class="nlink" href="#"><span class="glow"></span>In Celebration of Linda Francis</a>
+        </div>
+        <div class="snav__end">
+          <a class="btn-cta btn-cta--sm" href="#">
+            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
             <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
           </a>
         </div>
+        <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
       </div>
     </nav>
-    <div class="snav__mobile">
-      <div class="snav__mobile-panel" data-mobile hidden>
-        <a href="./">About</a>
-        <a class="subnav-link" href="./seat-of-the-soul-institute/">About SOTS</a>
-        <a class="subnav-link" href="./gary-zukav/">About Gary</a>
-        <a class="subnav-link" href="./linda-francis/">About Linda</a>
-        <a href="#">Podcast</a>
-        <a href="#">Resources</a>
-        <a class="btn btn--primary" href="#">Get Started</a>
-      </div>
-    </div>
+    <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
+      <span class="snav__mobile-label">About</span><a class="subnav-link" href="./seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="#">About Gary</a><!-- oculto 2026-07-02 (cliente: About solo dropdown, sin Linda) <a class="subnav-link" href="./linda-francis/">About Linda</a> --><a href="#">Courses, Events &amp; Activities</a><a href="#">Deepcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
+      <a class="btn btn--primary" href="#">Soul Store</a>
+    </div></div>
   </header>
 
   <main>
     <section class="about-hub">
       <div class="about-hub__wrap">
-        <p class="about-hub__eyebrow">About architecture</p>
-        <h1 class="about-hub__title">Three About pages, one SOTSI language.</h1>
-        <p class="about-hub__lead">This subfolder isolates the About experience from the current homepage work. It mirrors the live site structure while translating it into the premium editorial system we have already established for SOTSI.</p>
+        <p class="about-hub__eyebrow">About</p>
+        <h1 class="about-hub__title">3 About Pages</h1>
+        <!-- Lead interno ("This subfolder isolates…") eliminado a pedido del cliente (screenshot 2026-07-02) -->
 
         <div class="about-hub__cards">
           <a class="about-hub__card" href="./seat-of-the-soul-institute/">
             <img class="about-hub__image" src="../assets/images/6a3342a6143842a748166452_authentic-power-spiritual-growth-community.webp" alt="People gathered in a spiritual growth community" />
             <div class="about-hub__body">
-              <p class="about-hub__tag">About SOTS</p>
+              <p class="about-hub__tag">About SOTSI</p>
               <h2>Seat of the Soul Institute</h2>
               <p>The institute page anchors mission, values, vision, and why this work exists.</p>
               <span>Open page →</span>
             </div>
           </a>
 
-          <a class="about-hub__card" href="./gary-zukav/">
+          <a class="about-hub__card" href="#">
             <img class="about-hub__image" src="../assets/images/6a3342a6143842a748166469_gary-zukav-portrait-seat-of-the-soul-institute.webp" alt="Portrait of Gary Zukav" />
             <div class="about-hub__body">
               <p class="about-hub__tag">About Gary</p>
@@ -102,6 +85,7 @@
       </div>
     </section>
 
+    <!-- Sección "Map artifact" (site map XML) oculta 2026-07-02 — contenido interno, no de cliente. Descomentar para restaurar.
     <section class="about-map">
       <div class="about-map__panel">
         <p class="about-hub__eyebrow">Map artifact</p>
@@ -115,42 +99,61 @@
 &lt;/about-root&gt;</pre>
       </div>
     </section>
+    -->
   </main>
 
+  <!-- Footer portado del Home 2026-07-02 — misma estructura/links para integrar About al Home -->
   <footer class="site-footer">
     <span class="foot__accent" aria-hidden="true"></span>
     <div class="sec__inner">
       <div class="foot__top">
         <div class="foot__brandblock">
-          <a class="foot__logo" href="../index.html" aria-label="Seat of the Soul Institute — home"><img src="../assets/whitelogo.webp" alt="Seat of the Soul Institute" /></a>
-          <p class="foot__tag">Create Authentic Power. Choose Love.</p>
-        </div>
-        <div class="foot__news">
-          <p class="foot__news-eyebrow">About Section</p>
-          <h2 class="foot__news-title">Structured apart so the homepage can keep evolving.</h2>
-          <p class="foot__news-note">This area is ready to become three live pages without blocking the index workstream.</p>
+          <a class="foot__logo" href="../index.html" aria-label="Seat of the Soul Institute — home"><img src="../assets/whitelogo.webp" width="1014" height="183" loading="lazy" decoding="async" alt="Seat of the Soul Institute" /></a>
+          <div class="foot__social" aria-label="Follow Gary Zukav on social media">
+            <a href="https://www.facebook.com/GaryZukav/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 22v-9h3l.5-3.5H13V7.3c0-1 .3-1.7 1.7-1.7H16V2.4C15.7 2.4 14.7 2.3 13.6 2.3 11.3 2.3 9.8 3.7 9.8 6.3V9.5H7V13h2.8v9z"/></svg></a>
+            <a href="https://x.com/gary_zukav" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h3l-7 8 8 12h-6l-5-7-6 7H2l8-9L2 2h6l4 6z"/></svg></a>
+            <a href="https://www.instagram.com/gary_zukav/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://www.tiktok.com/@gary.zukav.soul" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 2h3c.25 1.86 1.32 3.4 3 3.94v3.02c-1.5 0-2.9-.48-4-1.3v6.74A6 6 0 1 1 11 8.46c.34 0 .67.03 1 .08v3.12a2.9 2.9 0 1 0 2 2.76V2z"/></svg></a>
+            <a href="https://www.youtube.com/@TheGaryZukav" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.8 12 4.8 12 4.8s-7 0-8.9.6A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6A3 3 0 0 0 23 16.5 31 31 0 0 0 23.4 12 31 31 0 0 0 23 7.5zM9.75 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg></a>
+          </div>
         </div>
       </div>
       <div class="foot__cols">
         <div class="foot">
-          <h5>About</h5>
-          <a href="./seat-of-the-soul-institute/">About SOTS</a>
-          <a href="./gary-zukav/">About Gary</a>
-          <a href="./linda-francis/">About Linda</a>
+          <h5>Connect</h5>
+          <a href="../index.html">Return to Homepage</a>
+          <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">Career Opportunities</a>
+          <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">View Opportunities</a>
         </div>
         <div class="foot">
-          <h5>Structure</h5>
-          <a href="./">About Hub</a>
-          <a href="./site-map.xml">Site Map XML</a>
-          <a href="../index.html">Homepage Draft</a>
+          <h5>Explore</h5>
+          <a href="https://seatofthesoul.com/get-started/" target="_blank" rel="noopener noreferrer">Get Started</a>
+          <!-- oculto 2026-07-02 (cliente: About solo dropdown, sin Linda) <a href="./">About</a> -->
+          <a href="./seat-of-the-soul-institute/">About SOTSI</a>
+          <a href="#">About Gary</a>
+          <!-- oculto 2026-07-02 (cliente: About solo dropdown, sin Linda) <a href="./linda-francis/">About Linda</a> -->
+          <a href="https://seatofthesoul.com/remember-linda-homepage/" target="_blank" rel="noopener noreferrer">In Celebration of Linda Francis</a>
+          <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Deepcast</a>
+          <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Blog · Soul Feed</a>
+          <a href="https://seatofthesoul.com/apg-optin/" target="_blank" rel="noopener noreferrer">Resources</a>
+          <a href="https://seatofthesoul.com/shop/" target="_blank" rel="noopener noreferrer">Courses, Events &amp; Activities</a>
         </div>
         <div class="foot">
           <h5>Contact</h5>
           <a href="mailto:info@seatofthesoul.com">info@seatofthesoul.com</a>
+          <form class="foot__search" role="search" onsubmit="return false;">
+            <input type="search" class="foot__search-input" placeholder="Search…" aria-label="Search the site" />
+            <button class="foot__search-btn" type="submit" aria-label="Search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            </button>
+          </form>
         </div>
       </div>
       <div class="foot__bottom">
         <span>©<span id="footYear">2026</span> The Seat of the Soul Institute. All rights reserved.</span>
+        <span class="foot__legal">
+          <a href="https://seatofthesoul.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a><a href="https://seatofthesoul.com/terms-of-use/" target="_blank" rel="noopener noreferrer">Terms of Use</a><a href="https://seatofthesoul.com/refund-cancellation/" target="_blank" rel="noopener noreferrer">Refund Policy</a>
+        </span>
       </div>
     </div>
   </footer>

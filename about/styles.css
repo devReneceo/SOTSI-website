@@ -3,6 +3,8 @@
 @import "../styles/brand.css";
 @import "../styles/sections.css";
 @import "../styles/theme.css";
+@import "../styles/mobile.css";
+@import "../styles/responsive-fix.css";
 
 :root {
   --about-shell: min(1240px, calc(100vw - 2 * var(--gutter)));
@@ -32,11 +34,7 @@ body.about-page main {
   width: 100%;
 }
 
-.about-page .snav__mobile-panel .subnav-link {
-  padding-left: 1rem;
-  font-size: 1rem;
-  opacity: 0.88;
-}
+/* .subnav-link ahora es global en ../styles/brand.css (la usan Home y About) */
 
 .about-hero {
   position: relative;
@@ -653,4 +651,183 @@ body.about-page main {
   .about-pullquote blockquote {
     font-size: clamp(1.55rem, 1.2rem + 1.8vw, 2.2rem);
   }
+}
+
+/* ===== About Gary — bloques fieles a la página viva (recortes flotantes, statement, waves, stats) 2026-07-02 =====
+   Clases usadas SOLO por about/gary-zukav/. No las referencian las otras About. */
+
+/* Scroll cue del hero (reemplaza los botones inventados) */
+.about-page .about-scrollcue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.9rem;
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.86rem;
+}
+
+.about-page .about-scrollcue svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--dur) var(--ease);
+}
+
+.about-page .about-scrollcue:hover {
+  color: var(--gold);
+}
+
+.about-page .about-scrollcue:hover svg {
+  transform: translateY(4px);
+}
+
+/* Retratos recortados (PNG transparente) — flotan con glow, sin marco ni crop */
+.about-portrait {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  margin: 0;
+  padding: clamp(1rem, 2vw, 2rem);
+}
+
+.about-portrait::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  width: min(82%, 440px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 212, 87, 0.26), rgba(210, 204, 253, 0.16) 55%, transparent 72%);
+  filter: blur(4px);
+}
+
+.about-portrait img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 60px rgba(14, 22, 49, 0.28));
+}
+
+.about-portrait--blob::before {
+  width: min(96%, 520px);
+  background: radial-gradient(circle, rgba(210, 204, 253, 0.28), rgba(254, 212, 87, 0.14) 52%, transparent 70%);
+}
+
+.about-portrait--blob img {
+  max-width: 520px;
+}
+
+/* Statement centrado (master teacher / cierre Oprah) */
+.about-statement {
+  width: var(--about-shell);
+  margin: 0 auto;
+  padding: clamp(3rem, 5vw, 5.5rem) 0;
+  text-align: center;
+}
+
+.about-statement__text {
+  margin: 0 auto;
+  max-width: 24em;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.12rem + 1.5vw, 2.5rem);
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+  text-wrap: balance;
+}
+
+.about-statement__text .gold {
+  color: var(--gold);
+}
+
+/* Enlace estilo oro pero legible sobre claro (oro puro #fed457 no pasa contraste) */
+.about-goldlink {
+  color: #c69214;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+  font-weight: 600;
+}
+
+.about-goldlink:hover {
+  color: var(--purple);
+}
+
+/* Waves decorativas (yellowaves-bg.png) */
+.about-waves {
+  display: flex;
+  justify-content: center;
+  padding: clamp(0.5rem, 2vw, 2rem) 0 clamp(1rem, 3vw, 3rem);
+}
+
+.about-waves img {
+  width: min(190px, 46vw);
+  height: auto;
+  opacity: 0.92;
+  filter: drop-shadow(0 18px 30px rgba(254, 212, 87, 0.18));
+  animation: aboutWavesFloat 7s var(--ease) infinite alternate;
+}
+
+@keyframes aboutWavesFloat {
+  from { transform: translateY(-6px); }
+  to { transform: translateY(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-waves img { animation: none; }
+}
+
+/* Fila de stats — números reales de la viva; tiles oscuros glass con número en oro (alto contraste) */
+.about-statband {
+  width: min(920px, 100%);
+  margin: clamp(2rem, 3vw, 2.75rem) auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  text-align: left;
+}
+
+.about-statband__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.35rem 1.25rem;
+  border-radius: 22px;
+  background: var(--grad-brand);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 26px 60px -42px rgba(14, 22, 49, 0.7);
+}
+
+.about-statband__num {
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 1.7rem + 1.6vw, 3.2rem);
+  line-height: 1;
+  color: var(--gold);
+}
+
+.about-statband__label {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+@media (max-width: 1040px) {
+  .about-statband { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .about-portrait--blob img { max-width: 100%; }
+  .about-statement__text { max-width: 100%; }
 }

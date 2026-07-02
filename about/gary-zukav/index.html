@@ -11,197 +11,163 @@
   <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png" />
   <link rel="stylesheet" href="../styles.css" />
 </head>
-<body class="about-page nav-dark nl-centered-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
-  <header class="snav snav--centered" id="navCentered">
-    <div class="snav__utility">
+<body class="about-page nav-dark cta-grad nl-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
+  <!-- Header portado del Home (#navImmersive) 2026-07-02 — mismas clases/estructura para integrar About al Home -->
+  <header class="snav snav--immersive" id="navImmersive">
+    <nav class="snav__main" aria-label="Main navigation (immersive)">
       <div class="wrap">
-        <span class="script" style="font-size:1.3rem;color:var(--gold);">Create Authentic Power · Choose Love</span>
-        <span style="display:flex;gap:.3rem;align-items:center;">
-          <a href="#">Soul Connections</a><span aria-hidden="true">·</span>
-          <a href="mailto:info@seatofthesoul.com">Contact</a><span aria-hidden="true">·</span><a href="#">EN</a>
-        </span>
-      </div>
-    </div>
-    <nav class="snav__main" aria-label="Main navigation (centered)">
-      <div class="wrap">
-        <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
         <a class="snav__logo" href="../../index.html" aria-label="Seat of the Soul Institute — home">
-          <img class="logo--for-dark" src="../../assets/whitelogo.webp" alt="Seat of the Soul Institute" />
-          <img class="logo--for-light" src="../../assets/darklogo.webp" alt="Seat of the Soul Institute" />
+          <img class="logo--for-dark" src="../../assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
+          <img class="logo--for-light" src="../../assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
         </a>
-        <div class="snav__side right">
-          <div class="has-dd">
-            <a class="nlink" href="../" aria-haspopup="true"><span class="glow"></span>About
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../seat-of-the-soul-institute/">About SOTS</a>
-              <a href="./" aria-current="page">About Gary</a>
-              <a href="../linda-francis/">About Linda</a>
-            </div>
-          </div>
-          <a class="nlink" href="#"><span class="glow"></span>Podcast</a>
+        <div class="snav__row">
+          <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+            <div class="dd" role="menu"><a href="../seat-of-the-soul-institute/">About SOTSI</a><a href="#">About Gary</a><!-- oculto 2026-07-02 (cliente: About solo dropdown, sin Linda) <a href="../linda-francis/">About Linda</a> --></div></div>
+          <a class="nlink" href="#"><span class="glow"></span>Courses, Events &amp; Activities</a>
+          <a class="nlink" href="#"><span class="glow"></span>Deepcast</a>
+          <a class="nlink" href="#"><span class="glow"></span>Blog</a>
           <a class="nlink" href="#"><span class="glow"></span>Resources</a>
-          <a class="btn-cta btn-cta--sm" href="#" style="margin-left:.5rem;">
-            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span>
+          <a class="nlink" href="#"><span class="glow"></span>In Celebration of Linda Francis</a>
+        </div>
+        <div class="snav__end">
+          <a class="btn-cta btn-cta--sm" href="#">
+            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
             <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
           </a>
         </div>
+        <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
       </div>
     </nav>
-    <div class="snav__mobile">
-      <div class="snav__mobile-panel" data-mobile hidden>
-        <a href="../">About</a>
-        <a class="subnav-link" href="../seat-of-the-soul-institute/">About SOTS</a>
-        <a class="subnav-link" href="./">About Gary</a>
-        <a class="subnav-link" href="../linda-francis/">About Linda</a>
-        <a href="#">Podcast</a>
-        <a href="#">Resources</a>
-        <a class="btn btn--primary" href="#">Get Started</a>
-      </div>
-    </div>
+    <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
+      <span class="snav__mobile-label">About</span><a class="subnav-link" href="../seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="#">About Gary</a><!-- oculto 2026-07-02 (cliente: About solo dropdown, sin Linda) <a class="subnav-link" href="../linda-francis/">About Linda</a> --><a href="#">Courses, Events &amp; Activities</a><a href="#">Deepcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
+      <a class="btn btn--primary" href="#">Soul Store</a>
+    </div></div>
   </header>
 
   <main>
-    <section class="about-hero" style="--hero-image:url('../../assets/images/6a3342a6143842a748166469_gary-zukav-portrait-seat-of-the-soul-institute.webp');">
+    <!-- Hero — mapeo 1:1 con la viva (H2 "About Gary Zukav" sobre video). Video pendiente: usar gradient de marca por ahora.
+         Video hero pendiente: https://seatofthesoul.com/wp-content/uploads/2021/04/productionID_4193127.mp4 -->
+    <section class="about-hero" style="--hero-image:none;">
       <div class="about-hero__inner">
         <div>
           <nav class="about-breadcrumbs" aria-label="Breadcrumb">
-            <a href="../">About</a>
+            <span>About</span>
             <span>/</span>
             <span>About Gary</span>
           </nav>
-          <p class="about-kicker">About Gary Zukav</p>
-          <h1 class="about-title">A clear telling of <span class="gold">deep wisdom.</span></h1>
+          <p class="about-kicker">Co-founder · Master teacher · Author</p>
+          <h1 class="about-title">About <span class="gold">Gary Zukav</span></h1>
           <span class="about-rule" aria-hidden="true"></span>
-          <p class="about-deck">The live page frames Gary through clarity, warmth, and authority. This version keeps that structure but lifts it into a more premium editorial portrait.</p>
-          <div class="about-hero__actions">
-            <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Meet Gary</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
-            <a class="about-link" href="#legacy">See the legacy <span class="arrow">→</span></a>
-          </div>
-          <div class="about-hero__meta">
-            <div class="about-stat"><span class="about-stat__label">Role</span><p class="about-stat__value">Co-founder, teacher, and author whose work centers authentic power.</p></div>
-            <div class="about-stat"><span class="about-stat__label">Reach</span><p class="about-stat__value">Four consecutive New York Times bestsellers and a global readership.</p></div>
-            <div class="about-stat"><span class="about-stat__label">Tone</span><p class="about-stat__value">Gentle, accessible, and deeply resonant without losing complexity.</p></div>
-          </div>
+          <a class="about-scrollcue" href="#intro" aria-label="Read Gary's story">
+            <span>His story</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+          </a>
         </div>
       </div>
     </section>
 
+    <!-- Intro — foto (recorte) izquierda, "clear telling of / Deep Wisdom" + copy derecha (verbatim de la viva) -->
+    <section class="about-section about-section--reverse" id="intro">
+      <div class="about-copy">
+        <p class="about-section__eyebrow">A clear telling of</p>
+        <h2 class="about-section__title">Deep <span class="gold">Wisdom.</span></h2>
+        <p><strong>Gary Zukav</strong> for years has conveyed the most complex insights in language all can understand. Over and over, he challenges us to see the depth of our potential in the world… and act on that awareness. His gentle presence, humor, and wisdom have inspired millions to realize their soul’s greatest potential.</p>
+      </div>
+      <div class="about-section__media">
+        <figure class="about-portrait">
+          <img src="../../assets/images/gary-picture.png" width="700" height="963" alt="Portrait of Gary Zukav" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- Statement "master teacher" — verbatim, con la clausula final en oro (igual que la viva) -->
+    <section class="about-statement">
+      <p class="about-statement__text">A master teacher and author of four consecutive New York Times bestsellers, Gary is dedicated to the unprecedented transformation in human consciousness — <span class="gold">an entirely new threshold in the human experience.</span></p>
+    </section>
+
+    <!-- Yellow waves — motivo decorativo de la viva (yellowaves-bg.png) -->
+    <div class="about-waves" aria-hidden="true">
+      <img src="../../assets/images/yellowaves-bg.png" width="400" height="720" alt="" loading="lazy" decoding="async" />
+    </div>
+
+    <!-- Bio + retrato Gary & Linda (blob dorado) — texto izquierda, imagen derecha; párrafo bio verbatim -->
     <section class="about-section">
       <div class="about-copy">
-        <p class="about-section__eyebrow">Voice and presence</p>
-        <h2 class="about-section__title">Complex insight, translated into language people can actually live.</h2>
-        <p class="about-section__lead">One of the strongest truths on the live page is that Gary makes complex spiritual insight understandable. That should stay front and center.</p>
-        <p>Here, the biography does not begin with awards. It begins with what a visitor feels when encountering Gary’s work: clarity, warmth, humor, and a sense that what once felt abstract can become lived experience.</p>
-        <p>The page still supports authority, but it earns that authority through narrative rhythm rather than a dense résumé dump.</p>
+        <p class="about-section__eyebrow">A life of service &amp; consciousness</p>
+        <h2 class="about-section__title">Co-founder of the Seat of the Soul Institute.</h2>
+        <p>Gary is a co-founder of the Seat of the Soul Institute with Linda Francis, a Harvard graduate with a degree in International Relations, a former US Army Special Forces (Green Beret) officer with Vietnam service, a member of the Club of Budapest, a recipient of the World Business Academy Pathfinder Award for his Contribution to the Ongoing Evolution of Knowledge and Consciousness within the Global Business Community, and the Einstein Award from the Albert Einstein College of Medicine for his Contributions to the Psychosocial Growth of Humanity.</p>
       </div>
       <div class="about-section__media">
-        <article class="about-card about-card--media">
-          <img class="about-card__media" src="../../assets/images/6a3342a6143842a74816646f_gary-zukav-spiritual-teacher-and-author.webp" alt="Gary Zukav speaking as spiritual teacher and author" />
-        </article>
+        <figure class="about-portrait about-portrait--blob">
+          <img src="../../assets/images/gary-linda.png" width="1326" height="1346" alt="Gary Zukav with Linda Francis" loading="lazy" decoding="async" />
+        </figure>
       </div>
     </section>
 
-    <section class="about-section about-section--reverse" id="legacy">
-      <div class="about-copy">
-        <p class="about-section__eyebrow">Credibility</p>
-        <h2 class="about-section__title">A life that bridges service, thought, and consciousness.</h2>
-        <p class="about-section__lead">The live page carries a long credential paragraph. In our system, that content becomes a cleaner credibility layer that is easier to scan and trust.</p>
-        <div class="about-feature-list">
-          <div class="about-feature">
-            <h3>Co-founder of SOTSI</h3>
-            <p>Built the institute with Linda Francis as a dedicated home for authentic power and spiritual growth.</p>
-          </div>
-          <div class="about-feature">
-            <h3>Service and recognition</h3>
-            <p>Includes academic, military, and humanitarian recognition that reinforces the breadth of his path.</p>
-          </div>
-          <div class="about-feature">
-            <h3>Public reach</h3>
-            <p>Multiple Oprah appearances and books published in many languages position Gary as both trusted guide and global author.</p>
-          </div>
-        </div>
-      </div>
-      <div class="about-section__media">
-        <article class="about-card">
-          <img class="about-card__media" src="../../assets/images/6a3342a6143842a748166467_gary-zukav-seat-of-the-soul-institute-founder-with-oprah-winfrey.webp" alt="Gary Zukav with Oprah Winfrey" />
-          <div class="about-card__body">
-            <p class="about-card__label">Public trust</p>
-            <h3 class="about-card__title">Recognition that supports, not overshadows, the message.</h3>
-            <p class="about-card__text">This image and credibility block can later connect to books, endorsements, and verified impact stats once all rights and figures are finalized.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="about-pullquote">
-      <div class="about-pullquote__inner">
-        <blockquote>His gentle presence, humor, and wisdom have inspired millions to realize their soul’s greatest potential.</blockquote>
-        <cite>Core idea carried from the live Gary page</cite>
-      </div>
-    </section>
-
-    <section class="about-grid">
-      <article class="about-mini">
-        <h3>Author</h3>
-        <p>Gary’s page should lead naturally into books and core teachings without reading like a sales page.</p>
-      </article>
-      <article class="about-mini">
-        <h3>Teacher</h3>
-        <p>The visual language should feel reverent and intelligent, not celebrity-driven or overly promotional.</p>
-      </article>
-      <article class="about-mini">
-        <h3>Guide</h3>
-        <p>Position Gary as a trusted translator of consciousness, not just a founder or public figure.</p>
-      </article>
-    </section>
-
-    <section class="about-cta">
-      <div class="about-cta__panel">
-        <h2 class="about-cta__title">Continue from the man to the work.</h2>
-        <p class="about-cta__lead">The next natural move from Gary’s biography is to the institute itself, the books, or a direct getting-started flow.</p>
-        <div class="about-cta__actions">
-          <a class="btn-cta" href="#"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get Started</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
-          <a class="about-link" href="../seat-of-the-soul-institute/">About SOTS <span class="arrow">→</span></a>
-        </div>
+    <!-- Cierre — párrafo Oprah verbatim + fila de stats con los números reales de la viva -->
+    <section class="about-statement about-statement--close">
+      <p class="about-statement__text">His insights, warmth, and contagious enthusiasm have endeared Gary Zukav to millions of viewers through his 36 appearances on <a class="about-goldlink" href="https://seatofthesoul.com/the-ongoing-conversation/" target="_blank" rel="noopener noreferrer">The Oprah Winfrey Show</a>. Six million copies of his books have been published in 32 languages.</p>
+      <div class="about-statband">
+        <div class="about-statband__item"><span class="about-statband__num">4</span><span class="about-statband__label">Consecutive NYT bestsellers</span></div>
+        <div class="about-statband__item"><span class="about-statband__num">36</span><span class="about-statband__label">Appearances on Oprah</span></div>
+        <div class="about-statband__item"><span class="about-statband__num">6M</span><span class="about-statband__label">Books published</span></div>
+        <div class="about-statband__item"><span class="about-statband__num">32</span><span class="about-statband__label">Languages</span></div>
       </div>
     </section>
   </main>
 
+  <!-- Footer portado del Home 2026-07-02 — misma estructura/links para integrar About al Home -->
   <footer class="site-footer">
     <span class="foot__accent" aria-hidden="true"></span>
     <div class="sec__inner">
       <div class="foot__top">
         <div class="foot__brandblock">
-          <a class="foot__logo" href="../../index.html" aria-label="Seat of the Soul Institute — home"><img src="../../assets/whitelogo.webp" alt="Seat of the Soul Institute" /></a>
-          <p class="foot__tag">Create Authentic Power. Choose Love.</p>
-        </div>
-        <div class="foot__news">
-          <p class="foot__news-eyebrow">About Gary</p>
-          <h2 class="foot__news-title">A cleaner, stronger credibility story for Gary Zukav.</h2>
-          <p class="foot__news-note">This page is structured to connect naturally to books, events, and the institute without losing calm.</p>
+          <a class="foot__logo" href="../../index.html" aria-label="Seat of the Soul Institute — home"><img src="../../assets/whitelogo.webp" width="1014" height="183" loading="lazy" decoding="async" alt="Seat of the Soul Institute" /></a>
+          <div class="foot__social" aria-label="Follow Gary Zukav on social media">
+            <a href="https://www.facebook.com/GaryZukav/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 22v-9h3l.5-3.5H13V7.3c0-1 .3-1.7 1.7-1.7H16V2.4C15.7 2.4 14.7 2.3 13.6 2.3 11.3 2.3 9.8 3.7 9.8 6.3V9.5H7V13h2.8v9z"/></svg></a>
+            <a href="https://x.com/gary_zukav" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h3l-7 8 8 12h-6l-5-7-6 7H2l8-9L2 2h6l4 6z"/></svg></a>
+            <a href="https://www.instagram.com/gary_zukav/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://www.tiktok.com/@gary.zukav.soul" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 2h3c.25 1.86 1.32 3.4 3 3.94v3.02c-1.5 0-2.9-.48-4-1.3v6.74A6 6 0 1 1 11 8.46c.34 0 .67.03 1 .08v3.12a2.9 2.9 0 1 0 2 2.76V2z"/></svg></a>
+            <a href="https://www.youtube.com/@TheGaryZukav" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.8 12 4.8 12 4.8s-7 0-8.9.6A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6A3 3 0 0 0 23 16.5 31 31 0 0 0 23.4 12 31 31 0 0 0 23 7.5zM9.75 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg></a>
+          </div>
         </div>
       </div>
       <div class="foot__cols">
         <div class="foot">
-          <h5>About</h5>
-          <a href="../seat-of-the-soul-institute/">About SOTS</a>
-          <a href="./">About Gary</a>
-          <a href="../linda-francis/">About Linda</a>
+          <h5>Connect</h5>
+          <a href="../../index.html">Return to Homepage</a>
+          <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">Career Opportunities</a>
+          <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">View Opportunities</a>
         </div>
         <div class="foot">
-          <h5>Section</h5>
-          <a href="../">About Hub</a>
-          <a href="../site-map.xml">Site Map XML</a>
-          <a href="../../index.html">Homepage Draft</a>
+          <h5>Explore</h5>
+          <a href="https://seatofthesoul.com/get-started/" target="_blank" rel="noopener noreferrer">Get Started</a>
+          <!-- oculto 2026-07-02 (cliente: About solo dropdown, sin Linda) <a href="../">About</a> -->
+          <a href="../seat-of-the-soul-institute/">About SOTSI</a>
+          <a href="#">About Gary</a>
+          <!-- oculto 2026-07-02 (cliente: About solo dropdown, sin Linda) <a href="../linda-francis/">About Linda</a> -->
+          <a href="https://seatofthesoul.com/remember-linda-homepage/" target="_blank" rel="noopener noreferrer">In Celebration of Linda Francis</a>
+          <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Deepcast</a>
+          <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Blog · Soul Feed</a>
+          <a href="https://seatofthesoul.com/apg-optin/" target="_blank" rel="noopener noreferrer">Resources</a>
+          <a href="https://seatofthesoul.com/shop/" target="_blank" rel="noopener noreferrer">Courses, Events &amp; Activities</a>
         </div>
         <div class="foot">
           <h5>Contact</h5>
           <a href="mailto:info@seatofthesoul.com">info@seatofthesoul.com</a>
+          <form class="foot__search" role="search" onsubmit="return false;">
+            <input type="search" class="foot__search-input" placeholder="Search…" aria-label="Search the site" />
+            <button class="foot__search-btn" type="submit" aria-label="Search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            </button>
+          </form>
         </div>
       </div>
       <div class="foot__bottom">
         <span>©<span id="footYear">2026</span> The Seat of the Soul Institute. All rights reserved.</span>
+        <span class="foot__legal">
+          <a href="https://seatofthesoul.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a><a href="https://seatofthesoul.com/terms-of-use/" target="_blank" rel="noopener noreferrer">Terms of Use</a><a href="https://seatofthesoul.com/refund-cancellation/" target="_blank" rel="noopener noreferrer">Refund Policy</a>
+        </span>
       </div>
     </div>
   </footer>

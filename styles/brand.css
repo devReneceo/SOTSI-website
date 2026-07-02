@@ -105,6 +105,11 @@ body.nav-light .dd a:hover{background:var(--surface-soft);color:var(--purple);}
 .snav__mobile{display:none;}
 .snav__mobile-panel{padding:.5rem var(--gutter) 1.5rem;}
 .snav__mobile-panel a{display:block;padding:.9rem .2rem;font-size:1.15rem;font-weight:600;text-decoration:none;border-bottom:1px solid var(--glass-border);}
+.snav__mobile-panel .subnav-link{padding-left:1rem;font-size:1rem;opacity:.88;}
+/* "About" en el panel mobile = label no clickeable (solo dropdown, pedido cliente 2026-07-02) */
+.snav__mobile-panel .snav__mobile-label{display:block;padding:.9rem .2rem;font-size:1.15rem;font-weight:600;border-bottom:1px solid var(--glass-border);opacity:.92;}
+body.nav-dark .snav__mobile-panel .snav__mobile-label{color:#fff;}
+body.nav-light .snav__mobile-panel .snav__mobile-label{color:var(--navy);border-color:var(--hairline);}
 body.nav-dark .snav__mobile-panel{background:rgba(14,22,49,.96);} body.nav-dark .snav__mobile-panel a{color:#fff;}
 body.nav-light .snav__mobile-panel{background:#fff;} body.nav-light .snav__mobile-panel a{color:var(--navy);border-color:var(--hairline);}
 .snav__mobile-panel .btn{margin-top:1rem;width:100%;}
@@ -609,6 +614,22 @@ body.curs-plain .hslider__cursor{border-color:rgba(255,255,255,.18);
 body.curs-s .hslider__cursor{width:84px;height:84px;}
 body.curs-l .hslider__cursor{width:108px;height:108px;}
 
+/* Slide 2 (Gary) · atenuar los "actions" para que no tapen su cara — cliente 2026-07-02.
+   Gary queda a la IZQUIERDA: el botón BACK y el orbe-cursor dorado le caían encima.
+   Se aclaran en reposo y recuperan nitidez al pasar el mouse (siguen usables). */
+.oslider:has(.oslide[data-oslide="1"].is-active) .harrow--prev{
+  background-image:none;              /* quita la veladura navy sobre el retrato de Gary */
+}
+.oslider:has(.oslide[data-oslide="1"].is-active) .harrow__label{opacity:.5;}
+.oslider:has(.oslide[data-oslide="1"].is-active) .harrow__line{opacity:.3;}
+.oslider:has(.oslide[data-oslide="1"].is-active) .harrow:hover .harrow__label{opacity:.94;}
+.oslider:has(.oslide[data-oslide="1"].is-active) .harrow:hover .harrow__line{opacity:.66;}
+.oslider:has(.oslide[data-oslide="1"].is-active) .hslider__cursor.is-visible{opacity:.42;}
+.oslider:has(.oslide[data-oslide="1"].is-active) .hslider__cursor{
+  box-shadow:none;
+  background:radial-gradient(circle,rgba(255,236,150,.16),rgba(254,212,87,.05) 46%,transparent 72%);
+}
+
 @media (max-width:1024px){
   .hslide__glow{display:none;}
 }
@@ -869,6 +890,18 @@ body.hero-original .hero-original-wrap{display:block;}
   line-height:1.62;
 }
 .oslide[data-oslide="1"] .oslide__cta{margin-top:1.85rem;}
+
+/* Gary slide — cliente 2026-07-02: "Why is this image so dark? ... Gary's face too
+   hard to see. We can't even really see his eyes." La cara de Gary está a la IZQUIERDA;
+   el texto al centro-derecha. Se ilumina el media y se retira el scrim navy plano sobre
+   su retrato, dejando solo una veladura suave centro→derecha para legibilidad del copy. */
+.oslide[data-oslide="1"] .oslide__media,
+.hslide[data-slide="1"] .hslide__media{
+  /* !important gana al filtro que anima sotsiHeroDrift; el drift de transform (Ken Burns) sigue.
+     El scrim se aclaró inline en el markup (span.oslide__scrim del slide de Gary). */
+  filter:brightness(1.18) saturate(1.05) contrast(1.02) !important;
+}
+
 .oslide[data-oslide="2"] .oslide__content{
   max-width:min(62rem,72vw);
   margin-inline:auto;

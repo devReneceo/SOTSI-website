@@ -1495,3 +1495,6 @@ body.herocta-2 .hslide__cta .btn-cta:hover .btn-cta__icon svg,
 body.herocta-2 .oslide__cta .btn-cta:hover .btn-cta__icon svg{stroke:var(--navy);transform:translateX(2px);}
 body.herocta-2 .hslide__cta .btn-cta:focus-visible .btn-cta__icon,
 body.herocta-2 .oslide__cta .btn-cta:focus-visible .btn-cta__icon{box-shadow:0 0 0 3px var(--gold);}
+
+/* Cards de Linda bloqueadas (pedido cliente 2026-07-02): anchor sin href = visible pero no clickeable */
+a.founders__meet:not([href]),a.about-hub__card:not([href]),a.path-card:not([href]){pointer-events:none;opacity:.78;}

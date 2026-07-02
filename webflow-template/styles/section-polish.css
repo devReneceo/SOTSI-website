@@ -437,3 +437,11 @@ body.theme-dawn .books__sky{
 }
 
 /* (Big CTA volvió al original: foto full-bleed + scrim, definido en sections.css) */
+
+/* ===== Membership · paridad con los estilos inline del template =====
+   Webflow (whtml) convierte style="" en combo-classes, pero valores como
+   var(--gold) o margin-inline pueden no sobrevivir el style panel → estas
+   reglas son la red de seguridad (idempotentes con los inline del estático). */
+.membership .sec__eyebrow{color:var(--gold);}
+.membership .sec__title{color:#fff;}
+.membership .sec__lead{margin-inline:auto;color:rgba(255,255,255,.84);}

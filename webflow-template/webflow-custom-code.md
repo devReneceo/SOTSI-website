@@ -37,11 +37,38 @@ Webflow limita el Head Code a ~10.000 caracteres; esto cabe de sobra porque solo
 > **Preload opcional del LCP** (acelera el héroe). Súbela como asset de Webflow o usa tu host:
 > `<link rel="preload" as="image" href="{BASE_URL}/assets/images/slides/beach-creating-authentic-power-clean.webp" fetchpriority="high" />`
 
+### ⚠️ Bloques EXTRA que viven en el head del sitio "SOTSI Demo" (no los pierdas)
+
+El head VIVO contiene, además de los `<link>` de arriba:
+
+```html
+<!-- CMS grids: los wrappers .w-dyn-* de Webflow rompen el grid de cards → aplanarlos -->
+<style>
+  .courses__grid > .w-dyn-list, .courses__grid .w-dyn-items, .courses__grid .w-dyn-item,
+  .blog__grid > .w-dyn-list, .blog__grid .w-dyn-items, .blog__grid .w-dyn-item { display: contents; }
+</style>
+```
+
+y el **script inline de image-resilience** (retry + placeholder; ver head de `index.template.html`).
+
+> **REPIN QUIRÚRGICO obligatorio:** al actualizar el pin NUNCA pegues este archivo sobre el
+> custom code. Lee el código actual vía MCP (`data_scripts_tool`), reemplaza **solo el SHA**
+> en las URLs jsDelivr y verifica que el `<style>` de arriba y los scripts inline siguen intactos.
+> Sin la regla `display:contents`, los grids CMS (Courses/Blog) se rompen (cards apiladas).
+
 ---
 
 ## 2) Site Settings → Custom Code → **Footer Code** (antes de `</body>`)
 
 El orden es **obligatorio**: `app.js` → GSAP → `soul-tide.js`. (`app.js` no depende de GSAP; `soul-tide.js` sí.)
+
+En el sitio VIVO, el footer arranca con el **script de body-class** (el Body de Webflow no acepta clases):
+
+```html
+<script>
+document.body.classList.add('nav-dark','cta-grad','nl-immersive','hero-original','heroheight-full','heroborder-on','navsize-m','logosize-m','logoframe-2','btnstyle-2','herocta-2','font-fraunces','anim-ink');
+</script>
+```
 
 ```html
 <!-- 1. Interacciones del sitio (slider, nav, parallax, count-up, carruseles, ink-drop) -->

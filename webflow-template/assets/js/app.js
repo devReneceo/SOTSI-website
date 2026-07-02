@@ -567,9 +567,10 @@
 
   /* ---- Greeting: play → expand inmersivo + controles nativos (pausa/volumen). Backdrop o Esc = cerrar ---- */
   var gp=document.getElementById('greetPlay');
-  if(gp){
-    var gv=document.getElementById('greetVideo');
-    var gsec=document.querySelector('.greeting');
+  var gv=document.getElementById('greetVideo');
+  var gsec=document.querySelector('.greeting');
+  if(gp && gv && gsec){                              /* guard: sin video/section (página parcial) no matar el resto del init */
+    gv.setAttribute('playsinline','');               /* Webflow elimina booleanos al publicar → renormaliza */
     var gbd=document.getElementById('greetBackdrop');
     var gcard=document.getElementById('greetCard');
     var ghint=document.getElementById('greetHint');
@@ -644,6 +645,16 @@
       gpre.observe(gsec);
     } else { try{ gv.preload='auto'; }catch(err){} }
   }
+
+  /* ---- Consciousness: video de fondo — Webflow elimina los booleanos (autoplay/muted/loop/playsinline) al publicar → renormaliza y arranca ---- */
+  (function(){
+    var cv=document.querySelector('.consciousness__media video');
+    if(!cv) return;
+    cv.muted=true; cv.setAttribute('muted','');
+    cv.loop=true; cv.setAttribute('loop','');
+    cv.setAttribute('playsinline',''); cv.autoplay=true;
+    var p=cv.play(); if(p&&p.catch) p.catch(function(){});
+  })();
 
   /* ---- Spotlight cards (.post--glow): el brillo del borde sigue al cursor — Soul Feed + Courses ---- */
   if(matchMedia('(hover:hover) and (pointer:fine)').matches){

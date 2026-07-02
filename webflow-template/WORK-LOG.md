@@ -81,7 +81,27 @@ Construida NATIVA con `data_whtml_builder` (markup verbatim de `index.template.h
 - `<canvas>` via whtml → elemento DOM tag canvas, perfecto.
 - Screenshot headless con fragment `#aspire` + virtual-time sale en blanco (artefacto del ink-reveal a mitad de animación) — QA visual mejor con ventana alta sin fragment.
 
+## 2026-07-01/02 (d) · Fase 2 COMPLETA — las 13 secciones restantes + Blog CMS, publicadas y QA'd ✅
+
+**El Home entero está en Webflow y publicado en proposal-03.webflow.io.** Construidas en esta pasada (orden DOM del template): `immersive-flow`(Statement+Greeting) → Consciousness → Tools → Event → Books → [Courses ya existía] → Membership → Stats → Instafeed → Founders → Blog(CMS) → BigCTA + Footer (fuera de `<main>`). **Praise/Testimonials NO se construyó** (decisión del usuario: cliente la ocultó, citas sin clearance legal, `hidden` se pierde al publicar).
+
+**Prep (un commit + repin quirúrgico):** `app.js` — guard anti-crash del bloque greeting (`gv`/`gsec` sin null-check habrían matado el IIFE, mismo patrón del bug hslider), normalizador del video de Consciousness (Webflow borra `muted`/`loop` al publicar; `autoplay=""`/`playsinline=""` de whtml SÍ sobreviven como atributos con valor — sin `muted` no hay autoplay, el normalizador lo re-aplica y hace `play()`), `preventDefault` en greetPlay (los `<button>` publican como `<a href="#" class="w-button">`); `section-polish.css` — 3 reglas de paridad Membership; `webflow-custom-code.md` — documenta los bloques EXTRA del head vivo (`<style>` display:contents para grids CMS + image-resilience) y el procedimiento de **repin quirúrgico** (leer código actual por MCP → reemplazar SOLO el SHA → verificar). **Pin actual: `4b3a8ea22ac27f291d06704687f99488221c7285`** (se quitó el preload LCP duplicado del head — el hero usa el asset de Webflow).
+
+**Técnica nueva confirmada:**
+- `<video>`/`<source>`/`poster` via whtml → DOM elements perfectos; duplicar `src` en el tag de `<video>` (además del `<source>`) da resiliencia.
+- Batch de hasta 5 whtml por llamada, insertando en ORDEN INVERSO ancladas `after` el mismo elemento → quedan en orden correcto con una sola ancla.
+- `<input>` fuera de `<form>` → **rechazo atómico del batch** ("Text Field can only be placed in a Form"); el search del footer se construyó como `<form>` real (FormWrapper de Webflow) con el botón como `<span role="button">`.
+- Estilos inline → combo-classes generadas (`inline-p-0`...) que SÍ publican (color gold/blanco de Membership verificado computado).
+- El lookup de assets del whtml builder NO enlaza por URL (ni la del propio CDN de Webflow) → siempre `upload_image_by_url` + `set_image_asset` post-build.
+- Collection List: `source` vive en el **DynamoWrapper**; sort acepta `[{"fieldSlug":...,"direction":"ascending"}]` pero NO hay slug de fecha de creación → para orden explícito usar `queryMode:"curated"` + `curatedItemIds` (así quedó el Blog: AI → Governments → Choosing, como el template).
+
+**Blog CMS:** colección **"Blog Posts"** `6a45cd0030985b5c1ee1d50e` (Name + `read-time` PlainText `7a30147524b2cedb774372c53ca59bed` + `image` Image `a7896c0be05021f648c8b0cf65c84931`), 3 items seed (imagen por `{"url": jsDelivr}` → Webflow re-hostea). Card bindeada: título en el `<h3>` (Heading), meta recreada como TextBlock (Span no expone `text`), imagen por `assetId`; `<a>` de la card y CTA "Read" estáticos (href="#" como el template). Items publicados con el site publish.
+
+**QA (headless Playwright + curl del publicado):** 17 secciones vivas; hero sin regresión (4 slides, autoavanza 0→1, drawer cerrado en 390); aspire canvas dibujando (60 asp-char); consciousness `paused=false, muted=true, loop=true`; greeting click→reproduce CON audio, Esc cierra, sin salto al top; text-waves (tools 21 / books 33 chars); count-up (6M+/32/30+/36); booksPaths 22 paths; instafeed 3 tiles mock; blog CMS 3 cards con imágenes; footYear 2026; colores Membership (gold/blanco) OK; todas las imágenes cargando; `display:contents` intacto en el head; overflow 0 en 390/768/1024/1440; 0 pageerrors. Warning benigno: "SplitText called before fonts loaded" (mismo orden de carga que el estático).
+
 ## Pendiente
-- [ ] 14 secciones restantes (Statement/Greeting/Consciousness/Tools/Event/Books/Membership/Stats/Praise[oculta por cliente — probablemente saltar]/Instafeed/Founders/Blog/BigCTA/Footer) + colecciones Testimonials/Blog (verificar límite del plan).
-- [ ] Al re-pinear jsDelivr tras cada push: actualizar head+footer freeform y **republicar**.
+- [ ] Praise/Testimonials: construir SOLO si el cliente la reactiva (+ colección Testimonials; ojo clearance legal de citas y el gotcha del `hidden`).
+- [ ] CTAs con `href="#"` (paridad con el template): apuntarlos a destinos reales cuando el cliente los defina.
+- [ ] Instafeed: pasar de mock a Meta Graph API (requiere credenciales del cliente + `useMockData:false` + JSON server-side).
+- [ ] Al re-pinear jsDelivr tras cada push: **repin quirúrgico** (nunca pegar este md encima) y republicar.
 - [ ] Generar el clone link al terminar.

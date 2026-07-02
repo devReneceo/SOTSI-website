@@ -6,9 +6,12 @@ Estos son los **snippets exactos** para el sitio Webflow. Reemplaza `{BASE_URL}`
 > `https://cdn.jsdelivr.net/gh/devReneceo/SOTSI-website@main/webflow-template`
 > (requiere haber empujado `webflow-template/` a ese repo). Tras publicar, fija una versión/tag en vez de `@main` para producción.
 >
-> **Pin ACTUAL en el sitio "SOTSI Demo" (2026-07-01, rama `webflow-mcp-assets`):**
-> `https://cdn.jsdelivr.net/gh/devReneceo/SOTSI-website@20b44d760a558d3059c426f69a5e0e39ee08a8b0/webflow-template`
-> (incluye el sync del lote del cliente 2026-06-30, guards del hslider y la normalización de `hidden` en `app.js` — Webflow elimina los atributos booleanos `hidden` al publicar. El head del sitio lleva además el script inline de image-resilience — ver `index.template.html` head.)
+> **Pin ACTUAL en el sitio "SOTSI Demo" (2026-07-01/02, rama `webflow-mcp-assets`):**
+> `https://cdn.jsdelivr.net/gh/devReneceo/SOTSI-website@4b3a8ea22ac27f291d06704687f99488221c7285/webflow-template`
+> (incluye: sync lote cliente 2026-06-30, guards hslider+greeting, normalización de booleanos
+> `hidden` Y de `autoplay/muted/loop/playsinline` del video de Consciousness — Webflow elimina
+> los atributos booleanos al publicar —, `preventDefault` en el play del greeting, y las reglas
+> de paridad de Membership en `section-polish.css`. Pin anterior: `20b44d7`.)
 
 ---
 

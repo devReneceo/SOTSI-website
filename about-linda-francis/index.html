@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<!-- About Linda (2026-07-02): página cinemática con el MISMO sistema de about-gary-zukav/ pero SIN
-     fondos fotográficos (el original del WP es fondo plano + círculos decorativos dorados): hero
-     gradiente + composite dorado → Deep-band con Soul Tide → threshold degradado-atardecer →
-     credential ledger → cierre sundown sobrio. .page-dark: 100% oscura de hero a footer. -->
+<!-- About Linda (2026-07-02, reestructurada): sigue 1:1 el ORDEN del WP vivo /about-linda-francis/
+     con el sistema cinemático de about-gary-zukav/: hero VIDEO de olas + composite dorado ("Meet
+     Linda Francis", wording verbatim) → banda navy "Meet" (intro → quote → firma script) → bio +
+     libros (cofounder dos columnas) → threshold atardecer (healing professions) → foto full-bleed
+     (co-designed, linda-1.jpeg de la viva) → cierre memorial (exploring/Mt. Shasta + quote final).
+     .page-dark: 100% oscura de hero a footer. -->
 <html lang="en" class="page-dark">
 <head>
   <meta charset="UTF-8" />
@@ -27,14 +29,16 @@
         <div class="snav__row">
           <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
             <div class="dd" role="menu"><a href="../about/seat-of-the-soul-institute/">About SOTSI</a><a href="../about-gary-zukav/">About Gary</a><a href="./">About Linda</a></div></div>
-          <a class="nlink" href="#"><span class="glow"></span>Courses, Events &amp; Activities</a>
-          <a class="nlink" href="#"><span class="glow"></span>Deepcast</a>
-          <a class="nlink" href="#"><span class="glow"></span>Blog</a>
-          <a class="nlink" href="#"><span class="glow"></span>Resources</a>
-          <a class="nlink" href="#"><span class="glow"></span>In Celebration of Linda Francis</a>
+          <div class="has-dd"><a class="nlink" href="../shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+            <div class="dd" role="menu"><a href="../shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div></div>
+          <a class="nlink" href="../podcast/"><span class="glow"></span>Deepcast</a>
+          <a class="nlink" href="../podcast/"><span class="glow"></span>Blog</a>
+          <div class="has-dd"><a class="nlink" href="../get-started/" aria-haspopup="true"><span class="glow"></span>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+            <div class="dd" role="menu"><a href="../failing-government/">What to do about Failing Governments</a><a href="../ai-and-human-evolution/">AI and Human Evolution</a><a href="../soul-connections-newsletter/">Soul Connections Newsletter</a><a href="../books/">Get The Books</a><a href="../apg-optin/">Authentic Power Guidelines</a></div></div>
+          <a class="nlink" href="../about/celebration/"><span class="glow"></span>In Celebration of Linda Francis</a>
         </div>
         <div class="snav__end">
-          <a class="btn-cta btn-cta--sm" href="#">
+          <a class="btn-cta btn-cta--sm" href="../shop/">
             <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
             <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
           </a>
@@ -43,17 +47,22 @@
       </div>
     </nav>
     <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
-      <span class="snav__mobile-label">About</span><a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="../about-gary-zukav/">About Gary</a><a class="subnav-link" href="./">About Linda</a><a href="#">Courses, Events &amp; Activities</a><a href="#">Deepcast</a><a href="#">Blog</a><a href="#">Resources</a><a href="#">In Celebration of Linda Francis</a>
-      <a class="btn btn--primary" href="#">Soul Store</a>
+      <span class="snav__mobile-label">About</span><a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="../about-gary-zukav/">About Gary</a><a class="subnav-link" href="./">About Linda</a><a href="../shop/">Courses, Events &amp; Activities</a><a href="../podcast/">Deepcast</a><a href="../podcast/">Blog</a><a href="../get-started/">Resources</a><a href="../about/celebration/">In Celebration of Linda Francis</a>
+      <a class="btn btn--primary" href="../shop/">Soul Store</a>
     </div></div>
   </header>
 
   <main>
-    <!-- Hero — 2026-07-02: SIN video (el original del WP es fondo plano + círculos decorativos):
-         (bg0) gradiente de marca + círculos dorados CSS (.about-hero--linda en styles.css) → (bg1)
+    <!-- Hero — 2026-07-02: CON video, como el original del WP (fondo de olas Pexels-Videos-2335977):
+         (bg0) video olas linda-hero.mp4 (el gradiente .about-hero--linda queda de fallback) → (bg1)
          composición linda-bg (círculos dorados + recorte B/N de Linda a la derecha, una sola imagen
-         transparente, mismo formato que gary-bg) → (capa2) título superpuesto. -->
+         transparente, mismo formato que gary-bg) → (capa2) título "Meet Linda Francis" verbatim. -->
     <section class="about-hero about-hero--gary about-hero--linda">
+      <div class="about-hero__media" aria-hidden="true">
+        <video class="about-hero__video" autoplay muted loop playsinline preload="metadata" poster="../assets/images/linda-hero-poster.webp">
+          <source src="../assets/linda-hero.mp4" type="video/mp4" />
+        </video>
+      </div>
       <span class="about-hero__scrim" aria-hidden="true"></span>
       <picture class="about-hero__composite" aria-hidden="true">
         <source srcset="../assets/images/linda-bg.webp" type="image/webp" />
@@ -62,7 +71,7 @@
       <span class="about-hero__fade" aria-hidden="true"></span>
       <div class="about-hero__inner">
         <div class="about-hero__text">
-          <h1 class="about-title" data-reveal>About <span class="gold">Linda Francis</span></h1>
+          <h1 class="about-title" data-reveal>Meet <span class="gold">Linda Francis</span></h1>
           <span class="about-rule about-rule--hero" data-reveal aria-hidden="true"></span>
         </div>
       </div>
@@ -74,65 +83,32 @@
       <span class="about-hero__border" aria-hidden="true"></span>
     </section>
 
-    <!-- "Authentic Power" — banda oscura inmersiva (patrón "Deep Wisdom" de Gary): Linda (retrato
-         a color, viñeta suave en vez de recorte transparente) emerge a la izquierda con halo dorado,
-         sobre la ola de puntos Soul Tide; copy editorial en cascada a la derecha. Bio VERBATIM de la
-         página viva (presente — "She is still with us"). -->
-    <section class="about-emerge about-emerge--linda" id="intro" data-tide="immersive">
-      <canvas class="about-emerge__tide aspire__waves" aria-hidden="true"></canvas>
-      <span class="about-emerge__veil" aria-hidden="true"></span>
-      <span class="about-emerge__aurora" aria-hidden="true"></span>
-      <div class="about-emerge__media" data-reveal>
-        <span class="about-emerge__halo" aria-hidden="true"></span>
-        <picture class="about-emerge__figure">
-          <source srcset="../assets/images/linda-emerge.webp" type="image/webp" />
-          <img src="../assets/images/linda-emerge.jpg" width="960" height="1016" alt="Linda Francis smiling, with Gary Zukav in the background" loading="lazy" decoding="async" />
-        </picture>
-      </div>
-      <div class="about-emerge__inner">
-        <div class="about-emerge__copy">
-          <p class="about-emerge__eyebrow" data-reveal>A life devoted to</p>
-          <h2 class="about-emerge__title" data-reveal>Authentic <span class="gold">Power.</span></h2>
-          <span class="about-emerge__rule" data-reveal aria-hidden="true"></span>
-          <p class="about-emerge__lead" data-reveal>Linda Francis is a co-founder of the Seat of the Soul Institute. She is deeply dedicated to assisting individuals in aligning their personality and soul in order to create authentic power.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- "Threshold" — 2026-07-02: SIN foto sunset (era de Gary; el original de Linda no la tiene).
-         El fondo es el degradado-atardecer del CSS + círculos dorados decorativos (patrón del
-         original del WP); el paso diagonal lleva la quote VERBATIM de Linda (lead → clímax oro). -->
-    <section class="about-threshold about-threshold--linda">
-      <span class="about-threshold__sky" aria-hidden="true"></span>
-      <span class="about-threshold__veil" aria-hidden="true"></span>
-      <span class="about-threshold__base" aria-hidden="true"></span>
-      <div class="about-threshold__inner">
-        <p class="about-threshold__text">
-          <span class="about-threshold__phrase about-threshold__phrase--lead" data-reveal>“Your emotions tell you</span>
-          <span class="about-threshold__crescendo gold" data-reveal>what your soul wants you to know.”</span>
+    <!-- "Meet" — banda navy con la JERARQUÍA VERBATIM del original (captura aq1): intro co-founder
+         centrada → quote "Your emotions…" (lead blanco → clímax oro) → firma script dorada. La ola
+         Soul Tide del Home queda de fondo sutil (mejora UI que no altera la estructura). -->
+    <section class="about-meet about-meet--linda" id="intro" data-tide="immersive">
+      <canvas class="about-meet__tide aspire__waves" aria-hidden="true"></canvas>
+      <span class="about-meet__veil" aria-hidden="true"></span>
+      <div class="about-meet__inner">
+        <p class="about-meet__lead" data-reveal>Linda Francis is a co-founder of the Seat of the Soul Institute. She is deeply dedicated to assisting individuals in aligning their personality and soul in order to create authentic power.</p>
+        <p class="about-meet__quote">
+          <span class="about-meet__phrase" data-reveal>“Your emotions tell you</span>
+          <span class="about-meet__crescendo gold" data-reveal>what your soul wants you to know.”</span>
         </p>
-        <span class="about-threshold__horizon" data-reveal aria-hidden="true"></span>
-        <span class="about-threshold__attrib" data-reveal>— Linda Francis</span>
+        <span class="about-meet__sig" data-reveal>&mdash; Linda Francis</span>
       </div>
     </section>
 
-    <!-- "Co-founder" — banda oscura editorial (credential ledger, mismo patrón de Gary): lead serif +
-         5 credenciales con hairlines doradas y reveal escalonado (hechos de la página viva). Media:
-         los dos libros co-escritos (PNG transparente) con glow + flotación. -->
+    <!-- Bio + libros — dos columnas del patrón cofounder con el copy VERBATIM de la viva (la quote
+         desemboca en los libros, como en aq1): 1989/spiritual partnership + los 4 títulos co-escritos
+         y el enlace "Get the books". Media: PNG transparente de los libros con glow + flotación. -->
     <section class="about-cofounder about-cofounder--linda">
       <span class="about-cofounder__aurora" aria-hidden="true"></span>
       <div class="about-cofounder__inner">
-        <div class="about-cofounder__copy">
-          <p class="about-cofounder__eyebrow" data-reveal>A life of healing &amp; partnership</p>
-          <h2 class="about-cofounder__title" data-reveal>Co-founder of the <span class="gold">Seat of the Soul Institute.</span></h2>
-          <p class="about-cofounder__text">
-            <span class="about-cofounder__lead" data-reveal>Linda is a co-founder of the Seat of the Soul Institute with Gary Zukav,</span>
-            <span class="about-cofounder__cred" data-reveal>a registered nurse and doctor of chiropractic with more than forty years in the healing professions,</span>
-            <span class="about-cofounder__cred" data-reveal>a teacher of authentic power who began creating it after reading <em>The Seat of the Soul</em> in 1989,</span>
-            <span class="about-cofounder__cred" data-reveal>co-author with Gary of <em>The Heart of the Soul: Emotional Awareness</em>, a New York Times bestseller,</span>
-            <span class="about-cofounder__cred" data-reveal>co-author of <em>The Mind of the Soul: Responsible Choice</em>, <em>Thoughts from the Heart of the Soul</em>, and the <em>Self-Empowerment Journal</em>,</span>
-            <span class="about-cofounder__cred" data-reveal>and co-designer and co-facilitator of the Institute’s curricula and events with Gary for three decades.</span>
-          </p>
+        <div class="about-cofounder__copy about-cofounder__copy--bio">
+          <p class="about-cofounder__para" data-reveal>Linda has been creating authentic power since she first read <em>The Seat of the Soul</em> in 1989. In 1993 she met Gary Zukav. They created a spiritual partnership and began sharing their discoveries about authentic power and spiritual partnership with others around the world through their workshops, events, and books.</p>
+          <p class="about-cofounder__para" data-reveal>She has co-authored two books with Gary Zukav, the New York Times Bestseller, <em>The Heart of the Soul: Emotional Awareness</em> and <em>The Mind of the Soul: Responsible Choice</em>. They also co-authored <em>Thoughts from the Heart of the Soul: Meditations for Emotional Awareness</em> and <em>Self-Empowerment Journal: A Companion to the Mind of the Soul</em>.</p>
+          <a class="about-goldlink about-goldlink--dark about-cofounder__cta" data-reveal href="../books/">Get the books <span aria-hidden="true">→</span></a>
         </div>
         <div class="about-cofounder__media" data-reveal>
           <figure class="about-cofounder__figure">
@@ -145,22 +121,53 @@
       </div>
     </section>
 
-    <!-- "Sundown" — 2026-07-02: SIN foto sundown (era de Gary). Cierre memorial sobrio: gradiente
-         navy→púrpura con halo dorado suave tras el texto; nota VERBATIM de la página viva + enlace
-         oro a In Celebration of Linda Francis; statband glass. Tono contenido (sensibilidad memorial). -->
+    <!-- "Healing professions" — degradado-atardecer + círculos dorados (captura ee3 del original):
+         mismo vessel threshold; el copy VERBATIM entra en paso diagonal (lead → clímax oro). -->
+    <section class="about-threshold about-threshold--linda">
+      <span class="about-threshold__sky" aria-hidden="true"></span>
+      <span class="about-threshold__veil" aria-hidden="true"></span>
+      <span class="about-threshold__base" aria-hidden="true"></span>
+      <div class="about-threshold__inner">
+        <p class="about-threshold__text">
+          <span class="about-threshold__phrase about-threshold__phrase--lead" data-reveal>Linda has been in the healing professions for more than four decades,</span>
+          <span class="about-threshold__crescendo gold" data-reveal>first as a registered nurse, then a doctor of chiropractic, and now a teacher of authentic power.</span>
+        </p>
+        <span class="about-threshold__horizon" data-reveal aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <!-- "Co-designed" — foto full-bleed COMPLETA (captura rr44 del original): linda-1.jpeg del WP
+         vivo (1896×1016) de fondo entero, scrim inferior para legibilidad y el copy VERBATIM
+         abajo, a la derecha del centro, como en la viva. -->
+    <section class="about-photoband about-photoband--linda">
+      <picture class="about-photoband__bg">
+        <source srcset="../assets/images/linda-photoband.webp" type="image/webp" />
+        <img src="../assets/images/linda-photoband.jpg" width="1896" height="1016" alt="Linda Francis smiling on a porch, with Gary Zukav seated behind her" loading="lazy" decoding="async" />
+      </picture>
+      <span class="about-photoband__scrim" aria-hidden="true"></span>
+      <div class="about-photoband__inner">
+        <p class="about-photoband__text" data-reveal>She has co-designed curricula and co-facilitated events with Gary Zukav for three decades.</p>
+      </div>
+    </section>
+
+    <!-- "Sundown" — cierre memorial con el copy VERBATIM de la viva, en su orden: exploring →
+         Mt. Shasta vision quest → nota memorial + enlace oro a In Celebration → quote final con
+         firma script. (Statband retirada 2026-07-02 a pedido del cliente: no existe en el original.) -->
     <section class="about-sundown about-sundown--linda">
       <span class="about-sundown__seamtop" aria-hidden="true"></span>
       <span class="about-sundown__veil" aria-hidden="true"></span>
       <span class="about-sundown__seambottom" aria-hidden="true"></span>
       <div class="about-sundown__inner">
+        <div class="about-sundown__story">
+          <p data-reveal>Linda has always been interested in exploring and stretching herself. She left her marriage at twenty-two when she realized that she was not modeling a loving relationship for her children. She has strived throughout her life for the deepest connections with others and the world. Guided by her intuition, she relocated to Mt.&nbsp;Shasta, where she met Gary Zukav.</p>
+          <p data-reveal>Linda’s solo and soul climb to the summit of Mt.&nbsp;Shasta was a sacred vision quest that has informed her life since. She continues to open herself to her guidance and expand her experiences in order to support interested individuals around the world in creating authentic power and spiritual partnerships, individuals who know or suspect that spiritual growth is the most essential aspect of their lives and the reason they were born.</p>
+        </div>
         <p class="about-sundown__text" data-reveal>Linda’s soul returned home August 2022. <span class="gold">She is still with us.</span></p>
         <a class="about-goldlink about-goldlink--dark about-sundown__cta" data-reveal href="../about/celebration/">In Celebration of Linda Francis <span aria-hidden="true">→</span></a>
-        <div class="about-statband about-statband--glass">
-          <div class="about-statband__item" data-reveal><span class="about-statband__num">40+</span><span class="about-statband__label">Years in the healing professions</span></div>
-          <div class="about-statband__item" data-reveal><span class="about-statband__num">4</span><span class="about-statband__label">Books co-authored with Gary</span></div>
-          <div class="about-statband__item" data-reveal><span class="about-statband__num">30</span><span class="about-statband__label">Years of shared teaching</span></div>
-          <div class="about-statband__item" data-reveal><span class="about-statband__num">1993</span><span class="about-statband__label">A spiritual partnership begins</span></div>
-        </div>
+        <blockquote class="about-sundown__quote">
+          <p data-reveal>“Creating authentic power requires you feel fully a frightened part of your personality, one that is angry or jealous or resentful, and consciously choose to act from a loving part of your personality, one that is grateful, appreciative, or caring.”</p>
+          <span class="about-meet__sig about-sundown__sig" data-reveal>&mdash; Linda Francis</span>
+        </blockquote>
       </div>
     </section>
   </main>
@@ -185,21 +192,21 @@
         <div class="foot">
           <h5>Connect</h5>
           <a href="../index.html">Return to Homepage</a>
-          <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">Career Opportunities</a>
-          <a href="https://seatofthesoul.com/seat-of-the-soul-career-opportunities/" target="_blank" rel="noopener noreferrer">View Opportunities</a>
+          <a href="../seat-of-the-soul-career-opportunities/">Career Opportunities</a>
+          <a href="../seat-of-the-soul-career-opportunities/">View Opportunities</a>
         </div>
         <div class="foot">
           <h5>Explore</h5>
-          <a href="https://seatofthesoul.com/get-started/" target="_blank" rel="noopener noreferrer">Get Started</a>
+          <a href="../get-started/">Get Started</a>
           <!-- oculto 2026-07-02 (cliente: About solo dropdown, sin Linda) <a href="../about/">About</a> -->
           <a href="../about/seat-of-the-soul-institute/">About SOTSI</a>
           <a href="../about-gary-zukav/">About Gary</a>
           <!-- oculto 2026-07-02 (cliente: solo nav) <a href="./">About Linda</a> -->
-          <a href="https://seatofthesoul.com/remember-linda-homepage/" target="_blank" rel="noopener noreferrer">In Celebration of Linda Francis</a>
-          <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Deepcast</a>
-          <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener noreferrer">Blog · Soul Feed</a>
-          <a href="https://seatofthesoul.com/apg-optin/" target="_blank" rel="noopener noreferrer">Resources</a>
-          <a href="https://seatofthesoul.com/shop/" target="_blank" rel="noopener noreferrer">Courses, Events &amp; Activities</a>
+          <a href="../about/celebration/">In Celebration of Linda Francis</a>
+          <a href="../podcast/">Deepcast</a>
+          <a href="../podcast/">Blog · Soul Feed</a>
+          <a href="../apg-optin/">Resources</a>
+          <a href="../shop/">Courses, Events &amp; Activities</a>
         </div>
         <div class="foot">
           <h5>Contact</h5>
@@ -215,7 +222,7 @@
       <div class="foot__bottom">
         <span>©<span id="footYear">2026</span> The Seat of the Soul Institute. All rights reserved.</span>
         <span class="foot__legal">
-          <a href="https://seatofthesoul.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a><a href="https://seatofthesoul.com/terms-of-use/" target="_blank" rel="noopener noreferrer">Terms of Use</a><a href="https://seatofthesoul.com/refund-cancellation/" target="_blank" rel="noopener noreferrer">Refund Policy</a>
+          <a href="../privacy-policy/">Privacy Policy</a><a href="../terms-of-use/">Terms of Use</a><a href="../refund-cancellation/">Refund Policy</a>
         </span>
       </div>
     </div>

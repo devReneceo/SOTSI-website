@@ -126,15 +126,65 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: var(--shadow-md);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.sots-panel:hover {
+  transform: translateY(-4px);
+  border-color: rgba(254, 212, 87, 0.34);
+  box-shadow: 0 30px 70px -38px rgba(14, 22, 49, 0.6);
+}
+
+/* Títulos de panel (2026-07-02: de Pinyon Script → Fraunces, las fuentes generales del sitio).
+   Kicker numerado 01–05 (counter sobre .sots-panel) + hairline oro corta bajo el título,
+   mismo lenguaje que .about-rule / los eyebrows de Gary. */
+main {
+  counter-reset: sots-panel;
+}
+
+.sots-panel {
+  counter-increment: sots-panel;
 }
 
 .sots-script {
-  margin: 0 0 0.7rem;
-  font-family: var(--font-accent);
+  margin: 0 0 0.9rem;
+  font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(2.3rem, 1.8rem + 2vw, 3.6rem);
-  line-height: 1.1;
+  font-size: clamp(1.55rem, 1.3rem + 1vw, 2.2rem);
+  line-height: 1.14;
+  letter-spacing: var(--tracking-title);
   color: var(--gold);
+}
+
+.sots-script::before {
+  content: "0" counter(sots-panel);
+  display: block;
+  margin-bottom: 0.7rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  color: rgba(254, 212, 87, 0.66);
+}
+
+.sots-script::after {
+  content: "";
+  display: block;
+  width: 46px;
+  height: 1px;
+  margin-top: 0.7rem;
+  background: linear-gradient(90deg, rgba(254, 212, 87, 0.9), rgba(254, 212, 87, 0));
+}
+
+/* Eyebrow reutilizable (founding head + CTA) — patrón kicker del Home/Gary */
+.sots-eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(254, 212, 87, 0.78);
 }
 
 .sots-panel p {
@@ -180,10 +230,26 @@
 }
 
 .sots-quote__inner {
+  position: relative;
   width: var(--about-shell);
   max-width: 960px;
   margin: 0 auto;
   text-align: center;
+}
+
+/* Comilla editorial gigante tras el texto (oro muy tenue) — profundidad sin ruido */
+.sots-quote__inner::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.16em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  font-family: var(--font-display);
+  font-size: clamp(7rem, 5rem + 9vw, 13rem);
+  line-height: 1;
+  color: rgba(254, 212, 87, 0.14);
+  pointer-events: none;
 }
 
 .sots-quote blockquote {
@@ -199,12 +265,37 @@
   text-wrap: balance;
 }
 
+/* Firma en patrón attrib/eyebrow del sitio (Jost uppercase) con hairlines doradas
+   flanqueando — reemplaza la script (2026-07-02) */
 .sots-quote__cite {
   margin-top: clamp(1.6rem, 3vw, 2.4rem);
-  font-family: var(--font-accent);
-  font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.8rem);
-  line-height: 1.15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.8rem, 2vw, 1.2rem);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(0.82rem, 0.76rem + 0.3vw, 0.98rem);
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--gold);
+}
+
+.sots-quote__cite::before,
+.sots-quote__cite::after {
+  content: "";
+  flex: 0 0 auto;
+  width: clamp(34px, 6vw, 70px);
+  height: 1px;
+}
+
+.sots-quote__cite::before {
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.7));
+}
+
+.sots-quote__cite::after {
+  background: linear-gradient(90deg, rgba(254, 212, 87, 0.7), transparent);
 }
 
 /* ---- Values / Vision (fondo atardecer, anclado abajo como el vivo) ---- */
@@ -265,6 +356,20 @@
   color: var(--purple);
 }
 
+/* Sobre panel claro el oro pierde contraste: kicker y hairline pasan a púrpura */
+.sots-script--dark::before {
+  color: rgba(60, 25, 81, 0.55);
+}
+
+.sots-script--dark::after {
+  background: linear-gradient(90deg, rgba(60, 25, 81, 0.7), rgba(60, 25, 81, 0));
+}
+
+.sots-panel--light:hover {
+  border-color: rgba(60, 25, 81, 0.28);
+  box-shadow: 0 30px 74px -42px rgba(14, 22, 49, 0.55);
+}
+
 .sots-panel--vision {
   margin-top: clamp(2.5rem, 6vw, 5.5rem); /* escalonado como el vivo (Values arriba-izq, Vision abajo-der) */
 }
@@ -296,6 +401,12 @@
   letter-spacing: var(--tracking-title);
   color: var(--navy);
   text-wrap: balance;
+}
+
+/* Sobre la banda dorada el eyebrow va en navy; el gap del flex ya separa (margin fuera) */
+.sots-eyebrow--navy {
+  margin: 0 0 -0.6rem;
+  color: rgba(14, 22, 49, 0.62);
 }
 
 /* Botón sólido navy para contraste sobre la banda dorada */
@@ -337,6 +448,11 @@ body.btnstyle-2 .sots-cta .btn-cta:hover .btn-cta__icon {
 .reveals-on [data-reveal].is-revealed {
   opacity: 1;
   transform: none;
+}
+
+/* Values → Vision entran como beat escalonado (en desktop conviven lado a lado) */
+.reveals-on .sots-horizon__inner > [data-reveal]:nth-child(2) {
+  transition-delay: 0.14s;
 }
 
 /* ---- Responsive (2026-07-02: escalonado 1040/768/520 + reduced-motion, breakpoints de Gary) ---- */
@@ -394,7 +510,7 @@ body.btnstyle-2 .sots-cta .btn-cta:hover .btn-cta__icon {
   }
 
   .sots-script {
-    font-size: clamp(1.9rem, 8.4vw, 2.3rem);
+    font-size: clamp(1.45rem, 6.6vw, 1.7rem);
   }
 
   .sots-quote blockquote p {
@@ -402,7 +518,7 @@ body.btnstyle-2 .sots-cta .btn-cta:hover .btn-cta__icon {
   }
 
   .sots-quote__cite {
-    font-size: clamp(1.6rem, 7vw, 1.9rem);
+    letter-spacing: 0.14em;
   }
 
   .sots-cta__title {

@@ -1993,6 +1993,72 @@ body.about-page .site-footer {
    inmersiva es FOTO a color (viñeta suave, no recorte transparente), el threshold lleva quote +
    atribución, el cofounder muestra los libros co-escritos y el sundown cierra con el memorial. */
 
+/* --- 2026-07-02: SIN fondos fotográficos — el original del WP de Linda es texto sobre fondo
+       plano con CÍRCULOS decorativos dorados (yelowcirclelindapage/leftcircle/lightcircle.png);
+       aquí ese patrón se re-expresa con gradientes de marca + anillos/discos dorados en CSS.
+       Gary conserva sus fotos (todo va scoped a --linda). --- */
+
+/* Hero sin video: gradiente inmersivo + anillo hairline oro y nebulosas (eco de los círculos
+   del original). El composite linda-bg (círculos + retrato B/N) sigue protagonista encima;
+   scrim/fade/border se conservan tal cual. */
+.about-hero--linda {
+  background:
+    radial-gradient(circle at 15% 26%, transparent 118px, rgba(254, 212, 87, 0.2) 120px, rgba(254, 212, 87, 0.2) 122px, transparent 125px),
+    radial-gradient(56% 70% at 82% 30%, rgba(126, 90, 200, 0.3), transparent 70%),
+    radial-gradient(42% 54% at 8% 90%, rgba(254, 212, 87, 0.1), transparent 72%),
+    linear-gradient(155deg, #0e1631 0%, #1d1340 48%, #3c1951 100%);
+}
+
+/* Threshold sin foto: el degradado-atardecer (antes fallback) ES el fondo, más anillo oro y
+   discos suaves. Sin la foto ya no manda su proporción 1920/1808 → altura de banda de cita. */
+.about-threshold--linda {
+  aspect-ratio: auto;
+  min-height: clamp(560px, 84svh, 920px);
+  max-height: none;
+  background:
+    radial-gradient(circle at 78% 36%, transparent 224px, rgba(254, 212, 87, 0.26) 226px, rgba(254, 212, 87, 0.26) 228px, transparent 231px),
+    radial-gradient(circle at 68% 60%, rgba(254, 212, 87, 0.12), transparent 130px),
+    radial-gradient(28% 34% at 14% 78%, rgba(210, 204, 253, 0.1), transparent 72%),
+    linear-gradient(180deg, #2a1140 0%, #3c1951 12%, #5a4a7e 34%, #8f7ba8 52%, #d69a86 68%, #4a3d6b 86%, #0e1631 100%);
+}
+
+/* Co-founder de Linda ya no desemboca en el teal del sunset de Gary: deriva a navy-púrpura,
+   el arranque del cierre memorial (#171233). */
+.about-cofounder--linda {
+  background: linear-gradient(180deg, #0e1631 0%, #141b3a 48%, #171233 100%);
+}
+
+.about-cofounder--linda::after {
+  background: linear-gradient(180deg, rgba(23, 18, 51, 0), #171233);
+}
+
+/* Sundown memorial sin foto: banda sobria navy→púrpura profundo que se hunde en el navy del
+   footer (#0b1126); halo dorado suave tras el texto + anillo discreto (mismo lenguaje del hero). */
+.about-sundown--linda {
+  background: linear-gradient(180deg, #171233 0%, #1d1540 30%, #241847 56%, #141531 84%, #0b1126 100%);
+}
+
+.about-sundown--linda::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(46% 40% at 30% 32%, rgba(254, 212, 87, 0.13), transparent 68%),
+    radial-gradient(circle at 78% 64%, transparent 168px, rgba(254, 212, 87, 0.15) 170px, rgba(254, 212, 87, 0.15) 172px, transparent 175px),
+    radial-gradient(50% 56% at 86% 18%, rgba(210, 204, 253, 0.1), transparent 70%);
+}
+
+.about-sundown--linda .about-sundown__seamtop {
+  background: linear-gradient(180deg, #171233 0%, rgba(23, 18, 51, 0) 30%);
+}
+
+/* Sin paisaje que enseñar, el cierre no necesita el viewport completo */
+.about-sundown--linda .about-sundown__inner {
+  min-height: clamp(560px, 84svh, 1000px);
+}
+
 /* --- "Authentic Power" (emerge): retrato a color con viñeta en vez de cutout a sangre.
        Solo desktop (≥1041px): en móvil las reglas base ya aplican la viñeta elíptica + fade. --- */
 @media (min-width: 1041px) {

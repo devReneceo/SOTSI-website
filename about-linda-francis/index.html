@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<!-- About Linda (2026-07-02): página cinemática construida con el MISMO sistema de about-gary-zukav/
-     (hero video + composite dorado → Deep-band con Soul Tide → threshold sunset → credential ledger →
-     cierre sundown). .page-dark: 100% oscura de hero a footer (scrollbar/overscroll navy, ver Gary). -->
+<!-- About Linda (2026-07-02): página cinemática con el MISMO sistema de about-gary-zukav/ pero SIN
+     fondos fotográficos (el original del WP es fondo plano + círculos decorativos dorados): hero
+     gradiente + composite dorado → Deep-band con Soul Tide → threshold degradado-atardecer →
+     credential ledger → cierre sundown sobrio. .page-dark: 100% oscura de hero a footer. -->
 <html lang="en" class="page-dark">
 <head>
   <meta charset="UTF-8" />
@@ -48,16 +49,11 @@
   </header>
 
   <main>
-    <!-- Hero — mismo stack de 3 capas del hero de Gary (reusa .about-hero--gary; --linda solo ajusta
-         lo propio): (bg0) video de orilla al atardecer (linda-hero.mp4, Pexels 2335977) → (bg1)
+    <!-- Hero — 2026-07-02: SIN video (el original del WP es fondo plano + círculos decorativos):
+         (bg0) gradiente de marca + círculos dorados CSS (.about-hero--linda en styles.css) → (bg1)
          composición linda-bg (círculos dorados + recorte B/N de Linda a la derecha, una sola imagen
          transparente, mismo formato que gary-bg) → (capa2) título superpuesto. -->
     <section class="about-hero about-hero--gary about-hero--linda">
-      <div class="about-hero__media" aria-hidden="true">
-        <video class="about-hero__video" autoplay muted loop playsinline preload="metadata" poster="../assets/images/linda-hero-poster.webp">
-          <source src="../assets/linda-hero.mp4" type="video/mp4" />
-        </video>
-      </div>
       <span class="about-hero__scrim" aria-hidden="true"></span>
       <picture class="about-hero__composite" aria-hidden="true">
         <source srcset="../assets/images/linda-bg.webp" type="image/webp" />
@@ -103,15 +99,10 @@
       </div>
     </section>
 
-    <!-- "Threshold" — banda-cielo sunset (mismo stack v3 de Gary): aquí el paso diagonal descendente
-         lleva la quote VERBATIM de Linda (lead → clímax oro) y cierra con la atribución bajo la
-         regla de horizonte. -->
+    <!-- "Threshold" — 2026-07-02: SIN foto sunset (era de Gary; el original de Linda no la tiene).
+         El fondo es el degradado-atardecer del CSS + círculos dorados decorativos (patrón del
+         original del WP); el paso diagonal lleva la quote VERBATIM de Linda (lead → clímax oro). -->
     <section class="about-threshold about-threshold--linda">
-      <picture class="about-threshold__photo" aria-hidden="true">
-        <source media="(max-width: 768px)" srcset="../assets/images/sunset-bg-960.webp" type="image/webp" />
-        <source srcset="../assets/images/sunset-bg.webp" type="image/webp" />
-        <img src="../assets/images/sunset-bg.jpg" width="1920" height="1808" alt="" loading="lazy" decoding="async" />
-      </picture>
       <span class="about-threshold__sky" aria-hidden="true"></span>
       <span class="about-threshold__veil" aria-hidden="true"></span>
       <span class="about-threshold__base" aria-hidden="true"></span>
@@ -154,15 +145,10 @@
       </div>
     </section>
 
-    <!-- "Sundown" — cierre inmersivo memorial (mismo stack de Gary): nota VERBATIM de la página viva
-         sobre el sunset teal→naranja + enlace oro a In Celebration of Linda Francis; statband glass
-         con los hechos de su camino sobre la franja naranja. Tono contenido (sensibilidad memorial). -->
+    <!-- "Sundown" — 2026-07-02: SIN foto sundown (era de Gary). Cierre memorial sobrio: gradiente
+         navy→púrpura con halo dorado suave tras el texto; nota VERBATIM de la página viva + enlace
+         oro a In Celebration of Linda Francis; statband glass. Tono contenido (sensibilidad memorial). -->
     <section class="about-sundown about-sundown--linda">
-      <picture class="about-sundown__photo" aria-hidden="true">
-        <source media="(max-width: 768px)" srcset="../assets/images/sundown-bg-960.webp" type="image/webp" />
-        <source srcset="../assets/images/sundown-bg.webp" type="image/webp" />
-        <img src="../assets/images/sundown-bg.jpg" width="1920" height="1680" alt="" loading="lazy" decoding="async" />
-      </picture>
       <span class="about-sundown__seamtop" aria-hidden="true"></span>
       <span class="about-sundown__veil" aria-hidden="true"></span>
       <span class="about-sundown__seambottom" aria-hidden="true"></span>

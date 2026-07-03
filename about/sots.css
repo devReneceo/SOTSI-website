@@ -22,10 +22,25 @@
   text-shadow: 0 2px 34px rgba(14, 22, 49, 0.55);
 }
 
+/* Fade inferior del hero → #12213e, el tono con el que ARRANCA el overlay de Founding
+   (mismo recurso que .about-hero--gary .about-hero__fade): el acantilado se hunde en
+   el navy-teal de la banda siguiente en vez de cortar contra ella. */
+.sots-hero .about-hero__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(120px, 18vh, 200px);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(18, 33, 62, 0.55) 60%, #12213e 100%);
+}
+
 /* ---- Fundación + Inspiration / Mission / Means (fondo teal) ---- */
 .sots-founding {
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   padding: var(--space-section) 0;
   color: var(--text-on-dark);
   background-color: #154a6f; /* color base del WP vivo bajo la imagen */
@@ -42,12 +57,15 @@
   background-size: cover;
 }
 
+/* Costuras (2026-07-02): arranca SÓLIDO en #12213e (donde termina el fade del hero) y
+   termina SÓLIDO en #0e1631 (donde arranca el seam superior de la cita) — el teal de la
+   imagen respira en el tramo central, sin líneas de corte arriba ni abajo. */
 .sots-founding::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(14, 22, 49, 0.72) 0%, rgba(21, 74, 111, 0.18) 42%, rgba(14, 22, 49, 0.5) 100%);
+  background: linear-gradient(180deg, #12213e 0%, rgba(14, 22, 49, 0.44) 14%, rgba(21, 74, 111, 0.18) 42%, rgba(14, 22, 49, 0.55) 84%, #0e1631 100%);
 }
 
 .sots-founding__inner {
@@ -131,6 +149,7 @@
 .sots-quote {
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   padding: var(--space-section) 0;
   background: var(--grad-immersive);
   color: var(--text-on-dark);
@@ -142,6 +161,22 @@
   inset: 0;
   z-index: -1;
   background: radial-gradient(circle at 78% 24%, rgba(255, 235, 69, 0.12), transparent 34%);
+}
+
+/* Costuras de la banda (2026-07-02) — --grad-immersive es DIAGONAL (155deg), así que sus
+   bordes no casan solos con los vecinos (mismo problema/solución que .about-emerge de Gary):
+   arriba recibe el #0e1631 en que termina Founding; abajo se funde a #2a1342, el tono con el
+   que arranca la disolución superior de Horizon. Pinta sobre el radial (::before, mismo z,
+   posterior en orden) y bajo el copy. */
+.sots-quote::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #0e1631, rgba(14, 22, 49, 0.5) 46%, transparent 100%) top / 100% clamp(90px, 14vh, 150px) no-repeat,
+    linear-gradient(0deg, #2a1342, rgba(42, 19, 66, 0.5) 46%, transparent 100%) bottom / 100% clamp(90px, 14vh, 150px) no-repeat;
 }
 
 .sots-quote__inner {
@@ -176,6 +211,7 @@
 .sots-horizon {
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   padding: var(--space-section) 0 clamp(9rem, 16vw, 16rem);
 }
 
@@ -190,12 +226,20 @@
   background-size: cover;
 }
 
+/* Costuras (2026-07-02) — el corte más duro de la página era oscuro→blanco contra la cita.
+   Tres capas: (1) "disolución de amanecer" — banda acotada que arranca en el #2a1342 en que
+   termina la cita y se disuelve sobre el blanco (mismo recurso que la disolución de cielo de
+   Threshold en Gary); (2) seam inferior que funde el atardecer hacia #fed457, el arranque de
+   --grad-gold del CTA; (3) el velo blanco original que revela la foto hacia abajo. */
 .sots-horizon::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 34%, rgba(255, 255, 255, 0) 72%);
+  background:
+    linear-gradient(180deg, #2a1342, rgba(42, 19, 66, 0.55) 38%, rgba(58, 40, 96, 0.22) 68%, transparent 100%) top / 100% clamp(120px, 18vh, 210px) no-repeat,
+    linear-gradient(0deg, #fed457, rgba(254, 212, 87, 0.42) 40%, transparent 100%) bottom / 100% clamp(80px, 11vh, 140px) no-repeat,
+    linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 34%, rgba(255, 255, 255, 0) 72%);
 }
 
 .sots-horizon__inner {
@@ -295,8 +339,11 @@ body.btnstyle-2 .sots-cta .btn-cta:hover .btn-cta__icon {
   transform: none;
 }
 
-/* ---- Responsive ---- */
-@media (max-width: 900px) {
+/* ---- Responsive (2026-07-02: escalonado 1040/768/520 + reduced-motion, breakpoints de Gary) ---- */
+
+/* ≤1040 — tablet: los grids de dos columnas apilan (antes 900; se sube para casar con el resto
+   de las About) y el escalonado Values/Vision deja de tener sentido apilado. */
+@media (max-width: 1040px) {
   .sots-block,
   .sots-horizon__inner {
     grid-template-columns: 1fr;
@@ -312,5 +359,72 @@ body.btnstyle-2 .sots-cta .btn-cta:hover .btn-cta__icon {
 
   .sots-horizon {
     padding-bottom: clamp(11rem, 42vw, 15rem); /* deja respirar el atardecer bajo los paneles */
+  }
+}
+
+/* ≤768 — móvil: paneles más compactos, flecha más corta, medidas de ch liberadas. */
+@media (max-width: 768px) {
+  .sots-panel {
+    padding: 1.4rem 1.25rem 1.55rem;
+  }
+
+  .sots-panel p,
+  .sots-founding__sub {
+    max-width: 100%;
+  }
+
+  .sots-arrow {
+    height: clamp(56px, 10vw, 84px);
+  }
+
+  .sots-horizon {
+    padding-bottom: clamp(9rem, 46vw, 13rem);
+  }
+}
+
+/* ≤520 — teléfonos chicos: pisos tipográficos (los clamps de escritorio quedan grandes para
+   375/320) y CTA a ancho completo, sin overflow horizontal. */
+@media (max-width: 520px) {
+  .sots-hero__title {
+    font-size: clamp(2.35rem, 10.5vw, 2.9rem);
+  }
+
+  .sots-founding__brand {
+    font-size: clamp(2rem, 9vw, 2.4rem);
+  }
+
+  .sots-script {
+    font-size: clamp(1.9rem, 8.4vw, 2.3rem);
+  }
+
+  .sots-quote blockquote p {
+    font-size: clamp(1.28rem, 5.8vw, 1.55rem);
+  }
+
+  .sots-quote__cite {
+    font-size: clamp(1.6rem, 7vw, 1.9rem);
+  }
+
+  .sots-cta__title {
+    max-width: 100%;
+    font-size: clamp(1.85rem, 8.4vw, 2.1rem);
+  }
+
+  .sots-cta__inner {
+    align-items: stretch;
+  }
+
+  .sots-cta .btn-cta {
+    width: 100%;
+  }
+}
+
+/* Reduced-motion: los reveals de esta página se muestran en sitio (sin desplazamiento ni fade).
+   sots.css solo lo carga About SOTSI, así que el selector genérico queda scoped a la página. */
+@media (prefers-reduced-motion: reduce) {
+  .reveals-on [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

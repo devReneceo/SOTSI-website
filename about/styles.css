@@ -16,6 +16,23 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ===== Canvas oscuro por página (2026-07-02) =====
+   Las About 100% oscuras (Gary) marcan <html class="page-dark">: el scrollbar del sistema se
+   renderiza oscuro (color-scheme) y overscroll/gutter quedan navy en vez de blancos. Las demás
+   About siguen con el canvas claro de abajo. */
+html.page-dark {
+  color-scheme: dark;
+  background: #0e1631;
+}
+html.page-dark body.about-page {
+  background: #0e1631;
+}
+/* El acento oro del footer brilla menos sobre página enteramente oscura (seguía siendo la línea
+   más dura de la costura sundown → footer) */
+html.page-dark .foot__accent {
+  opacity: 0.55;
+}
+
 body.about-page {
   margin: 0;
   color: var(--text-on-light);
@@ -26,6 +43,12 @@ body.about-page {
 
 body.about-page main {
   overflow: clip;
+}
+
+/* El footer navy debe pegar sin gap con la última banda oscura (brand.css le da margin-top y sobre el
+   fondo claro de About se veía una franja blanca) */
+body.about-page .site-footer {
+  margin-top: 0;
 }
 
 .about-page .snav {
@@ -126,6 +149,14 @@ body.about-page main {
   height: 1px;
   margin: 1.3rem 0 1.6rem;
   background: linear-gradient(90deg, rgba(254, 212, 87, 0.95), rgba(254, 212, 87, 0));
+}
+
+/* acento del hero de Gary: hairline oro que se desvanece a los lados (mismo lenguaje que .foot__accent) */
+.about-hero--gary .about-rule--hero {
+  width: clamp(64px, 8vw, 104px);
+  height: 2px;
+  margin: 1.4rem 0 0;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.9) 50%, transparent);
 }
 
 .about-deck {
@@ -684,6 +715,657 @@ body.about-page main {
   transform: translateY(4px);
 }
 
+/* ===== About Gary — Hero cinemático en UNA sola capa (2026-07-02) =====
+   Video océano de fondo (productionID_4193127.mp4) + scrim de marca (navy/púrpura, más peso a la
+   izquierda para legibilidad) + círculos decorativos + recorte de Gary a la derecha + título
+   superpuesto. Reemplaza la composición estática gary-bg.webp + canvas Soul Tide. */
+.about-hero--gary {
+  overflow: hidden;
+  /* llena la ventana como el Home (reutiliza el token --hero-h-original de brand.css:
+     min(100dvh,900px) + los bumps de responsive-fix.css bajo body.heroheight-full) */
+  min-height: var(--hero-h-original);
+  display: grid;
+  align-content: center;
+  padding-top: clamp(9rem, 13vh, 12rem);
+  padding-bottom: clamp(4rem, 6vw, 6rem);
+}
+
+/* borde inferior oro del hero — mismo divisor/gradiente que el Home (.hero-original-wrap::after);
+   elemento propio (no ::after) para no chocar con .about-hero::after (capa de imagen).
+   2026-07-02: opacidad reducida — aquí la banda siguiente también es oscura y la línea a plena
+   intensidad endurecía la costura (sigue siendo el acento de marca, solo más calmado). */
+.about-hero--gary .about-hero__border {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  z-index: 7;
+  pointer-events: none;
+  opacity: calc(var(--hero-divider-opacity, 1) * 0.55);
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.78) 36%, rgba(255, 235, 69, 0.92) 50%, rgba(254, 212, 87, 0.78) 64%, transparent);
+  box-shadow: 0 0 14px rgba(254, 212, 87, 0.08);
+}
+
+/* Fade inferior del hero → #0e1631 (tono con el que ARRANCA --grad-immersive en "Deep Wisdom"):
+   el video teal y el torso de Gary se hunden en navy antes del corte. Mismo z que el composite
+   (2) pero posterior en el DOM → pinta encima de la foto y debajo del copy (z3). */
+.about-hero--gary .about-hero__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(140px, 22vh, 220px);
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(14, 22, 49, 0.55) 62%, #0e1631 100%);
+}
+
+/* Capa 0 — video océano (base). Ken Burns muy lento (transform, compositor-friendly). */
+.about-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.about-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  transform: scale(1.06);
+  animation: aboutHeroKen 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes aboutHeroKen {
+  from { transform: scale(1.06); }
+  to { transform: scale(1.14); }
+}
+
+/* Capa 1 — scrim de marca (el "overlay de agua"): tiñe el teal hacia navy/púrpura, con más peso
+   a la IZQUIERDA (lado del texto) + radial dorado sutil arriba-izq + oscurecido abajo. */
+.about-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 12% 22%, rgba(254, 212, 87, 0.12), transparent 44%),
+    /* pozo de agua profunda abajo-derecha: da un fondo navy detrás del torso oscuro de Gary
+       (evita que el suéter negro "salte" como bloque sobre el teal); no toca su rostro (arriba). */
+    radial-gradient(70% 62% at 100% 116%, rgba(9, 13, 32, 0.66), transparent 58%),
+    linear-gradient(90deg, rgba(9, 13, 32, 0.92) 0%, rgba(12, 16, 42, 0.72) 34%, rgba(20, 14, 46, 0.4) 60%, rgba(28, 18, 58, 0.16) 82%, rgba(28, 18, 58, 0.06) 100%),
+    linear-gradient(180deg, rgba(9, 13, 32, 0.22) 0%, transparent 34%, rgba(9, 13, 32, 0.52) 100%);
+}
+
+/* Capa 1 (bg1) — composición gary-bg: UNA sola imagen transparente con los círculos dorados
+   (izq-centro) + el recorte B/N de Gary (der). Full-bleed, anclada abajo-derecha para que Gary
+   quede como en el original (we.png) y el texto (capa 2, z-index 4) respire a la izquierda. */
+.about-hero__composite {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+}
+
+.about-hero__composite img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right bottom;
+}
+
+/* Texto por encima de todo (sobre Gary y las capas de fondo) */
+.about-hero--gary .about-hero__inner {
+  position: relative;
+  z-index: 4;
+}
+
+.about-hero--gary .about-hero__text {
+  max-width: 42rem;
+}
+
+/* "Gary Zukav" siempre en su propia línea → stack editorial estable en todos los anchos,
+   headline en la columna izquierda despejado del retrato (evita el solape en anchos medios). */
+.about-hero--gary .about-title .gold {
+  display: block;
+}
+
+/* Labels secundarios (jerarquía: headline focal, resto discreto) */
+.about-hero--gary .about-kicker {
+  margin-bottom: 1.1rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.about-hero--gary .about-scrollcue {
+  margin-top: 2.2rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.about-hero--gary .about-scrollcue svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Breadcrumb discreto, anclado abajo-izquierda (alineado al borde izq. del shell/headline) */
+.about-hero--gary .about-breadcrumbs--corner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* hero ahora llena la ventana: deja aire sobre el borde oro (antes 16px quedaba pegado al filo) */
+  bottom: clamp(1.5rem, 3vh, 2.6rem);
+  width: var(--about-shell);
+  margin-inline: auto;
+  transform: none;
+  display: flex;
+  justify-content: flex-start;
+  z-index: 3;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.46);
+}
+
+/* Reveal de entrada SUTIL (reutiliza about.js [data-reveal]): 14px, sin blur, leve stagger.
+   Reemplaza el text-wave GSAP del Home (yPercent 120 + blur 8px) que el cliente vio "muy tosco".
+   Sin JS no hay .reveals-on → el contenido queda visible (progressive enhancement). */
+.reveals-on .about-hero [data-reveal],
+.reveals-on .about-section--intro [data-reveal],
+.reveals-on .about-emerge [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.72s var(--ease), transform 0.72s var(--ease);
+}
+
+.reveals-on .about-hero [data-reveal].is-revealed,
+.reveals-on .about-section--intro [data-reveal].is-revealed,
+.reveals-on .about-emerge [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Reveal DIAGONAL para la cascada "Deep Wisdom": los bloques entran deslizando
+   desde abajo-izquierda hacia su posición escalonada (refuerza el eje diagonal).
+   El título recorre algo más para acentuar la entrada. Solo ≥1040px (cascada activa). */
+@media (min-width: 1041px) {
+  .reveals-on .about-emerge__copy > [data-reveal] {
+    transform: translate(-26px, 20px);
+  }
+  .reveals-on .about-emerge__copy > .about-emerge__title {
+    transform: translate(-40px, 26px);
+  }
+  .reveals-on .about-emerge__copy > [data-reveal].is-revealed {
+    transform: none;
+  }
+}
+
+/* stagger de la banda "Deep Wisdom": foto → eyebrow → título → rule → descripción */
+.reveals-on .about-emerge__copy > [data-reveal]:nth-child(2) { transition-delay: 0.08s; }
+.reveals-on .about-emerge__copy > [data-reveal]:nth-child(3) { transition-delay: 0.16s; }
+.reveals-on .about-emerge__copy > [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
+.reveals-on .about-emerge__media { transition-delay: 0.04s; }
+
+.reveals-on .about-hero__text > [data-reveal]:nth-child(2) { transition-delay: 0.07s; }
+.reveals-on .about-hero__text > [data-reveal]:nth-child(3) { transition-delay: 0.14s; }
+.reveals-on .about-hero__text > [data-reveal]:nth-child(4) { transition-delay: 0.21s; }
+.reveals-on .about-hero__text > [data-reveal]:nth-child(5) { transition-delay: 0.28s; }
+.reveals-on .about-hero__portrait { transition-delay: 0.16s; }
+
+/* ===== "Deep Wisdom" — banda oscura inmersiva + Soul Tide (2026-07-02) =====
+   Gary (recorte transparente) emerge a la IZQUIERDA con halo dorado que respira,
+   sobre la ola de puntos Soul Tide (montada por about.js). Patrón calcado de
+   .founders--immersive del Home, con keyframes propios (About no carga section-polish.css). */
+.about-emerge {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--grad-immersive);
+  color: #fff;
+  padding-block: clamp(5rem, 4rem + 6vw, 9rem);
+}
+
+/* Costuras de la banda (2026-07-02) — --grad-immersive es DIAGONAL (155deg), así que sus bordes
+   no casan solos con los vecinos: arriba se recibe el fade navy del hero (#0e1631) y abajo se
+   funde a #2a1140, el arranque EXACTO de "Threshold" (también neutraliza la aurora junto al borde).
+   z2: sobre veil/aurora (z1); ::before pinta bajo la foto (z2, primer hijo) y ::after sobre ella
+   (último hijo) para hundir su pie en el mismo tono. Copy (z3) intacto. */
+.about-emerge::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: clamp(110px, 18vh, 180px);
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(180deg, #0e1631, rgba(14, 22, 49, 0.5) 42%, transparent 100%);
+}
+.about-emerge::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(130px, 20vh, 200px);
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(0deg, #2a1140, rgba(42, 17, 64, 0.5) 46%, rgba(42, 17, 64, 0) 100%);
+}
+
+/* Banda más alta en desktop: llena el viewport bajo el nav (~80px) para que la
+   sección blanca de abajo (.about-statement) no asome. Altura responsiva y acotada
+   (no infla en monitores enormes). El copy se centra vertical para verse intencional.
+   Fallback vh antes de svh por compatibilidad. */
+@media (min-width: 1041px) {
+  .about-emerge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: clamp(620px, calc(100vh - 64px), 1040px);
+    min-height: clamp(620px, calc(100svh - 64px), 1040px);
+  }
+}
+
+/* viñeta radial de esquinas (profundidad), como .founders--immersive::before */
+.about-emerge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 80% at 14% 26%, rgba(60, 25, 81, 0.62), transparent 60%),
+    radial-gradient(56% 74% at 94% 88%, rgba(14, 22, 49, 0.68), transparent 60%),
+    /* foco cálido tenue tras el título (refuerza el eje diagonal del copy) */
+    radial-gradient(40% 46% at 66% 34%, rgba(254, 212, 87, 0.08), transparent 62%);
+}
+
+.about-emerge__tide {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* velo: oscurece la derecha (donde va el copy) para legibilidad sobre la ola */
+.about-emerge__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 60% at 74% 50%, rgba(14, 22, 49, 0.82) 0%, rgba(14, 22, 49, 0.42) 46%, rgba(14, 22, 49, 0) 78%),
+    linear-gradient(180deg, rgba(14, 22, 49, 0.28), rgba(14, 22, 49, 0));
+}
+
+/* Aurora: atmósfera animada que deriva lento tras el copy. Gradientes muy tenues
+   (periwinkle + oro) sobre navy, en screen para sumar luz sin lavar el texto.
+   Solo transform/opacity animados → compositor-friendly. */
+.about-emerge__aurora {
+  position: absolute;
+  inset: -20% -10%;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  background:
+    radial-gradient(38% 44% at 64% 32%, rgba(254, 212, 87, 0.16), transparent 64%),
+    radial-gradient(46% 50% at 82% 66%, rgba(210, 204, 253, 0.14), transparent 66%),
+    radial-gradient(40% 46% at 30% 74%, rgba(126, 90, 200, 0.14), transparent 66%);
+  animation: aboutAurora 22s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* El copy vive centrado en un shell amplio; el padding-left reserva la franja de la foto
+   (que va a sangre, absolute) y crea el "gap" grande que separa foto ↔ texto. */
+.about-emerge__inner {
+  position: relative;
+  z-index: 3;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: clamp(360px, 46vw, 660px);
+  padding-right: var(--gutter);
+}
+
+.about-emerge__copy {
+  position: relative;
+  max-width: 62ch;
+  /* paso de la cascada diagonal: cada bloque se desplaza este ancho hacia la derecha */
+  --step: clamp(1.75rem, 4vw, 5rem);
+  transform: translate3d(0, var(--parx-copy, 0), 0);
+}
+
+/* Cascada diagonal (desktop ≥1041px): eyebrow 0 → título 1× → rule 2× → lead 3×.
+   El texto sigue horizontal y legible; solo el conjunto desciende en diagonal.
+   Selectores `__copy > X` (especificidad 0,2,0) para ganar a las reglas base
+   `.about-emerge__title/__rule/__lead { margin: 0 }` que aparecen después. */
+@media (min-width: 1041px) {
+  .about-emerge__copy > .about-emerge__title { margin-inline-start: calc(var(--step) * 1); }
+  .about-emerge__copy > .about-emerge__rule { margin-inline-start: calc(var(--step) * 2); }
+  .about-emerge__copy > .about-emerge__lead {
+    margin-inline-start: calc(var(--step) * 3);
+    max-width: 44ch;
+  }
+}
+
+/* --- Gary (recorte) a sangre: pegado a left/top/bottom de la sección --- */
+.about-emerge__media {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+  /* parallax: JS setea --parx-media al scroll; sin JS queda en 0 (fallback) */
+  transform: translate3d(0, var(--parx-media, 0), 0);
+  will-change: transform;
+}
+
+.about-emerge__halo {
+  position: absolute;
+  z-index: 0;
+  left: 2%;
+  top: 24%;
+  width: min(78%, 500px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(254, 212, 87, 0.30) 0%, rgba(254, 212, 87, 0.11) 42%, transparent 66%);
+  animation: aboutHaloBreath 7s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.about-emerge__halo::after {
+  content: "";
+  position: absolute;
+  inset: 16%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(210, 204, 253, 0.2) 0%, transparent 60%);
+  animation: aboutHaloBreath 9s ease-in-out infinite reverse;
+}
+
+.about-emerge__figure {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: block;
+}
+
+/* height:100% → toca top y bottom; width:auto → mantiene proporción, sin distorsión.
+   La máscara desvanece el borde derecho para fundir el bloque negro de la base con la banda
+   (la foto no está recortada abajo; arriba/derecha ya son transparentes). Sin drop-shadow ni float. */
+.about-emerge__figure img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: left bottom;
+  /* fade del borde derecho apenas perceptible: Gary sólido hasta el 74% y un desvanecido
+     muy suave hasta el borde (antes 54%→94%, que se leía pronunciado en el bottom-right) */
+  -webkit-mask-image: linear-gradient(to right, #000 74%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 74%, transparent 100%);
+}
+
+/* Cap de Gary: con la banda alta (min-height responsivo) evita que la foto se agigante
+   en viewports altos. El figure queda ≤940px y, por align-items:flex-end del __media,
+   se ancla abajo (el morado extra queda arriba, donde Gary ya se funde por la máscara). */
+@media (min-width: 1041px) {
+  .about-emerge__figure { max-height: 940px; }
+}
+
+/* --- copy derecha --- */
+.about-emerge__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 1.5rem;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.about-emerge__eyebrow::before {
+  content: "";
+  width: clamp(24px, 3vw, 40px);
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.7;
+}
+
+.about-emerge__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 1.7rem + 4vw, 5.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.about-emerge__title .gold {
+  color: var(--gold);
+  text-shadow: 0 0 32px rgba(254, 212, 87, 0.35);
+}
+
+.about-emerge__rule {
+  display: block;
+  width: clamp(72px, 10vw, 128px);
+  height: 2px;
+  margin: clamp(2rem, 1.5rem + 1.6vw, 3rem) 0;
+  background: linear-gradient(90deg, var(--gold), rgba(254, 212, 87, 0));
+  border-radius: 2px;
+}
+
+.about-emerge__lead {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--text-on-dark-soft);
+  font-size: clamp(1.05rem, 0.98rem + 0.4vw, 1.22rem);
+  line-height: 1.85;
+}
+
+@keyframes aboutHaloBreath {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+@keyframes aboutFloat {
+  0%, 100% { transform: translateY(-4px); }
+  50% { transform: translateY(-16px); }
+}
+/* deriva lenta de la aurora: traslación + escala suaves, sin tocar layout */
+@keyframes aboutAurora {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.42; }
+  33% { transform: translate3d(2.5%, -1.5%, 0) scale(1.06); opacity: 0.58; }
+  66% { transform: translate3d(-2%, 1.5%, 0) scale(1.03); opacity: 0.5; }
+}
+
+/* Tablet/móvil: la foto vuelve al flujo (arriba, centrada), el copy debajo centrado */
+@media (max-width: 1040px) {
+  .about-emerge__media {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    z-index: 2;
+    justify-content: center;
+    margin-bottom: clamp(1.75rem, 5vw, 3rem);
+  }
+  .about-emerge__figure {
+    height: auto;
+    margin-inline: auto;
+  }
+  .about-emerge__figure img {
+    height: auto;
+    width: 100%;
+    max-width: min(420px, 76vw);
+    margin-inline: auto;
+    /* centrada: viñeta elíptica (funde laterales/superior) ∩ fade inferior (funde el bloque
+       negro recto de la base), para que Gary se funda con la banda sin recuadro visible. */
+    -webkit-mask-image:
+      radial-gradient(120% 130% at 50% 30%, #000 62%, transparent 100%),
+      linear-gradient(to bottom, #000 82%, transparent 100%);
+    mask-image:
+      radial-gradient(120% 130% at 50% 30%, #000 62%, transparent 100%),
+      linear-gradient(to bottom, #000 82%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+  .about-emerge__halo {
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+    width: min(72%, 360px);
+  }
+  .about-emerge__inner {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    max-width: var(--about-shell);
+    text-align: center;
+  }
+  .about-emerge__copy {
+    max-width: none;
+    margin-inline: auto;
+  }
+  .about-emerge__eyebrow { justify-content: center; }
+  .about-emerge__rule,
+  .about-emerge__lead { margin-inline: auto; }
+}
+
+/* Móvil chico: baja el título, deja respirar el eyebrow (envuelve) y evita overflow horizontal */
+@media (max-width: 560px) {
+  .about-emerge { padding-block: clamp(3rem, 6vw + 1rem, 4.5rem); }
+  .about-emerge__title { font-size: clamp(2rem, 9vw, 2.8rem); }
+  .about-emerge__eyebrow {
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
+  }
+  .about-emerge__lead { font-size: 1rem; line-height: 1.66; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-emerge__halo,
+  .about-emerge__halo::after,
+  .about-emerge__aurora,
+  .about-emerge__figure img { animation: none !important; }
+  /* sin parallax: neutraliza las vars que setea el JS */
+  .about-emerge__media,
+  .about-emerge__copy { transform: none !important; }
+  /* el reveal diagonal se muestra en sitio (sin desplazamiento) */
+  .reveals-on .about-emerge__copy > [data-reveal],
+  .reveals-on .about-emerge__copy > .about-emerge__title { transform: none; }
+}
+
+/* "Deep Wisdom" (layout previo) — retrato enmarcado grande (izq) + drop cap (der) */
+.about-section--intro {
+  align-items: center;
+}
+
+.about-frame {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  max-width: 560px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(14, 22, 49, 0.28);
+}
+
+.about-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 1px rgba(254, 212, 87, 0.34);
+  pointer-events: none;
+}
+
+.about-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.about-lead-drop {
+  margin-top: clamp(1.4rem, 1rem + 1.1vw, 2rem);
+}
+
+.about-lead-drop::first-letter {
+  float: left;
+  margin: 0.06em 0.12em 0 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3.2em;
+  line-height: 0.74;
+  color: var(--navy);
+}
+
+/* Tablet + laptop chico: Gary se reduce/atenúa y el scrim izquierdo se refuerza para que el
+   headline (focal) nunca compita con el retrato en anchos intermedios (~768–1100). */
+@media (max-width: 1100px) {
+  .about-hero--gary .about-title {
+    font-size: clamp(2.9rem, 1.6rem + 4.2vw, 4.6rem);
+  }
+  /* Gary se ancla al borde derecho; el scrim izquierdo reforzado mantiene el headline focal. */
+  .about-hero__composite img {
+    object-position: 92% bottom;
+  }
+  .about-hero__scrim {
+    background:
+      linear-gradient(90deg, rgba(9, 13, 32, 0.94) 0%, rgba(9, 13, 32, 0.74) 46%, rgba(9, 13, 32, 0.46) 78%, rgba(9, 13, 32, 0.24) 100%),
+      linear-gradient(180deg, rgba(9, 13, 32, 0.18), rgba(9, 13, 32, 0.52));
+  }
+}
+
+/* Móvil: Gary es un acento tenue abajo-derecha y el scrim vertical refuerza el copy. */
+@media (max-width: 768px) {
+  .about-hero--gary {
+    /* móvil también llena la ventana como el Home (hereda var(--hero-h-original)) */
+    padding-top: clamp(7.5rem, 22vw, 10rem);
+  }
+  /* Gary como acento a la derecha; el scrim vertical fuerte sostiene el copy sobre el video. */
+  .about-hero__composite img {
+    object-position: 82% bottom;
+  }
+  .about-hero__scrim {
+    background:
+      radial-gradient(90% 60% at 20% 18%, rgba(254, 212, 87, 0.1), transparent 52%),
+      radial-gradient(96% 82% at 100% 92%, rgba(9, 13, 32, 0.66), transparent 56%),
+      linear-gradient(180deg, rgba(9, 13, 32, 0.52) 0%, rgba(9, 13, 32, 0.36) 40%, rgba(9, 13, 32, 0.82) 100%);
+  }
+}
+
+/* Reduced-motion: sin Ken Burns ni respiración de orbes (el video lo pausa about.js). */
+@media (prefers-reduced-motion: reduce) {
+  .about-hero__video {
+    animation: none;
+    transform: scale(1.04);
+  }
+}
+
 /* Retratos recortados (PNG transparente) — flotan con glow, sin marco ni crop */
 .about-portrait {
   position: relative;
@@ -762,28 +1444,13 @@ body.about-page main {
   color: var(--purple);
 }
 
-/* Waves decorativas (yellowaves-bg.png) */
-.about-waves {
-  display: flex;
-  justify-content: center;
-  padding: clamp(0.5rem, 2vw, 2rem) 0 clamp(1rem, 3vw, 3rem);
-}
-
-.about-waves img {
-  width: min(190px, 46vw);
-  height: auto;
-  opacity: 0.92;
-  filter: drop-shadow(0 18px 30px rgba(254, 212, 87, 0.18));
-  animation: aboutWavesFloat 7s var(--ease) infinite alternate;
-}
-
-@keyframes aboutWavesFloat {
-  from { transform: translateY(-6px); }
-  to { transform: translateY(6px); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .about-waves img { animation: none; }
+  .reveals-on .about-hero [data-reveal],
+  .reveals-on .about-section--intro [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Fila de stats — números reales de la viva; tiles oscuros glass con número en oro (alto contraste) */
@@ -831,3 +1498,581 @@ body.about-page main {
   .about-portrait--blob img { max-width: 100%; }
   .about-statement__text { max-width: 100%; }
 }
+
+/* ===== "Threshold" v3 — banda-CIELO a foto COMPLETA (sunset-bg) 2026-07-02 =====
+   v3: la foto se muestra ENTERA (cielo, nubes y MAR — se quita la máscara que borraba el mar): en
+   desktop la sección adopta el aspect-ratio de la foto (1920/1808) y el copy pasa de centrado a
+   composición EDITORIAL alineada a la izquierda con paso diagonal descendente (eyebrow → lead →
+   clímax oro) que lee hacia el horizonte. El pie ya no cose a claro: el mar oscuro se funde con la
+   banda navy "Co-founder". Sin wave/halo (petición cliente + ref w22.png).
+   Stack: foto z0 · disolución de cielo z1 · velo tenue z2 · base navy z3 · copy z5. */
+.about-threshold {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;                  /* copy anclado ARRIBA, no centrado */
+  align-items: center;
+  aspect-ratio: 1920 / 1808;                    /* la sección calca la proporción de la foto → se ve completa */
+  /* width explícito: sin él, cuando max-height capa el alto el aspect-ratio TRANSFIERE el tamaño
+     y encoge el ancho (a 1699px en viewports ≥ ~1700px → franja blanca derecha, ee3.png) */
+  width: 100%;
+  min-height: clamp(820px, 128vh, 1500px);      /* fallback vh */
+  min-height: clamp(820px, 128svh, 1500px);
+  max-height: 1600px;                           /* cap ultra-wide; object-position protege el mar */
+  padding: clamp(6rem, 6rem + 6vh, 10rem) var(--gutter) clamp(4rem, 8vh, 8rem);
+  color: var(--text-on-dark);
+  text-align: left;
+  /* fallback si la foto no carga: night → índigo → lavanda → cálido → mar oscuro → navy (hacia B) */
+  background: linear-gradient(180deg, #2a1140 0%, #3c1951 10%, #5a4a7e 30%, #8f7ba8 48%, #d69a86 66%, #4a3d6b 84%, #0e1631 100%);
+}
+
+/* --- Capa 0: foto-cielo COMPLETA (Ken Burns MUY sutil, solo transform → compositor-friendly).
+       Sin máscara: el mar del tercio inferior queda visible; si el cap de altura recorta en
+       ultra-wide, el sesgo bajo del object-position sacrifica índigo superior, nunca el mar. --- */
+.about-threshold__photo { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.about-threshold__photo img {
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 68%;
+  transform: scale(1.04);
+  animation: aboutThresholdKen 40s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* --- Capa 1: DISOLUCIÓN de cielo — el tope se funde con la banda oscura de arriba (#2a1140/--purple)
+       y se pierde en transparente hacia ~58%, dejando emerger el índigo de la foto SIN línea. --- */
+.about-threshold__sky {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg,
+    #2a1140 0%,
+    rgba(42, 17, 64, 0.96) 5%,
+    rgba(46, 26, 74, 0.72) 17%,
+    rgba(58, 40, 96, 0.42) 30%,
+    rgba(90, 74, 126, 0.18) 44%,
+    transparent 58%);
+}
+
+/* --- Capa 2: velo tenue de legibilidad tras el copy (ahora arriba-IZQUIERDA) --- */
+.about-threshold__veil {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(64% 46% at 34% 24%, rgba(14, 22, 49, 0.36) 0%, rgba(14, 22, 49, 0.12) 54%, transparent 78%);
+}
+
+/* --- Capa 3: base navy — el mar sigue VISIBLE; solo su borde inferior se hunde en el navy de la
+       banda "Co-founder" (B) para una costura oscura sin línea de corte. --- */
+.about-threshold__base {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(180deg, transparent 76%, rgba(14, 22, 49, 0.55) 92%, #0e1631 100%);
+}
+
+/* --- Capa 5: copy (parallax de scroll sutil vía --parx-copy que escribe about.js; fallback 0) --- */
+.about-threshold__inner {
+  position: relative; z-index: 5; width: min(72rem, 100%);
+  transform: translate3d(0, var(--parx-copy, 0), 0);
+}
+
+/* Composición editorial: paso diagonal descendente (cada frase entra más indentada y más grande),
+   leyendo desde el índigo hacia el horizonte — patrón "aspire" del Home. */
+.about-threshold__text {
+  margin: 0;
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: clamp(0.9rem, 2vw, 1.6rem);
+  font-family: var(--font-display);
+}
+.about-threshold__phrase { display: block; margin: 0; }
+
+.about-threshold__phrase--eyebrow {
+  max-width: 44ch; color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-body); font-weight: 600;
+  font-size: clamp(0.85rem, 0.76rem + 0.4vw, 1.08rem);
+  line-height: 1.55; letter-spacing: 0.18em; text-transform: uppercase;
+  text-shadow: 0 1px 18px rgba(14, 22, 49, 0.55);
+}
+.about-threshold__phrase--lead {
+  max-width: 18ch; margin-left: clamp(0rem, 6vw, 6rem);
+  color: #fff; font-weight: 400;
+  font-size: clamp(1.9rem, 1.3rem + 2.6vw, 3.6rem);
+  line-height: 1.12; letter-spacing: -0.015em;
+  text-shadow: 0 2px 26px rgba(14, 22, 49, 0.55);
+}
+.about-threshold__crescendo {
+  display: block; max-width: 14ch;
+  margin: 0.18em 0 0 clamp(0rem, 12vw, 13rem);
+  color: var(--gold); font-weight: 400;
+  font-size: clamp(2.5rem, 1.6rem + 4.6vw, 5.4rem);
+  line-height: 1.04; letter-spacing: -0.02em;
+  /* ancla oscura → oro legible sobre el índigo (sin glow de halo) */
+  text-shadow: 0 2px 26px rgba(20, 16, 45, 0.6), 0 1px 2px rgba(20, 16, 45, 0.4);
+}
+
+/* Regla de horizonte dorada — alineada al indent del clímax, se dibuja de izquierda a derecha */
+.about-threshold__horizon {
+  display: block; width: clamp(120px, 22vw, 260px); height: 2px;
+  margin: clamp(1.4rem, 3vw, 2.4rem) 0 0 clamp(0rem, 12vw, 13rem);
+  background: linear-gradient(90deg, rgba(255, 235, 69, 0.95), rgba(255, 235, 69, 0.35) 62%, transparent);
+  box-shadow: 0 0 22px rgba(254, 212, 87, 0.35);
+  transform-origin: left center;
+}
+
+/* --- Keyframes: Ken Burns muy sutil del cielo (queda en índigo/nubes, no saca el borde) --- */
+@keyframes aboutThresholdKen {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to   { transform: scale(1.09) translate3d(-0.8%, -1%, 0); }
+}
+
+/* --- Reveal MÁS expresivo (reutiliza [data-reveal] de about.js) — sube más, con blur que se disipa;
+       oculto vive bajo .reveals-on → sin JS el copy queda visible. --- */
+.reveals-on .about-threshold [data-reveal] {
+  opacity: 0; transform: translateY(42px); filter: blur(12px);
+  transition: opacity 0.9s var(--ease), transform 1.1s var(--ease), filter 0.9s var(--ease);
+}
+.reveals-on .about-threshold [data-reveal].is-revealed {
+  opacity: 1; transform: none; filter: blur(0);
+}
+
+/* El clímax dorado asienta su tracking (de amplio a normal) al revelarse — beat editorial extra */
+.reveals-on .about-threshold__crescendo[data-reveal] {
+  letter-spacing: 0.1em;
+  transition: opacity 0.9s var(--ease), transform 1.1s var(--ease), filter 0.9s var(--ease), letter-spacing 1.1s var(--ease);
+}
+.reveals-on .about-threshold__crescendo[data-reveal].is-revealed { letter-spacing: -0.02em; }
+
+/* Stagger (especificidad 0,4,0 > base 0,3,0 → gana la delay):
+   apertura → desarrollo → clímax (beats mayores para que se "lean" uno a uno) */
+.reveals-on .about-threshold__text > [data-reveal]:nth-child(1) { transition-delay: 0.05s; }
+.reveals-on .about-threshold__text > [data-reveal]:nth-child(2) { transition-delay: 0.22s; }
+.reveals-on .about-threshold__text > [data-reveal]:nth-child(3) { transition-delay: 0.44s; }
+
+/* La regla del horizonte se DIBUJA (scaleX) al final; delay dentro del shorthand para
+   no pelear con la especificidad de la regla base */
+.reveals-on .about-threshold [data-reveal].about-threshold__horizon {
+  opacity: 0; transform: scaleX(0); filter: none;
+  transition: opacity 0.6s var(--ease) 0.6s, transform 1s var(--ease) 0.6s;
+}
+.reveals-on .about-threshold [data-reveal].about-threshold__horizon.is-revealed {
+  opacity: 1; transform: scaleX(1);
+}
+
+/* --- ≤1040: la proporción de la foto ya no manda (retrato); alturas acotadas, crop hacia nubes+mar --- */
+@media (max-width: 1040px) {
+  .about-threshold {
+    aspect-ratio: auto;
+    min-height: clamp(720px, 112svh, 1200px);
+    max-height: none;
+    padding-top: clamp(5.5rem, 12vh, 9rem);
+  }
+  .about-threshold__photo img { object-position: 50% 60%; }
+  .about-threshold__inner { width: min(48rem, 100%); }
+}
+
+/* --- ≤768: fuente móvil (sunset-bg-960); el crop prioriza nubes+mar y la disolución de cielo
+       se extiende para que el copy repose sobre el degradado (la foto ~1:1 no da altura) --- */
+@media (max-width: 768px) {
+  .about-threshold {
+    min-height: clamp(640px, 104svh, 980px);
+    padding-block: clamp(5rem, 13vh, 7.5rem) clamp(3rem, 8vh, 5rem);
+  }
+  .about-threshold__photo img { object-position: 52% 58%; }
+  .about-threshold__sky {
+    background: linear-gradient(180deg,
+      #2a1140 0%,
+      rgba(42, 17, 64, 0.95) 8%,
+      rgba(46, 26, 74, 0.7) 24%,
+      rgba(58, 40, 96, 0.4) 42%,
+      rgba(90, 74, 126, 0.16) 56%,
+      transparent 70%);
+  }
+  .about-threshold__veil {
+    background: radial-gradient(120% 50% at 42% 24%, rgba(14, 22, 49, 0.42) 0%, rgba(14, 22, 49, 0.14) 58%, transparent 84%);
+  }
+  .about-threshold__phrase--lead { margin-left: 1.25rem; }
+  .about-threshold__crescendo { margin-left: 2.5rem; }
+  .about-threshold__horizon { margin-left: 2.5rem; }
+}
+
+/* --- ≤520: sin límites de ch, indents mínimos, sin overflow horizontal --- */
+@media (max-width: 520px) {
+  .about-threshold__inner { width: 100%; }
+  .about-threshold__phrase--eyebrow { max-width: 100%; font-size: 0.82rem; }
+  .about-threshold__phrase--lead { max-width: 100%; font-size: clamp(1.55rem, 7.6vw, 2.05rem); margin-left: 0.75rem; }
+  .about-threshold__crescendo { max-width: 100%; font-size: clamp(1.95rem, 8.8vw, 2.6rem); margin-left: 1.5rem; }
+  .about-threshold__horizon { margin-left: 1.5rem; }
+}
+
+/* --- Reduced-motion: sin Ken Burns ni parallax; el copy se muestra en sitio (sin blur/desplazamiento).
+       El tracking de cada frase lo aporta su clase base; aquí solo se neutraliza el del clímax. --- */
+@media (prefers-reduced-motion: reduce) {
+  .about-threshold__photo img { animation: none; transform: scale(1.03); }
+  .about-threshold__inner { transform: none; }
+  .reveals-on .about-threshold [data-reveal] {
+    opacity: 1; transform: none; filter: none; transition: none;
+  }
+  .reveals-on .about-threshold [data-reveal].about-threshold__horizon { transform: scaleX(1); }
+  .reveals-on .about-threshold__crescendo[data-reveal] { letter-spacing: -0.02em; transition: none; }
+}
+
+/* ===== "Co-founder" — banda oscura editorial (credential ledger) 2026-07-02 =====
+   Reemplaza la .about-section clara de esta página (esa clase sigue viva en otras About): el mar
+   oscuro de Threshold desemboca aquí en navy y la banda deriva a navy-teal para anticipar el teal
+   del sunset del cierre. Copy izquierda (lead serif + 5 credenciales tipo "ledger" con hairlines
+   doradas), retrato Gary & Linda derecha. Aurora estática — SIN Soul Tide (Deep Wisdom ya monta el
+   único canvas de la página). Stack: viñeta z0 · aurora z1 · inner z3. */
+.about-cofounder {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(4.5rem, 5rem + 4vh, 8.5rem) var(--gutter);
+  color: var(--text-on-dark);
+  background: linear-gradient(180deg, #0e1631 0%, #141b3a 40%, #0f2b3a 78%, #0d3a47 100%);
+}
+
+.about-cofounder::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 42%, transparent 40%, rgba(5, 9, 22, 0.5) 100%);
+}
+
+/* Re-afirma el navy-teal EXACTO en el borde inferior (la viñeta lo oscurecía y se notaba un
+   escalón contra el arranque teal del "Sundown") */
+.about-cofounder::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0; height: 140px; z-index: 2; pointer-events: none;
+  background: linear-gradient(180deg, rgba(13, 58, 71, 0), #0d3a47);
+}
+
+.about-cofounder__aurora {
+  position: absolute; inset: -20% -10%; z-index: 1; pointer-events: none;
+  mix-blend-mode: screen; opacity: 0.45;
+  background:
+    radial-gradient(38% 44% at 70% 24%, rgba(254, 212, 87, 0.16), transparent 64%),
+    radial-gradient(46% 50% at 86% 70%, rgba(210, 204, 253, 0.13), transparent 66%),
+    radial-gradient(40% 46% at 22% 80%, rgba(126, 90, 200, 0.14), transparent 66%);
+}
+
+.about-cofounder__inner {
+  position: relative; z-index: 3;
+  width: var(--about-shell);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+  gap: clamp(2.5rem, 5vw, 5.5rem);
+  align-items: center;
+}
+
+/* Parallax sutil de scroll (about.js reusa mountEmergeParallax con estos selectores; fallback 0) */
+.about-cofounder__copy { transform: translate3d(0, var(--parx-copy, 0), 0); }
+.about-cofounder__media { transform: translate3d(0, var(--parx-media, 0), 0); }
+
+.about-cofounder__eyebrow {
+  margin: 0 0 0.9rem;
+  color: var(--gold);
+  font-size: 0.86rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+
+.about-cofounder__title {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 4.2rem);
+  line-height: 1.04; letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.about-cofounder__title .gold { color: var(--gold); }
+
+/* Bio verbatim: un único <p> continuo (lectores de pantalla) segmentado SOLO visualmente en sus comas */
+.about-cofounder__text { margin: clamp(1.6rem, 2.5vw, 2.4rem) 0 0; max-width: 56ch; }
+
+.about-cofounder__lead {
+  display: block;
+  margin-bottom: clamp(1.1rem, 2vw, 1.6rem);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
+  line-height: 1.32; letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Credencial del "ledger": hairline dorada superior (última también inferior) */
+.about-cofounder__cred {
+  position: relative;
+  display: block;
+  padding: 0.9em 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 300;
+  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.12rem);
+  line-height: 1.65;
+}
+.about-cofounder__cred::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, rgba(254, 212, 87, 0.5), rgba(254, 212, 87, 0.06) 72%, transparent);
+}
+.about-cofounder__cred:last-child::after {
+  content: "";
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, rgba(254, 212, 87, 0.5), rgba(254, 212, 87, 0.06) 72%, transparent);
+}
+
+/* Retrato: el PNG ya integra los círculos dorados; glow + flotación lenta (compositor-friendly) */
+.about-cofounder__media { display: flex; justify-content: center; }
+.about-cofounder__figure { position: relative; margin: 0; width: 100%; max-width: 540px; }
+.about-cofounder__figure::before {
+  content: "";
+  position: absolute; inset: 8% 4%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 212, 87, 0.2), rgba(210, 204, 253, 0.12) 55%, transparent 72%);
+  filter: blur(6px);
+}
+.about-cofounder__figure img {
+  position: relative; z-index: 1;
+  display: block; width: 100%; height: auto;
+  filter: drop-shadow(0 34px 70px rgba(3, 8, 20, 0.55));
+  animation: aboutCofounderFloat 9s var(--ease) infinite alternate;
+}
+
+@keyframes aboutCofounderFloat {
+  from { transform: translateY(-7px); }
+  to { transform: translateY(7px); }
+}
+
+/* Stagger del ledger: lead → credenciales una a una (reusa el reveal genérico [data-reveal]) */
+.reveals-on .about-cofounder__text > [data-reveal]:nth-child(1) { transition-delay: 0.05s; }
+.reveals-on .about-cofounder__text > [data-reveal]:nth-child(2) { transition-delay: 0.14s; }
+.reveals-on .about-cofounder__text > [data-reveal]:nth-child(3) { transition-delay: 0.23s; }
+.reveals-on .about-cofounder__text > [data-reveal]:nth-child(4) { transition-delay: 0.32s; }
+.reveals-on .about-cofounder__text > [data-reveal]:nth-child(5) { transition-delay: 0.41s; }
+.reveals-on .about-cofounder__text > [data-reveal]:nth-child(6) { transition-delay: 0.5s; }
+
+@media (max-width: 1040px) {
+  /* ritmo móvil: menos aire muerto alrededor del retrato (audit 2026-07-02) */
+  .about-cofounder { padding-block: clamp(3.5rem, 4rem + 3vh, 6rem); }
+  .about-cofounder__inner { grid-template-columns: minmax(0, 1fr); }
+  .about-cofounder__media { order: 2; margin-top: 1.5rem; }
+  .about-cofounder__figure { max-width: 400px; }
+}
+
+@media (max-width: 520px) {
+  .about-cofounder__text { max-width: 100%; }
+  .about-cofounder__figure { max-width: min(340px, 100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-cofounder__figure img { animation: none; }
+  .about-cofounder__copy,
+  .about-cofounder__media { transform: none !important; }
+}
+
+/* ===== "Sundown" — cierre inmersivo Oprah sobre sunset teal→naranja (sundown-bg) 2026-07-02 =====
+   Reemplaza el .about-statement--close claro. La foto ancla las COLINAS abajo (object-position 100%);
+   el teal plano superior se cose con el navy-teal final de "Co-founder" y las colinas oscuras se
+   funden con el navy del footer. Texto editorial arriba-izquierda; statband glass sobre la franja
+   naranja. Sin canvas ni Ken Burns: la foto ES la atmósfera.
+   Stack: foto z0 · costura superior z1 · velo z2 · costura inferior z3 · inner z5. */
+.about-sundown {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  padding: clamp(5rem, 6rem + 5vh, 9rem) var(--gutter) clamp(4.5rem, 8vh, 7rem);
+  color: var(--text-on-dark);
+  /* fallback si la foto no carga: teal → naranja → colinas → navy footer (#0b1126 = tono real
+     con el que ARRANCA el ::before del footer; #0e1631 dejaba un escalón) */
+  background: linear-gradient(180deg, #0d3a47 0%, #0d4a56 42%, #c56a3a 78%, #171d33 94%, #0b1126 100%);
+}
+
+.about-sundown__photo { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.about-sundown__photo img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;   /* colinas SIEMPRE visibles al pie; el teal sobrante lo cubre la costura */
+}
+
+.about-sundown__seamtop {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, #0d3a47 0%, rgba(13, 58, 71, 0) 30%);
+}
+
+.about-sundown__veil {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(70% 55% at 30% 30%, rgba(6, 20, 28, 0.38) 0%, rgba(6, 20, 28, 0.12) 55%, transparent 80%);
+}
+
+.about-sundown__seambottom {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  /* destino #0b1126: el navy con el que arranca el ::before del footer (con #0e1631 quedaba escalón) */
+  background: linear-gradient(180deg, transparent 80%, rgba(11, 17, 38, 0.7) 93%, #0b1126 100%);
+}
+
+/* Inner: texto arriba, statband empujada al pie (sobre la franja naranja/colinas). Parallax sutil
+   (about.js reusa mountThresholdParallax con este selector; fallback 0). */
+.about-sundown__inner {
+  position: relative; z-index: 5;
+  width: var(--about-shell);
+  margin: 0 auto;
+  display: flex; flex-direction: column;
+  min-height: clamp(680px, 100vh, 1300px);
+  min-height: clamp(680px, 100svh, 1300px);
+  transform: translate3d(0, var(--parx-copy, 0), 0);
+}
+
+.about-sundown__text {
+  margin: 0;
+  max-width: 24em;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.7rem);
+  line-height: 1.26; letter-spacing: -0.015em;
+  text-shadow: 0 2px 24px rgba(6, 20, 28, 0.5);
+}
+
+.about-sundown .about-statband {
+  margin-top: auto;
+  padding-top: clamp(3rem, 6vh, 5rem);
+}
+
+/* Enlace oro puro — para fondos oscuros (el .about-goldlink base usa #c69214 pensado para claro) */
+.about-goldlink--dark { color: var(--gold); }
+.about-goldlink--dark:hover { color: var(--periwinkle); }
+
+/* Tiles glass sobre el atardecer: vidrio oscuro + hairline, número en oro (hereda) */
+.about-statband--glass .about-statband__item {
+  background: rgba(10, 16, 34, 0.44);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 26px 60px -42px rgba(3, 8, 20, 0.8);
+}
+
+/* Stagger de los tiles al revelarse */
+.reveals-on .about-sundown .about-statband__item:nth-child(1) { transition-delay: 0.05s; }
+.reveals-on .about-sundown .about-statband__item:nth-child(2) { transition-delay: 0.13s; }
+.reveals-on .about-sundown .about-statband__item:nth-child(3) { transition-delay: 0.21s; }
+.reveals-on .about-sundown .about-statband__item:nth-child(4) { transition-delay: 0.29s; }
+
+@media (max-width: 1040px) {
+  .about-sundown__inner { min-height: clamp(620px, 92svh, 1100px); }
+}
+
+@media (max-width: 768px) {
+  .about-sundown { padding-top: clamp(4rem, 10vh, 6rem); }
+  .about-sundown__inner { min-height: clamp(560px, 84svh, 900px); }
+  .about-sundown__photo img { object-position: 62% 100%; }
+  .about-sundown__veil {
+    background: radial-gradient(120% 60% at 40% 26%, rgba(6, 20, 28, 0.42) 0%, rgba(6, 20, 28, 0.14) 58%, transparent 84%);
+  }
+  /* costura inferior más baja: en móvil la foto es corta y el fade a 80% enterraba las colinas */
+  .about-sundown__seambottom {
+    background: linear-gradient(180deg, transparent 88%, rgba(11, 17, 38, 0.6) 95%, #0b1126 100%);
+  }
+  .about-sundown .about-statband { padding-top: clamp(2.25rem, 5vh, 3.5rem); }
+}
+
+@media (max-width: 520px) {
+  .about-sundown__text { max-width: 100%; }
+  /* tiles glass compactos: 2×2 legible sin devorar la franja naranja (número ≥2rem, label 11px) */
+  .about-statband--glass .about-statband__item { padding: 1rem 0.9rem; gap: 0.4rem; border-radius: 16px; }
+  .about-sundown .about-statband { gap: 0.7rem; }
+  .about-sundown .about-statband .about-statband__num { font-size: clamp(1.9rem, 8vw, 2.3rem); }
+  .about-sundown .about-statband .about-statband__label { font-size: 0.69rem; letter-spacing: 0.08em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-sundown__inner { transform: none; }
+  .reveals-on .about-sundown [data-reveal] {
+    opacity: 1; transform: none; transition: none;
+  }
+}
+
+/* ===== About Linda — variantes --linda sobre el sistema cinemático de Gary (2026-07-02) =====
+   about-linda-francis/ reusa TODAS las bandas de Gary (el hero lleva la clase .about-hero--gary
+   además de --linda para heredar su layout). Aquí solo lo propio de Linda: el retrato de la banda
+   inmersiva es FOTO a color (viñeta suave, no recorte transparente), el threshold lleva quote +
+   atribución, el cofounder muestra los libros co-escritos y el sundown cierra con el memorial. */
+
+/* --- "Authentic Power" (emerge): retrato a color con viñeta en vez de cutout a sangre.
+       Solo desktop (≥1041px): en móvil las reglas base ya aplican la viñeta elíptica + fade. --- */
+@media (min-width: 1041px) {
+  .about-emerge--linda .about-emerge__media {
+    align-items: center;
+    padding-left: clamp(2rem, 5vw, 5.5rem);
+  }
+  .about-emerge--linda .about-emerge__figure {
+    height: auto;
+    max-height: none;
+  }
+  .about-emerge--linda .about-emerge__figure img {
+    height: auto;
+    width: clamp(320px, 30vw, 500px);
+    /* viñeta elíptica en UNA capa: la foto rectangular se funde con la banda navy por los
+       cuatro bordes. Sin mask-composite (Chromium lo ignora y la unión dejaba bordes duros). */
+    -webkit-mask-image: radial-gradient(64% 66% at 50% 42%, #000 30%, transparent 90%);
+    mask-image: radial-gradient(64% 66% at 50% 42%, #000 30%, transparent 90%);
+  }
+  .about-emerge--linda .about-emerge__halo {
+    left: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(92%, 520px);
+  }
+}
+
+/* --- Threshold (quote): el clímax respira más ancho que el de Gary (frase de 33 caracteres)
+       y la atribución cierra bajo la regla de horizonte, alineada a su indent. --- */
+.about-threshold--linda .about-threshold__crescendo { max-width: 16ch; }
+
+.about-threshold__attrib {
+  display: block;
+  margin: clamp(1.1rem, 2.2vw, 1.8rem) 0 0 clamp(0rem, 12vw, 13rem);
+  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 18px rgba(14, 22, 49, 0.55);
+}
+/* la atribución entra al final del beat (tras el horizonte); hereda el reveal blur de la banda */
+.reveals-on .about-threshold [data-reveal].about-threshold__attrib { transition-delay: 0.85s; }
+
+@media (max-width: 768px) {
+  .about-threshold__attrib { margin-left: 2.5rem; }
+}
+@media (max-width: 520px) {
+  .about-threshold__attrib { margin-left: 1.5rem; font-size: 0.78rem; }
+}
+
+/* --- Co-founder: la media son los DOS libros co-escritos (PNG transparente 600×917, vertical) —
+       más angosto que el retrato circular de Gary para no agigantarse. Glow reutilizado. --- */
+.about-cofounder--linda .about-cofounder__figure { max-width: 360px; }
+.about-cofounder--linda .about-cofounder__figure::before { inset: 12% 6%; }
+
+@media (max-width: 1040px) {
+  .about-cofounder--linda .about-cofounder__figure { max-width: 300px; }
+}
+@media (max-width: 520px) {
+  .about-cofounder--linda .about-cofounder__figure { max-width: min(260px, 88%); }
+}
+
+/* --- Sundown memorial: segunda frase en oro + enlace a In Celebration of Linda Francis --- */
+.about-sundown__text .gold { color: var(--gold); }
+
+.about-sundown__cta {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.5rem;
+  margin-top: clamp(1.4rem, 3vh, 2.4rem);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+.about-sundown__cta span { transition: transform var(--dur) var(--ease); }
+.about-sundown__cta:hover span { transform: translateX(4px); }

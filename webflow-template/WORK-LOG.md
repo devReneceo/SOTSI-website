@@ -105,3 +105,20 @@ Construida NATIVA con `data_whtml_builder` (markup verbatim de `index.template.h
 - [ ] Instafeed: pasar de mock a Meta Graph API (requiere credenciales del cliente + `useMockData:false` + JSON server-side).
 - [ ] Al re-pinear jsDelivr tras cada push: **repin quirúrgico** (nunca pegar este md encima) y republicar.
 - [ ] Generar el clone link al terminar.
+
+---
+
+## 2026-07-04 — Sync con el estático de main (nav real + nuevos casos) — SIN push, SIN tocar el site vivo
+
+**Qué se sincronizó (fuente = working tree de `main`, aún sin commit en main — hash de referencia pendiente):**
+- **Nav ×3 (navCentered / navBar / navImmersive) + 3 drawers**: trasplantados VERBATIM desde el Home actual. Ahora llevan el menú de paridad LOCKED completo: `Get Started · About(dd real: About SOTSI / About Gary / About Linda) · In Celebration of Linda Francis · Courses(dd shop + 4 Kajabi ↗) · Deepcast → podcast/ · Blog → blog/ · Resources(dd 5 items reales) · Soul Store → shop/`. Triggers de dropdown en `href="#"` (§G). Drawer con `snav__mobile-label` + `subnav-link`s de About y Resources.
+- **Blog → `blog/`**: destino NUEVO (el estático ya tiene sección Blog "Soul Feed" — directorio editorial de 175 posts + detalle `blog/post/?post=<slug>`). Deja de compartir destino con Deepcast (fix del doble aria-current §G). `blog__all` de la sección Blog del Home → `blog/`.
+- **Cards de la sección Blog del Home**: wired a páginas reales — AI & Human Evolution → `ai-and-human-evolution/`, Failing Governments → `failing-government/`, Choosing Love Over Fear → `love-fear/`.
+- **Stat Oprah**: "appearances on Oprah" → **"features with Oprah"** (label de main).
+- **Books CTA**: "Buy Now" `#` → **"GET THE BOOKS"** → `https://seatofthesoul.com/books` (target _blank).
+- **CSS sincronizados desde main**: `tokens.css`, `brand.css`, `mobile.css`, `section-polish.css` (los otros 5 ya eran idénticos; JS sin cambios).
+
+**Implicación para el site nativo (proposal-03) — NO aplicado en este pase:**
+1. Commit en main + push de esta rama → **repin quirúrgico** del jsDelivr (el pin `@4b3a8ea` queda obsoleto para los 4 CSS sincronizados).
+2. El nav nativo del site tiene los links viejos → actualizar por MCP con estos destinos (en especial Blog → blog/ si el demo gana página de blog, o mantener # hasta que exista en Webflow).
+3. La sección Blog CMS del site (3 items curados) ahora tiene contrapartida real en el estático (`blog/` con 175 posts) — evaluar si el demo necesita colección ampliada o link out.

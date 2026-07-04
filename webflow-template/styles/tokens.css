@@ -32,13 +32,15 @@
   --grad-airy: linear-gradient(160deg, #e7d4f1 0%, #d2ccfd 100%);
   --grad-gold: linear-gradient(120deg, #fed457 0%, #ffeb45 100%);
   --glow-yellow: radial-gradient(circle, rgba(255, 235, 69, 0.55) 0%, rgba(255, 235, 69, 0) 70%);
+  --grad-deep: linear-gradient(160deg, #0e1631 0%, #1d0d38 55%, #3c1951 100%);        /* navy→púrpura profundo (transiciones) */
+  --grad-periwinkle: linear-gradient(165deg, #d2ccfd 0%, #eceaff 58%, #f6f4fb 100%);  /* periwinkle→casi blanco (banda clara) */
 
   /* ---- Tipografía ----
      Canela (títulos) → fallback Cormorant Garamond/Fraunces.
      Jost (cuerpo). Cargadas en cada HTML desde Google Fonts. */
-  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+  --font-display: "Fraunces", "Cormorant Garamond", "Canela", Georgia, serif;
   --font-body: "Jost", "Inter", system-ui, -apple-system, sans-serif;
-  --font-script: "Dancing Script", "Pinyon Script", cursive;
+  --font-script: "Dancing Script", "WorldDiscovery One", cursive;
   --font-accent: "Pinyon Script", "Allura", "Fraunces", cursive;   /* script elegante para frases emotivas (brand book) */
 
   /* Escala fluida — cuerpo grande (senior-friendly: base 20px) */

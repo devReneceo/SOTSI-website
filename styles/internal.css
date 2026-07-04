@@ -9,11 +9,24 @@
 @import "./brand.css";
 @import "./sections.css";
 @import "./theme.css";
+/* Paridad total con el Home (RULES §A): mismas capas responsive → mismo nav
+   (cap 1680px en pantallas anchas, drawer móvil animado). 2026-07-04 */
+@import "./mobile.css";
+@import "./responsive-fix.css";
 
 :root {
   --int-shell: min(1240px, calc(100vw - 2 * var(--gutter)));
   --int-copy: 68ch;
   --int-hero-min: 480px;
+}
+
+/* responsive-fix.css ensancha --maxw-wide (footer) en monitores grandes;
+   el rail interno acompaña para que footer y secciones queden alineados. */
+@media (min-width: 1440px) {
+  :root { --int-shell: min(1320px, calc(100vw - 2 * var(--gutter))); }
+}
+@media (min-width: 1920px) {
+  :root { --int-shell: min(1440px, calc(100vw - 2 * var(--gutter))); }
 }
 
 html { scroll-behavior: smooth; }
@@ -28,15 +41,8 @@ body.int-page {
 
 body.int-page main { overflow: clip; }
 
-.int-page .snav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: linear-gradient(180deg, rgba(14, 22, 49, 0.94), rgba(14, 22, 49, 0.82));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
-}
+/* (El override navy del .snav se retiró 2026-07-04: era código muerto —
+   .snav--immersive de brand.css ya fija position y fuerza background con !important.) */
 
 .int-page .snav__mobile-panel .subnav-link {
   padding-left: 1rem;
@@ -84,20 +90,34 @@ body.int-page main { overflow: clip; }
 
 .int-hero__inner { width: var(--int-shell); margin: 0 auto; }
 
+/* Breadcrumb — RULES.md §F (rev 2026-07-04): texto plano sutil, SIN chip
+   (sin fondo, borde ni pill), bottom-left del hero, punto centrado.
+   El <nav> vive como hijo directo de .int-hero (position:relative) para anclar el absolute. */
 .int-breadcrumbs {
+  position: absolute;
+  left: clamp(1.1rem, 4vw, 2.6rem);
+  bottom: clamp(1.4rem, 3vh, 2.6rem);
+  z-index: 5;
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 1.25rem;
-  color: rgba(255, 255, 255, 0.74);
-  font-size: 0.92rem;
-  letter-spacing: 0.08em;
+  gap: 0.5rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  text-shadow: 0 1px 12px rgba(14, 22, 49, 0.45);
 }
 
-.int-breadcrumbs a { color: inherit; text-decoration: none; }
+.int-breadcrumbs a { color: inherit; text-decoration: none; transition: color 0.2s; }
 .int-breadcrumbs a:hover { color: var(--gold); }
+.int-breadcrumbs [aria-current="page"] { color: var(--gold); }
+.int-breadcrumbs .crumb-sep { opacity: 0.55; }
+
+@media (max-width: 560px) {
+  .int-breadcrumbs { font-size: 0.64rem; }
+}
 
 .int-kicker {
   margin: 0 0 1rem;
@@ -786,10 +806,12 @@ body.int-page main { overflow: clip; }
 .rv { opacity: 0; transform: translateY(18px); transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease); }
 .rv.in { opacity: 1; transform: none; }
 
-/* ---------- Prototype ribbon (team-facing) ---------- */
+/* ---------- Prototype ribbon (team-facing) ----------
+   Bottom-right para no chocar con el breadcrumb pill (RULES.md §F). */
 .proto-ribbon {
   position: fixed;
-  left: 1rem;
+  left: auto;
+  right: 1rem;
   bottom: 1rem;
   z-index: 60;
   padding: 0.4rem 0.9rem;
@@ -810,9 +832,256 @@ body.int-page main { overflow: clip; }
   .int-page .snav__logo img { max-width: min(56vw, 220px); height: auto; }
 }
 
+/* En móvil el ribbon interno se encoge y el breadcrumb envuelve antes de llegar
+   a su zona (evita el choque bottom-left vs bottom-right). */
+@media (max-width: 560px) {
+  .proto-ribbon { font-size: 0.6rem; padding: 0.28rem 0.6rem; opacity: 0.78; }
+  .int-breadcrumbs { max-width: calc(100vw - 9.5rem); }
+}
+
 /* ---------- Motion safety ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .rv { opacity: 1; transform: none; transition: none; }
   .path-card, .cat-card, .ep-row, .cat-card__media img { transition: none; }
+}
+
+/* ---------- Mobile nav parity with Home ----------
+   Port of styles/mobile.css §1 (nav + full-screen drawer). Desde 2026-07-04
+   internal.css SÍ importa mobile.css (paridad §A); este bloque queda como
+   refuerzo scoped .int-page con los mismos valores (gana la cascada, cero
+   cambio visual). Drawer state driven by body.menu-open (assets/js/internal.js). */
+@media (max-width: 1199px) {
+  .int-page .snav__main .wrap {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 60px;
+    padding-left: max(var(--gutter, 18px), env(safe-area-inset-left));
+    padding-right: max(var(--gutter, 18px), env(safe-area-inset-right));
+  }
+  .int-page .snav__logo { justify-self: auto !important; padding-inline: 0 !important; margin: 0 !important; }
+  .int-page .snav__logo img { height: auto !important; max-height: 34px !important; width: auto !important; max-width: 62vw !important; }
+  .int-page .snav.is-condensed .snav__logo img { max-height: 30px !important; }
+  .int-page .snav__row { display: none !important; }
+  .int-page .snav__end { display: none !important; }
+  .int-page .snav__burger { display: inline-grid !important; place-items: center; width: 48px; height: 48px; justify-self: auto !important; }
+
+  body.int-page.menu-open { overflow: hidden; }
+  body.int-page.menu-open .snav { z-index: 1300 !important; }
+  body.int-page.menu-open .snav--immersive { position: fixed !important; }
+  body.int-page.menu-open .snav__mobile { display: block; }
+  body.int-page.menu-open .snav__main { position: relative; z-index: 2; }
+  body.int-page.menu-open .snav__mobile-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    overflow-y: auto;
+    padding: calc(80px + env(safe-area-inset-top)) var(--gutter, 20px) calc(2rem + env(safe-area-inset-bottom));
+    background: rgba(10, 15, 35, 0.985) !important;
+    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(22px);
+  }
+  .int-page .snav__mobile-panel a { padding: 1rem 0.2rem; font-size: 1.15rem; min-height: 48px; display: flex; align-items: center; }
+  .int-page .snav__mobile-panel .btn { min-height: 54px; display: flex; align-items: center; justify-content: center; margin-top: 1.2rem; }
+}
+@media (max-width: 380px) {
+  .int-page .snav__logo img { max-height: 30px !important; max-width: 70vw !important; }
+}
+
+/* ============================================================
+   Premium controls — 2026-07-04 (RULES §H)
+   Scoped a .int-page: el Home NO se toca. Botón canónico sobre
+   claro = navy + label oro; sobre oscuro = relleno --grad-gold
+   (oro como relleno solo sobre oscuro, marca LOCKED).
+   ============================================================ */
+
+/* --- Botón primario sobre banda clara: navy pill + label oro + shine sweep --- */
+.int-page .btn--gold {
+  --btn-bg: var(--navy);
+  --btn-fg: var(--gold);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 14px 30px -16px rgba(14, 22, 49, 0.55);
+}
+.int-page .btn--gold::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.2) 50%, transparent 62%);
+  transform: translateX(-130%);
+  transition: transform 0.7s var(--ease);
+  pointer-events: none;
+}
+.int-page .btn--gold:hover {
+  transform: translateY(-3px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 22px 44px -18px rgba(14, 22, 49, 0.6);
+}
+.int-page .btn--gold:hover::after { transform: translateX(130%); }
+.int-page .btn--gold:focus-visible { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--navy); }
+
+/* --- Sobre banda oscura: relleno degradado oro + glow --- */
+.int-page .newsband .btn--gold,
+.int-page .int-band--dark .btn--gold,
+.int-page .int-hero .btn--gold {
+  --btn-bg: transparent;
+  --btn-fg: var(--navy);
+  background: var(--grad-gold);
+  box-shadow: 0 14px 34px -14px rgba(254, 212, 87, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.int-page .newsband .btn--gold:hover,
+.int-page .int-band--dark .btn--gold:hover,
+.int-page .int-hero .btn--gold:hover {
+  box-shadow: 0 20px 44px -14px rgba(254, 212, 87, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.int-page .newsband .btn--gold:focus-visible,
+.int-page .int-band--dark .btn--gold:focus-visible,
+.int-page .int-hero .btn--gold:focus-visible {
+  box-shadow: 0 0 0 3px var(--navy), 0 0 0 6px var(--yellow);
+}
+
+/* --- Inputs premium --- */
+.int-page .field input {
+  border-radius: 14px;
+  background: var(--surface-soft);
+  border-color: rgba(14, 22, 49, 0.14);
+}
+.int-page .field input:focus-visible {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(254, 212, 87, 0.38);
+}
+.int-page .field:focus-within span { color: var(--purple); }
+.int-page .int-band--dark .field input,
+.int-page .newsband .field input,
+.int-page .int-hero .field input {
+  background: rgba(14, 22, 49, 0.45);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.int-page .int-band--dark .field input:focus-visible,
+.int-page .newsband .field input:focus-visible,
+.int-page .int-hero .field input:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 235, 69, 0.25);
+}
+.int-page .int-band--dark .field:focus-within span,
+.int-page .newsband .field:focus-within span,
+.int-page .int-hero .field:focus-within span { color: var(--yellow); }
+
+/* --- Form card: hairline oro superior (firma) --- */
+.int-page .form-card { position: relative; overflow: hidden; }
+.int-page .form-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(254, 212, 87, 0.1), var(--gold) 30%, var(--yellow) 50%, var(--gold) 70%, rgba(254, 212, 87, 0.1));
+  pointer-events: none;
+}
+
+/* --- Newsband: depth (glows + hairline de entrada) --- */
+.int-page .newsband {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.int-page .newsband::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(42% 60% at 12% 8%, rgba(210, 204, 253, 0.16), transparent 70%),
+    radial-gradient(38% 56% at 90% 92%, rgba(254, 212, 87, 0.1), transparent 72%);
+}
+.int-page .newsband::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.7) 50%, transparent);
+}
+.int-page .newsband__inner { position: relative; z-index: 2; }
+
+/* --- Badge externo: respuesta al hover --- */
+.int-page .badge-ext { transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+.int-page .badge-ext:hover,
+.int-page a:hover .badge-ext,
+.int-page .bk-card:hover .badge-ext,
+.int-page .cat-card:hover .badge-ext { border-color: var(--gold); color: var(--purple); }
+.int-page .int-band--dark a:hover .badge-ext,
+.int-page .newsband a:hover .badge-ext { color: var(--yellow); }
+
+/* --- Utilidad de entrada de hero: .int-rise (stagger por --ri) --- */
+@keyframes intRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+.int-rise {
+  opacity: 0;
+  animation: intRise 0.8s var(--ease) forwards;
+  animation-delay: calc(var(--ri, 0) * 90ms + 120ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .int-page .btn--gold::after { transition: none; display: none; }
+  .int-rise { animation: none; opacity: 1; transform: none; }
+}
+
+/* --- Hero de VIDEO (generalización del patrón bk-hero de books, RULES §B) ---
+   Uso: <section class="int-hero int-hero--video" style="--hero-poster:url(...)">
+          <video class="int-hero__video" autoplay muted loop playsinline poster="...">…
+   El gradiente base de .int-hero queda como fallback mientras el video carga. */
+.int-hero--video {
+  min-height: min(100svh, 900px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-block: clamp(9rem, 12vh, 11.5rem) clamp(5.5rem, 10vh, 7.5rem);
+}
+.int-hero--video .int-hero__inner { width: var(--int-shell); }
+.int-hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* scrim sobre el video (reemplaza los radiales decorativos del ::before base) */
+.int-hero--video::before {
+  background: linear-gradient(180deg, rgba(14, 22, 49, 0.6) 0%, rgba(14, 22, 49, 0.26) 40%, rgba(14, 22, 49, 0.72) 100%);
+}
+/* ::after deja de ser capa de imagen y pasa a ser la firma dorada del hero */
+.int-hero--video::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.78) 36%, rgba(255, 235, 69, 0.92) 50%, rgba(254, 212, 87, 0.78) 64%, transparent);
+  box-shadow: 0 0 22px rgba(254, 212, 87, 0.14);
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+/* cue-line descendente (§C) dentro del hero de video */
+.int-hero--video .int-hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(3rem, 6vh, 4.2rem);
+  z-index: 2;
+  height: 56px;
+  margin: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .int-hero__video { display: none; }
+  .int-hero--video {
+    background-image: var(--hero-poster, none);
+    background-size: cover;
+    background-position: center;
+  }
 }

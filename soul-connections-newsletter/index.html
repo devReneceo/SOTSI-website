@@ -18,100 +18,64 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Dancing+Script:wght@600&family=Pinyon+Script&display=swap" />
   <link rel="stylesheet" href="../styles/internal.css" />
+  <link rel="stylesheet" href="./newsletter.css" />
 </head>
-<body class="int-page nav-dark nl-centered-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
-  <header class="snav snav--centered" id="navCentered">
-    <div class="snav__utility">
-      <div class="wrap">
-        <span class="script" style="font-size:1.3rem;color:var(--gold);">Create Authentic Power · Choose Love</span>
-        <span style="display:flex;gap:.3rem;align-items:center;">
-          <a href="../soul-connections-newsletter/">Soul Connections</a><span aria-hidden="true">·</span>
-          <a href="mailto:info@seatofthesoul.com">Contact</a><span aria-hidden="true">·</span><a href="#">EN</a>
-        </span>
+<body class="int-page nav-dark nl-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
+  <header class="snav snav--immersive" id="navImmersive">
+  <nav class="snav__main" aria-label="Main navigation (immersive)">
+    <div class="wrap">
+      <a class="snav__logo" href="../index.html" aria-label="Seat of the Soul Institute — home">
+        <img class="logo--for-dark" src="../assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="../assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
+      </a>
+      <div class="snav__row">
+        <a class="nlink" href="../get-started/"><span class="glow"></span>Get Started</a>
+        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../about/seat-of-the-soul-institute/">About SOTSI</a><a href="../about-gary-zukav/">About Gary</a><a href="../about-linda-francis/">About Linda</a></div></div>
+        <a class="nlink" href="../remember-linda-homepage/"><span class="glow"></span>In Celebration of Linda Francis</a>
+        <div class="has-dd"><a class="nlink" href="../shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div></div>
+        <a class="nlink" href="../podcast/"><span class="glow"></span>Deepcast</a>
+        <a class="nlink" href="../blog/"><span class="glow"></span>Blog</a>
+        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../failing-government/">What to do about Failing Governments</a><a href="../ai-and-human-evolution/">AI and Human Evolution</a><a href="../soul-connections-newsletter/">Soul Connections Newsletter</a><a href="../books/">Get The Books</a><a href="../apg-optin/">Authentic Power Guidelines</a></div></div>
       </div>
-    </div>
-    <nav class="snav__main" aria-label="Main navigation (centered)">
-      <div class="wrap">
-        <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-        <a class="snav__logo" href="../index.html" aria-label="Seat of the Soul Institute — home">
-          <img class="logo--for-dark" src="../assets/whitelogo.webp" alt="Seat of the Soul Institute" />
-          <img class="logo--for-light" src="../assets/darklogo.webp" alt="Seat of the Soul Institute" />
+      <div class="snav__end">
+        <a class="btn-cta btn-cta--sm" href="../shop/">
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
+          <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
         </a>
-        <div class="snav__side right">
-          <div class="has-dd">
-            <a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../about/seat-of-the-soul-institute/">About SOTSI</a>
-              <a href="../about-gary-zukav/">About Gary</a>
-              <a href="../about-linda-francis/">About Linda</a>
-              <a href="../about/celebration/">In Celebration of Linda Francis</a>
-            </div>
-          </div>
-          <div class="has-dd">
-            <a class="nlink" href="../shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../shop/">Explore All Learning Opportunities</a>
-              <a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a>
-              <a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a>
-            </div>
-          </div>
-          <a class="nlink" href="../podcast/"><span class="glow"></span>Deepcast</a>
-          <div class="has-dd">
-            <a class="nlink" href="../get-started/" aria-haspopup="true"><span class="glow"></span>Resources
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../failing-government/">What to do about Failing Governments</a>
-              <a href="../ai-and-human-evolution/">AI and Human Evolution</a>
-              <a href="../soul-connections-newsletter/">Soul Connections Newsletter</a>
-              <a href="../books/">Get The Books</a>
-              <a href="../apg-optin/">Authentic Power Guidelines</a>
-            </div>
-          </div>
-          <a class="btn-cta btn-cta--sm" href="../shop/" style="margin-left:.5rem;">
-            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
-            <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
-          </a>
-        </div>
       </div>
-    </nav>
-    <div class="snav__mobile">
-      <div class="snav__mobile-panel" data-mobile hidden>
-        <span class="snav__mobile-label">About</span>
-        <a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a>
-        <a class="subnav-link" href="../about-gary-zukav/">About Gary</a>
-        <a class="subnav-link" href="../about-linda-francis/">About Linda</a>
-        <a class="subnav-link" href="../about/celebration/">In Celebration of Linda Francis</a>
-        <a href="../shop/">Courses, Events &amp; Activities</a>
-        <a href="../podcast/">Deepcast</a>
-        <a href="../soul-connections-newsletter/">Newsletter</a>
-        <a href="../books/">Books</a>
-        <a class="btn btn--primary" href="../shop/">Soul Store</a>
-      </div>
+      <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
-  </header>
+  </nav>
+  <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
+    <a href="../get-started/">Get Started</a><span class="snav__mobile-label">About</span><a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="../about-gary-zukav/">About Gary</a><a class="subnav-link" href="../about-linda-francis/">About Linda</a><a href="../remember-linda-homepage/">In Celebration of Linda Francis</a><a href="../shop/">Courses, Events &amp; Activities</a><a href="../podcast/">Deepcast</a><a href="../blog/">Blog</a><span class="snav__mobile-label">Resources</span><a class="subnav-link" href="../failing-government/">What to do about Failing Governments</a><a class="subnav-link" href="../ai-and-human-evolution/">AI and Human Evolution</a><a class="subnav-link" href="../soul-connections-newsletter/">Soul Connections Newsletter</a><a class="subnav-link" href="../books/">Get The Books</a><a class="subnav-link" href="../apg-optin/">Authentic Power Guidelines</a>
+    <a class="btn btn--primary" href="../shop/">Soul Store</a>
+  </div></div>
+</header>
 
   <main>
-    <section class="int-hero int-hero--compact" style="--hero-image:url('../assets/images/6a3342a6143842a748166484_spiritual-growth-membership-community-sunset-100.webp');">
+    <section class="int-hero int-hero--video" style="--hero-poster:url('../assets/images/newsletter-hero-poster.webp');">
+      <video class="int-hero__video" autoplay muted loop playsinline preload="metadata" poster="../assets/images/newsletter-hero-poster.webp" aria-hidden="true" tabindex="-1">
+        <source src="../assets/newsletter-sky-720.mp4" type="video/mp4" />
+      </video>
       <div class="int-hero__inner">
-        <nav class="int-breadcrumbs" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a><span aria-hidden="true">/</span><span>Soul Connections Newsletter</span>
-        </nav>
-        <p class="int-kicker">Free · Monthly newsletter</p>
-        <h1 class="int-title">Start the journey into your <span class="gold">new consciousness</span></h1>
-        <hr class="int-rule" />
-        <p class="int-deck">Subscribe and be inspired by our monthly <strong>Soul Connections Newsletter</strong> with video teachings and previous writings from Gary Zukav and Linda Francis.</p>
-        <div class="int-hero__actions">
+        <p class="int-kicker int-rise" style="--ri:0;">Free · Monthly newsletter</p>
+        <h1 class="int-title int-rise" style="--ri:1;">Start the journey into your <span class="gold">new consciousness</span></h1>
+        <hr class="int-rule int-rise" style="--ri:2;" />
+        <p class="int-deck int-rise" style="--ri:3;">Subscribe and be inspired by our monthly <strong>Soul Connections Newsletter</strong> with video teachings and previous writings from Gary Zukav and Linda Francis.</p>
+        <div class="int-hero__actions int-rise" style="--ri:4;">
           <a class="btn-cta" href="#subscribe">
             <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Subscribe today!</span>
             <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
           </a>
         </div>
       </div>
+      <span class="aspire__cue int-hero__cue" aria-hidden="true"><span class="aspire__cue-line"></span></span>
+      <nav class="int-breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page">Soul Connections Newsletter</span>
+      </nav>
     </section>
 
     <section class="int-section">
@@ -120,16 +84,22 @@
           <p class="int-eyebrow">What you'll receive</p>
           <h2 class="int-h2">Inspiration for your journey, <span class="accent">three ways.</span></h2>
           <p class="int-lead">In addition to our monthly Soul Connections newsletter, you will receive two weekly inspirational emails:</p>
-          <ul style="list-style:none;margin:1.6rem 0 0;padding:0;display:grid;gap:1.1rem;max-width:var(--int-copy);">
-            <li style="display:flex;gap:.8rem;align-items:flex-start;">
-              <span aria-hidden="true" style="color:var(--gold);font-weight:600;line-height:1.5;">✓</span>
-              <span><strong>Soul Seeds</strong> are short reflections to nurture your spiritual growth. Each Soul Seed invites your consideration, invokes your wisdom, and feeds your compassion.</span>
-            </li>
-            <li style="display:flex;gap:.8rem;align-items:flex-start;">
-              <span aria-hidden="true" style="color:var(--gold);font-weight:600;line-height:1.5;">✓</span>
-              <span><strong>The Wisdom Wednesday with Gary Zukav series</strong> is an opportunity for you to explore significant, deep, and meaningful soul questions.</span>
-            </li>
-          </ul>
+          <div class="nl-gifts">
+            <div class="nl-gift rv">
+              <span class="nl-gift__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10c0-3.5-2.5-6-6-6 0 3.5 2.5 6 6 6z"/><path d="M12 13c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6z"/></svg></span>
+              <div>
+                <h3>Soul Seeds</h3>
+                <p>Short reflections to nurture your spiritual growth. Each Soul Seed invites your consideration, invokes your wisdom, and feeds your compassion.</p>
+              </div>
+            </div>
+            <div class="nl-gift rv" style="transition-delay:.12s;">
+              <span class="nl-gift__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.2a2.7 2.7 0 0 1 5.2 1c0 1.8-2.6 2.3-2.6 3.8"/><circle cx="12" cy="17.3" r="0.4" fill="currentColor" stroke="none"/></svg></span>
+              <div>
+                <h3>Wisdom Wednesday with Gary Zukav</h3>
+                <p>An opportunity for you to explore significant, deep, and meaningful soul questions.</p>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="form-card rv" id="subscribe">
           <h3 class="form-card__title">Soul Connections Newsletter</h3>
@@ -144,6 +114,7 @@
           <p class="form-success">You're subscribed. Watch your inbox for Soul Connections, Soul Seeds, and Wisdom Wednesday.</p>
         </div>
       </div>
+      <p class="nl-assure rv">Free. Unsubscribe anytime. Video teachings and writings from Gary Zukav and Linda Francis, straight to your inbox.</p>
     </section>
 
     <section class="int-section" style="padding-top:0;">
@@ -195,6 +166,7 @@
           <a href="../get-started/">Get Started</a>
           <a href="../books/">Books</a>
           <a href="../podcast/">Deepcast</a>
+          <a href="../blog/">Blog · Soul Feed</a>
           <a href="../shop/">Learning Opportunities</a>
           <a href="../seat-of-the-soul-career-opportunities/">Careers</a>
         </div>
@@ -203,7 +175,7 @@
           <a href="../about/seat-of-the-soul-institute/">About SOTSI</a>
           <a href="../about-gary-zukav/">About Gary</a>
           <!-- oculto 2026-07-02 (cliente: solo nav) <a href="../about-linda-francis/">About Linda</a> -->
-          <a href="../about/celebration/">In Celebration of Linda Francis</a>
+          <a href="../remember-linda-homepage/">In Celebration of Linda Francis</a>
         </div>
         <div class="foot">
           <h5>Resources</h5>

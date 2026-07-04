@@ -1,0 +1,169 @@
+/* Authentic Power Guidelines — opt-in (2026-07-04).
+   Escena única: la foto de montañas (input de Joel) cubre hero + formulario y
+   se funde hacia navy/púrpura profundo (mask), como en el WP original donde el
+   bg abarca ambas secciones. Sin background-attachment:fixed (jank iOS). */
+
+/* ---------- Escena ---------- */
+.apg-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--text-on-dark);
+  /* under-layer: continúa los tonos de la montaña hacia la noche navy/púrpura */
+  background: linear-gradient(180deg, #22304e 0%, #16203f 44%, #140e2c 100%);
+}
+
+.apg-scene__bg {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: min(120vh, 66vw);
+  z-index: -2;
+  background: url("../assets/images/apg-mountains.webp") top center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 58%, transparent 97%);
+  mask-image: linear-gradient(180deg, #000 58%, transparent 97%);
+  will-change: transform;
+  transform-origin: 50% 20%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .apg-scene__bg { animation: apgKenBurns 42s ease-in-out infinite alternate; }
+  @keyframes apgKenBurns {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
+  }
+}
+
+/* scrim: legibilidad del nav arriba + del form abajo, tinte navy de marca al centro */
+.apg-scene__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(14, 22, 49, 0.55) 0%, rgba(14, 22, 49, 0.24) 26%, rgba(14, 22, 49, 0.18) 48%, rgba(20, 14, 44, 0.6) 100%),
+    rgba(14, 22, 49, 0.14);
+}
+
+/* firma dorada al cierre de la escena (el "hero extendido" termina aquí) */
+.apg-scene__border {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.78) 36%, rgba(255, 235, 69, 0.92) 50%, rgba(254, 212, 87, 0.78) 64%, transparent);
+  box-shadow: 0 0 22px rgba(254, 212, 87, 0.14);
+}
+
+/* ---------- Hero ---------- */
+.apg-hero {
+  position: relative;
+  min-height: min(88svh, 780px);
+  display: flex;
+  align-items: center;
+  padding: clamp(9.5rem, 15vh, 12rem) 0 clamp(4rem, 8vh, 6rem);
+}
+
+.apg-hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.4rem, 2vh, 1.6rem);
+  z-index: 2;
+  height: 56px;
+  margin: 0;
+}
+
+.apg-title { max-width: 18ch; }
+
+/* word-split: cada palabra sube con blur (eco CSS-puro del ink-drop del Home) */
+.apg-title .w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  filter: blur(5px);
+  animation: apgWord 0.7s var(--ease) forwards;
+  animation-delay: calc(var(--wi, 0) * 80ms + 180ms);
+}
+
+@keyframes apgWord {
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* shimmer SOLO en "Authentic Power" (oro sobre oscuro, marca LOCKED) */
+.apg-shimmer {
+  background: linear-gradient(100deg, #fed457 20%, #ffeb45 42%, #fff3a8 50%, #ffeb45 58%, #fed457 80%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: apgWord 0.7s var(--ease) forwards, apgShimmer 7s ease-in-out 1.6s infinite;
+}
+
+@keyframes apgShimmer {
+  0%, 100% { background-position: 0% 0; }
+  50% { background-position: 100% 0; }
+}
+
+/* ---------- Sección descarga (sobre la misma escena) ---------- */
+.apg-download { padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(5rem, 9vw, 7.5rem); }
+
+/* hereda los estilos dark de form/inputs/eyebrow vía .int-band--dark, sin pintar su fondo */
+.apg-scene .int-band--dark { background: transparent; }
+
+.apg-list {
+  list-style: none;
+  margin: 1.15rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.05rem;
+  max-width: var(--int-copy);
+}
+
+.apg-list li {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.apg-list .tick {
+  color: var(--gold);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.apg-download__subtitle {
+  margin: 1.8rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+/* glass más profundo para el form sobre la foto */
+.apg-scene .form-card {
+  background: rgba(10, 15, 35, 0.55);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apg-title .w,
+  .apg-shimmer {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .apg-shimmer {
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: var(--gold);
+  }
+}

@@ -1,0 +1,662 @@
+/* An Evening with Gary Zukav — propuesta standalone (2026-07-04).
+   Réplica premium de la página de venta Kajabi con el brand nuevo: SIN nav del
+   sitio (la real vive en experience.seatofthesoul.com). Cielo estrellado real
+   (evening-sky.webp, asset del cliente) + twinkle canvas + luna CSS en drift. */
+
+/* ---------- Página ---------- */
+body.ev-page {
+  background: linear-gradient(180deg, #0a0f22 0%, #0e1631 34%, #1d1340 72%, #140e2c 100%);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.ev-page main { overflow: clip; }
+
+.ev-shell { width: var(--int-shell); margin-inline: auto; }
+
+/* ---------- Cielo (hero + resonancia comparten la foto + canvas + luna) ---------- */
+.ev-sky {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.ev-sky__photo {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: min(118vh, 74vw);
+  z-index: -3;
+  background: url("../assets/images/evening-sky.webp") top center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 96%);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 96%);
+}
+
+.ev-sky__stars {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* luna: marfil/oro (nunca azul), halo que respira, drift lentísimo */
+.ev-moon {
+  position: absolute;
+  top: clamp(5.5rem, 9vh, 8rem);
+  right: clamp(6%, 10vw, 14%);
+  z-index: -1;
+  width: clamp(72px, 9vw, 132px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #fffdf2 0%, #f7edcd 44%, #e9d9a6 70%, #cdbd8a 100%);
+  box-shadow: inset -14px -10px 26px rgba(115, 96, 50, 0.28), 0 0 40px rgba(254, 212, 87, 0.18);
+  pointer-events: none;
+}
+
+.ev-moon::before {
+  content: "";
+  position: absolute;
+  inset: -46%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 212, 87, 0.2), transparent 68%);
+  filter: blur(14px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ev-moon { animation: evMoonDrift 140s ease-in-out infinite alternate; }
+  .ev-moon::before { animation: evHaloBreathe 9s ease-in-out infinite alternate; }
+  @keyframes evMoonDrift {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-6vw, 2.5vh, 0); }
+  }
+  @keyframes evHaloBreathe {
+    from { opacity: 0.7; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1.05); }
+  }
+}
+
+/* hairline dorado al cierre del cielo (firma) */
+.ev-sky__border {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.78) 36%, rgba(255, 235, 69, 0.92) 50%, rgba(254, 212, 87, 0.78) 64%, transparent);
+  box-shadow: 0 0 22px rgba(254, 212, 87, 0.14);
+}
+
+/* ---------- Hero ---------- */
+.ev-hero {
+  position: relative;
+  min-height: min(100svh, 900px);
+  display: flex;
+  align-items: center;
+  padding: clamp(4.5rem, 9vh, 7rem) 0 clamp(3.5rem, 7vh, 5.5rem);
+}
+
+.ev-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) 1.3fr;
+  gap: clamp(2.2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+/* retrato circular con doble anillo + halo + float (patrón retrato del Home) */
+.ev-portrait {
+  position: relative;
+  width: min(100%, clamp(240px, 30vw, 380px));
+  margin-inline: auto;
+  aspect-ratio: 1;
+}
+
+.ev-portrait__halo {
+  display: block;
+  position: absolute;
+  inset: -18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 212, 87, 0.22) 0%, rgba(210, 204, 253, 0.12) 46%, transparent 72%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.ev-portrait__frame {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(160deg, #202a4d, #131a38);
+  box-shadow:
+    0 0 0 2px rgba(254, 212, 87, 0.85),
+    0 0 0 10px rgba(254, 212, 87, 0.12),
+    0 30px 70px -22px rgba(0, 0, 0, 0.75);
+}
+
+.ev-portrait__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 12%;
+  display: block;
+}
+
+/* el float vive en el frame interno: .ev-portrait usa .int-rise (entrada) y
+   el shorthand de animation NO debe pisarla */
+@media (prefers-reduced-motion: no-preference) {
+  .ev-portrait__frame { animation: evFloat 9s ease-in-out infinite alternate; }
+  @keyframes evFloat {
+    from { transform: translateY(0); }
+    to { transform: translateY(-12px); }
+  }
+}
+
+.ev-kicker {
+  margin: 0 0 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.ev-hero__title {
+  margin: 0;
+  max-width: 15ch;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.7rem, 1.7rem + 4.2vw, 5.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  color: #fff;
+}
+
+.ev-hero__title .gold { color: var(--gold); }
+
+.ev-rule {
+  width: 74px;
+  height: 3px;
+  margin: 1.6rem 0;
+  border: 0;
+  background: var(--grad-gold);
+}
+
+.ev-hero__sub {
+  margin: 0;
+  max-width: 52ch;
+  font-size: var(--text-lead);
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ev-hero__meta {
+  margin: 1.7rem 0 0;
+  font-size: 0.88rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ev-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.1rem;
+  margin-top: 2.1rem;
+}
+
+/* ---------- CTA tenue (ghost oro) ---------- */
+.ev-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: var(--tap);
+  padding: 0 1.8rem;
+  border: 1.5px solid rgba(254, 212, 87, 0.55);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform var(--dur) var(--ease), background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.ev-btn:hover {
+  transform: translateY(-3px);
+  background: rgba(254, 212, 87, 0.1);
+  border-color: var(--gold);
+  box-shadow: 0 14px 34px -16px rgba(254, 212, 87, 0.45);
+}
+
+.ev-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--navy), 0 0 0 6px var(--yellow);
+}
+
+.ev-btn .ext { font-size: 0.8em; opacity: 0.75; }
+
+/* ---------- Resonancia (4 líneas verbatim) ---------- */
+.ev-resonance {
+  position: relative;
+  padding: clamp(3rem, 7vh, 5.5rem) 0 clamp(4.5rem, 9vh, 7rem);
+  text-align: center;
+}
+
+.ev-resonance p {
+  margin: 0 auto;
+  max-width: 30ch;
+  padding: clamp(0.9rem, 2vh, 1.4rem) 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 1rem + 1.8vw, 2.3rem);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.92);
+  text-wrap: balance;
+}
+
+.ev-resonance p strong { font-weight: 500; color: var(--gold); font-style: normal; }
+
+/* ---------- Beneficios (4 cards glass) ---------- */
+.ev-benefits { padding: clamp(4rem, 8vw, 6.5rem) 0; }
+
+.ev-benefits__heading {
+  margin: 0 0 2.2rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-h2);
+  line-height: 1.12;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.ev-benefits__heading em { color: var(--gold); font-style: italic; }
+
+.ev-benefits__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+.ev-card {
+  padding: clamp(1.4rem, 2.4vw, 2rem);
+  border: 1px solid rgba(254, 212, 87, 0.26);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.055);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.ev-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(254, 212, 87, 0.55);
+  box-shadow: 0 24px 50px -26px rgba(0, 0, 0, 0.7), 0 0 44px -18px rgba(254, 212, 87, 0.35);
+}
+
+.ev-card__icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.1rem;
+  border-radius: 14px;
+  background: var(--grad-gold);
+  color: var(--navy);
+}
+
+.ev-card__icon svg { width: 22px; height: 22px; }
+
+.ev-card p {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.ev-card p strong { font-weight: 600; color: #fff; }
+
+/* ---------- Credibilidad ---------- */
+.ev-cred {
+  position: relative;
+  padding: clamp(4rem, 8vw, 6.5rem) 0;
+  background:
+    radial-gradient(50% 70% at 50% 0%, rgba(210, 204, 253, 0.1), transparent 70%);
+  text-align: center;
+}
+
+.ev-cred__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: clamp(1.4rem, 3vw, 2.5rem);
+  margin: 0 0 2.4rem;
+}
+
+.ev-stat__num {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 2rem + 2.4vw, 4.4rem);
+  line-height: 1;
+  color: var(--gold);
+}
+
+.ev-stat__label {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.ev-cred__copy {
+  margin: 0 auto;
+  max-width: 62ch;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ev-cred__copy em { color: rgba(255, 255, 255, 0.95); }
+
+/* ---------- Quote de Gary ---------- */
+.ev-quote {
+  position: relative;
+  padding: clamp(4.5rem, 9vw, 7.5rem) 0;
+  text-align: center;
+}
+
+.ev-quote::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(46% 62% at 50% 46%, rgba(254, 212, 87, 0.08), transparent 72%);
+}
+
+.ev-quote blockquote {
+  position: relative;
+  margin: 0 auto;
+  max-width: 46ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.4rem);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.ev-quote__script {
+  display: block;
+  margin-top: 1.2rem;
+  font-family: "Pinyon Script", cursive;
+  font-style: normal;
+  font-size: clamp(2.4rem, 1.8rem + 2.6vw, 4rem);
+  line-height: 1.25;
+  color: var(--gold);
+  text-shadow: 0 0 34px rgba(254, 212, 87, 0.35);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ev-quote__script { animation: evScriptGlow 6s ease-in-out infinite alternate; }
+  @keyframes evScriptGlow {
+    from { text-shadow: 0 0 22px rgba(254, 212, 87, 0.25); }
+    to { text-shadow: 0 0 44px rgba(254, 212, 87, 0.5); }
+  }
+}
+
+.ev-quote figcaption {
+  margin-top: 1.6rem;
+  font-size: 0.88rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- La experiencia + journal prompts ---------- */
+.ev-flow { padding: clamp(4rem, 8vw, 6.5rem) 0; }
+
+.ev-flow__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: clamp(2.2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.ev-flow__copy p {
+  margin: 0 0 1.3em;
+  font-size: 1.08rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ev-flow__copy p:last-child { margin-bottom: 0; }
+
+.ev-flow__copy strong { font-weight: 600; color: var(--gold); }
+
+.ev-prompts {
+  display: grid;
+  gap: 1rem;
+}
+
+.ev-prompt {
+  display: flex;
+  gap: 1.2rem;
+  align-items: baseline;
+  padding: 1.2rem 1.4rem;
+  border-left: 2px solid rgba(254, 212, 87, 0.5);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent 70%);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.ev-prompt__num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+
+.ev-prompt p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* ---------- Testimonios ---------- */
+.ev-stories { padding: clamp(4rem, 8vw, 6.5rem) 0; }
+
+.ev-stories__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+  align-items: start;
+}
+
+.ev-story {
+  position: relative;
+  padding: clamp(1.5rem, 2.6vw, 2.1rem);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--navy);
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.8);
+}
+
+.ev-story::before {
+  content: "“";
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  line-height: 0.6;
+  color: var(--gold);
+}
+
+.ev-story p {
+  margin: 0 0 1.1rem;
+  font-size: 0.98rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-on-light);
+}
+
+.ev-story cite {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: var(--purple);
+}
+
+/* ---------- Detalles + pricing + recap ---------- */
+.ev-details {
+  position: relative;
+  padding: clamp(4.5rem, 9vw, 7.5rem) 0;
+  background:
+    radial-gradient(46% 60% at 12% 6%, rgba(210, 204, 253, 0.12), transparent 70%),
+    radial-gradient(40% 56% at 90% 94%, rgba(254, 212, 87, 0.1), transparent 72%);
+}
+
+.ev-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2.4rem);
+  margin: 0 0 2.6rem;
+  padding: 1.1rem clamp(1rem, 3vw, 2rem);
+  border-block: 1px solid rgba(254, 212, 87, 0.28);
+  text-align: center;
+}
+
+.ev-meta-strip span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ev-meta-strip .price { color: var(--yellow); }
+
+.ev-details__copy {
+  margin: 0 auto 3rem;
+  max-width: 62ch;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ev-recap__title {
+  margin: 0 0 1.6rem;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.ev-recap {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 44rem;
+  display: grid;
+  gap: 0.95rem;
+}
+
+.ev-recap li {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.ev-recap .tick { color: var(--gold); font-weight: 600; }
+
+.ev-recap strong { display: block; font-weight: 600; color: #fff; letter-spacing: 0.04em; }
+
+.ev-recap span:last-child { font-size: 0.95rem; font-weight: 300; color: rgba(255, 255, 255, 0.78); line-height: 1.5; }
+
+/* ---------- Cierre ---------- */
+.ev-final {
+  padding: clamp(4.5rem, 9vw, 7rem) 0 clamp(5.5rem, 10vw, 8rem);
+  text-align: center;
+}
+
+.ev-final__copy {
+  margin: 0 auto 2.4rem;
+  max-width: 56ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 1rem + 1.4vw, 1.9rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.ev-final__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+/* ---------- Footer mínimo legal ---------- */
+.ev-foot {
+  padding: 2.6rem var(--gutter) 2.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ev-foot__logo img { width: min(220px, 56vw); height: auto; opacity: 0.92; }
+
+.ev-foot__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.4rem;
+  margin: 1.2rem 0 0.9rem;
+}
+
+.ev-foot__links a { color: rgba(255, 255, 255, 0.72); text-decoration: none; transition: color 0.2s; }
+.ev-foot__links a:hover { color: var(--gold); }
+
+.ev-foot__note { margin: 0.7rem 0 0; font-size: 0.8rem; color: rgba(255, 255, 255, 0.45); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .ev-hero { padding-top: clamp(3.5rem, 7vh, 5rem); }
+  .ev-hero__inner { grid-template-columns: 1fr; text-align: center; }
+  .ev-portrait { width: min(62vw, 300px); }
+  .ev-hero__title { margin-inline: auto; }
+  .ev-rule { margin-inline: auto; }
+  .ev-hero__sub { margin-inline: auto; }
+  .ev-hero__actions { justify-content: center; }
+  .ev-moon { top: clamp(1.2rem, 3vh, 2.4rem); right: 7%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-moon, .ev-moon::before, .ev-portrait__frame, .ev-quote__script { animation: none; }
+}

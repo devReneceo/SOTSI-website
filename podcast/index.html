@@ -4,11 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Gary Zukav Deepcast · Seat of the Soul Institute</title>
-  <meta name="description" content="The Gary Zukav Deepcast — Exploring the New Consciousness. Browse Soul Feast and Soul Snack episodes and listen on YouTube, Spotify, Apple Podcasts, iHeartRadio, or Amazon Music." />
+  <meta name="description" content="The Gary Zukav Deepcast — Exploring the New Consciousness. Browse all Soul Feast and Soul Snack episodes and listen on YouTube, Spotify, Apple Podcasts, iHeartRadio, or Amazon Music." />
   <!--
     Prototype Fase 2 · WP slug: /podcast/
-    Verdict: improve · effort 1.5d (band easy) · Joel: Medium 2-4d (search/filters = the UX upgrade)
-    Template: podcast (directory + filterbar) · Forms: Soul Connections newsletter (ActiveCampaign)
+    Deepcast rebuild 2026-07-04: video hero + halo-wave About + Tune In marquee +
+    Spotify-style directory (181 real episodes via tools/build_deepcast.py) +
+    episode detail shell at podcast/episode/?ep=<slug>.
+    Forms: Soul Connections newsletter (ActiveCampaign id 3, prototype intercept).
   -->
   <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
@@ -17,259 +19,196 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Dancing+Script:wght@600&family=Pinyon+Script&display=swap" />
+  <link rel="preload" as="image" href="../assets/images/deepcast-hero.webp" fetchpriority="high" />
   <link rel="stylesheet" href="../styles/internal.css" />
+  <link rel="stylesheet" href="../styles/section-polish.css" />
+  <link rel="stylesheet" href="deepcast.css" />
 </head>
-<body class="int-page nav-dark nl-centered-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
-  <header class="snav snav--centered" id="navCentered">
-    <div class="snav__utility">
-      <div class="wrap">
-        <span class="script" style="font-size:1.3rem;color:var(--gold);">Create Authentic Power · Choose Love</span>
-        <span style="display:flex;gap:.3rem;align-items:center;">
-          <a href="../soul-connections-newsletter/">Soul Connections</a><span aria-hidden="true">·</span>
-          <a href="mailto:info@seatofthesoul.com">Contact</a><span aria-hidden="true">·</span><a href="#">EN</a>
-        </span>
+<body class="int-page nav-dark nl-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
+  <header class="snav snav--immersive" id="navImmersive">
+  <nav class="snav__main" aria-label="Main navigation (immersive)">
+    <div class="wrap">
+      <a class="snav__logo" href="../index.html" aria-label="Seat of the Soul Institute — home">
+        <img class="logo--for-dark" src="../assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="../assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
+      </a>
+      <div class="snav__row">
+        <a class="nlink" href="../get-started/"><span class="glow"></span>Get Started</a>
+        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../about/seat-of-the-soul-institute/">About SOTSI</a><a href="../about-gary-zukav/">About Gary</a><a href="../about-linda-francis/">About Linda</a></div></div>
+        <a class="nlink" href="../remember-linda-homepage/"><span class="glow"></span>In Celebration of Linda Francis</a>
+        <div class="has-dd"><a class="nlink" href="../shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div></div>
+        <a class="nlink" href="../podcast/"><span class="glow"></span>Deepcast</a>
+        <a class="nlink" href="../blog/"><span class="glow"></span>Blog</a>
+        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../failing-government/">What to do about Failing Governments</a><a href="../ai-and-human-evolution/">AI and Human Evolution</a><a href="../soul-connections-newsletter/">Soul Connections Newsletter</a><a href="../books/">Get The Books</a><a href="../apg-optin/">Authentic Power Guidelines</a></div></div>
       </div>
-    </div>
-    <nav class="snav__main" aria-label="Main navigation (centered)">
-      <div class="wrap">
-        <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-        <a class="snav__logo" href="../index.html" aria-label="Seat of the Soul Institute — home">
-          <img class="logo--for-dark" src="../assets/whitelogo.webp" alt="Seat of the Soul Institute" />
-          <img class="logo--for-light" src="../assets/darklogo.webp" alt="Seat of the Soul Institute" />
+      <div class="snav__end">
+        <a class="btn-cta btn-cta--sm" href="../shop/">
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
+          <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
         </a>
-        <div class="snav__side right">
-          <div class="has-dd">
-            <a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../about/seat-of-the-soul-institute/">About SOTSI</a>
-              <a href="../about-gary-zukav/">About Gary</a>
-              <a href="../about-linda-francis/">About Linda</a>
-              <a href="../about/celebration/">In Celebration of Linda Francis</a>
-            </div>
-          </div>
-          <div class="has-dd">
-            <a class="nlink" href="../shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../shop/">Explore All Learning Opportunities</a>
-              <a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a>
-              <a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a>
-            </div>
-          </div>
-          <a class="nlink" href="../podcast/"><span class="glow"></span>Deepcast</a>
-          <div class="has-dd">
-            <a class="nlink" href="../get-started/" aria-haspopup="true"><span class="glow"></span>Resources
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../failing-government/">What to do about Failing Governments</a>
-              <a href="../ai-and-human-evolution/">AI and Human Evolution</a>
-              <a href="../soul-connections-newsletter/">Soul Connections Newsletter</a>
-              <a href="../books/">Get The Books</a>
-              <a href="../apg-optin/">Authentic Power Guidelines</a>
-            </div>
-          </div>
-          <a class="btn-cta btn-cta--sm" href="../shop/" style="margin-left:.5rem;">
-            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
-            <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
-          </a>
-        </div>
       </div>
-    </nav>
-    <div class="snav__mobile">
-      <div class="snav__mobile-panel" data-mobile hidden>
-        <span class="snav__mobile-label">About</span>
-        <a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a>
-        <a class="subnav-link" href="../about-gary-zukav/">About Gary</a>
-        <a class="subnav-link" href="../about-linda-francis/">About Linda</a>
-        <a class="subnav-link" href="../about/celebration/">In Celebration of Linda Francis</a>
-        <a href="../shop/">Courses, Events &amp; Activities</a>
-        <a href="../podcast/">Deepcast</a>
-        <a href="../soul-connections-newsletter/">Newsletter</a>
-        <a href="../books/">Books</a>
-        <a class="btn btn--primary" href="../shop/">Soul Store</a>
-      </div>
+      <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
-  </header>
+  </nav>
+  <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
+    <a href="../get-started/">Get Started</a><span class="snav__mobile-label">About</span><a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="../about-gary-zukav/">About Gary</a><a class="subnav-link" href="../about-linda-francis/">About Linda</a><a href="../remember-linda-homepage/">In Celebration of Linda Francis</a><a href="../shop/">Courses, Events &amp; Activities</a><a href="../podcast/">Deepcast</a><a href="../blog/">Blog</a><span class="snav__mobile-label">Resources</span><a class="subnav-link" href="../failing-government/">What to do about Failing Governments</a><a class="subnav-link" href="../ai-and-human-evolution/">AI and Human Evolution</a><a class="subnav-link" href="../soul-connections-newsletter/">Soul Connections Newsletter</a><a class="subnav-link" href="../books/">Get The Books</a><a class="subnav-link" href="../apg-optin/">Authentic Power Guidelines</a>
+    <a class="btn btn--primary" href="../shop/">Soul Store</a>
+  </div></div>
+</header>
 
   <main>
-    <section class="int-hero" style="--hero-image:url('../assets/images/greeting-poster.webp');">
-      <div class="int-hero__inner">
-        <nav class="int-breadcrumbs" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a><span aria-hidden="true">/</span><span>Deepcast</span>
-        </nav>
-        <p class="int-kicker">Deepcast</p>
-        <h1 class="int-title">The Gary Zukav Deepcast — <span class="gold">Exploring the New Consciousness</span></h1>
-        <hr class="int-rule" />
-        <p class="int-deck">"Eventually, you will come to understand that love heals everything, and love is all there is." — Gary Zukav</p>
-        <div class="int-hero__meta">
-          <div class="int-stat"><p class="int-stat__label">New episodes</p><p class="int-stat__value">Mondays &amp; Fridays</p></div>
-          <div class="int-stat"><p class="int-stat__label">Two series</p><p class="int-stat__value">Soul Feast · Soul Snack</p></div>
-          <div class="int-stat"><p class="int-stat__label">Your host</p><p class="int-stat__value">Gary Zukav · 4× NYT bestselling author</p></div>
+    <!-- 1 · HERO — Gary on the mountain, gold hairline signature -->
+    <section class="dc-hero" aria-labelledby="deepcast-heading">
+      <img class="dc-hero__bg" src="../assets/images/deepcast-hero.webp" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
+      <span class="dc-hero__scrim" aria-hidden="true"></span>
+      <div class="dc-hero__inner">
+        <div class="dc-hero__copy">
+          <p class="int-kicker dc-rise" style="--ri:0;">Deepcast</p>
+          <h1 class="dc-hero__title dc-rise" style="--ri:1;" id="deepcast-heading">The Gary Zukav Deepcast</h1>
+          <p class="dc-hero__tag dc-rise" style="--ri:2;">Exploring the New Consciousness</p>
+          <hr class="int-rule dc-rise" style="--ri:3;" />
+          <div class="int-hero__meta dc-rise" style="--ri:4;">
+            <div class="int-stat"><p class="int-stat__label">New episodes</p><p class="int-stat__value">Mondays &amp; Fridays</p></div>
+            <div class="int-stat"><p class="int-stat__label">Two series</p><p class="int-stat__value">Soul Feast · Soul Snack</p></div>
+            <div class="int-stat"><p class="int-stat__label">Your host</p><p class="int-stat__value">Gary Zukav · 4× NYT bestselling author</p></div>
+          </div>
         </div>
       </div>
+      <nav class="int-breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page">Deepcast</span>
+      </nav>
     </section>
 
-    <section class="int-section" style="padding-bottom:0;">
-      <p class="int-eyebrow rv">Listen everywhere</p>
-      <h2 class="int-h2 rv">Watch or listen on <span class="accent">your favorite platform.</span></h2>
-      <div class="int-hero__actions rv" style="margin-top:1.6rem;flex-wrap:wrap;">
-        <a class="btn btn--ghost" href="https://www.youtube.com/@TheGaryZukav" target="_blank" rel="noopener">YouTube <span class="badge-ext">↗</span></a>
-        <a class="btn btn--ghost" href="https://open.spotify.com/show/2UzjQIkP3b5OKjJkn2L8Sz" target="_blank" rel="noopener">Spotify <span class="badge-ext">↗</span></a>
-        <a class="btn btn--ghost" href="https://podcasts.apple.com/us/podcast/the-gary-zukav-podcast/id1772099821" target="_blank" rel="noopener">Apple Podcasts <span class="badge-ext">↗</span></a>
-        <a class="btn btn--ghost" href="https://iheart.com/podcast/223181781/" target="_blank" rel="noopener">iHeartRadio <span class="badge-ext">↗</span></a>
-        <a class="btn btn--ghost" href="https://music.amazon.com/podcasts/e61fcbf7-84ef-406b-90ae-772aeba104e8/THE-GARY-ZUKAV-PODCAST" target="_blank" rel="noopener">Amazon Music <span class="badge-ext">↗</span></a>
+    <!-- 2 · HALO WAVE — trailer card rides the border, then About + Welcome! -->
+    <section class="dc-wave" data-tide="immersive" aria-label="About the Deepcast">
+      <canvas class="dc-wave__canvas" aria-hidden="true"></canvas>
+      <span class="dc-wave__veil" aria-hidden="true"></span>
+
+      <div class="dc-trailer" data-dc-trailer>
+        <div class="dc-trailer__card">
+          <video preload="none" playsinline poster="../assets/images/deepcast-trailer-poster.webp" aria-label="Deepcast trailer">
+            <source src="../assets/Gary-Zukav-Podcast-Trailer-web.mp4" type="video/mp4" />
+          </video>
+          <button class="dc-trailer__overlay" type="button" data-dc-trailer-play aria-label="Play the Deepcast trailer">
+            <span class="dc-trailer__play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>
+            </span>
+            <span class="dc-trailer__hint" aria-hidden="true">Watch the trailer · 90 sec</span>
+          </button>
+        </div>
+        <blockquote class="dc-trailer__quote rv">
+          "Eventually, you will come to understand that love heals everything, and love is all there is."
+          <span class="dc-trailer__quote-by">— Gary Zukav</span>
+        </blockquote>
       </div>
+
+      <div class="dc-about">
+        <p class="int-eyebrow rv">About</p>
+        <p class="dc-about__lead rv">Gary Zukav is a 4× New York Times bestselling author, including <span class="gold">The Seat of the Soul</span>.</p>
+        <p class="dc-about__body rv">A spiritual teacher who has been featured on <strong>The Oprah Winfrey Show more than 30 times</strong>, Gary shares teachings on the new consciousness and tools to live in gratitude, patience, contentment and awe of the Universe to resolve any anger, worry, overwhelm and despair.</p>
+        <p class="dc-about__body rv">This deepcast will help you choose joyfully and effectively as you are lead by one of the greatest American Spiritual Teachers in the transformation of Human Consciousness.</p>
+        <p class="dc-about__cadence rv">New Episodes out weekly <span class="dot" aria-hidden="true">·</span> Monday and Friday</p>
+      </div>
+
+      <p class="dc-welcome" data-dc-split aria-label="Welcome!">Welcome!</p>
+      <span class="dc-cue" aria-hidden="true"><span class="dc-cue-line"></span></span>
     </section>
 
-    <section class="int-section" id="episodes">
+    <!-- 3 · TUNE IN — platforms + artwork marquee -->
+    <section class="dc-tunein" aria-labelledby="tunein-heading">
+      <div class="dc-tunein__head">
+        <p class="int-eyebrow rv">Listen everywhere</p>
+        <h2 class="dc-tunein__title" id="tunein-heading" data-dc-split>Tune <span class="accent">In</span></h2>
+        <p class="int-lead dc-tunein__lead rv">Watch or listen on your favorite platform.</p>
+      </div>
+      <!-- Official platform badges (client assets, WP uploads 2024/09-10) -->
+      <div class="dc-platforms rv">
+        <a class="dc-platform" href="https://www.youtube.com/@TheGaryZukav" target="_blank" rel="noopener">
+          <img src="../assets/images/badge-youtube.webp" alt="Watch on YouTube" width="1200" height="600" loading="lazy" decoding="async" />
+        </a>
+        <a class="dc-platform" href="https://open.spotify.com/show/2UzjQIkP3b5OKjJkn2L8Sz" target="_blank" rel="noopener">
+          <img src="../assets/images/badge-spotify.webp" alt="Listen on Spotify" width="1200" height="600" loading="lazy" decoding="async" />
+        </a>
+        <a class="dc-platform" href="https://podcasts.apple.com/us/podcast/the-gary-zukav-podcast/id1772099821" target="_blank" rel="noopener">
+          <img src="../assets/images/badge-apple.webp" alt="Listen on Apple Podcasts" width="1200" height="600" loading="lazy" decoding="async" />
+        </a>
+        <a class="dc-platform" href="https://iheart.com/podcast/223181781/" target="_blank" rel="noopener">
+          <img src="../assets/images/badge-iheart.webp" alt="Listen on iHeartRadio" width="1200" height="600" loading="lazy" decoding="async" />
+        </a>
+        <a class="dc-platform" href="https://music.amazon.com/podcasts/e61fcbf7-84ef-406b-90ae-772aeba104e8/THE-GARY-ZUKAV-PODCAST?ref=dm_sh_iCGtoZy98GPsNeDR1k9LkgpXC" target="_blank" rel="noopener">
+          <img src="../assets/images/badge-amazon.webp" alt="Listen on Amazon Music" width="1200" height="600" loading="lazy" decoding="async" />
+        </a>
+      </div>
+      <div class="dc-marquee" data-dc-marquee hidden></div>
+    </section>
+
+    <!-- 4 · EPISODES — Spotify-style directory (rendered from episodes-index.json) -->
+    <section class="int-section dc-episodes" id="episodes" aria-labelledby="episodes-heading">
       <p class="int-eyebrow rv">Episode directory</p>
-      <h2 class="int-h2 rv">Find the episode that <span class="accent">speaks to you.</span></h2>
+      <h2 class="int-h2 rv" id="episodes-heading">Find the episode that <span class="accent">speaks to you.</span></h2>
       <p class="int-lead rv">Soul Feast episodes are full conversations; Soul Snacks are short-form reflections. Search by topic or filter by series.</p>
 
-      <div class="filterbar rv">
-        <input class="filterbar__search" type="search" data-ep-search placeholder="Search episodes — try 'temptation' or 'soulmate'" aria-label="Search episodes" />
-        <button class="chip is-active" type="button" data-ep-filter="all">All</button>
-        <button class="chip" type="button" data-ep-filter="feast">Soul Feast</button>
-        <button class="chip" type="button" data-ep-filter="snack">Soul Snack</button>
+      <div class="dc-toolbar rv" role="search">
+        <label class="dc-toolbar__search">
+          <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search episodes</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+          <input type="search" data-dc-search placeholder="Search episodes — try 'temptation' or 'soulmate'" autocomplete="off" />
+        </label>
+        <button class="chip is-active" type="button" data-dc-filter="all">All</button>
+        <button class="chip" type="button" data-dc-filter="feast">Soul Feast</button>
+        <button class="chip" type="button" data-dc-filter="snack">Soul Snack</button>
+        <label>
+          <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Sort episodes</span>
+          <select class="dc-toolbar__sort" data-dc-sort>
+            <option value="new">Newest first</option>
+            <option value="old">Oldest first</option>
+          </select>
+        </label>
+        <p class="dc-count" data-dc-count aria-live="polite"></p>
       </div>
 
-      <div class="ep-list">
-        <a class="ep-row" data-ep="snack" href="https://seatofthesoul.com/soul-snack-89-is-your-harmless-drink-actually-fear-in-disguise/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#89</span>
-          <span>
-            <h3>Is Your "Harmless" Drink Actually Fear in Disguise?</h3>
-            <p class="ep-row__meta">June 19, 2026 · Soul Snack</p>
-          </span>
-          <span class="ep-row__series ep-row__series--snack">Soul Snack</span>
-        </a>
-        <a class="ep-row" data-ep="feast" href="https://seatofthesoul.com/soul-feast-89-the-side-of-temptation-nobody-talks-about-part-2/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#89</span>
-          <span>
-            <h3>The Side of Temptation Nobody Talks About, Part 2</h3>
-            <p class="ep-row__meta">June 15, 2026 · Soul Feast</p>
-          </span>
-          <span class="ep-row__series ep-row__series--feast">Soul Feast</span>
-        </a>
-        <a class="ep-row" data-ep="snack" href="https://seatofthesoul.com/soul-snack-88-what-if-your-biggest-insecurity-is-actually-a-spiritual-gift/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#88</span>
-          <span>
-            <h3>What If Your Biggest Insecurity Is Actually a Spiritual Gift?</h3>
-            <p class="ep-row__meta">June 12, 2026 · Soul Snack</p>
-          </span>
-          <span class="ep-row__series ep-row__series--snack">Soul Snack</span>
-        </a>
-        <a class="ep-row" data-ep="feast" href="https://seatofthesoul.com/soul-feast-88-why-you-are-always-being-tempted-and-what-the-universe-wants-you-to-know-part-1/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#88</span>
-          <span>
-            <h3>Why You Are Always Being Tempted – And What the Universe Wants You to Know, Part 1</h3>
-            <p class="ep-row__meta">June 8, 2026 · Soul Feast</p>
-          </span>
-          <span class="ep-row__series ep-row__series--feast">Soul Feast</span>
-        </a>
-        <a class="ep-row" data-ep="snack" href="https://seatofthesoul.com/soul-snack-87-stop-apologizing-what-authentic-power-does-instead/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#87</span>
-          <span>
-            <h3>Stop Apologizing — What Authentic Power Does Instead</h3>
-            <p class="ep-row__meta">June 5, 2026 · Soul Snack</p>
-          </span>
-          <span class="ep-row__series ep-row__series--snack">Soul Snack</span>
-        </a>
-        <a class="ep-row" data-ep="feast" href="https://seatofthesoul.com/soul-feast-87-you-are-the-miracle-what-quantum-physics-the-soul-agree-on-gary-zukavs-personal-experiences/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#87</span>
-          <span>
-            <h3>You Are the Miracle: What Quantum Physics &amp; the Soul Agree On</h3>
-            <p class="ep-row__meta">June 2, 2026 · Soul Feast</p>
-          </span>
-          <span class="ep-row__series ep-row__series--feast">Soul Feast</span>
-        </a>
-        <a class="ep-row" data-ep="snack" href="https://seatofthesoul.com/soul-snack-86-what-determines-a-soulmate/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#86</span>
-          <span>
-            <h3>What Determines a Soulmate?</h3>
-            <p class="ep-row__meta">May 29, 2026 · Soul Snack</p>
-          </span>
-          <span class="ep-row__series ep-row__series--snack">Soul Snack</span>
-        </a>
-        <a class="ep-row" data-ep="feast" href="https://seatofthesoul.com/soul-feast-86-what-if-you-are-the-universe-the-soul-free-will-every-choice-gary-zukavs-personal-experiences-2/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#86</span>
-          <span>
-            <h3>What If You Are the Universe? The Soul, Free Will &amp; Every Choice</h3>
-            <p class="ep-row__meta">May 25, 2026 · Soul Feast</p>
-          </span>
-          <span class="ep-row__series ep-row__series--feast">Soul Feast</span>
-        </a>
-        <a class="ep-row" data-ep="snack" href="https://seatofthesoul.com/soul-snack-85-the-mirror-of-compassion-why-how-you-treat-others-reflects-how-you-treat-yourself/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#85</span>
-          <span>
-            <h3>The Mirror of Compassion: Why How You Treat Others Reflects How You Treat Yourself</h3>
-            <p class="ep-row__meta">May 22, 2026 · Soul Snack</p>
-          </span>
-          <span class="ep-row__series ep-row__series--snack">Soul Snack</span>
-        </a>
-        <a class="ep-row" data-ep="feast" href="https://seatofthesoul.com/soul-feast-85-how-do-you-relate-to-your-child-learn-to-talk-to-their-soul-gary-zukavs-personal-experiences/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#85</span>
-          <span>
-            <h3>How Do You Relate To Your Child? Learn to Talk To Their Soul</h3>
-            <p class="ep-row__meta">May 18, 2026 · Soul Feast</p>
-          </span>
-          <span class="ep-row__series ep-row__series--feast">Soul Feast</span>
-        </a>
-        <a class="ep-row" data-ep="snack" href="https://seatofthesoul.com/soul-snack-84-stop-playing-it-safe-how-to-break-free-from-fear-and-live-authentically/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#84</span>
-          <span>
-            <h3>Stop Playing It Safe: How to Break Free From Fear and Live Authentically</h3>
-            <p class="ep-row__meta">May 15, 2026 · Soul Snack</p>
-          </span>
-          <span class="ep-row__series ep-row__series--snack">Soul Snack</span>
-        </a>
-        <a class="ep-row" data-ep="feast" href="https://seatofthesoul.com/soul-feast-84-scarlett-lewis-how-to-choose-love-while-youre-still-in-pain-scarlett-lewis-gary-zukavs-personal-experiences/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#84</span>
-          <span>
-            <h3>Scarlett Lewis – How to Choose Love While You're Still in Pain</h3>
-            <p class="ep-row__meta">May 12, 2026 · Soul Feast</p>
-          </span>
-          <span class="ep-row__series ep-row__series--feast">Soul Feast</span>
-        </a>
-        <a class="ep-row" data-ep="feast" href="https://seatofthesoul.com/soul-feast-83-choosing-love-over-revenge-from-sandy-hook-to-18000-schools-gary-zukavs-personal-experiences-2/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#83</span>
-          <span>
-            <h3>Choosing Love Over Revenge: From Sandy Hook to 18,000 Schools</h3>
-            <p class="ep-row__meta">May 12, 2026 · Soul Feast</p>
-          </span>
-          <span class="ep-row__series ep-row__series--feast">Soul Feast</span>
-        </a>
-        <a class="ep-row" data-ep="snack" href="https://seatofthesoul.com/soul-snack-83-stop-fighting-for-control-how-to-trade-external-power-for-authentic-power/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#83</span>
-          <span>
-            <h3>Stop Fighting for Control: How to Trade External Power for Authentic Power</h3>
-            <p class="ep-row__meta">May 12, 2026 · Soul Snack</p>
-          </span>
-          <span class="ep-row__series ep-row__series--snack">Soul Snack</span>
-        </a>
-        <a class="ep-row" data-ep="feast" href="https://seatofthesoul.com/soul-feast-82-creator-or-victim-the-pain-driving-every-choice-you-make-gary-zukavs-personal-experiences/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#82</span>
-          <span>
-            <h3>Creator or Victim? The Pain Driving Every Choice You Make</h3>
-            <p class="ep-row__meta">May 12, 2026 · Soul Feast</p>
-          </span>
-          <span class="ep-row__series ep-row__series--feast">Soul Feast</span>
-        </a>
-        <a class="ep-row" data-ep="snack" href="https://seatofthesoul.com/soul-snack-82-the-reason-jealousy-keeps-coming-back/" target="_blank" rel="noopener">
-          <span class="ep-row__num">#82</span>
-          <span>
-            <h3>The Reason Jealousy Keeps Coming Back</h3>
-            <p class="ep-row__meta">May 12, 2026 · Soul Snack</p>
-          </span>
-          <span class="ep-row__series ep-row__series--snack">Soul Snack</span>
-        </a>
+      <div class="dc-skel" data-dc-skel aria-hidden="true">
+        <div class="dc-skel__bar"></div><div class="dc-skel__bar"></div><div class="dc-skel__bar"></div>
+        <div class="dc-skel__bar"></div><div class="dc-skel__bar"></div><div class="dc-skel__bar"></div>
       </div>
-      <p class="form-fine" style="margin-top:1.6rem;">Prototype note: 16 most recent episodes shown (88 Soul Feast · 89 Soul Snack published). Each row opens the original episode page on seatofthesoul.com — "Watch or Listen Now".</p>
+
+      <ol class="dc-list" data-dc-list></ol>
+
+      <div class="dc-empty" data-dc-empty hidden>
+        <h3>No episodes match that yet.</h3>
+        <p>Try another word, or clear the search and filters.</p>
+        <button class="btn btn--ghost" type="button" data-dc-clear>Clear search &amp; filters</button>
+      </div>
+
+      <div class="dc-more-wrap">
+        <button class="btn btn--ghost" type="button" data-dc-more hidden>Load more episodes</button>
+        <p class="dc-more-note" data-dc-more-note aria-live="polite"></p>
+      </div>
+
+      <noscript>
+        <p class="int-lead" style="margin-top:1.6rem;">The episode directory needs JavaScript. You can also browse every episode on
+          <a href="https://seatofthesoul.com/podcast/" target="_blank" rel="noopener">seatofthesoul.com/podcast ↗</a>
+          or listen on <a href="https://open.spotify.com/show/2UzjQIkP3b5OKjJkn2L8Sz" target="_blank" rel="noopener">Spotify ↗</a>.</p>
+      </noscript>
     </section>
 
+    <!-- 5 · LET'S CONNECT — social circles -->
+    <section class="int-section dc-connect" aria-labelledby="connect-heading">
+      <p class="int-eyebrow rv">Stay close</p>
+      <h2 class="int-h2 rv" id="connect-heading">Let's <span class="accent">Connect.</span></h2>
+      <div class="dc-connect__icons rv">
+        <a href="https://www.facebook.com/GaryZukav/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 8h2.5V4.5H14A4.5 4.5 0 0 0 9.5 9v2.5H7V15h2.5v5.5H13V15h2.5l.5-3.5h-3V9a1 1 0 0 1 1-1z"/></svg></a>
+        <a href="https://www.instagram.com/gary_zukav/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://x.com/gary_zukav" target="_blank" rel="noopener" aria-label="X (Twitter)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m4 4 16 16M20 4 4 20"/></svg></a>
+        <a href="https://www.tiktok.com/@gary.zukav.soul" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 4v9.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.5 2.5 2 4 4.5 4.5"/></svg></a>
+        <a href="https://www.youtube.com/@TheGaryZukav" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="m10.5 9.5 4.5 2.5-4.5 2.5z"/></svg></a>
+      </div>
+    </section>
+
+    <!-- 6 · NEWSLETTER (ActiveCampaign form id 3, prototype intercept) -->
     <section class="newsband">
       <div class="newsband__inner">
         <div>
@@ -319,6 +258,7 @@
           <a href="../get-started/">Get Started</a>
           <a href="../books/">Books</a>
           <a href="../podcast/">Deepcast</a>
+          <a href="../blog/">Blog · Soul Feed</a>
           <a href="../shop/">Learning Opportunities</a>
           <a href="../seat-of-the-soul-career-opportunities/">Careers</a>
         </div>
@@ -327,7 +267,7 @@
           <a href="../about/seat-of-the-soul-institute/">About SOTSI</a>
           <a href="../about-gary-zukav/">About Gary</a>
           <!-- oculto 2026-07-02 (cliente: solo nav) <a href="../about-linda-francis/">About Linda</a> -->
-          <a href="../about/celebration/">In Celebration of Linda Francis</a>
+          <a href="../remember-linda-homepage/">In Celebration of Linda Francis</a>
         </div>
         <div class="foot">
           <h5>Resources</h5>
@@ -351,5 +291,6 @@
 
   <div class="proto-ribbon" aria-hidden="true">Prototype · Fase 2</div>
   <script src="../assets/js/internal.js"></script>
+  <script src="deepcast.js" defer></script>
 </body>
 </html>

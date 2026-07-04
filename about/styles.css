@@ -517,6 +517,7 @@ body.about-page .site-footer {
 }
 
 .about-hub {
+  position: relative; /* ancla el breadcrumb pill --corner (RULES.md §F) */
   padding: clamp(11rem, 10vw, 13rem) 0 clamp(4rem, 6vw, 5rem);
 }
 
@@ -859,22 +860,30 @@ body.about-page .site-footer {
   height: 16px;
 }
 
-/* Breadcrumb discreto, anclado abajo-izquierda (alineado al borde izq. del shell/headline) */
-.about-hero--gary .about-breadcrumbs--corner {
+/* Breadcrumb — RULES §F (rev 2026-07-04): texto plano sutil, SIN chip (sin pill/borde/blur);
+   abajo-izquierda, separador de punto (·). */
+.about-breadcrumbs--corner {
   position: absolute;
-  left: 0;
-  right: 0;
-  /* hero ahora llena la ventana: deja aire sobre el borde oro (antes 16px quedaba pegado al filo) */
-  bottom: clamp(1.5rem, 3vh, 2.6rem);
-  width: var(--about-shell);
-  margin-inline: auto;
+  left: clamp(1.1rem, 4vw, 2.6rem);
+  right: auto;
+  bottom: clamp(1.4rem, 3vh, 2.6rem);
+  width: auto;
+  margin: 0;
   transform: none;
-  display: flex;
-  justify-content: flex-start;
-  z-index: 3;
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.46);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 5;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 12px rgba(14, 22, 49, 0.45);
+}
+.about-breadcrumbs--corner a { color: rgba(255, 255, 255, 0.85); }
+.about-breadcrumbs--corner [aria-current="page"] { color: var(--gold); }
+.about-breadcrumbs--corner .crumb-sep { opacity: 0.55; }
+@media (max-width: 560px) {
+  .about-breadcrumbs--corner { font-size: 0.64rem; }
 }
 
 /* Reveal de entrada SUTIL (reutiliza about.js [data-reveal]): 14px, sin blur, leve stagger.

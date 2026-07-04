@@ -5,6 +5,18 @@
    ============================================================ */
 
 /* ---- Hero: la foto real (acantilado/océano) protagoniza ---- */
+/* Altura completa como .about-hero--gary (styles.css): el pill breadcrumb
+   anclado al bottom queda abajo-izquierda del viewport, igual que en las
+   demás About, en vez de flotar a media pantalla sobre un hero de 560px. */
+.sots-hero {
+  overflow: hidden;
+  min-height: var(--hero-h-original);
+  display: grid;
+  align-content: center;
+  padding-top: clamp(9rem, 13vh, 12rem);
+  padding-bottom: clamp(4rem, 6vw, 6rem);
+}
+
 .sots-hero::after {
   opacity: 1;
   mix-blend-mode: normal;

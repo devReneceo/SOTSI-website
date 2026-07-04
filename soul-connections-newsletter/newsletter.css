@@ -1,0 +1,77 @@
+/* Soul Connections Newsletter — capa de página (2026-07-04).
+   Hero de video (patrón .int-hero--video de internal.css) + feature-rows premium. */
+
+/* --- Qué recibes: feature rows --- */
+.nl-gifts {
+  display: grid;
+  gap: 1.2rem;
+  margin-top: 1.8rem;
+  max-width: var(--int-copy);
+}
+
+.nl-gift {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  padding: clamp(1.15rem, 2vw, 1.5rem) clamp(1.2rem, 2.2vw, 1.7rem);
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.nl-gift:hover {
+  transform: translateY(-4px);
+  border-color: rgba(254, 212, 87, 0.55);
+  box-shadow: var(--shadow-md);
+}
+
+.nl-gift__icon {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--grad-gold);
+  color: var(--navy);
+}
+
+.nl-gift__icon svg { width: 22px; height: 22px; }
+
+.nl-gift h3 {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.22rem;
+  color: var(--navy);
+}
+
+.nl-gift p {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-on-light);
+}
+
+/* --- Strip de confianza --- */
+.nl-assure {
+  margin: 0 auto;
+  max-width: 64ch;
+  padding-top: clamp(1.4rem, 3vw, 2.2rem);
+  text-align: center;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--text-on-light-soft);
+}
+
+.nl-assure::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin: 0 auto 1.1rem;
+  background: var(--grad-gold);
+}

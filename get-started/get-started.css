@@ -1,0 +1,798 @@
+/* ==========================================================================
+   Get Started — page-scoped styles (cinematic scroll)
+   Extends the shared system (tokens/concepts/brand/sections/theme via
+   internal.css) + about/styles.css (reveals/tide) + section-polish.css
+   (founders). Only NEW, page-specific rules live here. Loaded as
+   ../get-started/get-started.css. Pattern mirrors about/sots.css.
+   ========================================================================== */
+
+.gs-page main { overflow: clip; }
+
+/* Mobile collapse for the immersive nav (home does this via mobile.css, not loaded here):
+   hide the Soul Store CTA and lay out logo + burger with flex, like the Home drawer bar. */
+@media (max-width: 1199px) {
+  .gs-page .snav__main .wrap { display: flex; align-items: center; justify-content: space-between; }
+  .gs-page .snav__end { display: none; }
+}
+
+/* Active nav item (current page) — gold label; underline shared with brand.css ::after */
+.gs-page .snav .nlink--active,
+.gs-page .snav .nlink[aria-current="page"] { color: var(--gold); position: relative; }
+.gs-page .snav__mobile-panel a[aria-current="page"] { color: var(--gold); font-weight: 600; }
+
+/* Breadcrumb — RULES §F (rev 2026-07-04): texto plano sutil, SIN chip, bottom-left, dot separator */
+.gs-hero .crumb-pill {
+  position: absolute;
+  left: clamp(1.1rem, 4vw, 2.6rem);
+  bottom: clamp(1.4rem, 3vh, 2.6rem);
+  z-index: 5;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-body); font-size: 0.72rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 12px rgba(14, 22, 49, 0.45);
+}
+.gs-hero .crumb-pill a { color: rgba(255, 255, 255, 0.85); text-decoration: none; transition: color 0.2s; }
+.gs-hero .crumb-pill a:hover { color: var(--gold); }
+.gs-hero .crumb-pill [aria-current="page"] { color: var(--gold); }
+.gs-hero .crumb-pill__sep { opacity: 0.55; }
+/* keep the dev ribbon clear of the breadcrumb */
+.gs-page .proto-ribbon { left: auto; right: 1rem; }
+@media (max-width: 560px) {
+  .gs-hero .crumb-pill { font-size: 0.64rem; }
+}
+
+/* Shared inner shell for the CTA movements (matches internal.css --int-shell) */
+.gs-shell { width: var(--int-shell); margin-inline: auto; }
+
+/* Reveal-on-scroll — reuses about.js ([data-reveal] → .is-revealed under .reveals-on
+   added to <html>). about/styles.css only styles About containers, so we define our
+   own hidden/visible states scoped to .gs-page. */
+.reveals-on .gs-page [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(6px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s ease;
+}
+.reveals-on .gs-page [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+.reveals-on .gs-page .gs-hero__lead[data-reveal] { transition-delay: 0.08s; }
+.reveals-on .gs-page .gs-hero__cue[data-reveal] { transition-delay: 0.24s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveals-on .gs-page [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
+}
+
+/* --------------------------------------------------------------------------
+   1 · VIDEO INTRO (full-screen) + mandatory GOLD BORDER
+   -------------------------------------------------------------------------- */
+.gs-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--navy);
+}
+.gs-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.gs-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(120% 80% at 50% 20%, transparent 40%, rgba(14, 22, 49, 0.55) 100%),
+    linear-gradient(180deg, rgba(14, 22, 49, 0.34) 0%, rgba(14, 22, 49, 0.12) 34%, rgba(14, 22, 49, 0.78) 100%);
+}
+/* THE GOLD BORDER — identical gradient to styles/brand.css:704-719 ("va de ley") */
+.gs-hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  z-index: 3;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.78) 36%, rgba(255, 235, 69, 0.92) 50%, rgba(254, 212, 87, 0.78) 64%, transparent);
+  box-shadow: 0 0 22px rgba(254, 212, 87, 0.14);
+}
+.gs-hero__inner {
+  position: relative;
+  z-index: 2;
+  width: var(--int-shell);
+  margin-inline: auto;
+  padding-bottom: clamp(4.5rem, 12vh, 9rem);
+  padding-top: clamp(7rem, 14vh, 10rem);
+  text-align: center;
+}
+.gs-hero__eyebrow {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  color: var(--gold);
+}
+.gs-hero__lead {
+  margin: 0 auto;
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.012em;
+  line-height: 1.14;
+  font-size: clamp(1.9rem, 1.1rem + 3.4vw, 4.2rem);
+  text-wrap: balance;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
+}
+.gs-hero__accent { color: var(--gold); font-style: italic; }
+.gs-hero__cue {
+  display: block;
+  width: 1px;
+  height: clamp(38px, 6vh, 62px);
+  margin: clamp(2rem, 4vh, 3rem) auto 0;
+  background: linear-gradient(180deg, rgba(254, 212, 87, 0.9), transparent);
+  animation: gsCueDrift 2.6s ease-in-out infinite;
+}
+@keyframes gsCueDrift { 0%, 100% { transform: scaleY(0.6); opacity: 0.5; } 50% { transform: scaleY(1); opacity: 1; } }
+
+/* --------------------------------------------------------------------------
+   2 · HALO WAVE declaration (full-screen, reuses Soul Tide canvas)
+   -------------------------------------------------------------------------- */
+.gs-wave {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--grad-immersive);
+  padding: clamp(5rem, 12vh, 9rem) 0;
+}
+.gs-wave__canvas { position: absolute; inset: 0; z-index: 0; }
+.gs-wave__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(70% 60% at 50% 50%, rgba(14, 22, 49, 0.55) 0%, transparent 72%);
+}
+.gs-wave__inner {
+  position: relative;
+  z-index: 2;
+  width: var(--int-shell);
+  margin-inline: auto;
+  max-width: 62rem;
+  text-align: center;
+}
+.gs-wave__lead {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.014em;
+  line-height: 1.1;
+  font-size: clamp(2rem, 1.1rem + 3.8vw, 4.4rem);
+  text-wrap: balance;
+}
+.gs-wave__lead .gold { color: var(--yellow); font-style: italic; }
+.gs-wave__sub {
+  margin: clamp(1.6rem, 3vw, 2.4rem) auto 0;
+  max-width: 46ch;
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(1.05rem, 0.98rem + 0.5vw, 1.35rem);
+  line-height: 1.6;
+}
+.gs-wave__sub .gs-ell { color: var(--gold); font-weight: 400; }
+
+/* --------------------------------------------------------------------------
+   3 · KINETIC editorial type — resources & courses (TR) / events & community (BL)
+   -------------------------------------------------------------------------- */
+.gs-kinetic {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: clamp(560px, 88vh, 940px);
+  background:
+    radial-gradient(130% 100% at 50% -10%, #331a52 0%, transparent 58%),
+    linear-gradient(165deg, #140925 0%, #23113b 42%, #3c1951 76%, #4a2168 100%);
+}
+.gs-kinetic__aura {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(42% 46% at 82% 20%, rgba(210, 204, 253, 0.22), transparent 70%),
+    radial-gradient(46% 50% at 14% 84%, rgba(254, 212, 87, 0.16), transparent 72%),
+    radial-gradient(30% 40% at 50% 54%, rgba(124, 74, 158, 0.28), transparent 74%);
+}
+.gs-kinetic__inner {
+  position: relative;
+  z-index: 1;
+  width: var(--int-shell);
+  margin-inline: auto;
+  min-height: inherit;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  padding: clamp(4rem, 11vh, 8rem) 0;
+  gap: clamp(2rem, 6vh, 5rem);
+  transform: translate3d(0, var(--parx-copy, 0px), 0);
+  will-change: transform;
+}
+.gs-kinetic__word {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+  font-size: clamp(2.6rem, 1.2rem + 6.4vw, 7.4rem);
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.3);
+}
+.gs-kinetic__word--tr { justify-self: end; align-self: start; text-align: right; }
+.gs-kinetic__word--bl { justify-self: start; align-self: end; text-align: left; }
+.gs-kinetic__word .gs-amp { color: var(--gold); font-style: italic; }
+.gs-kinetic__word small {
+  display: block;
+  margin-top: 0.9rem;
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-size: clamp(0.9rem, 0.8rem + 0.4vw, 1.1rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.62);
+  text-shadow: none;
+}
+.gs-kinetic__word--tr small { max-width: 30ch; margin-left: auto; }
+.gs-kinetic__word--bl small { max-width: 30ch; }
+
+/* --------------------------------------------------------------------------
+   3 · GARY & LINDA — "with love" (moved up, editorial)
+   Lead expands top-right, portrait right, BIG signature bottom-left.
+   Reuses .founders--immersive gradient/portrait from section-polish.css.
+   -------------------------------------------------------------------------- */
+.gs-founders { padding-block: clamp(4.5rem, 11vh, 8.5rem); }
+.gs-founders .sec__inner {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.gs-founders .founders__copy {
+  display: grid;
+  gap: clamp(3rem, 8vh, 6rem);
+}
+/* lead — big serif, weighted to the top-right, enters from the right */
+.gs-founders__lead {
+  margin: 0;
+  justify-self: end;
+  text-align: right;
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: -0.012em;
+  line-height: 1.4;
+  font-size: clamp(1.5rem, 1.05rem + 1.5vw, 2.4rem);
+  max-width: 21ch;
+  text-wrap: balance;
+}
+/* signature — bottom-left, formato referencia: una línea + reglita dorada */
+.gs-founders__sign {
+  margin: 0;
+  justify-self: start;
+  display: grid;
+  gap: 1.1rem;
+}
+.gs-founders__script-eyebrow {
+  display: block;
+  font-family: var(--font-script); /* Dancing Script: más legible que Pinyon a este tamaño */
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1.05;
+  font-size: clamp(2rem, 1.3rem + 2.8vw, 4rem);
+  animation: foundersScriptGlow 5.5s ease-in-out infinite;
+}
+.gs-founders__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.16em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: #fff;
+  line-height: 0.96;
+}
+.gs-founders .founders__amp { color: #fff; }
+/* "Linda" equilibrada con "Gary &" (proporción de la referencia, no la 8.4rem del Home) */
+.gs-founders .founders__script { font-size: clamp(3rem, 1.9rem + 3.8vw, 5.8rem); }
+.gs-founders__sign .accent-rule { margin: 1.2rem 0 0; }
+@media (min-width: 901px) {
+  .gs-founders__name { flex-wrap: nowrap; }
+}
+/* retrato más contenido para que la composición respire */
+.gs-founders .founders__portrait {
+  width: clamp(260px, 27vw, 400px);
+  height: clamp(260px, 27vw, 400px);
+}
+
+/* lead enters from the right (overrides the default translateY reveal) */
+.reveals-on .gs-page .gs-founders__lead[data-reveal] { transform: translateX(clamp(30px, 6vw, 80px)); }
+.reveals-on .gs-page .gs-founders__lead[data-reveal].is-revealed { transform: none; }
+
+@media (max-width: 900px) {
+  .gs-founders .sec__inner { grid-template-columns: 1fr; }
+  .gs-founders__lead { justify-self: center; text-align: center; max-width: 30ch; }
+  .gs-founders__sign { justify-self: center; text-align: center; }
+  .gs-founders__name { justify-content: center; }
+  .gs-founders__sign .accent-rule { margin-inline: auto; }
+}
+
+/* --------------------------------------------------------------------------
+   T + R1–R6 · "Ready to move forward?" + los 6 rows del original
+   (Newsletter → Guidelines → Love & Fear → Books → Retreats → Beyond 5 Senses)
+   -------------------------------------------------------------------------- */
+.gs-movement { position: relative; overflow: hidden; }
+
+/* Movement C — Experience: custom cosmic/sunset band */
+.gs-movement--exp {
+  background:
+    radial-gradient(120% 90% at 50% -12%, #34164e 0%, transparent 58%),
+    linear-gradient(160deg, #1d0d38 0%, #3c1951 50%, #5a2a3f 100%);
+  color: var(--text-on-dark);
+}
+/* warm sunrise glow rising from bottom-right + soft periwinkle counter-light */
+.gs-movement--exp::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(62% 72% at 80% 120%, rgba(254, 212, 87, 0.22), transparent 68%),
+    radial-gradient(40% 50% at 12% 8%, rgba(210, 204, 253, 0.14), transparent 72%);
+}
+/* subtle vignette for depth (keeps gold only as glow) */
+.gs-movement--exp::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 40%, transparent 52%, rgba(10, 6, 22, 0.5) 100%);
+}
+.gs-movement--exp > .gs-shell { position: relative; z-index: 1; }
+.gs-movement--exp .int-eyebrow { color: var(--yellow); }
+.gs-movement--exp .int-h2 { color: #fff; }
+.gs-movement--exp .int-h2 .accent { color: var(--yellow); }
+.gs-movement--exp .int-lead { color: rgba(255, 255, 255, 0.82); }
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .gs-kinetic__inner { gap: clamp(2.5rem, 8vh, 4rem); }
+}
+@media (max-width: 560px) {
+  .gs-hero__lead { max-width: 16ch; }
+  .gs-kinetic__word small { max-width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .gs-hero__cue { animation: none; }
+}
+
+/* ==========================================================================
+   FASE 2 — feedback Joel (2026-07-03): animación de letras, slides, glow en
+   palabras fuertes, cards con hover tipo blog, libros en filas protagonistas.
+   Reglas: ver ../RULES.md (E. Movimiento, G. Catálogo).
+   ========================================================================== */
+
+/* Word-by-word reveal (data-words) — ink-drop suave por palabra ---------- */
+.reveals-on .gs-page [data-words] .gs-w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em) scale(0.98);
+  filter: blur(4px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+  transition-delay: calc(var(--wi, 0) * 55ms);
+}
+.reveals-on .gs-page [data-words].is-revealed .gs-w { opacity: 1; transform: none; filter: none; }
+/* el contenedor [data-words] NO se oculta a nivel bloque: solo animan sus palabras */
+.reveals-on .gs-page [data-words][data-reveal] { opacity: 1; transform: none; filter: none; }
+
+/* Glow dorado para palabras fuertes (respira) --------------------------- */
+.gs-glow {
+  color: var(--gold);
+  text-shadow: 0 0 24px rgba(254, 212, 87, 0.35);
+  animation: gsGlow 3.6s ease-in-out infinite;
+}
+@keyframes gsGlow {
+  0%, 100% { text-shadow: 0 0 18px rgba(254, 212, 87, 0.22); }
+  50% { text-shadow: 0 0 34px rgba(254, 212, 87, 0.5); }
+}
+
+/* Sección 2 — YOU con halo, acento "joy", cue-line descendente (firma) --- */
+.gs-wave__accent { color: var(--yellow); font-style: italic; }
+.gs-you { position: relative; text-shadow: 0 0 30px rgba(255, 235, 69, 0.45); }
+.gs-wave__cue {
+  position: absolute;
+  left: 50%; bottom: clamp(2rem, 5vh, 3.4rem);
+  width: 1px; height: clamp(40px, 6vh, 64px);
+  transform: translateX(-50%);
+  transform-origin: top;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent);
+  z-index: 2;
+  animation: gsWaveCue 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes gsWaveCue {
+  0% { transform: translateX(-50%) scaleY(0.2); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(-50%) scaleY(1); opacity: 0; }
+}
+
+/* Sección 3 — slide-in (der. entra ←, abajo entra →) + aura viva -------- */
+.reveals-on .gs-page .gs-kinetic__word[data-reveal] {
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.9s ease;
+}
+.reveals-on .gs-page .gs-kinetic__word--tr[data-reveal] { transform: translateX(clamp(40px, 10vw, 120px)); }
+.reveals-on .gs-page .gs-kinetic__word--bl[data-reveal] { transform: translateX(clamp(-120px, -10vw, -40px)); }
+.reveals-on .gs-page .gs-kinetic__word.is-revealed { opacity: 1; transform: none; filter: none; }
+.gs-kinetic__aura { animation: gsAuraDrift 18s ease-in-out infinite alternate; will-change: transform; }
+@keyframes gsAuraDrift {
+  0% { transform: translate3d(-2%, -1%, 0) scale(1.02); }
+  100% { transform: translate3d(3%, 2%, 0) scale(1.12); }
+}
+.gs-kinetic::before {
+  content: ""; position: absolute; inset: -20%;
+  z-index: 0; pointer-events: none;
+  background: radial-gradient(30% 30% at 30% 30%, rgba(210, 204, 253, 0.1), transparent 70%);
+  animation: gsAuraDrift2 22s ease-in-out infinite alternate;
+}
+@keyframes gsAuraDrift2 {
+  0% { transform: translate3d(6%, 3%, 0); }
+  100% { transform: translate3d(-5%, -4%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gs-glow, .gs-wave__cue, .gs-kinetic__aura, .gs-kinetic::before { animation: none; }
+  .reveals-on .gs-page [data-words] .gs-w,
+  .reveals-on .gs-page .gs-kinetic__word[data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
+}
+
+/* ==========================================================================
+   FASE 2b — feedback Joel (2026-07-03): botón .btn-cta de marca (ref 3e.png),
+   CTA-hero de foco único, stage de libros estilo Home (sol + líneas), y hover
+   de cards nivel blog. Reglas: ver ../RULES.md (§H Botones, §G Catálogo).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Ported CTA button — the site's .btn-cta in the navy+gold "tools" look
+   (ref 3e.png). Base: styles/brand.css:987-1009 · look: section-polish.css:158-167.
+   Scoped to page CONTENT (main) so it never collides with the nav CTA.
+   -------------------------------------------------------------------------- */
+.gs-page main .btn-cta {
+  display: inline-flex; align-items: center; border: 0; cursor: pointer;
+  text-decoration: none; border-radius: 999px; padding: 0; background: transparent;
+  box-shadow: 0 16px 32px -16px rgba(14, 22, 49, 0.55);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.gs-page main .btn-cta__inner {
+  position: relative; display: inline-flex; align-items: center; gap: 0.85rem;
+  border-radius: 999px; padding: 0.82rem 1.05rem 0.82rem 1.45rem; white-space: nowrap;
+  background: var(--navy); color: var(--gold);
+  font-family: var(--font-body); font-weight: 600; font-size: 1.02rem; letter-spacing: -0.01em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gs-page main .btn-cta__sheen { display: none; }
+.gs-page main .btn-cta__label { position: relative; z-index: 1; color: var(--gold); }
+.gs-page main .btn-cta__icon {
+  position: relative; z-index: 1; display: inline-grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 10px;
+  background: rgba(254, 212, 87, 0.18); color: var(--gold);
+  box-shadow: inset 0 0 0 1px rgba(254, 212, 87, 0.32);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gs-page main .btn-cta__icon svg { width: 18px; height: 18px; }
+.gs-page main .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 22px 44px -18px rgba(14, 22, 49, 0.6); }
+.gs-page main .btn-cta:hover .btn-cta__inner { background: #16223f; }
+.gs-page main .btn-cta:hover .btn-cta__icon { transform: translateX(3px); }
+.gs-page main .btn-cta:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--gold); }
+
+/* --------------------------------------------------------------------------
+   5 · CTA-HERO — single focus CTA (ref 3e.png composition)
+   -------------------------------------------------------------------------- */
+.gs-cta-hero__inner {
+  display: grid; justify-items: center; text-align: center;
+  gap: clamp(0.9rem, 2.2vw, 1.5rem); max-width: 46rem;
+}
+.gs-cta-hero__eyebrow {
+  margin: 0; font-family: var(--font-body); font-weight: 500;
+  letter-spacing: 0.24em; text-transform: uppercase; font-size: 0.82rem; color: var(--purple);
+}
+.gs-cta-hero__title {
+  margin: 0; font-family: var(--font-display); font-weight: 400; color: var(--navy);
+  letter-spacing: -0.018em; line-height: 1.02; text-wrap: balance;
+  font-size: clamp(2.6rem, 1.4rem + 5vw, 6rem);
+}
+/* accent word — purple→gold gradient (echoes 3e.png; no flat gold fill on light) */
+.gs-cta-hero__title .accent {
+  background: linear-gradient(92deg, var(--purple) 0%, #7c4a9e 52%, #b8860b 108%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-shadow: none; animation: none;
+}
+.gs-cta-hero__script {
+  margin: 0; font-family: var(--font-accent); color: var(--purple);
+  font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3.4rem); line-height: 1;
+}
+.gs-cta-hero__actions { margin-top: clamp(0.6rem, 1.5vw, 1rem); }
+.gs-cta-hero__secondary {
+  margin: 0.3rem 0 0; font-family: var(--font-body); font-weight: 400;
+  font-size: 0.98rem; color: rgba(30, 20, 45, 0.72);
+}
+.gs-cta-hero__secondary a {
+  color: var(--purple); text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-thickness: 1px; transition: color 0.25s;
+}
+.gs-cta-hero__secondary a:hover { color: var(--navy); }
+
+/* ==========================================================================
+   FASE 2c — feedback Joel (2026-07-03): la mitad inferior vuelve al ORDEN DEL
+   ORIGINAL (live /get-started/): transición "Ready to move forward?" + 6 rows
+   full-width scrollables (Newsletter → Guidelines → Love & Fear → Books →
+   Retreats → Beyond the Five Senses). Mismo tratamiento del CTA-hero lila
+   aprobado en todos los rows; solo varía el fondo (tokens de marca). Books se
+   rediseña con el CONTENIDO del original y tipografía founders (e3.png) —
+   fuera el port 1:1 del Home (sol + paths + "Revolutionized").
+   ========================================================================== */
+
+/* Row base — cada oferta es una sección protagonista de scroll ----------- */
+.gs-row {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(420px, 64vh, 720px);
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+.gs-row > .gs-shell { position: relative; z-index: 1; }
+.gs-transition { min-height: clamp(340px, 52vh, 540px); }
+
+/* Fondos por row — solo tokens/gradientes de marca ----------------------- */
+.gs-row--deep { background: var(--grad-deep); }
+.gs-row--peri { background: var(--grad-periwinkle); }
+.gs-row--soft { background: var(--surface-soft); }
+.gs-row--navy {
+  background:
+    radial-gradient(58% 66% at 84% 6%, rgba(60, 25, 81, 0.6), transparent 66%),
+    radial-gradient(46% 54% at 10% 104%, rgba(254, 212, 87, 0.1), transparent 70%),
+    var(--navy);
+}
+
+/* Aura viva en rows oscuros (reusa gsAuraDrift; --exp ya trae su amanecer) */
+.gs-row--dark:not(.gs-movement--exp)::after {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 44% at 80% 16%, rgba(210, 204, 253, 0.13), transparent 70%),
+    radial-gradient(44% 50% at 14% 88%, rgba(254, 212, 87, 0.11), transparent 72%);
+  animation: gsAuraDrift 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Overrides del tratamiento CTA-hero sobre fondo oscuro ------------------ */
+.gs-row--dark .gs-cta-hero__eyebrow { color: var(--periwinkle); }
+.gs-row--dark .gs-cta-hero__title { color: #fff; }
+.gs-row--dark .gs-cta-hero__title .accent {
+  background: none;
+  -webkit-background-clip: initial; background-clip: initial;
+  -webkit-text-fill-color: currentColor; color: var(--yellow);
+  text-shadow: 0 0 24px rgba(255, 235, 69, 0.32);
+  animation: gsGlow 3.6s ease-in-out infinite;
+}
+.gs-row--dark .gs-cta-hero__script {
+  color: var(--gold);
+  animation: foundersScriptGlow 5.5s ease-in-out infinite; /* keyframes: section-polish.css */
+}
+/* botón navy+gold: hairline dorado para que no se hunda en bandas oscuras */
+.gs-row--dark .btn-cta .btn-cta__inner {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 0 0 1px rgba(254, 212, 87, 0.35);
+}
+
+/* hr de marca — crece al revelarse (scaleX 0→1), centrado en el row ------ */
+.gs-row .gs-row__rule { margin: 0.15rem auto 0; }
+.reveals-on .gs-page .gs-row__rule[data-reveal] {
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  filter: none;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.15s;
+}
+.reveals-on .gs-page .gs-row__rule[data-reveal].is-revealed { opacity: 1; transform: scaleX(1); }
+
+/* --------------------------------------------------------------------------
+   R4 · READ — bookshelf editorial (contenido del original get-started +
+   tipografía founders: Fraunces blanco + palabra en Pinyon dorado + hr)
+   -------------------------------------------------------------------------- */
+.gs-bookshelf__head {
+  display: grid;
+  justify-items: center;
+  gap: clamp(0.9rem, 2vw, 1.3rem);
+  text-align: center;
+  margin: 0 auto clamp(3rem, 7vw, 5rem);
+}
+.gs-bookshelf__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.018em;
+  line-height: 1.02;
+  text-wrap: balance;
+  font-size: clamp(2.4rem, 1.3rem + 4.6vw, 5.4rem);
+}
+.gs-bookshelf__script-word {
+  font-family: var(--font-accent);
+  font-size: 1.14em;
+  line-height: 0.9;
+  color: var(--gold);
+  padding-inline: 0.05em;
+  animation: foundersScriptGlow 5.5s ease-in-out infinite;
+}
+
+/* fila editorial: portada ↔ copy (alternada con --flip) ------------------ */
+.gs-bookrow {
+  display: grid;
+  grid-template-columns: minmax(170px, 250px) 1fr;
+  align-items: center;
+  gap: clamp(1.8rem, 5vw, 4.5rem);
+  max-width: 58rem;
+  margin-inline: auto;
+}
+.gs-bookrow + .gs-bookrow { margin-top: clamp(3.2rem, 7vw, 5.5rem); }
+.gs-bookrow--flip { grid-template-columns: 1fr minmax(170px, 250px); }
+.gs-bookrow--flip .gs-bookrow__cover { order: 2; }
+.gs-bookrow--flip .gs-bookrow__body { order: 1; justify-items: end; text-align: right; }
+
+.gs-bookrow__cover { margin: 0; position: relative; }
+.gs-bookrow__cover::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--glow-yellow);
+  opacity: 0.32;
+  filter: blur(12px);
+}
+.gs-bookrow__cover img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.55));
+  transform: rotate(-3.5deg);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gs-bookrow--flip .gs-bookrow__cover img { transform: rotate(3deg); }
+.gs-bookrow:hover .gs-bookrow__cover img { transform: rotate(0deg) translateY(-6px); }
+
+.gs-bookrow__body { display: grid; gap: 0.55rem; justify-items: start; text-align: left; }
+.gs-bookrow__tag {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  color: var(--periwinkle);
+}
+.gs-bookrow__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3.4rem);
+}
+.gs-bookrow__sub {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1rem, 0.95rem + 0.4vw, 1.2rem);
+  line-height: 1.45;
+  max-width: 36ch;
+}
+/* el paréntesis del original, en Pinyon dorado con "( )" finos ----------- */
+.gs-bookrow__script {
+  margin: 0.3rem 0 0.35rem;
+  font-family: var(--font-accent);
+  color: var(--gold);
+  font-size: clamp(1.6rem, 1.15rem + 1.7vw, 2.6rem);
+  line-height: 1;
+}
+.gs-bookrow__script::before { content: "( "; opacity: 0.5; }
+.gs-bookrow__script::after { content: " )"; opacity: 0.5; }
+.gs-bookrow__actions {
+  margin-top: 0.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.gs-bookrow--flip .gs-bookrow__actions { justify-content: flex-end; }
+
+.gs-bookshelf__more {
+  margin: clamp(3rem, 7vw, 4.5rem) auto 0;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(0.98rem, 0.92rem + 0.3vw, 1.12rem);
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 62ch;
+}
+.gs-bookshelf__more a {
+  color: var(--periwinkle);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.25s;
+}
+.gs-bookshelf__more a:hover { color: var(--yellow); }
+
+/* portadas se ASIENTAN al revelarse (rotación extra → tilt de reposo) ---- */
+.reveals-on .gs-page .gs-bookrow[data-reveal] .gs-bookrow__cover {
+  transform: rotate(-5deg) translateY(14px);
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveals-on .gs-page .gs-bookrow--flip[data-reveal] .gs-bookrow__cover { transform: rotate(5deg) translateY(14px); }
+.reveals-on .gs-page .gs-bookrow[data-reveal].is-revealed .gs-bookrow__cover { transform: none; }
+
+/* Responsive (rows) ------------------------------------------------------- */
+@media (max-width: 760px) {
+  .gs-bookrow,
+  .gs-bookrow--flip { grid-template-columns: 1fr; justify-items: center; }
+  .gs-bookrow--flip .gs-bookrow__cover { order: 0; }
+  .gs-bookrow__body,
+  .gs-bookrow--flip .gs-bookrow__body { justify-items: center; text-align: center; }
+  .gs-bookrow__cover { width: clamp(160px, 48vw, 230px); }
+  .gs-bookrow__actions,
+  .gs-bookrow--flip .gs-bookrow__actions { justify-content: center; }
+  .gs-bookrow__sub { max-width: 100%; }
+}
+
+/* Reduced motion (rows) ---------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .gs-row--dark:not(.gs-movement--exp)::after,
+  .gs-bookshelf__script-word,
+  .gs-row--dark .gs-cta-hero__title .accent,
+  .gs-row--dark .gs-cta-hero__script { animation: none; }
+  .gs-bookrow__cover img { transition: none; }
+  .reveals-on .gs-page .gs-row__rule[data-reveal],
+  .reveals-on .gs-page .gs-bookrow[data-reveal] .gs-bookrow__cover { opacity: 1; transform: none; transition: none; }
+}

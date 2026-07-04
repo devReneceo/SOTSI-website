@@ -8,7 +8,12 @@
   <!--
     Prototype Fase 2 · WP slug: /shop/
     Verdict: rebuild · effort 1.7d (band medium) · Joel: Medium 2-4d
-    Template: catalog (cat-card 16:9) · Enrollment: external Kajabi (experience.seatofthesoul.com)
+    Rediseño 2026-07-04e (feedback Joel): fiel al original vivo —
+    hero = banner real del WP (SOTSI-Carousel-Images-Full, texto horneado removido por inpainting)
+    con SOLO las 2 líneas del banner en tipografía viva navy, sin CTA, cue de scroll;
+    video de olas comentado por ahora;
+    lista de 5 ofertas verbatim con FOTO-CTA (como el WP) + botón oro boomer-friendly con señal de link externo.
+    Enrollment: external Kajabi (experience.seatofthesoul.com) — hrefs originales intactos.
   -->
   <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
@@ -17,213 +22,168 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Dancing+Script:wght@600&family=Pinyon+Script&display=swap" />
+  <link rel="preload" as="image" href="../assets/images/shop-hero-carousel.webp" fetchpriority="high" />
   <link rel="stylesheet" href="../styles/internal.css" />
+  <link rel="stylesheet" href="./shop.css" />
 </head>
-<body class="int-page nav-dark nl-centered-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
-  <header class="snav snav--centered" id="navCentered">
-    <div class="snav__utility">
-      <div class="wrap">
-        <span class="script" style="font-size:1.3rem;color:var(--gold);">Create Authentic Power · Choose Love</span>
-        <span style="display:flex;gap:.3rem;align-items:center;">
-          <a href="../soul-connections-newsletter/">Soul Connections</a><span aria-hidden="true">·</span>
-          <a href="mailto:info@seatofthesoul.com">Contact</a><span aria-hidden="true">·</span><a href="#">EN</a>
-        </span>
+<body class="int-page nav-dark nl-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
+  <header class="snav snav--immersive" id="navImmersive">
+  <nav class="snav__main" aria-label="Main navigation (immersive)">
+    <div class="wrap">
+      <a class="snav__logo" href="../index.html" aria-label="Seat of the Soul Institute — home">
+        <img class="logo--for-dark" src="../assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="../assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
+      </a>
+      <div class="snav__row">
+        <a class="nlink" href="../get-started/"><span class="glow"></span>Get Started</a>
+        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../about/seat-of-the-soul-institute/">About SOTSI</a><a href="../about-gary-zukav/">About Gary</a><a href="../about-linda-francis/">About Linda</a></div></div>
+        <a class="nlink" href="../remember-linda-homepage/"><span class="glow"></span>In Celebration of Linda Francis</a>
+        <div class="has-dd"><a class="nlink" href="../shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div></div>
+        <a class="nlink" href="../podcast/"><span class="glow"></span>Deepcast</a>
+        <a class="nlink" href="../blog/"><span class="glow"></span>Blog</a>
+        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../failing-government/">What to do about Failing Governments</a><a href="../ai-and-human-evolution/">AI and Human Evolution</a><a href="../soul-connections-newsletter/">Soul Connections Newsletter</a><a href="../books/">Get The Books</a><a href="../apg-optin/">Authentic Power Guidelines</a></div></div>
       </div>
-    </div>
-    <nav class="snav__main" aria-label="Main navigation (centered)">
-      <div class="wrap">
-        <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-        <a class="snav__logo" href="../index.html" aria-label="Seat of the Soul Institute — home">
-          <img class="logo--for-dark" src="../assets/whitelogo.webp" alt="Seat of the Soul Institute" />
-          <img class="logo--for-light" src="../assets/darklogo.webp" alt="Seat of the Soul Institute" />
+      <div class="snav__end">
+        <a class="btn-cta btn-cta--sm" href="../shop/">
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
+          <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
         </a>
-        <div class="snav__side right">
-          <div class="has-dd">
-            <a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../about/seat-of-the-soul-institute/">About SOTSI</a>
-              <a href="../about-gary-zukav/">About Gary</a>
-              <a href="../about-linda-francis/">About Linda</a>
-              <a href="../about/celebration/">In Celebration of Linda Francis</a>
-            </div>
-          </div>
-          <div class="has-dd">
-            <a class="nlink" href="../shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../shop/">Explore All Learning Opportunities</a>
-              <a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a>
-              <a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a>
-            </div>
-          </div>
-          <a class="nlink" href="../podcast/"><span class="glow"></span>Deepcast</a>
-          <div class="has-dd">
-            <a class="nlink" href="../get-started/" aria-haspopup="true"><span class="glow"></span>Resources
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../failing-government/">What to do about Failing Governments</a>
-              <a href="../ai-and-human-evolution/">AI and Human Evolution</a>
-              <a href="../soul-connections-newsletter/">Soul Connections Newsletter</a>
-              <a href="../books/">Get The Books</a>
-              <a href="../apg-optin/">Authentic Power Guidelines</a>
-            </div>
-          </div>
-          <a class="btn-cta btn-cta--sm" href="../shop/" style="margin-left:.5rem;">
-            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
-            <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
-          </a>
-        </div>
       </div>
-    </nav>
-    <div class="snav__mobile">
-      <div class="snav__mobile-panel" data-mobile hidden>
-        <span class="snav__mobile-label">About</span>
-        <a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a>
-        <a class="subnav-link" href="../about-gary-zukav/">About Gary</a>
-        <a class="subnav-link" href="../about-linda-francis/">About Linda</a>
-        <a class="subnav-link" href="../about/celebration/">In Celebration of Linda Francis</a>
-        <a href="../shop/">Courses, Events &amp; Activities</a>
-        <a href="../podcast/">Deepcast</a>
-        <a href="../soul-connections-newsletter/">Newsletter</a>
-        <a href="../books/">Books</a>
-        <a class="btn btn--primary" href="../shop/">Soul Store</a>
-      </div>
+      <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
-  </header>
+  </nav>
+  <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
+    <a href="../get-started/">Get Started</a><span class="snav__mobile-label">About</span><a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="../about-gary-zukav/">About Gary</a><a class="subnav-link" href="../about-linda-francis/">About Linda</a><a href="../remember-linda-homepage/">In Celebration of Linda Francis</a><a href="../shop/">Courses, Events &amp; Activities</a><a href="../podcast/">Deepcast</a><a href="../blog/">Blog</a><span class="snav__mobile-label">Resources</span><a class="subnav-link" href="../failing-government/">What to do about Failing Governments</a><a class="subnav-link" href="../ai-and-human-evolution/">AI and Human Evolution</a><a class="subnav-link" href="../soul-connections-newsletter/">Soul Connections Newsletter</a><a class="subnav-link" href="../books/">Get The Books</a><a class="subnav-link" href="../apg-optin/">Authentic Power Guidelines</a>
+    <a class="btn btn--primary" href="../shop/">Soul Store</a>
+  </div></div>
+</header>
 
   <main>
-    <section class="int-hero int-hero--compact" style="--hero-image:url('../assets/images/6a3342a6143842a748166473_spiritual-wellness-course-transformation.webp');">
-      <div class="int-hero__inner">
-        <nav class="int-breadcrumbs" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a><span aria-hidden="true">/</span><span>Learning Opportunities</span>
-        </nav>
-        <p class="int-kicker">Courses, events &amp; activities</p>
-        <h1 class="int-title">Learn to create <span class="gold">authentic power</span> in your life.</h1>
-        <hr class="int-rule" />
-        <p class="int-deck">Live monthly gatherings with Gary and self-paced courses to help you align your personality with your soul — one conscious choice at a time.</p><!-- PLACEHOLDER: confirmar copy real (el hero vivo no tiene subcopy) -->
-        <div class="int-hero__meta">
-          <div class="int-stat"><p class="int-stat__label">Learning opportunities</p><p class="int-stat__value">5 courses &amp; events</p></div>
-          <div class="int-stat"><p class="int-stat__label">Formats</p><p class="int-stat__value">Live monthly · Self-paced</p></div>
-          <div class="int-stat"><p class="int-stat__label">Where you'll learn</p><p class="int-stat__value">experience.seatofthesoul.com</p></div>
+    <section class="int-hero int-hero--video sh-hero" style="--hero-poster:url('../assets/images/shop-hero-carousel.webp');" aria-labelledby="sh-heading">
+      <img class="int-hero__video" src="../assets/images/shop-hero-carousel.webp" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" aria-hidden="true" />
+      <!-- video de olas comentado por ahora — feedback Joel 2026-07-04:
+      <video class="int-hero__video" autoplay muted loop playsinline preload="metadata" poster="../assets/images/shop-hero-carousel.webp" aria-hidden="true" tabindex="-1">
+        <source src="../assets/waves-720.mp4" type="video/mp4" />
+      </video>
+      -->
+      <div class="int-hero__inner sh-hero__inner">
+        <h1 class="int-title sh-hero__title" id="sh-heading">
+          <span class="sh-hero__script int-rise" style="--ri:0;">Explore</span>
+          <span class="sh-hero__line"><span class="sh-w" style="--wi:0;">Seat</span> <span class="sh-w" style="--wi:1;">of</span> <span class="sh-w" style="--wi:2;">the</span> <span class="sh-w" style="--wi:3;">Soul</span> <span class="sh-w" style="--wi:4;">Offerings</span></span>
+        </h1>
+        <hr class="int-rule sh-hero__rule" />
+      </div>
+      <span class="aspire__cue int-hero__cue" aria-hidden="true"><span class="aspire__cue-line"></span></span>
+      <nav class="int-breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page">Learning Opportunities</span>
+      </nav>
+    </section>
+
+    <section class="int-band--dark sh-offerings" id="catalog" aria-labelledby="sh-catalog-title">
+      <div class="sh-offerings__inner">
+        <header class="sh-offerings__head">
+          <p class="int-eyebrow rv">The offerings</p>
+          <h2 class="int-h2 sh-offerings__title rv" id="sh-catalog-title">Learn to create <span class="sh-power">Authentic Power</span> in your life.</h2>
+          <p class="int-lead rv">Tune in to your intuition and find the learning opportunity that feels right for you — from a live evening with Gary to deep, self-paced study of emotional awareness.</p>
+          <div class="sh-anchors rv" role="navigation" aria-label="Jump to a learning opportunity">
+            <a class="chip" href="#evening">Evening with Gary</a>
+            <a class="chip" href="#soul-themes">Soul Themes</a>
+            <a class="chip" href="#beyond-the-five-senses">Beyond the Five Senses</a>
+            <a class="chip" href="#emotional-awareness">Emotional Awareness</a>
+            <a class="chip" href="#apg-course">Authentic Power Guidelines</a>
+          </div>
+        </header>
+
+        <div class="sh-offers">
+          <article class="sh-offer post--glow rv" id="evening">
+            <a class="sh-offer__media" href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener" aria-label="Evening with Gary Zukav — opens experience.seatofthesoul.com in a new tab">
+              <img src="../assets/images/courses/evening-with-gary.webp" alt="Gary Zukav smiling outdoors, ready for a live evening call" loading="lazy" width="1024" height="576" />
+              <span class="sh-offer__ext" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></span>
+            </a>
+            <div class="sh-offer__body">
+              <p class="sh-offer__tag"><i aria-hidden="true"></i>Live · Monthly subscription</p>
+              <h3 class="sh-offer__title">Evening with Gary Zukav</h3>
+              <p class="sh-offer__text">Join Gary each month for a live, heart-opening Zoom call discussing substantive and relevant topics. Gary will share practical wisdom to help you work through life&rsquo;s challenges and will answer your questions live. Enjoy access to each month&rsquo;s call recording as well as reflection questions to support you in growing spiritually.</p>
+              <div class="sh-offer__actions">
+                <a class="btn btn--gold sh-offer__btn" href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">Subscribe today!<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
+                <p class="sh-offer__ext-note">Opens experience.seatofthesoul.com in a new tab</p>
+                <a class="int-link sh-offer__alt" href="../evening-with-gary/">Preview the proposal page <span class="arrow">→</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="sh-offer post--glow rv" id="soul-themes">
+            <a class="sh-offer__media" href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener" aria-label="Soul Themes Course — opens experience.seatofthesoul.com in a new tab">
+              <img src="../assets/images/courses/soul-themes.webp" alt="Soul Themes Course — course card" loading="lazy" width="1024" height="576" />
+              <span class="sh-offer__ext" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></span>
+            </a>
+            <div class="sh-offer__body">
+              <p class="sh-offer__tag"><i aria-hidden="true"></i>Course · 12 modules · Monthly</p>
+              <h3 class="sh-offer__title">Soul Themes Course</h3>
+              <p class="sh-offer__text">Soul Themes is a 12-module course that will help you explore your full potential, so you can give the gifts you were born to give. Each module, delivered monthly, consists of teachings, reflections, and explorations that will support you in looking more deeply at yourself and your life — learning how to create authentic power with each module. Your soul has been waiting for you to take this journey.</p>
+              <div class="sh-offer__actions">
+                <a class="btn btn--gold sh-offer__btn" href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Enroll Today!<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
+                <p class="sh-offer__ext-note">Opens experience.seatofthesoul.com in a new tab</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="sh-offer post--glow rv" id="beyond-the-five-senses">
+            <a class="sh-offer__media" href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener" aria-label="Beyond the Five Senses — opens experience.seatofthesoul.com in a new tab">
+              <img src="../assets/images/courses/beyond-the-five-senses.webp" alt="Beyond the Five Senses — course card" loading="lazy" width="1024" height="576" />
+              <span class="sh-offer__ext" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></span>
+            </a>
+            <div class="sh-offer__body">
+              <p class="sh-offer__tag"><i aria-hidden="true"></i>Course · 7 modules · Self-paced</p>
+              <h3 class="sh-offer__title">Beyond the Five Senses</h3>
+              <p class="sh-offer__text">A self-paced 7-module course, Beyond the Five Senses will guide you in recognizing the new consciousness, learn how to consult your intuition, and experience guidance from non-physical Teachers. The new consciousness is emerging in you! Join us and explore how multi-sensory perception is reshaping the human experience.</p>
+              <div class="sh-offer__actions">
+                <a class="btn btn--gold sh-offer__btn" href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Enroll today!<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
+                <p class="sh-offer__ext-note">Opens experience.seatofthesoul.com in a new tab</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="sh-offer post--glow rv" id="emotional-awareness">
+            <a class="sh-offer__media" href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener" aria-label="Emotional Awareness, Messages From Your Soul — opens experience.seatofthesoul.com in a new tab">
+              <img src="../assets/images/courses/emotional-awareness.webp" alt="Emotional Awareness — Messages From Your Soul course card" loading="lazy" width="1024" height="576" />
+              <span class="sh-offer__ext" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></span>
+            </a>
+            <div class="sh-offer__body">
+              <p class="sh-offer__tag"><i aria-hidden="true"></i>Course · 33 modules · Self-paced</p>
+              <h3 class="sh-offer__title">Emotional Awareness - Messages From Your Soul</h3>
+              <p class="sh-offer__text">Emotions are messages from your soul, guiding you to understand deeper aspects of yourself. In this self-paced, 33-module course, you will learn how to integrate emotional awareness into your daily life with practical tools, immersive exercises, and helpful illustrations. Learn how to recognize your emotions, as well as how to challenge or cultivate them so you can create authentic power in your life and give the unique gifts you were born to give.</p>
+              <div class="sh-offer__actions">
+                <a class="btn btn--gold sh-offer__btn" href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">Enroll today!<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
+                <p class="sh-offer__ext-note">Opens experience.seatofthesoul.com in a new tab</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="sh-offer sh-offer--wide post--glow rv" id="apg-course">
+            <a class="sh-offer__media" href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener" aria-label="Authentic Power Guidelines Course — opens experience.seatofthesoul.com in a new tab">
+              <img src="../assets/images/courses/apg-course.webp" alt="Authentic Power Guidelines Course — course card" loading="lazy" width="1024" height="576" />
+              <span class="sh-offer__ext" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></span>
+            </a>
+            <div class="sh-offer__body">
+              <p class="sh-offer__tag"><i aria-hidden="true"></i>Course · 15 modules</p>
+              <h3 class="sh-offer__title">Authentic Power Guidelines Course</h3>
+              <p class="sh-offer__text">Create with love when fear is active within you — learn how to create authentic power! This 15-module course guides you through every step of creating authentic power in your relationships, work and in all areas of your life. We invite you to take this intimate journey of personal exploration and experimentation, so you can align your personality with your soul and create authentic power.</p>
+              <div class="sh-offer__actions">
+                <a class="btn btn--gold sh-offer__btn" href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Enroll in this life-changing course today!<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
+                <p class="sh-offer__ext-note">Opens experience.seatofthesoul.com in a new tab</p>
+              </div>
+            </div>
+          </article>
         </div>
+
+        <p class="form-fine sh-offerings__fine">Prototype note: every enrollment opens the original Kajabi experience at experience.seatofthesoul.com in a new tab.</p>
       </div>
     </section>
 
-    <section class="int-section" id="catalog">
-      <p class="int-eyebrow rv">The catalog</p>
-      <h2 class="int-h2 rv">Five ways to <span class="accent">practice.</span></h2>
-      <p class="int-lead rv">Tune in to your intuition and find the learning opportunity that feels right for you — from a live evening with Gary to deep, self-paced study of emotional awareness.</p>
-
-      <div class="cat-grid">
-        <article class="cat-card rv">
-          <div class="cat-card__media"><img src="https://seatofthesoul.com/wp-content/uploads/2024/05/e58c0be-50d3-0fb-ac64-a60863df8407_40cebf4d-0fab-46a4-8085-7f86958a4820-1024x576.webp" alt="Evening with Gary Zukav — live monthly Zoom gathering" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Live · Monthly subscription</p>
-            <h3>Evening with Gary Zukav</h3>
-            <p>Join Gary each month for a live, heart-opening Zoom call discussing substantive and relevant topics.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">Subscribe today!</a>
-              <span class="badge-ext">Kajabi ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media"><img src="https://seatofthesoul.com/wp-content/uploads/2024/05/YXTabW9KRXmARCZhk7BI_file-1024x576.jpg" alt="Soul Themes Course — course card" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Course · 12 modules</p>
-            <h3>Soul Themes Course</h3>
-            <p>Soul Themes is a 12-module course that will help you explore your full potential, so you can give the gifts you were born to give.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Enroll Today!</a>
-              <span class="badge-ext">Kajabi ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media"><img src="https://seatofthesoul.com/wp-content/uploads/2024/05/3ebf6db-7a7b-2bd0-3082-71bfba1cb3c7__ALL_COLORS_SOTSI_Courses_Examples_1_-1024x576.webp" alt="Beyond the Five Senses — course card" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Course · 7 modules · Self-paced</p>
-            <h3>Beyond the Five Senses</h3>
-            <p>A self-paced 7-module course that will guide you in recognizing the new consciousness and learning how to consult your intuition.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Enroll today!</a>
-              <span class="badge-ext">Kajabi ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media"><img src="https://seatofthesoul.com/wp-content/uploads/2024/05/a45ad5f-daaf-d7f-0acd-0fc8c6e747_9a4814f2-16bc-496a-8414-07844d341077-1024x576.webp" alt="Emotional Awareness — Messages From Your Soul course card" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Course · 33 modules · Self-paced</p>
-            <h3>Emotional Awareness — Messages From Your Soul</h3>
-            <p>Emotions are messages from your soul, guiding you to understand deeper aspects of yourself. In this self-paced, 33-module course, you will learn how to integrate emotional awareness into your daily life.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">Enroll today!</a>
-              <span class="badge-ext">Kajabi ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media"><img src="https://seatofthesoul.com/wp-content/uploads/2024/05/c417c2-d05-fc-3457-7a4f8dfb0453_7645350-3fcf-27a2-08a5-8db468e68be_10a203-d80-cff3-a38-2c441a0ff2c7_1dee32ed-40bb-4bb8-8893-deae372a8583-1024x576.jpg" alt="Authentic Power Guidelines Course — course card" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Course · 15 modules</p>
-            <h3>Authentic Power Guidelines Course</h3>
-            <p>Create with love when fear is active within you — learn how to create authentic power! This 15-module course guides you through every step of creating authentic power in your relationships and work.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Enroll in this life-changing course today!</a>
-              <span class="badge-ext">Kajabi ↗</span>
-            </div>
-          </div>
-        </article>
-      </div>
-      <p class="form-fine" style="margin-top:1.6rem;">Prototype note: course imagery loads from the live site; every enrollment opens the original Kajabi experience at experience.seatofthesoul.com in a new tab.</p>
-    </section>
-
-    <section class="int-section int-band--lilac">
-      <div class="int-split">
-        <div class="rv">
-          <p class="int-eyebrow">Prefer to read?</p>
-          <h2 class="int-h2">Begin with the books that <span class="accent">started it all.</span></h2>
-          <p class="int-lead">Twelve titles by New York Times bestselling authors Gary Zukav and Linda Francis — from The Seat of the Soul to Universal Human, with journals and daily meditations in between.</p>
-          <div class="int-hero__actions" style="margin-top:1.8rem;">
-            <a class="btn btn--gold" href="../books/">Get The Books</a>
-            <a class="int-link" href="../get-started/">Not sure where to start? <span class="arrow">→</span></a>
-          </div>
-        </div>
-        <div class="int-split__media rv">
-          <img src="../assets/images/latest-books.webp" alt="The latest books by Gary Zukav and Linda Francis" loading="lazy" width="1200" height="800" />
-        </div>
-      </div>
-    </section>
-
-    <section class="newsband">
-      <div class="newsband__inner">
-        <div>
-          <p class="int-eyebrow">Stay connected</p>
-          <h2 class="int-h2">Not ready to enroll? <span class="accent">Start with a letter.</span></h2>
-          <p class="int-lead">Join Soul Connections and receive gentle, practical guidance for your journey — one reflection at a time.</p>
-        </div>
-        <div class="form-card">
-          <h3 class="form-card__title">Soul Connections</h3>
-          <p class="form-card__note">Monthly newsletter · Free. Unsubscribe anytime.</p>
-          <form novalidate>
-            <label class="field"><span>First name</span><input type="text" name="first_name" autocomplete="given-name" placeholder="Type your first name" required /></label>
-            <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="Type your email" required /></label>
-            <button class="btn btn--gold" type="submit">Subscribe</button>
-            <p class="form-fine">Prototype note: submissions will be centralized in ActiveCampaign (form id 3).</p>
-          </form>
-          <p class="form-success">You're in. Watch your inbox for your first Soul Connections letter.</p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
@@ -253,6 +213,7 @@
           <a href="../get-started/">Get Started</a>
           <a href="../books/">Books</a>
           <a href="../podcast/">Deepcast</a>
+          <a href="../blog/">Blog · Soul Feed</a>
           <a href="../shop/">Learning Opportunities</a>
           <a href="../seat-of-the-soul-career-opportunities/">Careers</a>
         </div>
@@ -261,7 +222,7 @@
           <a href="../about/seat-of-the-soul-institute/">About SOTSI</a>
           <a href="../about-gary-zukav/">About Gary</a>
           <!-- oculto 2026-07-02 (cliente: solo nav) <a href="../about-linda-francis/">About Linda</a> -->
-          <a href="../about/celebration/">In Celebration of Linda Francis</a>
+          <a href="../remember-linda-homepage/">In Celebration of Linda Francis</a>
         </div>
         <div class="foot">
           <h5>Resources</h5>

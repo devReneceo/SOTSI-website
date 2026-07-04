@@ -21,8 +21,14 @@ assets/images/last.gif
 assets/old fonts/
 assets/images/Latest-Book.png
 
+# Deepcast build tooling — internal-only (scraper + wp cache + source thumbs)
+tools/
+
 # Report package — internal-only files (never publish)
 report-*/_SESSION-LOG.md
 report-*/*-Report.md
 report-*/Seat_of_the_Soul_Audit.pdf
 report-*/evidence/before-hero-prev.png
+
+# Internal design/build rules — NOT for public repo
+RULES.md

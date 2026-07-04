@@ -1,0 +1,408 @@
+/* Shop — Learning Opportunities (rediseño 2026-07-04e, feedback Joel).
+   Fiel al WP vivo (seatofthesoul.com/shop/):
+   · Hero = el banner real del WP (SOTSI-Carousel-Images-Full, texto horneado
+     removido por inpainting) con SOLO las 2 líneas del banner en tipografía
+     viva navy — sin kicker, sin deck, sin CTA; el cue invita al scroll.
+     Video de olas comentado por ahora. Patrón .int-hero--video de internal.css.
+   · Lista de 5 ofertas verbatim sobre banda navy: la FOTO es el CTA (como el
+     original) + botón oro grande boomer-friendly con señal de link externo. */
+
+/* ---------- HERO (overrides sobre .int-hero--video) ---------- */
+.sh-hero .int-hero__inner {
+  text-align: center;
+}
+
+/* El banner pastel queda a la vista: scrim solo en los extremos —
+   arriba para el nav blanco, abajo para breadcrumbs + cue. */
+.sh-hero.int-hero--video::before {
+  background: linear-gradient(180deg, rgba(14, 22, 49, 0.48) 0%, rgba(14, 22, 49, 0) 30%, rgba(14, 22, 49, 0) 68%, rgba(14, 22, 49, 0.5) 100%);
+}
+
+.sh-hero__title {
+  display: block;
+  max-width: none;
+  margin-inline: auto;
+}
+
+/* cue de scroll navy: la línea blanca del patrón se pierde sobre la arena pastel */
+.sh-hero .aspire__cue-line {
+  width: 2px;
+  background: linear-gradient(rgba(31, 71, 103, 0.8), rgba(31, 71, 103, 0));
+}
+
+/* "Explore" — la línea script del banner original, navy como venía horneada.
+   Tratamiento premium site-wide: tinta navy en gradiente (eco del accent de
+   get-started) + halo blanco drop-shadow (background-clip mata text-shadow). */
+.sh-hero__script {
+  display: block;
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: clamp(3.8rem, 2.3rem + 6vw, 7.6rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  margin-bottom: -0.24em;
+  background: linear-gradient(175deg, #35688f 4%, #1f4767 52%, #12314b 96%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.45)) drop-shadow(0 6px 26px rgba(255, 255, 255, 0.5));
+}
+
+/* "Seat of the Soul Offerings" — word-split rise (eco CSS-puro del APG/Home) */
+.sh-hero__line {
+  display: block;
+  font-size: clamp(2.7rem, 1.6rem + 4.6vw, 6rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.sh-hero__line .sh-w {
+  display: inline-block;
+  background: linear-gradient(175deg, #35688f 4%, #1f4767 52%, #12314b 96%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.4)) drop-shadow(0 8px 30px rgba(255, 255, 255, 0.45));
+  opacity: 0;
+  transform: translateY(0.35em);
+  animation: shWord 0.7s var(--ease) forwards;
+  animation-delay: calc(var(--wi, 0) * 85ms + 380ms);
+}
+
+@keyframes shWord {
+  to { opacity: 1; transform: none; }
+}
+
+/* firma dorada bajo el título — crece al entrar (patrón accent-rule site-wide) */
+.sh-hero .sh-hero__rule {
+  width: 92px;
+  margin: 2.1rem auto 0;
+  transform-origin: center;
+  animation: shRule 0.9s var(--ease) 1.05s backwards;
+}
+
+@keyframes shRule {
+  from { transform: scaleX(0); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sh-hero__line .sh-w,
+  .sh-hero .sh-hero__rule {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- BANDA DE OFERTAS (navy, como el original) ---------- */
+.sh-offerings {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(4.5rem, 8vw, 7rem) 0 clamp(5rem, 8vw, 7.5rem);
+}
+
+/* glows de profundidad + hairline dorado de entrada (firma) */
+.sh-offerings::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(44% 60% at 8% 4%, rgba(210, 204, 253, 0.14), transparent 70%),
+    radial-gradient(40% 56% at 94% 96%, rgba(254, 212, 87, 0.1), transparent 72%);
+}
+
+.sh-offerings::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.7) 50%, transparent);
+}
+
+.sh-offerings__inner {
+  position: relative;
+  z-index: 2;
+  width: var(--int-shell);
+  margin-inline: auto;
+}
+
+.sh-offerings__head { max-width: 62rem; }
+
+.sh-offerings__title .sh-power {
+  color: var(--yellow);
+  text-shadow: 0 0 26px rgba(255, 235, 69, 0.32);
+  white-space: nowrap;
+}
+
+/* chips de anclas sobre banda oscura */
+.sh-anchors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.7rem;
+}
+
+.sh-anchors .chip {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.88);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sh-anchors .chip:hover {
+  border-color: var(--gold);
+  color: var(--yellow);
+}
+
+#evening, #soul-themes, #beyond-the-five-senses, #emotional-awareness, #apg-course {
+  scroll-margin-top: 120px;
+}
+
+/* ---------- Cards de oferta ---------- */
+/* 2 columnas como el WP original (23.png); 1 col en móvil */
+.sh-offers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.6rem, 3vw, 2.6rem);
+  margin-top: clamp(2.4rem, 4vw, 3.4rem);
+}
+
+@media (max-width: 880px) {
+  .sh-offers { grid-template-columns: 1fr; }
+}
+
+.sh-offer {
+  --mx: 50%;
+  --my: 50%;
+  --glow: 0;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.55);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+.sh-offer:hover {
+  transform: translateY(-6px);
+  border-color: rgba(254, 212, 87, 0.3);
+  box-shadow: 0 34px 80px -32px rgba(0, 0, 0, 0.65);
+}
+
+/* spotlight: anillo dorado enmascarado + lavado cálido que siguen el cursor
+   (port del patrón del Home, sections.css .post--glow; el JS de internal.js
+   ya alimenta --mx/--my/--glow en .post--glow) */
+.sh-offer.post--glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  z-index: 3;
+  pointer-events: none;
+  opacity: var(--glow);
+  transition: opacity 0.4s var(--ease);
+  background: radial-gradient(200px circle at var(--mx) var(--my), var(--gold), rgba(210, 204, 253, 0.85) 46%, transparent 72%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.sh-offer.post--glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 2;
+  pointer-events: none;
+  opacity: var(--glow);
+  transition: opacity 0.4s var(--ease);
+  background: radial-gradient(280px circle at var(--mx) var(--my), rgba(254, 212, 87, 0.14), transparent 60%);
+}
+
+/* --- Foto-CTA (como el original: la imagen entera es link a Kajabi) --- */
+.sh-offer__media {
+  position: relative;
+  z-index: 1;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.sh-offer__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 0.7s var(--ease);
+}
+
+.sh-offer:hover .sh-offer__media img,
+.sh-offer__media:focus-visible img { transform: scale(1.05); }
+
+.sh-offer__media:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: -3px;
+}
+
+/* pill de esquina SIEMPRE visible (boomer-friendly: la foto se ve clicable
+   sin depender del hover) */
+.sh-offer__ext {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  color: var(--yellow);
+  background: rgba(14, 22, 49, 0.62);
+  border: 1.5px solid rgba(254, 212, 87, 0.65);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(14, 22, 49, 0.4);
+  transition: background 0.35s var(--ease), transform 0.35s var(--ease);
+}
+
+.sh-offer__ext svg { width: 1.1rem; height: 1.1rem; }
+
+.sh-offer:hover .sh-offer__ext {
+  background: rgba(14, 22, 49, 0.85);
+  transform: translate(2px, -2px);
+}
+
+/* --- Cuerpo --- */
+.sh-offer__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex: 1;
+  padding: clamp(1.4rem, 2.4vw, 2rem) clamp(1.4rem, 2.4vw, 2rem) clamp(1.6rem, 2.6vw, 2.2rem);
+}
+
+.sh-offer__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  align-self: flex-start;
+  margin: 0;
+  padding: 0.34rem 0.85rem;
+  border: 1px solid rgba(254, 212, 87, 0.4);
+  border-radius: 999px;
+  color: var(--yellow);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.sh-offer__tag i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+#evening .sh-offer__tag i { animation: shPulse 2.4s ease-in-out infinite; }
+
+@keyframes shPulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.82); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.sh-offer__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.95rem);
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  color: #fff;
+}
+
+/* párrafos verbatim del WP — tamaño alto para legibilidad senior */
+.sh-offer__text {
+  margin: 0;
+  font-size: 1.06rem;
+  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* --- CTA boomer-friendly --- */
+.sh-offer__actions {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.sh-offer__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.85rem 1.7rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.sh-offer__btn svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+}
+
+.sh-offer__ext-note {
+  margin: 0;
+  font-size: 0.86rem;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.sh-offer__alt { margin-top: 0.35rem; font-size: 0.95rem; }
+
+/* --- Variante final (APG): fila editorial full-width --- */
+.sh-offer--wide { grid-column: 1 / -1; }
+
+@media (min-width: 900px) {
+  .sh-offer--wide {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .sh-offer--wide .sh-offer__media {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 320px;
+  }
+  .sh-offer--wide .sh-offer__body {
+    justify-content: center;
+    padding-inline: clamp(1.8rem, 3vw, 2.8rem);
+  }
+}
+
+.sh-offerings__fine { margin-top: 2rem; }
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #evening .sh-offer__tag i { animation: none; }
+  .sh-offer,
+  .sh-offer__media img,
+  .sh-offer__ext { transition: none; }
+  .sh-offer:hover { transform: none; }
+}

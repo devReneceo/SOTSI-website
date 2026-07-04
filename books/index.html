@@ -4,11 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Books · Seat of the Soul Institute</title>
-  <meta name="description" content="Experience the books that have inspired and transformed lives — the complete library by New York Times bestselling authors Gary Zukav and Linda Francis." />
+  <meta name="description" content="Experience the books that have inspired and transformed lives and start your journey with New York Times bestselling authors Gary Zukav and Linda Francis." />
   <!--
     Prototype Fase 2 · WP slug: /books/
-    Verdict: rebuild · effort 3.5d (band medium) · Joel: Medium, 2-3 days
-    Template: catalog (cat-card--book) · Purchases: external retailers (S&S / Amazon)
+    Rebuild 2026-07-04: waves-video hero (the live site's 2021/03 asset, re-encoded 720p),
+    featured spotlight pair (Universal Human · The Seat of the Soul) + editorial collection.
+    Covers served locally (webp; hi-res from Simon & Schuster where available).
+    Buy links verbatim from the live page (S&S + Amazon affiliate URLs untouched).
   -->
   <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
@@ -17,264 +19,277 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Dancing+Script:wght@600&family=Pinyon+Script&display=swap" />
+  <link rel="preload" as="image" href="../assets/images/books-hero-poster.webp" fetchpriority="high" />
   <link rel="stylesheet" href="../styles/internal.css" />
+  <link rel="stylesheet" href="books.css" />
 </head>
-<body class="int-page nav-dark nl-centered-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
-  <header class="snav snav--centered" id="navCentered">
-    <div class="snav__utility">
-      <div class="wrap">
-        <span class="script" style="font-size:1.3rem;color:var(--gold);">Create Authentic Power · Choose Love</span>
-        <span style="display:flex;gap:.3rem;align-items:center;">
-          <a href="../soul-connections-newsletter/">Soul Connections</a><span aria-hidden="true">·</span>
-          <a href="mailto:info@seatofthesoul.com">Contact</a><span aria-hidden="true">·</span><a href="#">EN</a>
-        </span>
+<body class="int-page nav-dark nl-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
+  <header class="snav snav--immersive" id="navImmersive">
+  <nav class="snav__main" aria-label="Main navigation (immersive)">
+    <div class="wrap">
+      <a class="snav__logo" href="../index.html" aria-label="Seat of the Soul Institute — home">
+        <img class="logo--for-dark" src="../assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
+        <img class="logo--for-light" src="../assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
+      </a>
+      <div class="snav__row">
+        <a class="nlink" href="../get-started/"><span class="glow"></span>Get Started</a>
+        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../about/seat-of-the-soul-institute/">About SOTSI</a><a href="../about-gary-zukav/">About Gary</a><a href="../about-linda-francis/">About Linda</a></div></div>
+        <a class="nlink" href="../remember-linda-homepage/"><span class="glow"></span>In Celebration of Linda Francis</a>
+        <div class="has-dd"><a class="nlink" href="../shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div></div>
+        <a class="nlink" href="../podcast/"><span class="glow"></span>Deepcast</a>
+        <a class="nlink" href="../blog/"><span class="glow"></span>Blog</a>
+        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="../failing-government/">What to do about Failing Governments</a><a href="../ai-and-human-evolution/">AI and Human Evolution</a><a href="../soul-connections-newsletter/">Soul Connections Newsletter</a><a href="../books/">Get The Books</a><a href="../apg-optin/">Authentic Power Guidelines</a></div></div>
       </div>
-    </div>
-    <nav class="snav__main" aria-label="Main navigation (centered)">
-      <div class="wrap">
-        <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-        <a class="snav__logo" href="../index.html" aria-label="Seat of the Soul Institute — home">
-          <img class="logo--for-dark" src="../assets/whitelogo.webp" alt="Seat of the Soul Institute" />
-          <img class="logo--for-light" src="../assets/darklogo.webp" alt="Seat of the Soul Institute" />
+      <div class="snav__end">
+        <a class="btn-cta btn-cta--sm" href="../shop/">
+          <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
+          <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
         </a>
-        <div class="snav__side right">
-          <div class="has-dd">
-            <a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../about/seat-of-the-soul-institute/">About SOTSI</a>
-              <a href="../about-gary-zukav/">About Gary</a>
-              <a href="../about-linda-francis/">About Linda</a>
-              <a href="../about/celebration/">In Celebration of Linda Francis</a>
-            </div>
-          </div>
-          <div class="has-dd">
-            <a class="nlink" href="../shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../shop/">Explore All Learning Opportunities</a>
-              <a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a>
-              <a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a>
-              <a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a>
-            </div>
-          </div>
-          <a class="nlink" href="../podcast/"><span class="glow"></span>Deepcast</a>
-          <div class="has-dd">
-            <a class="nlink" href="../get-started/" aria-haspopup="true"><span class="glow"></span>Resources
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-            <div class="dd" role="menu">
-              <a href="../failing-government/">What to do about Failing Governments</a>
-              <a href="../ai-and-human-evolution/">AI and Human Evolution</a>
-              <a href="../soul-connections-newsletter/">Soul Connections Newsletter</a>
-              <a href="../books/">Get The Books</a>
-              <a href="../apg-optin/">Authentic Power Guidelines</a>
-            </div>
-          </div>
-          <a class="btn-cta btn-cta--sm" href="../shop/" style="margin-left:.5rem;">
-            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
-            <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
-          </a>
-        </div>
       </div>
-    </nav>
-    <div class="snav__mobile">
-      <div class="snav__mobile-panel" data-mobile hidden>
-        <span class="snav__mobile-label">About</span>
-        <a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a>
-        <a class="subnav-link" href="../about-gary-zukav/">About Gary</a>
-        <a class="subnav-link" href="../about-linda-francis/">About Linda</a>
-        <a class="subnav-link" href="../about/celebration/">In Celebration of Linda Francis</a>
-        <a href="../shop/">Courses, Events &amp; Activities</a>
-        <a href="../podcast/">Deepcast</a>
-        <a href="../soul-connections-newsletter/">Newsletter</a>
-        <a href="../books/">Books</a>
-        <a class="btn btn--primary" href="../shop/">Soul Store</a>
-      </div>
+      <button class="snav__burger" data-burger aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
-  </header>
+  </nav>
+  <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
+    <a href="../get-started/">Get Started</a><span class="snav__mobile-label">About</span><a class="subnav-link" href="../about/seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="../about-gary-zukav/">About Gary</a><a class="subnav-link" href="../about-linda-francis/">About Linda</a><a href="../remember-linda-homepage/">In Celebration of Linda Francis</a><a href="../shop/">Courses, Events &amp; Activities</a><a href="../podcast/">Deepcast</a><a href="../blog/">Blog</a><span class="snav__mobile-label">Resources</span><a class="subnav-link" href="../failing-government/">What to do about Failing Governments</a><a class="subnav-link" href="../ai-and-human-evolution/">AI and Human Evolution</a><a class="subnav-link" href="../soul-connections-newsletter/">Soul Connections Newsletter</a><a class="subnav-link" href="../books/">Get The Books</a><a class="subnav-link" href="../apg-optin/">Authentic Power Guidelines</a>
+    <a class="btn btn--primary" href="../shop/">Soul Store</a>
+  </div></div>
+</header>
 
   <main>
-    <section class="int-hero int-hero--compact" style="--hero-image:url('../assets/images/latest-books.webp');">
-      <div class="int-hero__inner">
-        <nav class="int-breadcrumbs" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a><span aria-hidden="true">/</span><span>Books</span>
-        </nav>
-        <p class="int-kicker">The library</p>
-        <h1 class="int-title">Books by Gary Zukav <span class="gold">&amp; Linda Francis</span></h1>
-        <hr class="int-rule" />
-        <p class="int-deck">Experience the books that have inspired and transformed lives, and start your journey with New York Times bestselling authors Gary Zukav and Linda Francis.</p>
-        <div class="int-hero__meta">
+    <!-- 1 · HERO — the live site's waves video, centered library altar -->
+    <section class="bk-hero" aria-labelledby="books-heading">
+      <video class="bk-hero__video" autoplay muted loop playsinline preload="metadata" poster="../assets/images/books-hero-poster.webp" aria-hidden="true" tabindex="-1">
+        <source src="../assets/waves-720.mp4" type="video/mp4" />
+      </video>
+      <span class="bk-hero__scrim" aria-hidden="true"></span>
+      <div class="bk-hero__inner">
+        <p class="int-kicker bk-rise" style="--ri:0;">The Library</p>
+        <h1 class="bk-hero__title bk-rise" style="--ri:1;" id="books-heading">Books by Gary Zukav <span class="gold">and Linda Francis</span></h1>
+        <hr class="int-rule bk-rise" style="--ri:2;" />
+        <p class="bk-hero__deck bk-rise" style="--ri:3;">Experience the books that have inspired and transformed lives and start your journey with New York Times bestselling authors Gary Zukav and Linda Francis.</p>
+        <div class="int-hero__meta bk-rise" style="--ri:4;">
           <div class="int-stat"><p class="int-stat__label">Titles</p><p class="int-stat__value">12 books</p></div>
           <div class="int-stat"><p class="int-stat__label">Recognition</p><p class="int-stat__value">4 consecutive NYT bestsellers</p></div>
           <div class="int-stat"><p class="int-stat__label">Where to buy</p><p class="int-stat__value">Simon &amp; Schuster · Amazon</p></div>
         </div>
       </div>
+      <span class="aspire__cue bk-hero__cue" aria-hidden="true"><span class="aspire__cue-line"></span></span>
+      <nav class="int-breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page">Books</span>
+      </nav>
     </section>
 
-    <section class="int-section" id="catalog">
-      <p class="int-eyebrow rv">The complete catalog</p>
-      <h2 class="int-h2 rv">Begin with the book that <span class="accent">calls to you.</span></h2>
+    <!-- 2 · FEATURED — the latest and the classic, spotlighted -->
+    <section class="bk-featured" aria-labelledby="featured-heading">
+      <div class="bk-featured__shell">
+        <div class="bk-featured__head">
+          <p class="int-eyebrow rv">Start here</p>
+          <h2 class="int-h2 rv" id="featured-heading">The books that have <span class="accent">inspired and transformed lives.</span></h2>
+        </div>
 
-      <div class="cat-grid">
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/Universal-human.png" alt="Universal Human — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Latest release</p>
-            <h3>Universal Human</h3>
-            <p>The dawning potential of a new era in which authentic power fully emerges at the heart of our evolution.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Universal-Human/Gary-Zukav/9781982169879" target="_blank" rel="noopener">Buy Now</a>
+        <article class="bk-feature rv">
+          <div class="bk-feature__media">
+            <img class="bk-feature__cover" src="../assets/images/books/cover-universal-human.webp" alt="Universal Human — book cover" width="800" height="1219" decoding="async" />
+          </div>
+          <div class="bk-feature__body">
+            <p class="bk-feature__tag">Latest release</p>
+            <h3 class="bk-feature__title">Universal Human</h3>
+            <p class="bk-feature__desc">Universal Human is about the dawning potential of a new era in which authentic power fully emerges at the heart of our evolution. No longer will our species be divided by culture, religion, nationality, ethnic group, or gender, but evolving with the allegiance of all to Life first and everything else second. This is Gary's latest book.</p>
+            <div class="bk-feature__actions">
+              <a class="btn-cta" href="https://www.simonandschuster.com/books/Universal-Human/Gary-Zukav/9781982169879" target="_blank" rel="noopener">
+                <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Buy Now</span>
+                <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+              </a>
+              <a class="int-link" href="https://seatofthesoul.com/universalhuman/" target="_blank" rel="noopener">Learn more <span class="arrow">→</span></a>
               <span class="badge-ext">Simon &amp; Schuster ↗</span>
             </div>
           </div>
         </article>
 
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/the-seat-of-the-soul.png" alt="The Seat of the Soul — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">NYT bestseller · 3 years</p>
-            <h3>The Seat of the Soul</h3>
-            <p>The legendary classic on human consciousness beyond the five senses — includes an in-depth Study Guide.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/The-Seat-of-the-Soul/Gary-Zukav/9781476755403" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Simon &amp; Schuster ↗</span>
-            </div>
+        <article class="bk-feature bk-feature--flip rv">
+          <div class="bk-feature__media">
+            <img class="bk-feature__cover" src="../assets/images/books/cover-seat-of-the-soul.webp" alt="The Seat of the Soul — book cover" width="800" height="1226" loading="lazy" decoding="async" />
           </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/The-Dancing-Wu-Li-Masters.png" alt="The Dancing Wu Li Masters — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">American Book Award</p>
-            <h3>The Dancing Wu Li Masters</h3>
-            <p>The delightful bible for non-physicists who want to know about quantum mechanics, particle physics, and relativity.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.amazon.com/gp/product/B0007TFODW" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Amazon ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/The-Heart-of-the-Soul.png" alt="The Heart of the Soul — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Emotional awareness</p>
-            <h3>The Heart of the Soul</h3>
-            <p>How to use your emotions consciously in your daily life to grow spiritually. Filled with practical exercises.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/The-Heart-of-the-Soul/Gary-Zukav/9780743234962" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Simon &amp; Schuster ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/The-Mind-of-the-Soul.png" alt="The Mind of the Soul — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Responsible choice</p>
-            <h3>The Mind of the Soul</h3>
-            <p>Take responsibility for the choices you make and free yourself from the illusion that you are a victim of your circumstances.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/The-Mind-of-the-Soul/Gary-Zukav/9780743254403" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Simon &amp; Schuster ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/Spiritual-Partnership.png" alt="Spiritual Partnership — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Relationships</p>
-            <h3>Spiritual Partnership</h3>
-            <p>A profound new relationship dynamic that enables us to reach our full potential and create a joyful life.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.amazon.com/gp/product/0061458503" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Amazon ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/Thoughts-from-the-Seat-of-the-Soul.png" alt="Thoughts from the Seat of the Soul — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Daily reflection</p>
-            <h3>Thoughts from the Seat of the Soul</h3>
-            <p>An inspirational excerpt for each day of the year. Small enough to take with you everywhere.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Thoughts-From-the-Seat-of-the-Soul/Gary-Zukav/9781416561941" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Simon &amp; Schuster ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/Thoughts-from-the-Heart-of-the-Soul.png" alt="Thoughts from the Heart of the Soul — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Meditations</p>
-            <h3>Thoughts from the Heart of the Soul</h3>
-            <p>Meditations to help you use your emotions consciously to create meaning, purpose, and joy in your life.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Thoughts-from-the-Heart-of-the-Soul/Gary-Zukav/9780743237284" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Simon &amp; Schuster ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/Self-Empowerment-Journal.png" alt="Self-Empowerment Journal — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Journal</p>
-            <h3>Self-Empowerment Journal</h3>
-            <p>See, in practical and grounded ways, that choice equals creation — and give the gifts you were born to give.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Self-Empowerment-Journal/Gary-Zukav/9780743257466" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Simon &amp; Schuster ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/SOUL-STORIES.png" alt="Soul Stories — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Stories</p>
-            <h3>Soul Stories</h3>
-            <p>Marvelous stories that show how intuition, harmony, cooperation, sharing, and reverence for Life express themselves in people's lives.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Soul-Stories/Gary-Zukav/9780743206372" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Simon &amp; Schuster ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/SOUL-TO-SOUL.png" alt="Soul to Soul — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">Guidance</p>
-            <h3>Soul to Soul</h3>
-            <p>Fifty brief Soul Stories and nearly one hundred answers to Soul Questions. Profoundly simple, wise, and poetic.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Soul-to-Soul/Gary-Zukav/9781416578734" target="_blank" rel="noopener">Buy Now</a>
-              <span class="badge-ext">Simon &amp; Schuster ↗</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="cat-card rv">
-          <div class="cat-card__media cat-card__media--book"><img src="https://seatofthesoul.com/wp-content/uploads/2021/10/SOUL-TO-SOUL-MEDITATIONS.png" alt="Soul to Soul Meditations — book cover" loading="lazy" /></div>
-          <div class="cat-card__body">
-            <p class="cat-card__tag">365 meditations</p>
-            <h3>Soul to Soul Meditations</h3>
-            <p>365 inspirational excerpts offering penetrating spiritual and psychological insights for reflection and enrichment.</p>
-            <div class="cat-card__actions">
-              <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Soul-to-Soul-Meditations/Gary-Zukav/9781416569565" target="_blank" rel="noopener">Buy Now</a>
+          <div class="bk-feature__body">
+            <p class="bk-feature__tag">A New York Times bestseller for three years</p>
+            <h3 class="bk-feature__title">The Seat of the Soul</h3>
+            <p class="bk-feature__desc">The Seat of the Soul celebrates the birth of human consciousness beyond the five senses and the intellect, our new understanding of power, and the new requirements of our evolution.</p>
+            <div class="bk-feature__actions">
+              <a class="btn-cta" href="https://www.simonandschuster.com/books/The-Seat-of-the-Soul/Gary-Zukav/9781476755403" target="_blank" rel="noopener">
+                <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Buy Now</span>
+                <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
+              </a>
               <span class="badge-ext">Simon &amp; Schuster ↗</span>
             </div>
           </div>
         </article>
       </div>
-      <p class="form-fine" style="margin-top:1.6rem;">Prototype note: covers load from the live site; purchase links open the original retailer pages (Simon &amp; Schuster / Amazon). Universal Human also has a dedicated page at seatofthesoul.com/universalhuman/.</p>
+    </section>
+
+    <!-- 3 · THE COLLECTION — every other title, verbatim copy + original retailer links -->
+    <section class="bk-collection" id="catalog" aria-labelledby="catalog-heading">
+      <div class="bk-collection__shell">
+        <div class="bk-collection__head">
+          <p class="int-eyebrow rv">The complete catalog</p>
+          <h2 class="int-h2 rv" id="catalog-heading">Begin with the book that <span class="accent">calls to you.</span></h2>
+        </div>
+
+        <div class="bk-grid">
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="https://www.amazon.com/gp/product/B0007TFODW?ie=UTF8&amp;tag=seaofthesou-20&amp;link_code=as3&amp;camp=211189&amp;creative=373489&amp;creativeASIN=B0007TFODW" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-wu-li-masters.webp" alt="" width="269" height="382" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">American Book Award</p>
+              <h3 class="bk-card__title">The Dancing Wu Li Masters</h3>
+              <p class="bk-card__desc">The Dancing Wu Li Masters is the delightful bible for non-physicists who want to know about quantum mechanics, particle physics, and relativity. This is Gary's first book. Winner of The American Book Award for Science.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="https://www.amazon.com/gp/product/B0007TFODW?ie=UTF8&amp;tag=seaofthesou-20&amp;link_code=as3&amp;camp=211189&amp;creative=373489&amp;creativeASIN=B0007TFODW" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Amazon ↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="https://www.simonandschuster.com/books/The-Heart-of-the-Soul/Gary-Zukav/9780743234962" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-heart-of-the-soul.webp" alt="" width="269" height="382" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">Emotional awareness</p>
+              <h3 class="bk-card__title">The Heart of the Soul</h3>
+              <p class="bk-card__desc">The Heart of the Soul shows you the importance of your emotions in your spiritual growth and how to use your emotions consciously in your daily life to grow spiritually. Filled with practical exercises.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="https://www.simonandschuster.com/books/The-Heart-of-the-Soul/Gary-Zukav/9780743234962" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Simon &amp; Schuster ↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="https://www.simonandschuster.com/books/The-Mind-of-the-Soul/Gary-Zukav/9780743254403" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-mind-of-the-soul.webp" alt="" width="800" height="1218" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">Responsible choice</p>
+              <h3 class="bk-card__title">The Mind of the Soul</h3>
+              <p class="bk-card__desc">The Mind of the Soul can dramatically change your life by showing you how to take responsibility for the choices you make and free yourself from the illusion that you are a victim of your circumstances.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="https://www.simonandschuster.com/books/The-Mind-of-the-Soul/Gary-Zukav/9780743254403" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Simon &amp; Schuster ↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="http://www.amazon.com/gp/product/0061458503?ie=UTF8&amp;tag=seaofthesou-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0061458503" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-spiritual-partnership.webp" alt="" width="269" height="383" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">Relationships</p>
+              <h3 class="bk-card__title">Spiritual Partnership</h3>
+              <p class="bk-card__desc">In Spiritual Partnership, bestselling author Gary Zukav reveals a profound new relationship dynamic that enables us to reach our full potential and create authentic power and a joyful life.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="http://www.amazon.com/gp/product/0061458503?ie=UTF8&amp;tag=seaofthesou-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0061458503" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Amazon ↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="https://www.simonandschuster.com/books/Thoughts-From-the-Seat-of-the-Soul/Gary-Zukav/9781416561941" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-thoughts-seat.webp" alt="" width="800" height="1200" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">Daily reflection</p>
+              <h3 class="bk-card__title">Thoughts from the Seat of the Soul</h3>
+              <p class="bk-card__desc">Thoughts from the Seat of the Soul offers an inspirational excerpt from The Seat of the Soul, one for each day of the year, for your reflection and enrichment. Small enough to take with you everywhere.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Thoughts-From-the-Seat-of-the-Soul/Gary-Zukav/9781416561941" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Simon &amp; Schuster ↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="https://www.simonandschuster.com/books/Thoughts-from-the-Heart-of-the-Soul/Gary-Zukav/9780743237284" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-thoughts-heart.webp" alt="" width="269" height="382" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">Meditations</p>
+              <h3 class="bk-card__title">Thoughts from the Heart of the Soul</h3>
+              <p class="bk-card__desc">Thoughts from the Heart of the Soul is a collection of meditations to help you use your emotions consciously to create meaning, purpose, and joy in your life. Small enough to take with you anywhere.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Thoughts-from-the-Heart-of-the-Soul/Gary-Zukav/9780743237284" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Simon &amp; Schuster ↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="https://www.simonandschuster.com/books/Self-Empowerment-Journal/Gary-Zukav/9780743257466" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-self-empowerment-journal.webp" alt="" width="800" height="1030" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">Journal</p>
+              <h3 class="bk-card__title">Self-Empowerment Journal</h3>
+              <p class="bk-card__desc">Self-Empowerment Journal helps you see, in practical, grounded, and relevant ways, that choice equals creation, and the only things preventing you from giving the gifts you were born to give are matters of choice. Your choice.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Self-Empowerment-Journal/Gary-Zukav/9780743257466" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Simon &amp; Schuster ↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="https://www.simonandschuster.com/books/Soul-Stories/Gary-Zukav/9780743206372" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-soul-stories.webp" alt="" width="268" height="382" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">Stories</p>
+              <h3 class="bk-card__title">Soul Stories</h3>
+              <p class="bk-card__desc">Soul Stories is filled with marvelous stories that show how concepts such as intuition, harmony, cooperation, sharing, and reverence for Life actually express themselves in people's lives. Wonderfully inspiring.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Soul-Stories/Gary-Zukav/9780743206372" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Simon &amp; Schuster ↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="https://www.simonandschuster.com/books/Soul-to-Soul/Gary-Zukav/9781416578734" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-soul-to-soul.webp" alt="" width="269" height="382" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">Guidance</p>
+              <h3 class="bk-card__title">Soul to Soul</h3>
+              <p class="bk-card__desc">Soul to Soul is a special collection of fifty brief Soul Stories and nearly one hundred answers to Soul Questions. It is profoundly simple, wise, and poetic. An always-fresh source of guidance and inspiration.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Soul-to-Soul/Gary-Zukav/9781416578734" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Simon &amp; Schuster ↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="bk-card post--glow rv">
+            <a class="bk-card__media" href="https://www.simonandschuster.com/books/Soul-to-Soul-Meditations/Gary-Zukav/9781416569565" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="../assets/images/books/cover-soul-to-soul-meditations.webp" alt="" width="269" height="382" loading="lazy" decoding="async" />
+            </a>
+            <div class="bk-card__body">
+              <p class="bk-card__tag">365 meditations</p>
+              <h3 class="bk-card__title">Soul to Soul Meditations</h3>
+              <p class="bk-card__desc">Soul to Soul Meditations presents 365 inspirational excerpts, each offering penetrating spiritual and psychological insights for reflection and enrichment. Small enough to fit into your pack or purse.</p>
+              <div class="bk-card__actions">
+                <a class="btn btn--gold" href="https://www.simonandschuster.com/books/Soul-to-Soul-Meditations/Gary-Zukav/9781416569565" target="_blank" rel="noopener">Buy Now</a>
+                <span class="badge-ext">Simon &amp; Schuster ↗</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="form-fine" style="margin-top:1.6rem;">Prototype note: purchase links open the original retailer pages (Simon &amp; Schuster / Amazon), exactly as on the live site. Universal Human also has a dedicated page at seatofthesoul.com/universalhuman/.</p>
+      </div>
     </section>
 
     <section class="newsband">
@@ -330,6 +345,7 @@
           <a href="../get-started/">Get Started</a>
           <a href="../books/">Books</a>
           <a href="../podcast/">Deepcast</a>
+          <a href="../blog/">Blog · Soul Feed</a>
           <a href="../shop/">Learning Opportunities</a>
           <a href="../seat-of-the-soul-career-opportunities/">Careers</a>
         </div>
@@ -338,7 +354,7 @@
           <a href="../about/seat-of-the-soul-institute/">About SOTSI</a>
           <a href="../about-gary-zukav/">About Gary</a>
           <!-- oculto 2026-07-02 (cliente: solo nav) <a href="../about-linda-francis/">About Linda</a> -->
-          <a href="../about/celebration/">In Celebration of Linda Francis</a>
+          <a href="../remember-linda-homepage/">In Celebration of Linda Francis</a>
         </div>
         <div class="foot">
           <h5>Resources</h5>

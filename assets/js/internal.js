@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const expanded = button.getAttribute("aria-expanded") === "true";
       button.setAttribute("aria-expanded", String(!expanded));
       panel.hidden = expanded;
+      // overlay state for the full-screen drawer (same as the Home inline JS)
+      document.body.classList.toggle("menu-open", !expanded);
     });
   });
 
@@ -20,6 +22,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.has-dd > .nlink[href="#"]').forEach((trigger) => {
     trigger.addEventListener("click", (event) => event.preventDefault());
   });
+
+  // Nav parity con el Home: el nav transparente se solidifica al hacer scroll
+  // (mismo umbral y clase .is-condensed que el script inline del Home).
+  const navs = Array.from(document.querySelectorAll(".snav"));
+  if (navs.length) {
+    const applyCondensed = () => {
+      const always = document.body.classList.contains("nav-solid-always");
+      navs.forEach((nav) => {
+        nav.classList.toggle("is-condensed", always || window.scrollY > 60);
+      });
+    };
+    window.addEventListener("scroll", applyCondensed, { passive: true });
+    applyCondensed();
+  }
 
   const currentPath = window.location.pathname.replace(/index\.html$/, "");
   document.querySelectorAll("a[href]").forEach((link) => {
@@ -56,6 +72,29 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       revealables.forEach((el) => observer.observe(el));
     }
+  }
+
+  // Spotlight cards (.post--glow): the ring/wash follows the cursor — parity
+  // with the Home inline handler (index.html "Spotlight cards" block).
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    document.querySelectorAll(".post--glow").forEach((card) => {
+      let raf = 0;
+      let mx = 0;
+      let my = 0;
+      const apply = () => {
+        raf = 0;
+        card.style.setProperty("--mx", `${mx}px`);
+        card.style.setProperty("--my", `${my}px`);
+      };
+      card.addEventListener("pointerenter", () => card.style.setProperty("--glow", "1"));
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        mx = event.clientX - rect.left;
+        my = event.clientY - rect.top;
+        if (!raf) raf = requestAnimationFrame(apply);
+      });
+      card.addEventListener("pointerleave", () => card.style.setProperty("--glow", "0"));
+    });
   }
 
   // Prototype forms: never submit anywhere — show the success state.

@@ -249,8 +249,10 @@ main {
   text-align: center;
 }
 
-/* Comilla editorial gigante tras el texto (oro muy tenue) — profundidad sin ruido */
-.sots-quote__inner::before {
+/* Comilla editorial gigante tras el texto (oro muy tenue) — profundidad sin ruido.
+   DESACTIVADA 2026-07-06: al quitar el párrafo se superponía sobre "And trust the Universe".
+   Se deja el bloque por si se quiere recuperar luego. */
+/* .sots-quote__inner::before {
   content: "\201C";
   position: absolute;
   top: -0.16em;
@@ -262,7 +264,7 @@ main {
   line-height: 1;
   color: rgba(254, 212, 87, 0.14);
   pointer-events: none;
-}
+} */
 
 .sots-quote blockquote {
   margin: 0;

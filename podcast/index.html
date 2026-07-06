@@ -66,14 +66,14 @@
       <span class="dc-hero__scrim" aria-hidden="true"></span>
       <div class="dc-hero__inner">
         <div class="dc-hero__copy">
-          <p class="int-kicker dc-rise" style="--ri:0;">Deepcast</p>
+          <!-- <p class="int-kicker dc-rise" style="--ri:0;">Deepcast</p> -->
           <h1 class="dc-hero__title dc-rise" style="--ri:1;" id="deepcast-heading">The Gary Zukav Deepcast</h1>
           <p class="dc-hero__tag dc-rise" style="--ri:2;">Exploring the New Consciousness</p>
-          <hr class="int-rule dc-rise" style="--ri:3;" />
+          <hr class="int-rule dc-rise" style="--ri:3;">
           <div class="int-hero__meta dc-rise" style="--ri:4;">
             <div class="int-stat"><p class="int-stat__label">New episodes</p><p class="int-stat__value">Mondays &amp; Fridays</p></div>
-            <div class="int-stat"><p class="int-stat__label">Two series</p><p class="int-stat__value">Soul Feast · Soul Snack</p></div>
-            <div class="int-stat"><p class="int-stat__label">Your host</p><p class="int-stat__value">Gary Zukav · 4× NYT bestselling author</p></div>
+            <!-- <div class="int-stat"><p class="int-stat__label">Two series</p><p class="int-stat__value">Soul Feast · Soul Snack</p></div>
+            <div class="int-stat"><p class="int-stat__label">Your host</p><p class="int-stat__value">Gary Zukav · 4× NYT bestselling author</p></div> -->
           </div>
         </div>
       </div>
@@ -107,9 +107,8 @@
 
       <div class="dc-about">
         <p class="int-eyebrow rv">About</p>
-        <p class="dc-about__lead rv">Gary Zukav is a 4× New York Times bestselling author, including <span class="gold">The Seat of the Soul</span>.</p>
-        <p class="dc-about__body rv">A spiritual teacher who has been featured on <strong>The Oprah Winfrey Show more than 30 times</strong>, Gary shares teachings on the new consciousness and tools to live in gratitude, patience, contentment and awe of the Universe to resolve any anger, worry, overwhelm and despair.</p>
-        <p class="dc-about__body rv">This deepcast will help you choose joyfully and effectively as you are lead by one of the greatest American Spiritual Teachers in the transformation of Human Consciousness.</p>
+        <p class="dc-about__lead rv">Gary Zukav is a 4× New York Times Best Selling Author, including <span class="gold">The Seat of the Soul</span>, and Spiritual Teacher who has been featured on <strong>The Oprah Winfrey Show more than 30 times</strong>.</p>
+        <p class="dc-about__body rv">The Gary Zukav Deepcast shares teachings on the new consciousness and tools to live in gratitude, patience, contentment and awe of the Universe to resolve any anger, worry, overwhelm and despair.</p>
         <p class="dc-about__cadence rv">New Episodes out weekly <span class="dot" aria-hidden="true">·</span> Monday and Friday</p>
       </div>
 
@@ -120,9 +119,9 @@
     <!-- 3 · TUNE IN — platforms + artwork marquee -->
     <section class="dc-tunein" aria-labelledby="tunein-heading">
       <div class="dc-tunein__head">
-        <p class="int-eyebrow rv">Listen everywhere</p>
+        <!-- <p class="int-eyebrow rv">Listen everywhere</p> -->
         <h2 class="dc-tunein__title" id="tunein-heading" data-dc-split>Tune <span class="accent">In</span></h2>
-        <p class="int-lead dc-tunein__lead rv">Watch or listen on your favorite platform.</p>
+        <!-- <p class="int-lead dc-tunein__lead rv">Watch or listen on your favorite platform.</p> -->
       </div>
       <!-- Official platform badges (client assets, WP uploads 2024/09-10) -->
       <div class="dc-platforms rv">
@@ -149,7 +148,8 @@
     <section class="int-section dc-episodes" id="episodes" aria-labelledby="episodes-heading">
       <p class="int-eyebrow rv">Episode directory</p>
       <h2 class="int-h2 rv" id="episodes-heading">Find the episode that <span class="accent">speaks to you.</span></h2>
-      <p class="int-lead rv">Soul Feast episodes are full conversations; Soul Snacks are short-form reflections. Search by topic or filter by series.</p>
+      <p class="int-lead rv">Soul Feast episodes are full conversations; Soul Snacks are short teachings.
+Search by topic or filter by series.</p>
 
       <div class="dc-toolbar rv" role="search">
         <label class="dc-toolbar__search">
@@ -158,8 +158,8 @@
           <input type="search" data-dc-search placeholder="Search episodes — try 'temptation' or 'soulmate'" autocomplete="off" />
         </label>
         <button class="chip is-active" type="button" data-dc-filter="all">All</button>
-        <button class="chip" type="button" data-dc-filter="feast">Soul Feast</button>
-        <button class="chip" type="button" data-dc-filter="snack">Soul Snack</button>
+        <!-- <button class="chip" type="button" data-dc-filter="feast">Soul Feast</button>
+        <button class="chip" type="button" data-dc-filter="snack">Soul Snack</button> -->
         <label>
           <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Sort episodes</span>
           <select class="dc-toolbar__sort" data-dc-sort>
@@ -208,24 +208,22 @@
       </div>
     </section>
 
-    <!-- 6 · NEWSLETTER (ActiveCampaign form id 3, prototype intercept) -->
-    <section class="newsband">
+    <!-- 6 · NEWSLETTER (ActiveCampaign form id 3 · prototype intercept) -->
+    <section class="newsband" aria-labelledby="nl-heading">
       <div class="newsband__inner">
-        <div>
-          <p class="int-eyebrow">Never miss an episode</p>
-          <h2 class="int-h2">Receive new episodes <span class="accent">in your inbox.</span></h2>
-          <p class="int-lead">Subscribe to the newsletter and receive weekly, wisdom infused, insights from Gary.</p>
-        </div>
-        <div class="form-card">
-          <h3 class="form-card__title">Receive the Soul Connections Newsletter</h3>
-          <p class="form-card__note">New episodes Mondays &amp; Fridays. Free. Unsubscribe anytime.</p>
-          <form novalidate>
-            <label class="field"><span>First name</span><input type="text" name="first_name" autocomplete="given-name" placeholder="Type your first name" required /></label>
-            <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="Type your email" required /></label>
-            <button class="btn btn--gold" type="submit">Sign Up</button>
-            <p class="form-fine">Prototype note: submissions will be centralized in ActiveCampaign (form id 3).</p>
-          </form>
-          <p class="form-success">You're in. New episodes will arrive in your inbox.</p>
+        <div class="newsband__stack">
+          <header class="newsband__head">
+            <h2 class="int-h2" id="nl-heading">Receive new episodes <span class="accent">in your inbox.</span></h2>
+            <p class="int-lead">Subscribe to the newsletter and receive weekly, wisdom infused, insights from Gary.</p>
+          </header>
+          <div class="form-card">
+            <form novalidate>
+              <label class="field"><span>First name</span><input type="text" name="first_name" autocomplete="given-name" placeholder="Type your first name" required /></label>
+              <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="Type your email" required /></label>
+              <button class="btn btn--gold" type="submit">Sign Up</button>
+            </form>
+            <p class="form-success">You're in. New episodes will arrive in your inbox.</p>
+          </div>
         </div>
       </div>
     </section>

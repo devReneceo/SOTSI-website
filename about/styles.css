@@ -1594,12 +1594,13 @@ body.about-page .site-footer {
 .about-threshold__phrase { display: block; margin: 0; }
 
 .about-threshold__phrase--eyebrow {
-  max-width: 44ch; color: rgba(255, 255, 255, 0.88);
-  font-family: var(--font-body); font-weight: 600;
-  font-size: clamp(0.85rem, 0.76rem + 0.4vw, 1.08rem);
-  line-height: 1.55; letter-spacing: 0.18em; text-transform: uppercase;
-  text-shadow: 0 1px 18px rgba(14, 22, 49, 0.55);
+  max-width: 30ch; color: rgba(255, 255, 255, 0.92);
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.35rem, 1rem + 1.6vw, 2.35rem);
+  line-height: 1.2; letter-spacing: -0.01em;
+  text-shadow: 0 2px 22px rgba(14, 22, 49, 0.55);
 }
+.about-threshold__phrase--eyebrow .gold { color: var(--gold); }
 .about-threshold__phrase--lead {
   max-width: 18ch; margin-left: clamp(0rem, 6vw, 6rem);
   color: #fff; font-weight: 400;
@@ -1705,7 +1706,7 @@ body.about-page .site-footer {
 /* --- ≤520: sin límites de ch, indents mínimos, sin overflow horizontal --- */
 @media (max-width: 520px) {
   .about-threshold__inner { width: 100%; }
-  .about-threshold__phrase--eyebrow { max-width: 100%; font-size: 0.82rem; }
+  .about-threshold__phrase--eyebrow { max-width: 100%; font-size: clamp(1.15rem, 5.4vw, 1.6rem); }
   .about-threshold__phrase--lead { max-width: 100%; font-size: clamp(1.55rem, 7.6vw, 2.05rem); margin-left: 0.75rem; }
   .about-threshold__crescendo { max-width: 100%; font-size: clamp(1.95rem, 8.8vw, 2.6rem); margin-left: 1.5rem; }
   .about-threshold__horizon { margin-left: 1.5rem; }

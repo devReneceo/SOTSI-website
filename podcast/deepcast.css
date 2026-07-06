@@ -216,7 +216,7 @@
 .dc-about .int-eyebrow { color: var(--yellow); }
 .dc-about__lead {
   margin: 0 auto;
-  max-width: 30ch;
+  max-width: 21ch;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(1.7rem, 1.2rem + 2.2vw, 3rem);
@@ -224,7 +224,9 @@
   letter-spacing: -0.012em;
   text-wrap: balance;
 }
+@media (min-width: 700px) { .dc-about__lead { max-width: 32ch; } }
 .dc-about__lead .gold { color: var(--yellow); font-style: italic; }
+.dc-about__lead strong { font-weight: 500; color: #fff; }
 .dc-about__body {
   margin: clamp(1.6rem, 3vw, 2.2rem) auto 0;
   max-width: 58ch;
@@ -329,10 +331,10 @@
 /* Official platform badge artwork (1200×600 each) replaces the old text pills */
 .dc-platform {
   display: block;
-  border: 1px solid var(--hairline);
+  /* border: 1px solid var(--hairline); */
   border-radius: 14px;
   overflow: hidden;
-  background: var(--navy);
+  /* background: var(--navy); */
   box-shadow: var(--shadow-sm);
   transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
 }
@@ -897,4 +899,34 @@
   .dc-skel__bar { animation: none; }
   .dc-trailer__card, .dc-trailer__play, .dc-platform, .dc-marquee__item, .dc-row,
   .dc-row__play, .dc-chapter, .dc-ep-nav__card, .dc-connect__icons a { transition: none; }
+}
+
+/* ---------- Newsletter apilada (premium) — sección 6 ----------
+   Deja el heading + lead full-width arriba y la tarjeta glass ancha debajo,
+   con First name | Email en 2 columnas y "Sign Up" en su propia línea.
+   Anula localmente el `.newsband form { display:flex }` de internal.css. */
+.newsband__stack { min-width: 0; max-width: 100%; }
+.newsband__head { margin-bottom: clamp(1.4rem, 3vw, 2.2rem); }
+
+.newsband .form-card { min-width: 0; }
+.newsband .field,
+.newsband .field input { min-width: 0; max-width: 100%; }
+
+.newsband .form-card form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.2rem;
+  align-items: end;
+  min-width: 0;
+}
+
+.newsband .form-card form .btn--gold {
+  grid-column: 1;
+  justify-self: start;
+  margin-top: 0.3rem;
+}
+
+@media (max-width: 560px) {
+  .newsband .form-card form { grid-template-columns: 1fr; }
+  .newsband .form-card form .btn--gold { grid-column: auto; }
 }

@@ -1323,6 +1323,15 @@
   };
   document.getElementById('hnext').addEventListener('click', function(){ next('82%','50%'); restart(); });
   document.getElementById('hprev').addEventListener('click', function(){ prev('18%','50%'); restart(); });
+  /* feedback 2026-07-06: con el cursor sobre el CTA el autoplay se pausa (y la barra de progreso se detiene);
+     al salir, restart() rearma los 12s completos */
+  [].forEach.call(document.querySelectorAll('.hslide__cta .btn-cta'), function(cta){
+    cta.addEventListener('pointerenter', function(){
+      if(timer){ clearInterval(timer); timer=null; }
+      if(hprogress) hprogress.classList.remove('is-running');
+    });
+    cta.addEventListener('pointerleave', function(){ restart(); });
+  });
   if(hsliderEl && hcursor && hcursorLabel && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches){
     function cursorIntent(clientX){
       var rect = hsliderEl.getBoundingClientRect();
@@ -1462,6 +1471,15 @@
     syncOriginalChrome(0);
     document.getElementById('onext').addEventListener('click', function(){ onext('82%','50%'); orestart(); });
     document.getElementById('oprev').addEventListener('click', function(){ oprevf('18%','50%'); orestart(); });
+    /* feedback 2026-07-06: con el cursor sobre el CTA el autoplay se pausa (y la barra de progreso se detiene);
+       al salir, orestart() rearma los 12s completos */
+    [].forEach.call(document.querySelectorAll('.oslide__cta .btn-cta'), function(cta){
+      cta.addEventListener('pointerenter', function(){
+        if(otimer){ clearInterval(otimer); otimer=null; }
+        if(oprogress) oprogress.classList.remove('is-running');
+      });
+      cta.addEventListener('pointerleave', function(){ orestart(); });
+    });
     if(osliderEl && ocursor && ocursorLabel && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches){
       function originalCursorIntent(clientX){
         var rect = osliderEl.getBoundingClientRect();

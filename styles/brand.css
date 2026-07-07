@@ -1517,6 +1517,10 @@ body.herocta-2 .oslide__cta .btn-cta__label::after{
 }
 body.herocta-2 .hslide__cta .btn-cta:hover .btn-cta__label::after,
 body.herocta-2 .oslide__cta .btn-cta:hover .btn-cta__label::after{transform:scaleX(1);}
+/* feedback 2026-07-06 (rrrrr4.png): el hover de btnstyle-2 (bg dorado, brand.css:1148)
+   se colaba aquí por especificidad y pintaba un pill — en el hero solo debe crecer la línea */
+body.herocta-2 .hslide__cta .btn-cta:hover .btn-cta__inner,
+body.herocta-2 .oslide__cta .btn-cta:hover .btn-cta__inner{background:none;color:#fff;}
 body.herocta-2 .hslide__cta .btn-cta__icon,
 body.herocta-2 .oslide__cta .btn-cta__icon{
   width:42px;height:42px;border-radius:50%;background:transparent;

@@ -606,6 +606,29 @@ body.theme-dawn .post__chip::before{background:var(--purple);}
 .foot__news-btn svg{width:16px;height:16px;}
 .foot__news-note{font-size:.82rem;color:rgba(255,255,255,.5);margin:.95rem 0 0;}
 
+/* —— "Connect With Us" · 3 botones oro premium (fiel al footer WP original) —— */
+.foot__connect{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--radius-lg,24px);padding:clamp(1.5rem,1rem + 1.6vw,2.2rem);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+  display:flex;flex-direction:column;align-items:flex-start;gap:1.15rem;}
+.foot__connect-eyebrow{font-family:var(--font-body);font-weight:600;font-size:.74rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--yellow);margin:0 0 .2rem;}
+.foot__cgroup{display:flex;flex-direction:column;align-items:flex-start;gap:.6rem;width:100%;}
+.foot__connect-label{font-family:var(--font-body);font-weight:400;font-size:.98rem;line-height:1.35;
+  color:rgba(255,255,255,.82);margin:0;}
+.foot__cbtn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;
+  min-width:min(280px,100%);text-align:center;cursor:pointer;text-decoration:none;
+  background:var(--grad-gold);color:var(--navy);border:0;border-radius:12px;
+  padding:.95rem 1.7rem;font-family:var(--font-body);font-weight:700;font-size:.9rem;
+  letter-spacing:.06em;text-transform:uppercase;
+  box-shadow:0 12px 26px -12px rgba(254,212,87,.7),inset 0 1px 0 rgba(255,255,255,.5);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),filter .25s var(--ease);}
+.foot__cbtn::before{content:"";position:absolute;inset:0 0 auto 0;height:45%;
+  background:linear-gradient(180deg,rgba(255,255,255,.5),transparent);pointer-events:none;}
+.foot__cbtn:hover{transform:translateY(-2px);filter:brightness(1.04);
+  box-shadow:0 18px 34px -12px rgba(254,212,87,.85),inset 0 1px 0 rgba(255,255,255,.6);}
+.foot__cbtn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--navy),0 0 0 6px var(--gold);}
+
 /* —— TIER 2 · columnas de enlaces —— */
 .foot__cols{display:grid;grid-template-columns:1.1fr 1.4fr 1fr;gap:clamp(2rem,4vw,3rem);
   padding-block:clamp(2.6rem,4vw,3.4rem);}
@@ -925,3 +948,121 @@ body.anim-ink .sec__eyebrow .word{display:inline-block;}
 .event__ready[data-wave-line]{color:var(--gold);}
 
 .tools__title,.event__headline,.event__statement{overflow-wrap:break-word;}
+
+/* ============================================================
+   FOOTER v2 · rediseño premium (2026-07-06), fiel a la estructura
+   del footer WP original: Marca | Connect With Us | Links | Contact Us.
+   Scoped bajo .site-footer--v2 — SOLO el Home lo usa por ahora;
+   las internas siguen con las reglas foot__* de arriba hasta aprobar
+   el rollout. Copy de Connect = verbatim del WP (no inventado).
+   ============================================================ */
+.site-footer--v2{padding-block:clamp(4rem,3.2rem + 3.4vw,6.2rem) 1.9rem;}
+/* atmósfera: navy profundo + amanecer dorado arriba-derecha, más presente que v1 */
+.site-footer--v2::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(64% 90% at 84% -6%, rgba(254,212,87,.14), transparent 58%),
+    radial-gradient(40% 52% at 8% 108%, rgba(60,25,81,.55), transparent 70%),
+    linear-gradient(180deg, #0a1023 0%, var(--navy) 46%);}
+
+/* —— grid de 4 columnas (estructura del original) —— */
+.site-footer--v2 .footv2__grid{display:grid;
+  grid-template-columns:1.05fr 1.4fr 1fr 1.1fr;
+  gap:clamp(2.2rem,2vw + 1rem,4.2rem);align-items:start;
+  padding-bottom:clamp(2.8rem,4vw,4rem);
+  border-bottom:1px solid rgba(255,255,255,.1);}
+
+/* col 1 · marca — logo solo, con halo dorado suave detrás */
+.footv2__brand{position:relative;}
+.footv2__logo{position:relative;display:inline-block;}
+/* halo centrado DETRÁS del logo (nunca blob suelto en la columna vacía) */
+.footv2__logo::before{content:"";position:absolute;left:50%;top:50%;width:300px;height:300px;z-index:-1;
+  transform:translate(-50%,-50%);background:var(--glow-yellow);opacity:.3;pointer-events:none;}
+.footv2__logo img{width:clamp(250px,21vw,330px);height:auto;display:block;}
+
+/* cabeceras de columna — eyebrow small-caps con tick oro (lenguaje del site) */
+.footv2__col{display:flex;flex-direction:column;align-items:flex-start;}
+.footv2__head{font-family:var(--font-body);font-weight:600;font-size:.92rem;letter-spacing:.2em;
+  text-transform:uppercase;color:#fff;margin:0 0 1.3rem;position:relative;padding-bottom:.7rem;}
+.footv2__head::after{content:"";position:absolute;left:0;bottom:0;width:26px;height:2px;border-radius:2px;background:var(--gold);}
+
+/* —— col 2 · Connect With Us: jerarquía premium (1 sólido + 2 outline) —— */
+.footv2__connect{gap:1.05rem;}
+.footv2__group{display:flex;flex-direction:column;align-items:flex-start;gap:.55rem;width:100%;
+  padding-top:1.05rem;border-top:1px solid rgba(255,255,255,.08);}
+.footv2__label{font-family:var(--font-body);font-weight:400;font-size:1.12rem;line-height:1.4;
+  color:rgba(255,255,255,.78);margin:0;}
+/* botones = .btn-cta de marca (brand.css) — ancho uniforme en la columna (label izq, chip der)
+   para que Sign Up no quede corto frente a Return to Homepage / View Opportunities */
+.footv2__connect .btn-cta{align-self:stretch;max-width:300px;}
+.footv2__connect .btn-cta__inner{flex:1;justify-content:space-between;}
+/* variante oro para la acción principal (Sign Up): mismo cuerpo pill+chip, interior oro texto navy.
+   Especificidad (0,3,0) para ganar a las variantes body.btnstyle-* de brand.css (0,2,1). */
+.site-footer--v2 .footv2__cta-gold{--cta-border:linear-gradient(90deg,#7c4a9e 0%,#fed457 60%,#ffeb45 110%);}
+.site-footer--v2 .footv2__cta-gold.btn-cta{box-shadow:0 0 30px rgba(254,212,87,.25);}
+.site-footer--v2 .footv2__cta-gold.btn-cta:hover{box-shadow:0 0 46px rgba(254,212,87,.42);}
+.site-footer--v2 .footv2__cta-gold .btn-cta__inner{background:var(--grad-gold);color:var(--navy);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(120,75,8,.28);}
+.site-footer--v2 .footv2__cta-gold .btn-cta__icon{background:rgba(14,22,49,.12);
+  box-shadow:inset 0 0 0 1px rgba(14,22,49,.25);}
+
+/* —— col 3 · Links —— */
+.footv2__linkcol a{display:block;width:fit-content;color:rgba(255,255,255,.72);text-decoration:none;
+  padding:.44rem 0;font-size:1.12rem;
+  transition:color .2s var(--ease),transform .2s var(--ease);}
+.footv2__linkcol a:hover{color:var(--yellow);transform:translateX(4px);}
+.footv2__linkcol a:focus-visible{outline:none;border-radius:6px;box-shadow:0 0 0 2px var(--navy),0 0 0 4px var(--gold);}
+
+/* —— col 4 · Contact Us: email focal serif + buscador pill + medallones —— */
+.footv2__contact{gap:1.15rem;}
+.footv2__email{font-family:var(--font-display);font-weight:400;font-size:clamp(1.3rem,1.1rem + .7vw,1.6rem);
+  line-height:1.3;color:#fff;text-decoration:none;overflow-wrap:anywhere;
+  background-image:linear-gradient(90deg,var(--gold),var(--gold));background-repeat:no-repeat;
+  background-size:0% 1.5px;background-position:0 100%;padding-bottom:3px;
+  transition:color .25s var(--ease),background-size .3s var(--ease);}
+.footv2__email:hover{color:var(--gold);background-size:100% 1.5px;}
+.footv2__email:focus-visible{outline:none;border-radius:6px;box-shadow:0 0 0 2px var(--navy),0 0 0 4px var(--gold);}
+.footv2__search{display:flex;align-items:stretch;width:min(280px,100%);border-radius:999px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);
+  transition:border-color .25s var(--ease),box-shadow .25s var(--ease);}
+.footv2__search:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(254,212,87,.22);}
+.footv2__search-input{flex:1;min-width:0;background:transparent;border:0;color:#fff;
+  font-family:var(--font-body);font-size:1.05rem;padding:.72rem 1.15rem;}
+.footv2__search-input::placeholder{color:rgba(255,255,255,.45);}
+.footv2__search-input:focus{outline:none;}
+.footv2__search-btn{display:grid;place-items:center;width:48px;border:0;cursor:pointer;
+  background:rgba(14,22,49,.55);color:#fff;
+  transition:background-color .25s var(--ease),color .25s var(--ease);}
+.footv2__search-btn:hover{background:var(--gold);color:var(--navy);}
+.footv2__search-btn svg{width:16px;height:16px;}
+/* medallones (misma receta que .foot__social, scoped para no depender de cascada) */
+.footv2__social{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.15rem;}
+.footv2__social a{position:relative;isolation:isolate;width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--hairline-on-dark);display:grid;place-items:center;padding:0;color:#fff;
+  background:linear-gradient(180deg,#1b2447 0%,#121a38 100%);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.14),inset 0 -4px 8px rgba(0,0,0,.34),0 8px 18px rgba(8,10,26,.4);
+  transition:color .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease),transform .25s var(--ease);}
+.footv2__social a::before{content:"";position:absolute;inset:0;border-radius:50%;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.03) 36%,transparent 60%);}
+.footv2__social svg{position:relative;z-index:2;width:18px;height:18px;}
+.footv2__social a:hover{transform:translateY(-3px);color:var(--navy);border-color:rgba(120,75,8,.25);
+  background:linear-gradient(180deg,#ffe486 0%,#fed457 52%,#f3bf3b 100%);
+  box-shadow:inset 0 2px 1px rgba(255,255,255,.6),inset 0 -4px 8px rgba(120,75,8,.3),0 14px 26px rgba(8,10,26,.46),0 0 0 6px rgba(254,212,87,.16);}
+.footv2__social a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--navy),0 0 0 6px var(--gold);}
+
+/* bottom bar más legible (boomer) — override scoped, la regla compartida no se toca */
+.site-footer--v2 .foot__bottom{font-size:1.02rem;}
+
+/* —— responsive —— */
+@media (max-width:1080px){
+  .site-footer--v2 .footv2__grid{grid-template-columns:1fr 1fr;gap:2.6rem 2.5rem;}
+  .footv2__brand{grid-column:1 / -1;}
+}
+@media (max-width:560px){
+  .site-footer--v2 .footv2__grid{grid-template-columns:1fr;gap:2.4rem;}
+  .footv2__search{width:100%;}
+}
+/* el inner del btn-cta lleva white-space:nowrap — compactar para que quepa a 320px */
+@media (max-width:400px){
+  .footv2__connect .btn-cta__inner{font-size:.95rem;padding:.72rem .9rem .72rem 1.15rem;gap:.65rem;}
+  .footv2__connect .btn-cta__icon{width:26px;height:26px;}
+}

@@ -1,0 +1,118 @@
+/* ============================================================
+   Journey to the Soul Retreat — Waitlist · escena clara
+   Fiel al WP original: cielo pastel + texto navy, titular partido
+   ("Enter your information…" / banda "Journey to the Soul Retreat
+   2025" / "Waitlist" en script) con el form unido a la escena.
+   Página-local (convención apg.css / newsletter.css).
+   OJO: la escena NO usa .int-hero a propósito — internal.css tiene
+   `.int-hero .form-card` que forzaría el tratamiento glass oscuro;
+   fuera de .int-hero el .form-card conserva su default claro.
+   ============================================================ */
+
+.wl-scene{
+  position:relative;
+  isolation:isolate;
+  color:var(--text-on-light);
+  text-align:center;
+  padding:clamp(9.5rem,7rem + 6vw,13rem) clamp(1.1rem,4vw,2.6rem) clamp(4.5rem,6vw,7rem);
+}
+/* foto (vertical 1080×1920): posicionada para mostrar pastel + banda rosa del horizonte */
+.wl-scene::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:url("../assets/images/waitlist-sky.webp") center 72%/cover no-repeat;
+}
+/* scrim blanco suave: legibilidad del navy arriba (bajo el nav) y transición serena al footer */
+.wl-scene::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,
+    rgba(255,255,255,.42) 0%,
+    rgba(255,255,255,.14) 30%,
+    rgba(255,255,255,0) 60%,
+    rgba(14,22,49,.10) 100%);
+}
+.wl-scene__inner{
+  width:min(var(--int-shell,1240px),100%);
+  margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;
+}
+
+/* —— titular (Fraunces navy, acento púrpura — .gold no contrasta sobre claro) —— */
+.wl-title{
+  margin:0;
+  max-width:24ch;
+  font-family:var(--font-display);
+  font-weight:400;
+  font-size:clamp(2.4rem,1.5rem + 3.6vw,4.4rem);
+  line-height:1.08;
+  letter-spacing:-.02em;
+  text-wrap:balance;
+  color:var(--navy);
+}
+.wl-title .accent{color:var(--purple);font-style:italic;}
+.wl-rule{margin:clamp(1.5rem,2.6vw,2.2rem) auto;}
+
+/* —— frase partida (una sola oración semántica, tres tratamientos) —— */
+.wl-sub{
+  margin:0;
+  display:flex;flex-direction:column;align-items:center;
+  gap:clamp(1rem,1.8vw,1.5rem);
+}
+.wl-invite{
+  font-family:var(--font-body);
+  font-weight:300;
+  font-size:clamp(1.15rem,1rem + .8vw,1.55rem);
+  letter-spacing:.015em;
+  color:var(--text-on-light-soft);
+}
+/* banda translúcida tras el nombre del retiro (como el original, pulida) */
+.wl-band{
+  display:inline-block;
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(1.8rem,1.1rem + 3.2vw,3.4rem);
+  line-height:1.18;
+  color:var(--navy);
+  padding:.16em .6em .2em;
+  border-radius:10px;
+  /* background:rgba(255,255,255,.58); */
+  /* backdrop-filter:blur(4px); */
+  /* -webkit-backdrop-filter:blur(4px); */
+  /* box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 14px 40px rgba(14,22,49,.10); */
+}
+/* "Waitlist" manuscrita — receta .greeting__script (Pinyon) en navy, sin glow oscuro */
+.wl-script{
+  font-family:var(--font-accent);
+  font-weight:400;
+  font-size:clamp(3.6rem,2.2rem + 6vw,7rem);
+  line-height:.9;
+  color:var(--navy);
+  margin-top:-.06em;
+  text-shadow:0 2px 22px rgba(255,255,255,.6);
+}
+
+/* —— form unido a la escena (default claro de .form-card + acabado premium) —— */
+.wl-form{
+  width:min(600px,100%);
+  margin:clamp(2.8rem,4.5vw,4rem) auto 0;
+  text-align:left;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  box-shadow:0 24px 70px rgba(14,22,49,.16),inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+/* —— breadcrumb en navy sobre el cielo claro —— */
+.wl-scene .int-breadcrumbs{
+  color:rgba(14,22,49,.72);
+  text-shadow:none;
+}
+.wl-scene .int-breadcrumbs a:hover{color:var(--purple);}
+.wl-scene .int-breadcrumbs [aria-current="page"]{color:var(--purple);}
+
+@media (max-width:640px){
+  /* aire extra para que el breadcrumb absoluto no choque con la tarjeta del form */
+  .wl-scene{padding-bottom:7.5rem;}
+}
+@media (max-width:560px){
+  .wl-band{border-radius:8px;padding:.2em .55em .24em;}
+}

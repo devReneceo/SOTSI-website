@@ -47,14 +47,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // antes de que el observer de about.js los cruce (están bajo el fold).
   document.querySelectorAll("[data-words]").forEach(splitWords);
 
-  // Section 2 — halo wave (Soul Tide) behind the declaration.
+  // Section 2 — halo wave (Soul Tide) tras la declaración + offerings (kinetic type,
+  // ahora dentro del wave). Cada bloque flota por su cuenta con --parx-copy.
   const wave = document.querySelector(".gs-wave");
   if (wave && typeof mountTideCanvas === "function") mountTideCanvas(wave);
+  if (wave && typeof mountThresholdParallax === "function") {
+    mountThresholdParallax(wave, ".gs-wave__provide");  // lift de "We provide…"
+    mountThresholdParallax(wave, ".gs-kinetic__inner"); // float de las offerings
+  }
 
-  // Section 3 — gentle scroll float on the kinetic type.
-  const kinetic = document.querySelector(".gs-kinetic");
-  if (kinetic && typeof mountThresholdParallax === "function") {
-    mountThresholdParallax(kinetic, ".gs-kinetic__inner");
+  // Section 3 — float sutil de la copy de cierre.
+  const closing = document.querySelector(".gs-kinetic");
+  if (closing && typeof mountThresholdParallax === "function") {
+    mountThresholdParallax(closing, ".gs-kinetic__copy");
   }
 
   // Section 1 — video hero respects reduced-motion (freeze to poster frame).

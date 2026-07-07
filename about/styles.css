@@ -1806,25 +1806,13 @@ body.about-page .site-footer {
   text-wrap: balance;
 }
 
-/* Credencial del "ledger": hairline dorada superior (última también inferior) */
-.about-cofounder__cred {
-  position: relative;
+/* Credenciales: párrafo continuo fiel al original (una sola frase que fluye desde el lead) */
+.about-cofounder__body {
   display: block;
-  padding: 0.9em 0;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 300;
-  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.12rem);
-  line-height: 1.65;
-}
-.about-cofounder__cred::before {
-  content: "";
-  position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, rgba(254, 212, 87, 0.5), rgba(254, 212, 87, 0.06) 72%, transparent);
-}
-.about-cofounder__cred:last-child::after {
-  content: "";
-  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, rgba(254, 212, 87, 0.5), rgba(254, 212, 87, 0.06) 72%, transparent);
+  font-size: clamp(1.02rem, 0.97rem + 0.24vw, 1.18rem);
+  line-height: 1.72;
 }
 
 /* Retrato: el PNG ya integra los círculos dorados; glow + flotación lenta (compositor-friendly) */
@@ -1849,13 +1837,9 @@ body.about-page .site-footer {
   to { transform: translateY(7px); }
 }
 
-/* Stagger del ledger: lead → credenciales una a una (reusa el reveal genérico [data-reveal]) */
+/* Stagger: lead → párrafo continuo (reusa el reveal genérico [data-reveal]) */
 .reveals-on .about-cofounder__text > [data-reveal]:nth-child(1) { transition-delay: 0.05s; }
-.reveals-on .about-cofounder__text > [data-reveal]:nth-child(2) { transition-delay: 0.14s; }
-.reveals-on .about-cofounder__text > [data-reveal]:nth-child(3) { transition-delay: 0.23s; }
-.reveals-on .about-cofounder__text > [data-reveal]:nth-child(4) { transition-delay: 0.32s; }
-.reveals-on .about-cofounder__text > [data-reveal]:nth-child(5) { transition-delay: 0.41s; }
-.reveals-on .about-cofounder__text > [data-reveal]:nth-child(6) { transition-delay: 0.5s; }
+.reveals-on .about-cofounder__text > [data-reveal]:nth-child(2) { transition-delay: 0.18s; }
 
 @media (max-width: 1040px) {
   /* ritmo móvil: menos aire muerto alrededor del retrato (audit 2026-07-02) */
@@ -2026,7 +2010,9 @@ body.about-page .site-footer {
     radial-gradient(circle at 78% 36%, transparent 224px, rgba(254, 212, 87, 0.26) 226px, rgba(254, 212, 87, 0.26) 228px, transparent 231px),
     radial-gradient(circle at 68% 60%, rgba(254, 212, 87, 0.12), transparent 130px),
     radial-gradient(28% 34% at 14% 78%, rgba(210, 204, 253, 0.1), transparent 72%),
-    linear-gradient(180deg, #2a1140 0%, #3c1951 12%, #5a4a7e 34%, #8f7ba8 52%, #d69a86 68%, #4a3d6b 86%, #0e1631 100%);
+    /* banda cálida bajada 68%→80%: la zona del texto queda en púrpura profundo (oro legible),
+       el resplandor del atardecer brilla POR DEBAJO del clímax + hairline (fix contraste t5.png) */
+    linear-gradient(180deg, #2a1140 0%, #351848 14%, #45285c 36%, #574073 54%, #6a5285 66%, #d69a86 80%, #5f4874 90%, #0e1631 100%);
 }
 
 /* Cofounder de Linda (bio + libros) vive entre la banda navy "Meet" (#0e1631) y el threshold
@@ -2076,6 +2062,8 @@ body.about-page .site-footer {
   max-width: 30ch;
   font-size: clamp(1.9rem, 1.3rem + 3vw, 4rem);
   line-height: 1.12;
+  /* piso de legibilidad: ancla oscura más fuerte para despegar el oro de la banda cálida */
+  text-shadow: 0 1px 2px rgba(20, 16, 45, 0.9), 0 2px 10px rgba(20, 16, 45, 0.7), 0 0 34px rgba(20, 16, 45, 0.5);
 }
 
 /* --- Co-founder: la media son los DOS libros co-escritos (PNG transparente 600×917, vertical) —

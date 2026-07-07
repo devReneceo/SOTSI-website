@@ -150,13 +150,22 @@
 .gs-wave {
   position: relative;
   min-height: 100svh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 3vh, 2.5rem);
   overflow: hidden;
   isolation: isolate;
   background: var(--grad-immersive);
   padding: clamp(5rem, 12vh, 9rem) 0;
 }
+/* Offerings (resources & courses / events & community) ahora viven DENTRO del wave,
+   justo bajo "We provide…". Override del min-height:inherit (heredaba 100svh) y de la
+   atmósfera kinetic que chocaría con el canvas Soul Tide. */
+.gs-wave .gs-kinetic__inner { position: relative; z-index: 2; min-height: clamp(420px, 60vh, 720px); }
+.gs-wave .gs-kinetic__aura,
+.gs-wave .gs-kinetic__link { display: none; }
 .gs-wave__canvas { position: absolute; inset: 0; z-index: 0; }
 .gs-wave__veil {
   position: absolute;
@@ -194,6 +203,100 @@
 }
 .gs-wave__sub .gs-ell { color: var(--gold); font-weight: 400; }
 
+/* Lead-in "We provide…" — display dorado XL que anuncia la sección kinetic de abajo.
+   Relleno gold→ámbar en degradado + halo radial que respira detrás (::before, sin caja).
+   Reusa el hook .gs-ell (puntos), el reveal word-by-word (data-words) e invita al scroll
+   con la guía vertical + su pulso viajero siguiente. Parallax de scroll vía --parx-copy. */
+.gs-wave__provide {
+  position: relative;
+  isolation: isolate;
+  margin: clamp(1.4rem, 2.8vw, 2.4rem) auto 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  line-height: 1.02;
+  font-size: clamp(2.8rem, 1.8rem + 5vw, 6rem);
+  background: linear-gradient(100deg, var(--gold) 0%, #ffe9a8 46%, var(--yellow) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 44px rgba(254, 212, 87, 0.34);
+  transform: translate3d(0, var(--parx-copy, 0px), 0);
+  will-change: transform;
+}
+/* Halo radial dorado que ancla el texto (respiración lenta). */
+.gs-wave__provide::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  width: 128%;
+  height: 240%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(60% 130% at 50% 45%, rgba(254, 212, 87, 0.22), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+  animation: gsHaloBreathe 6s ease-in-out infinite;
+}
+@keyframes gsHaloBreathe {
+  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(0.97); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.03); }
+}
+/* Los puntos "…" quedan en gold sólido (no los recorta el background-clip del padre). */
+.gs-wave__provide .gs-ell {
+  -webkit-text-fill-color: var(--gold);
+  color: var(--gold);
+  animation: gsEllPulse 2.4s ease-in-out infinite;
+}
+@keyframes gsEllPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* Línea guía descendente — cae desde "We provide…" hacia la sección kinetic.
+   Crece (scaleY 0→1) al revelarse, overriding el reveal genérico (mismo patrón que .gs-row__rule). */
+.gs-wave__guide {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: clamp(64px, 12vh, 120px);
+  margin: clamp(1.4rem, 3vh, 2.4rem) auto 0;
+  background: linear-gradient(180deg, rgba(254, 212, 87, 0.9), rgba(254, 212, 87, 0.15) 70%, transparent);
+}
+/* Cometa dorado que recorre la guía hacia abajo (energía que baja hacia
+   "resources & courses"). Solo corre cuando la guía ya se reveló. */
+.gs-wave__guide::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #fff6d8 0%, var(--gold) 45%, rgba(254, 212, 87, 0) 72%);
+  box-shadow: 0 0 12px 2px rgba(254, 212, 87, 0.7);
+  opacity: 0;
+  pointer-events: none;
+}
+.reveals-on .gs-page .gs-wave__guide[data-reveal].is-revealed::after {
+  animation: gsGuidePulse 1.8s ease-in 0.9s infinite;
+}
+@keyframes gsGuidePulse {
+  0%   { top: 0;    opacity: 0; }
+  18%  { opacity: 1; }
+  82%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.reveals-on .gs-page .gs-wave__guide[data-reveal] {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  filter: none;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.2s;
+}
+.reveals-on .gs-page .gs-wave__guide[data-reveal].is-revealed { opacity: 1; transform: scaleY(1); }
+
 /* --------------------------------------------------------------------------
    3 · KINETIC editorial type — resources & courses (TR) / events & community (BL)
    -------------------------------------------------------------------------- */
@@ -206,6 +309,51 @@
     radial-gradient(130% 100% at 50% -10%, #331a52 0%, transparent 58%),
     linear-gradient(165deg, #140925 0%, #23113b 42%, #3c1951 76%, #4a2168 100%);
 }
+/* Sección de cierre — solo aloja la copy editorial que completa "We provide…".
+   Continúa el degradado profundo (+ ::before de atmósfera) pero con altura contenida. */
+.gs-kinetic.gs-closing {
+  min-height: auto;
+  display: grid;
+  place-items: center;
+  padding-block: clamp(4.5rem, 12vh, 8rem);
+  text-align: center;
+}
+.gs-kinetic__copy {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  width: var(--int-shell);
+  max-width: 40rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.01em;
+  line-height: 1.24;
+  text-wrap: balance;
+  font-size: clamp(1.5rem, 1.05rem + 2vw, 2.9rem);
+  transform: translate3d(0, var(--parx-copy, 0px), 0);
+  will-change: transform;
+}
+.gs-kinetic__copy .gs-copy-accent { color: var(--gold); font-style: italic; }
+/* Conector ascendente — sube desde el tope de la sección hacia "resources & courses",
+   encontrando la guía que cae desde "We provide…". Crece (scaleY) al revelarse. */
+.gs-kinetic__link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: clamp(48px, 9vh, 96px);
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top;
+  background: linear-gradient(180deg, rgba(254, 212, 87, 0.55), transparent);
+  z-index: 2;
+}
+.reveals-on .gs-page .gs-kinetic__link[data-reveal] {
+  opacity: 0;
+  filter: none;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveals-on .gs-page .gs-kinetic__link[data-reveal].is-revealed { opacity: 1; transform: translateX(-50%) scaleY(1); }
 .gs-kinetic__aura {
   position: absolute;
   inset: 0;
@@ -468,9 +616,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gs-glow, .gs-wave__cue, .gs-kinetic__aura, .gs-kinetic::before { animation: none; }
+  .gs-glow, .gs-wave__cue, .gs-kinetic__aura, .gs-kinetic::before, .gs-wave__provide .gs-ell,
+  .gs-wave__provide::before, .gs-wave__guide::after { animation: none; }
+  .gs-wave__provide { transform: none; }
+  .gs-wave__guide::after { opacity: 0; }
   .reveals-on .gs-page [data-words] .gs-w,
   .reveals-on .gs-page .gs-kinetic__word[data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
+  .reveals-on .gs-page .gs-wave__guide[data-reveal] { opacity: 1; transform: scaleY(1); transition: none; }
+  .reveals-on .gs-page .gs-kinetic__link[data-reveal] { opacity: 1; transform: translateX(-50%) scaleY(1); transition: none; }
 }
 
 /* ==========================================================================

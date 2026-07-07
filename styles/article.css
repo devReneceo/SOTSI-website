@@ -197,3 +197,106 @@
 }
 
 /* (.art-pull retirado 2026-07-04 — feedback: copy de más en los artículos.) */
+
+/* --------------------------------------------------------------------------
+   3 · ESSAY SCENE (failing-government + ai-and-human-evolution, rev 2026-07-06c
+   — feedback Joel a1/a2.png: como el WP original)
+   Hero + ensayo en UNA sola escena aurora, columna editorial única centrada.
+   Header CENTRADO (título → divisor → byline serif "Gary Zukav" — Pinyon es el
+   lenguaje de Linda, Gary usa la display serif como en founders), prosa debajo,
+   y los CTAs de compartir AL FINAL del ensayo (Download/Print · Email · WhatsApp).
+   Scoped a .art-essay — lo comparten ambos ensayos, cada uno con su aurora.
+   -------------------------------------------------------------------------- */
+.art-essay {
+  min-height: auto;
+  align-items: stretch;
+  overflow: clip;
+}
+
+/* la escena crece con el ensayo; aire extra abajo para el breadcrumb absoluto */
+.art-essay .art-hero__inner {
+  padding-top: clamp(8.5rem, 14vh, 11rem);
+  padding-bottom: clamp(7rem, 10vw, 9.5rem);
+}
+
+/* columna única centrada con medida de lectura */
+.art-essay__grid {
+  max-width: 72ch;
+  margin-inline: auto;
+}
+
+/* header centrado como el WP original */
+.art-essay__rail { text-align: center; }
+.art-essay .int-rule { margin-inline: auto; }
+
+/* Fraunces explícita: font-brand pone --font-display en Canela, que esta página
+   no carga (caía al fallback Georgia) */
+.art-essay .art-hero__title {
+  font-family: "Fraunces", var(--font-display);
+  font-size: clamp(2.4rem, 1.3rem + 3.4vw, 4.3rem);
+}
+
+/* byline — serif display de Gary (la Pinyon cursiva queda para Linda) */
+.art-essay__byline {
+  margin: 1.3rem 0 0;
+  font-family: "Fraunces", var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.6rem);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--gold);
+  text-shadow: 0 2px 20px rgba(14, 22, 49, 0.4);
+}
+
+/* aire entre el header centrado y el arranque de la prosa */
+.art-essay__prose { margin-top: clamp(2.6rem, 5vh, 3.8rem); }
+
+/* prosa sobre la aurora: blanco suave (el .int-prose base es para fondo claro) */
+.art-essay__prose {
+  color: rgba(255, 255, 255, 0.88);
+}
+.art-essay__prose strong, .art-essay__prose em { color: #fff; }
+
+/* drop cap en oro (el púrpura del .art-prose base se pierde sobre navy),
+   y Fraunces explícita (mismo gotcha Canela/Georgia del título) */
+.art-essay__prose > p:first-child::first-letter {
+  font-family: "Fraunces", var(--font-display);
+  color: var(--gold);
+}
+
+/* si el primer párrafo es un lede corto (AI: una sola línea), el siguiente
+   párrafo no debe envolver la drop cap flotada */
+.art-essay__prose > p:first-child + p { clear: left; }
+
+/* share al final del ensayo, centrado como el WP original */
+.art-essay__share {
+  margin-top: clamp(3rem, 6vh, 4.5rem);
+  text-align: center;
+}
+.art-essay__share .int-rule { margin: 0 auto 1.4rem; }
+
+.art-essay__share-label {
+  margin: 0 0 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--periwinkle);
+}
+
+.art-essay__share-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+}
+.art-essay__share-row .btn svg { width: 18px; height: 18px; flex: none; }
+
+/* ghost sobre la aurora (el default de concepts.css es navy sobre claro) */
+.art-essay__share-row .btn--ghost {
+  --btn-fg: #fff;
+  border-color: rgba(255, 255, 255, 0.38);
+}
+.art-essay__share-row .btn--ghost:hover { border-color: rgba(255, 255, 255, 0.72); }

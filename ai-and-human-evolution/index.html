@@ -8,7 +8,7 @@
   <!--
     Prototype Fase 2 · WP slug: /ai-and-human-evolution/
     Verdict: improve · effort 1.8d (band medium) · Joel: 1-2d
-    Template: article (byline + prose + actions + related paths) · Forms: none (share via mailto; live site uses a popup share form with friend's email + your name)
+    Template: article · escena única .art-essay (header centrado + prosa + share CTAs al final) · Forms: none (share via mailto/WhatsApp; live site uses a popup share form with friend's email + your name)
   -->
   <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
@@ -57,33 +57,22 @@
 </header>
 
   <main>
-    <section class="art-hero art-hero--right art-hero--aurora-ai" aria-labelledby="ai-heading">
+    <!-- Escena única (mismo diseño que failing-government/, rev 2026-07-06): hero + ensayo
+         juntos sobre la aurora en UNA columna editorial centrada, header centrado como el WP
+         original (título → divisor → byline serif) y los CTAs de compartir AL FINAL del ensayo. -->
+    <section class="art-hero art-essay art-hero--aurora-ai" aria-labelledby="ai-heading">
       <span class="art-hero__aurora" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="art-hero__grain" aria-hidden="true"></span>
       <span class="art-hero__scrim" aria-hidden="true"></span>
-      <div class="art-hero__inner">
-        <div class="art-hero__copy">
-          <p class="int-kicker art-rise" style="--ri:0;">Resources · An essay by Gary Zukav</p>
+      <div class="art-hero__inner art-essay__grid">
+        <header class="art-essay__rail">
+          <!-- <p class="int-kicker art-rise" style="--ri:0;">Resources · An essay by Gary Zukav</p> -->
           <h1 class="art-hero__title art-rise" style="--ri:1;" id="ai-heading">AI and <span class="gold">Human Evolution</span></h1>
           <hr class="int-rule art-rise" style="--ri:2;" />
-        </div>
-      </div>
-      <span class="aspire__cue art-hero__cue" aria-hidden="true"><span class="aspire__cue-line"></span></span>
-      <nav class="int-breadcrumbs" aria-label="Breadcrumb">
-        <a href="../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><a href="../get-started/">Resources</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page">AI and Human Evolution</span>
-      </nav>
-    </section>
+          <p class="art-essay__byline art-rise" style="--ri:3;">Gary Zukav</p>
+        </header>
 
-    <section class="int-section">
-      <div class="int-byline rv">
-        <span class="int-byline__mono" aria-hidden="true">GZ</span>
-        <div>
-          <p class="int-byline__name">By Gary Zukav</p>
-          <p class="int-byline__meta">Co-founder, Seat of the Soul Institute · #1 New York Times bestselling author</p>
-        </div>
-      </div>
-
-      <div class="int-prose art-prose rv">
+        <div class="int-prose art-prose art-essay__prose rv">
         <p>Human evolution is now an internal process, not an external process.</p>
         <p>An unprecedented and epic transformation to human consciousness is occurring now. The old human consciousness was limited to the perceptions of the five senses, and it understood power as the ability to manipulate and control. That is external power. Individuals with the old human consciousness evolved by surviving, and they survived by pursuing external power. Human evolution was an external process. Pursuing external power now produces only violence and destruction. It prevents human evolution.</p>
         <p>The new human consciousness is not limited to the perceptions of the five senses, and it understands power as the alignment of the personality with the soul. This is authentic power. Individuals with the new consciousness evolve by growing spiritually, and they grow spiritually by creating authentic power. Human evolution is now an internal process. Creating authentic power requires awareness of human inner experiences. That is why AI cannot affect human evolution.</p>
@@ -94,16 +83,35 @@
         <p>Like gunpowder, missiles, and the internet, AI will change human history, but it cannot affect human evolution.</p>
         <p>Only we can do that.</p>
         <p>We were born to do that.</p>
-      </div>
+        </div>
 
-      <!-- Live site: "Send to a Friend" opens a popup share form (fields: friend's email address + your name). Prototype approximates with a prefilled mailto. -->
-      <div class="rv" style="display:flex;flex-wrap:wrap;align-items:center;gap:.8rem;margin-top:2.4rem;">
-        <a class="btn btn--gold" href="https://seatofthesoul.com/wp-content/uploads/2024/03/AI-And-Human-Evolution.pdf" target="_blank" rel="noopener">Download PDF</a>
-        <span class="badge-ext">PDF ↗</span>
-        <a class="btn btn--ghost" href="mailto:?subject=AI%20and%20Human%20Evolution%20%E2%80%94%20an%20essay%20by%20Gary%20Zukav&amp;body=I%20thought%20of%20you%20when%20I%20read%20this%20essay%20by%20Gary%20Zukav%3A%20https%3A%2F%2Fseatofthesoul.com%2Fai-and-human-evolution%2F">Send to a friend</a>
+        <!-- CTAs al final del ensayo, como el WP original. Live site: "Send to a Friend"
+             abre un popup share form (friend's email + your name) — el prototipo lo aproxima con
+             mailto prellenado. WhatsApp: wa.me sin número → abre y el usuario elige contacto. -->
+        <div class="art-essay__share rv">
+          <hr class="int-rule" />
+          <p class="art-essay__share-label">Share this essay</p>
+          <div class="art-essay__share-row">
+            <a class="btn btn--gold" href="https://seatofthesoul.com/wp-content/uploads/2024/03/AI-And-Human-Evolution.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M12 11v6"/><path d="m9.5 14.5 2.5 2.5 2.5-2.5"/></svg>
+              Download / Print
+            </a>
+            <a class="btn btn--ghost" href="mailto:?subject=AI%20and%20Human%20Evolution%20%E2%80%94%20an%20essay%20by%20Gary%20Zukav&amp;body=I%20thought%20of%20you%20when%20I%20read%20this%20essay%20by%20Gary%20Zukav%3A%20https%3A%2F%2Fseatofthesoul.com%2Fai-and-human-evolution%2F">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2.5 6.5 9.5 7 9.5-7"/></svg>
+              Send to a Friend
+            </a>
+            <a class="btn btn--ghost" href="https://wa.me/?text=AI%20and%20Human%20Evolution%20%E2%80%94%20an%20essay%20by%20Gary%20Zukav%3A%20https%3A%2F%2Fseatofthesoul.com%2Fai-and-human-evolution%2F" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.66 15L2 22l5.16-1.31A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.06.78.8-2.98-.2-.31A8.2 8.2 0 1 1 12 20.2zm4.5-6.14c-.25-.12-1.46-.72-1.68-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.16 1.74 2.65 4.2 3.72.59.25 1.05.4 1.4.52.59.19 1.13.16 1.56.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
       </div>
+      <nav class="int-breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><a href="../get-started/">Resources</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page">AI and Human Evolution</span>
+      </nav>
     </section>
-
+<!-- 
     <section class="int-section" style="padding-top:0;">
       <p class="int-eyebrow rv">Keep going</p>
       <h2 class="int-h2 rv">Continue <span class="accent">the journey.</span></h2>
@@ -123,7 +131,7 @@
           <span class="path-card__go">Choose your path <span class="arrow">→</span></span>
         </a>
       </div>
-    </section>
+    </section> -->
   </main>
 
   <footer class="site-footer site-footer--v2">

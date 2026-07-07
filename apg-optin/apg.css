@@ -57,12 +57,13 @@
 }
 
 /* ---------- Hero ---------- */
+/* Sin min-height centrado: el contenido fluye y la sección de bullets sube pegada
+   (feedback Joel 2026-07-06 — el párrafo de Gary se veía "en otra sección"). */
 .apg-hero {
   position: relative;
-  min-height: min(88svh, 780px);
   display: flex;
   align-items: center;
-  padding: clamp(9.5rem, 15vh, 12rem) 0 clamp(4rem, 8vh, 6rem);
+  padding: clamp(9.5rem, 15vh, 12rem) 0 clamp(2rem, 4vh, 3rem);
 }
 
 .apg-hero__cue {
@@ -105,6 +106,31 @@
   50% { background-position: 100% 0; }
 }
 
+/* ---------- Párrafo de Gary — concatenado al deck (feedback Joel 2026-07-06) ---------- */
+.apg-corner {
+  position: relative;
+  margin-top: clamp(1.4rem, 3vh, 2.1rem);
+  padding-left: 1.15rem;
+  border-left: 2px solid rgba(254, 212, 87, 0.65);
+}
+
+.apg-corner strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* "Authentic Power Guidelines" en itálica display con el oro shimmer de la marca */
+.apg-gold-em {
+  font-family: var(--font-display);
+  font-style: italic;
+  background: linear-gradient(100deg, #fed457 20%, #ffeb45 42%, #fff3a8 50%, #ffeb45 58%, #fed457 80%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: apgShimmer 7s ease-in-out 2.2s infinite;
+}
+
 /* ---------- Sección descarga (sobre la misma escena) ---------- */
 .apg-download { padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(5rem, 9vw, 7.5rem); }
 
@@ -136,6 +162,12 @@
   line-height: 1.5;
 }
 
+/* frase inicial en bold como el WP original (Jost 300 + bolder solo da 400 — forzar) */
+.apg-list strong {
+  font-weight: 600;
+  color: #fff;
+}
+
 .apg-download__subtitle {
   margin: 1.8rem 0 0;
   font-family: var(--font-display);
@@ -152,6 +184,84 @@
   border-color: rgba(255, 255, 255, 0.16);
 }
 
+/* ---------- Flujo de una columna fiel al WP (fprmat.png) ----------
+   copy → bullets → cierre → script line → form protagonista debajo. */
+.apg-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.apg-flow .int-lead { max-width: var(--int-copy); }
+
+/* stagger de reveals dentro de la sección (usa el .rv de internal.js) */
+.apg-download .rv { transition-delay: calc(var(--rvd, 0) * 110ms); }
+
+/* ticks: pop sutil al entrar el li */
+.apg-list .tick {
+  display: inline-block;
+  transform: scale(0.4);
+  opacity: 0;
+  transition: transform 0.5s var(--ease), opacity 0.4s var(--ease);
+  transition-delay: calc(var(--rvd, 0) * 110ms + 180ms);
+}
+.apg-list li.in .tick { transform: scale(1); opacity: 1; }
+
+/* cierre del WP en su lugar original (después de los bullets) */
+.apg-closing { margin: clamp(2.2rem, 4vw, 3.2rem) 0 0; }
+
+/* ---------- Script line — protagonista arriba del form ---------- */
+.apg-script {
+  align-self: center;
+  margin: clamp(2.6rem, 5vw, 4rem) 0 0;
+  max-width: 26ch;
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 1.4rem + 3.8vw, 4.4rem);
+  line-height: 1.08;
+  text-align: center;
+  text-wrap: balance;
+  /* oro con shimmer lento (misma receta apgShimmer, más pausada) */
+  background: linear-gradient(100deg, #fed457 22%, #ffeb45 44%, #fff3a8 50%, #ffeb45 56%, #fed457 78%);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 26px rgba(254, 212, 87, 0.22));
+}
+/* entrada: rise + blur, disparada por el observer .rv → .in */
+.apg-script.rv {
+  transform: translateY(26px);
+  filter: blur(6px) drop-shadow(0 4px 26px rgba(254, 212, 87, 0));
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), filter 0.8s var(--ease);
+}
+.apg-script.rv.in {
+  transform: none;
+  filter: blur(0) drop-shadow(0 4px 26px rgba(254, 212, 87, 0.22));
+  animation: apgShimmer 9s ease-in-out 1.2s infinite;
+}
+
+/* ---------- Form protagonista (ancho completo, feedback Joel 2026-07-06, halo dorado) ---------- */
+.apg-form {
+  align-self: stretch;
+  width: 100%;
+  margin-top: clamp(1.8rem, 3.5vw, 2.6rem);
+  padding: clamp(2.2rem, 4vw, 3.2rem);
+}
+.apg-scene .apg-form {
+  border-color: rgba(254, 212, 87, 0.32);
+  box-shadow: 0 0 56px rgba(254, 212, 87, 0.14), 0 30px 80px rgba(8, 10, 26, 0.5);
+}
+/* entrada con leve scale + respiración muy lenta del halo */
+.apg-form.rv { transform: translateY(24px) scale(0.975); }
+.apg-form.rv.in {
+  transform: none;
+  animation: apgFormGlow 8s ease-in-out 1.6s infinite;
+}
+@keyframes apgFormGlow {
+  0%, 100% { box-shadow: 0 0 56px rgba(254, 212, 87, 0.14), 0 30px 80px rgba(8, 10, 26, 0.5); }
+  50% { box-shadow: 0 0 78px rgba(254, 212, 87, 0.24), 0 30px 80px rgba(8, 10, 26, 0.5); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .apg-title .w,
   .apg-shimmer {
@@ -160,10 +270,25 @@
     transform: none;
     filter: none;
   }
-  .apg-shimmer {
+  .apg-shimmer,
+  .apg-gold-em {
+    animation: none;
     background: none;
     -webkit-background-clip: initial;
     background-clip: initial;
     color: var(--gold);
   }
+  .apg-download .rv { transition-delay: 0s; }
+  .apg-list .tick { transform: none; opacity: 1; transition: none; }
+  .apg-script.rv,
+  .apg-script.rv.in {
+    transform: none;
+    filter: none;
+    animation: none;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: var(--gold);
+  }
+  .apg-form.rv, .apg-form.rv.in { transform: none; animation: none; }
 }

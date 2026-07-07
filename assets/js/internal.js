@@ -138,4 +138,42 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  // Smart back — píldora sutil "Back to Get Started" (feedback Joel 2026-07-06).
+  // Solo aparece si el usuario llegó DESDE la página origen (marker en sessionStorage
+  // escrito por get-started.js + referrer que lo confirma); estas páginas también se
+  // enlazan desde nav/footer/otros lados y ahí NO debe salir. El click regresa al
+  // origen y get-started.js restaura el scroll exacto.
+  const RETURN_KEY = "sotsi:return";
+  const RETURN_GO = "sotsi:return-go";
+  const RETURN_MAX_AGE_MS = 30 * 60 * 1000;
+  try {
+    const marker = JSON.parse(sessionStorage.getItem(RETURN_KEY) || "null");
+    const herePath = window.location.pathname.replace(/index\.html$/, "");
+    const fresh = marker && Date.now() - (marker.ts || 0) < RETURN_MAX_AGE_MS;
+    const referrerPath = document.referrer
+      ? new URL(document.referrer).pathname.replace(/index\.html$/, "")
+      : "";
+    const markerPath = marker ? String(marker.href).replace(/index\.html$/, "") : "";
+    if (fresh && markerPath && markerPath !== herePath && referrerPath === markerPath) {
+      const back = document.createElement("a");
+      back.className = "smart-back";
+      back.href = marker.href;
+      back.setAttribute("aria-label", `Back to ${marker.label} — right where you left off`);
+      back.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>' +
+        `<span>Back to ${marker.label}</span>`;
+      back.addEventListener("click", () => {
+        try {
+          sessionStorage.setItem(RETURN_GO, "1");
+        } catch {
+          /* sin storage el link igual navega al origen */
+        }
+      });
+      document.body.appendChild(back);
+      requestAnimationFrame(() => back.classList.add("is-on"));
+    }
+  } catch {
+    /* referrer opaco o storage inaccesible — simplemente no hay píldora */
+  }
 });

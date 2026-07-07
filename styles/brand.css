@@ -190,14 +190,17 @@ body.heroborder-off{ --hero-divider-opacity:0; }
   background:radial-gradient(circle, rgba(255,255,255,.18), rgba(210,204,253,.08) 24%, transparent 58%);
   mix-blend-mode:screen;
 }
-.hslider.is-rippling::before{animation:sotsiRippleRing .92s cubic-bezier(.18,.84,.24,1) both;}
-.hslider.is-rippling::after{animation:sotsiRippleWash 1.04s ease-out both;}
-.hslider.is-rippling .hslider__chrome::before{animation:sotsiRippleOutline .92s cubic-bezier(.18,.84,.24,1) both;}
-.hslider.is-rippling .hslider__chrome::after{animation:sotsiRippleBloom 1s ease-out both;}
-.oslider.is-rippling .hslider__chrome::before{animation:sotsiRippleOutline .92s cubic-bezier(.18,.84,.24,1) both;}
-.oslider.is-rippling .hslider__chrome::after{animation:sotsiRippleBloom 1s ease-out both;}
+.hslider.is-rippling::before{animation:sotsiRippleRing .64s cubic-bezier(.18,.84,.24,1) both;}
+.hslider.is-rippling::after{animation:sotsiRippleWash .74s ease-out both;}
+.hslider.is-rippling .hslider__chrome::before{animation:sotsiRippleOutline .64s cubic-bezier(.18,.84,.24,1) both;}
+.hslider.is-rippling .hslider__chrome::after{animation:sotsiRippleBloom .7s ease-out both;}
+.oslider.is-rippling .hslider__chrome::before{animation:sotsiRippleOutline .64s cubic-bezier(.18,.84,.24,1) both;}
+.oslider.is-rippling .hslider__chrome::after{animation:sotsiRippleBloom .7s ease-out both;}
 .hslide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;}
 .hslide.is-active,.hslide.is-entering,.hslide.is-leaving{opacity:1;visibility:visible;}
+/* FIX 2026-07-06: sin esto los links/CTAs de los slides eran inclickeables (el click
+   atravesaba al slider y el handler global lo tomaba como "cambiar slide"). */
+.hslide.is-active{pointer-events:auto;}
 .hslide.is-active,.hslide.is-entering{z-index:2;}
 .hslide.is-leaving{z-index:1;}
 .hslide__mediafx{
@@ -328,20 +331,20 @@ body.heroborder-off{ --hero-divider-opacity:0; }
   filter:url(#sotsi-water-distort);
 }
 .hslide.is-entering .hslide__mediafx{
-  animation:sotsiMediaLayerIn 1.08s cubic-bezier(.2,.8,.2,1) both;
+  animation:sotsiMediaLayerIn .76s cubic-bezier(.2,.8,.2,1) both;
 }
 .hslide.is-leaving .hslide__mediafx{
-  animation:sotsiMediaLayerOut 1.08s cubic-bezier(.4,.02,.22,.98) both;
+  animation:sotsiMediaLayerOut .76s cubic-bezier(.4,.02,.22,.98) both;
 }
 .hslide.is-entering.is-fluid .hslide__mediafx{
   animation:
-    sotsiMediaLayerIn 1.08s cubic-bezier(.2,.8,.2,1) both,
-    sotsiFluidWarp .92s cubic-bezier(.2,.8,.2,1) both;
+    sotsiMediaLayerIn .76s cubic-bezier(.2,.8,.2,1) both,
+    sotsiFluidWarp .72s cubic-bezier(.2,.8,.2,1) both;
 }
 .hslide.is-leaving.is-fluid .hslide__mediafx{
   animation:
-    sotsiMediaLayerOut 1.08s cubic-bezier(.4,.02,.22,.98) both,
-    sotsiFluidWarp .92s cubic-bezier(.2,.8,.2,1) both;
+    sotsiMediaLayerOut .76s cubic-bezier(.4,.02,.22,.98) both,
+    sotsiFluidWarp .72s cubic-bezier(.2,.8,.2,1) both;
 }
 .hslide__mediafx::after{
   content:"";
@@ -362,13 +365,13 @@ body.heroborder-off{ --hero-divider-opacity:0; }
   mix-blend-mode:screen;
 }
 .hslide.is-fluid .hslide__mediafx::after{
-  animation:sotsiWaterGloss .92s ease-out both;
+  animation:sotsiWaterGloss .72s ease-out both;
 }
 .hslide.is-fluid .hslide__mediafx::before{
   animation:sotsiFluidLight .82s ease-out both;
 }
 .hslide.is-fluid .hslide__scrim{
-  animation:sotsiWaterScrim .92s ease-out both;
+  animation:sotsiWaterScrim .72s ease-out both;
 }
 .hslide.is-active:hover .hslide__mediafx::before{
   opacity:.82;
@@ -450,19 +453,19 @@ body.heroborder-off{ --hero-divider-opacity:0; }
 
 /* cinematic slide transition inspired by layered parallax sliders */
 .hslide.is-entering.from-right,.oslide.is-entering.from-right{
-  animation:sotsiSlideRevealFromRight 1.08s cubic-bezier(.22,.61,.16,1) both;
+  animation:sotsiSlideRevealFromRight .76s cubic-bezier(.22,.61,.16,1) both;
 }
 .hslide.is-entering.from-left,.oslide.is-entering.from-left{
-  animation:sotsiSlideRevealFromLeft 1.08s cubic-bezier(.22,.61,.16,1) both;
+  animation:sotsiSlideRevealFromLeft .76s cubic-bezier(.22,.61,.16,1) both;
 }
 .hslide.is-leaving.to-left,.oslide.is-leaving.to-left{
-  animation:sotsiSlideExitToLeft 1.08s cubic-bezier(.52,.03,.33,.98) both;
+  animation:sotsiSlideExitToLeft .76s cubic-bezier(.52,.03,.33,.98) both;
 }
 .hslide.is-leaving.to-right,.oslide.is-leaving.to-right{
-  animation:sotsiSlideExitToRight 1.08s cubic-bezier(.52,.03,.33,.98) both;
+  animation:sotsiSlideExitToRight .76s cubic-bezier(.52,.03,.33,.98) both;
 }
 .hslide.is-entering .hslide__scrim,.oslide.is-entering .oslide__scrim{
-  animation:sotsiScrimSettle 1.08s cubic-bezier(.22,.61,.16,1) both;
+  animation:sotsiScrimSettle .76s cubic-bezier(.22,.61,.16,1) both;
 }
 .hslide::after,.oslide::after,.heroA__media::after{
   content:"";
@@ -491,15 +494,15 @@ body.heroborder-off{ --hero-divider-opacity:0; }
 }
 .hslide.is-entering.from-right .hslide__content,
 .oslide.is-entering.from-right .oslide__content{
-  animation:sotsiCopyInFromRight .96s cubic-bezier(.18,.84,.24,1) both;
+  animation:sotsiCopyInFromRight .68s cubic-bezier(.18,.84,.24,1) both;
 }
 .hslide.is-entering.from-left .hslide__content,
 .oslide.is-entering.from-left .oslide__content{
-  animation:sotsiCopyInFromLeft .96s cubic-bezier(.18,.84,.24,1) both;
+  animation:sotsiCopyInFromLeft .68s cubic-bezier(.18,.84,.24,1) both;
 }
 .hslide.is-leaving .hslide__content,
 .oslide.is-leaving .oslide__content{
-  animation:sotsiCopyOut .72s ease both;
+  animation:sotsiCopyOut .54s ease both;
 }
 @keyframes sotsiSlideRevealFromRight{
   from{clip-path:inset(0 0 0 100%);transform:translate3d(3.5%,0,0);}
@@ -610,6 +613,13 @@ body.heroborder-off{ --hero-divider-opacity:0; }
 .hslider__cursor.is-visible{opacity:1;transform:translate3d(-50%,-50%,0) scale(1);}
 .hslider__cursor span{
   font-family:var(--font-body);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:#fff;
+}
+/* CTAs del hero: cursor real y sin orbe Next/Back — el click es del link, no del slider */
+.hslider .hslide a,.hslider .hslide button,
+.oslider .oslide a,.oslider .oslide button{cursor:pointer;}
+.hslider:has(.hslide a:hover) .hslider__cursor.is-visible,
+.oslider:has(.oslide a:hover) .hslider__cursor.is-visible{
+  opacity:0;transform:translate3d(-50%,-50%,0) scale(.6);
 }
 /* switcher · puntero del hero: color (Plain quita el oro) + tamaño S/M(default)/L */
 body.curs-plain .hslider__cursor{border-color:rgba(255,255,255,.18);
@@ -758,10 +768,12 @@ body.hero-original .hero-original-wrap{display:block;}
       rgba(210,204,253,.06) 24%,
       rgba(210,204,253,0) 38%);
 }
-.oslider.is-rippling::before{animation:sotsiRippleRing .92s cubic-bezier(.18,.84,.24,1) both;}
-.oslider.is-rippling::after{animation:sotsiRippleWash 1.04s ease-out both;}
+.oslider.is-rippling::before{animation:sotsiRippleRing .64s cubic-bezier(.18,.84,.24,1) both;}
+.oslider.is-rippling::after{animation:sotsiRippleWash .74s ease-out both;}
 .oslide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;}
 .oslide.is-active,.oslide.is-entering,.oslide.is-leaving{opacity:1;visibility:visible;}
+/* FIX 2026-07-06: mismo fix que .hslide.is-active — los CTAs eran inclickeables. */
+.oslide.is-active{pointer-events:auto;}
 .oslide.is-active,.oslide.is-entering{z-index:2;}
 .oslide.is-leaving{z-index:1;}
 .oslide__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;}

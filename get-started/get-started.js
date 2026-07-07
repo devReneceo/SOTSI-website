@@ -47,6 +47,53 @@ document.addEventListener("DOMContentLoaded", () => {
   // antes de que el observer de about.js los cruce (están bajo el fold).
   document.querySelectorAll("[data-words]").forEach(splitWords);
 
+  // Smart back (origen) — al salir por un CTA interno, guarda de dónde y el scroll
+  // exacto; internal.js pinta la píldora "Back to Get Started" en el destino solo
+  // si el referrer confirma que se vino de aquí.
+  const RETURN_KEY = "sotsi:return";
+  const RETURN_GO = "sotsi:return-go";
+  try {
+    if (sessionStorage.getItem(RETURN_GO) === "1") {
+      // Regreso vía píldora: restaurar el punto exacto y limpiar.
+      const marker = JSON.parse(sessionStorage.getItem(RETURN_KEY) || "null");
+      sessionStorage.removeItem(RETURN_GO);
+      sessionStorage.removeItem(RETURN_KEY);
+      if (marker && typeof marker.y === "number") {
+        window.scrollTo({ top: marker.y, left: 0, behavior: "instant" });
+      }
+    } else {
+      // Visita normal: cualquier marker anterior ya no aplica.
+      sessionStorage.removeItem(RETURN_KEY);
+    }
+  } catch {
+    /* sessionStorage puede no estar disponible (modo privado antiguo) */
+  }
+
+  document.body.addEventListener(
+    "click",
+    (event) => {
+      const link = event.target instanceof Element ? event.target.closest("a[href]") : null;
+      if (!link || link.target === "_blank") return;
+      // Navegación de menú no cuenta como "salida" — solo CTAs del cuerpo/footer/strip.
+      if (link.closest(".snav")) return;
+      try {
+        const url = new URL(link.getAttribute("href"), window.location.href);
+        const samePage = url.pathname.replace(/index\.html$/, "") ===
+          window.location.pathname.replace(/index\.html$/, "");
+        if (url.origin !== window.location.origin || samePage) return;
+        sessionStorage.setItem(RETURN_KEY, JSON.stringify({
+          href: window.location.pathname,
+          y: window.scrollY,
+          label: "Get Started",
+          ts: Date.now(),
+        }));
+      } catch {
+        /* href relativo malformado o storage lleno — sin smart back */
+      }
+    },
+    true
+  );
+
   // Section 2 — halo wave (Soul Tide) tras la declaración + offerings (kinetic type,
   // ahora dentro del wave). Cada bloque flota por su cuenta con --parx-copy.
   const wave = document.querySelector(".gs-wave");

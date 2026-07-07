@@ -62,15 +62,24 @@
         <source src="../assets/newsletter-sky-720.mp4" type="video/mp4" />
       </video>
       <div class="int-hero__inner">
-        <p class="int-kicker int-rise" style="--ri:0;">Free · Monthly newsletter</p>
+        <!-- <p class="int-kicker int-rise" style="--ri:0;">Free · Monthly newsletter</p> -->
         <h1 class="int-title int-rise" style="--ri:1;">Start the journey into your <span class="gold">new consciousness</span></h1>
         <hr class="int-rule int-rise" style="--ri:2;" />
-        <p class="int-deck int-rise" style="--ri:3;">Subscribe and be inspired by our monthly <strong>Soul Connections Newsletter</strong> with video teachings and previous writings from Gary Zukav and Linda Francis.</p>
-        <div class="int-hero__actions int-rise" style="--ri:4;">
-          <a class="btn-cta" href="#subscribe">
-            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Subscribe today!</span>
-            <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
-          </a>
+        <p class="int-deck int-rise" style="--ri:3;">Subscribe and be inspired by our monthly <strong class="nl-hl">Soul Connections Newsletter</strong> with video teachings and previous writings from Gary Zukav and Linda Francis.</p>
+        <div class="nl-copy int-rise" style="--ri:4;">
+          <p class="nl-copy__lead">In addition to our monthly Soul Connections newsletter, you will receive two weekly inspirational emails:</p>
+          <p class="nl-point"><span class="tick" aria-hidden="true">✦</span><span class="nl-point__body"><strong>Soul Seeds</strong> are short reflections to nurture your spiritual growth. Each Soul Seed invites your consideration, invokes your wisdom, and feeds your compassion.</span></p>
+          <p class="nl-point"><span class="tick" aria-hidden="true">✦</span><span class="nl-point__body"><strong>The Wisdom Wednesday with Gary Zukav series</strong> is an opportunity for you to explore significant, deep, and meaningful soul questions.</span></p>
+          <p class="nl-cta-text"><span class="nl-cta-text__label">Subscribe today!</span></p>
+        </div>
+        <!-- Form protagonista: ancho completo del shell, campos en fila en desktop -->
+        <div class="form-card nl-form rv int-rise" id="subscribe" style="--ri:5;">
+          <!-- Solo el form (título/nota/prototype-note removidos: el copy del hero ya invita a suscribirse) -->
+          <form novalidate>
+            <label class="field"><span>First Name</span><input type="text" name="firstname" autocomplete="given-name" placeholder="Type your first name" required /></label>
+            <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="Type your email" required /></label>
+            <button class="btn btn--gold" type="submit">Subscribe</button>
+          </form>
         </div>
       </div>
       <span class="aspire__cue int-hero__cue" aria-hidden="true"><span class="aspire__cue-line"></span></span>
@@ -79,46 +88,8 @@
       </nav>
     </section>
 
-    <section class="int-section">
-      <div class="int-split">
-        <div class="rv">
-          <p class="int-eyebrow">What you'll receive</p>
-          <h2 class="int-h2">Inspiration for your journey, <span class="accent">three ways.</span></h2>
-          <p class="int-lead">In addition to our monthly Soul Connections newsletter, you will receive two weekly inspirational emails:</p>
-          <div class="nl-gifts">
-            <div class="nl-gift rv">
-              <span class="nl-gift__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 10c0-3.5-2.5-6-6-6 0 3.5 2.5 6 6 6z"/><path d="M12 13c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6z"/></svg></span>
-              <div>
-                <h3>Soul Seeds</h3>
-                <p>Short reflections to nurture your spiritual growth. Each Soul Seed invites your consideration, invokes your wisdom, and feeds your compassion.</p>
-              </div>
-            </div>
-            <div class="nl-gift rv" style="transition-delay:.12s;">
-              <span class="nl-gift__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.2a2.7 2.7 0 0 1 5.2 1c0 1.8-2.6 2.3-2.6 3.8"/><circle cx="12" cy="17.3" r="0.4" fill="currentColor" stroke="none"/></svg></span>
-              <div>
-                <h3>Wisdom Wednesday with Gary Zukav</h3>
-                <p>An opportunity for you to explore significant, deep, and meaningful soul questions.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-card rv" id="subscribe">
-          <h3 class="form-card__title">Soul Connections Newsletter</h3>
-          <p class="form-card__note">Free. Unsubscribe anytime.</p>
-          <form novalidate>
-            <label class="field"><span>First Name</span><input type="text" name="firstname" autocomplete="given-name" placeholder="Type your first name" required /></label>
-            <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="Type your email" required /></label>
-            <!-- Live submit label is "Submit" — relabeled "Subscribe" as a redesign choice -->
-            <button class="btn btn--gold" type="submit">Subscribe</button>
-            <p class="form-fine">Prototype note: submissions will be centralized in ActiveCampaign (form id 3).</p>
-          </form>
-          <p class="form-success">You're subscribed. Watch your inbox for Soul Connections, Soul Seeds, and Wisdom Wednesday.</p>
-        </div>
-      </div>
-      <p class="nl-assure rv">Free. Unsubscribe anytime. Video teachings and writings from Gary Zukav and Linda Francis, straight to your inbox.</p>
-    </section>
 
-    <section class="int-section" style="padding-top:0;">
+    <!-- <section class="int-section" style="padding-top:0;">
       <p class="int-eyebrow rv">Keep going</p>
       <h2 class="int-h2 rv">Ready for <span class="accent">more?</span></h2>
       <div class="path-grid">
@@ -137,7 +108,7 @@
           <span class="path-card__go">Explore <span class="arrow">→</span></span>
         </a>
       </div>
-    </section>
+    </section> -->
   </main>
 
   <footer class="site-footer site-footer--v2">

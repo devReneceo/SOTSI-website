@@ -66,7 +66,7 @@
 
       <section class="apg-hero" aria-labelledby="apg-title">
         <div class="int-shell">
-          <p class="int-kicker int-rise" style="--ri:0;">Free download · Guidelines</p>
+          <!-- <p class="int-kicker int-rise" style="--ri:0;">Free download · Guidelines</p> -->
           <h1 class="int-title apg-title" id="apg-title">
             <span class="w" style="--wi:0;">Your</span>
             <span class="w" style="--wi:1;">Journey</span>
@@ -76,36 +76,37 @@
             <span class="w" style="--wi:5;">Here</span>
           </h1>
           <hr class="int-rule int-rise" style="--ri:6;" />
-          <p class="int-deck int-rise" style="--ri:8;">Creating authentic power isn't mystical. It's practical. It's choosing, moment-by-moment, to align your personality with your soul.</p>
+          <p class="int-deck int-rise" style="--ri:8;">Creating authentic power isn’t mystical—it’s practical. It’s choosing, moment-by-moment, to align your personality with your soul.</p>
+          <!-- Feedback Joel 2026-07-06 (frr.png): el párrafo de Gary sube del apg-download
+               al hero, concatenado al deck — una sola sección, mismo stagger int-rise. -->
+          <p class="int-deck apg-corner int-rise" style="--ri:9;">Gary Zukav's <em class="apg-gold-em">Authentic Power Guidelines</em> are the cornerstone of his teachings and essential for anyone committed to <strong>spiritual growth</strong> and <strong>emotional clarity</strong>.</p>
+          <!-- CTA del hero comentado por completo: el <a> vacío pintaba un punto suelto
           <div class="int-hero__actions int-rise" style="--ri:10;">
             <a class="btn-cta" href="#download">
               <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the free Guidelines</span>
               <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
             </a>
-          </div>
+          </div> -->
         </div>
-        <span class="aspire__cue apg-hero__cue" aria-hidden="true"><span class="aspire__cue-line"></span></span>
-        <nav class="int-breadcrumbs" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page">Authentic Power Guidelines</span>
-        </nav>
+        
       </section>
 
+      <!-- Formato fiel al WP original (fprmat.png): una sola columna — copy → bullets →
+           cierre → script line → form protagonista debajo. Todo en la misma sección. -->
       <section class="apg-download int-band--dark" aria-label="Download the Authentic Power Guidelines">
         <div class="int-shell">
-          <div class="int-split">
-            <div class="rv">
-              <p class="int-eyebrow">The cornerstone</p>
-              <h2 class="int-h2">Start practicing authentic power <span class="accent">today.</span></h2>
-              <p class="int-lead">Gary Zukav's <em>Authentic Power Guidelines</em> are the cornerstone of his teachings and essential for anyone committed to spiritual growth and emotional clarity.</p>
-              <h3 class="apg-download__subtitle">With these Guidelines, you'll:</h3>
-              <ul class="apg-list">
-                <li><span class="tick" aria-hidden="true">✓</span><span>Transform challenging emotions into powerful insights.</span></li>
-                <li><span class="tick" aria-hidden="true">✓</span><span>Stretch beyond your frightened parts with courage and integrity.</span></li>
-                <li><span class="tick" aria-hidden="true">✓</span><span>Communicate consciously and lovingly in every interaction.</span></li>
-              </ul>
-            </div>
-            <div class="form-card rv" id="download">
-              <h3 class="form-card__title">Download Your Free Authentic Power Guidelines Now</h3>
+          <div class="apg-flow">
+            <!-- <p class="int-eyebrow rv">The cornerstone</p> -->
+            <!-- "Gary Zukav's…" movido al hero (feedback Joel 2026-07-06) -->
+            <h3 class="apg-download__subtitle rv" style="--rvd:1;">With these Guidelines, you'll:</h3>
+            <ul class="apg-list">
+              <li class="rv" style="--rvd:2;"><span class="tick" aria-hidden="true">✓</span><span><strong>Transform challenging emotions</strong> into powerful insights.</span></li>
+              <li class="rv" style="--rvd:3;"><span class="tick" aria-hidden="true">✓</span><span><strong>Stretch beyond your frightened parts</strong> with courage and integrity.</span></li>
+              <li class="rv" style="--rvd:4;"><span class="tick" aria-hidden="true">✓</span><span><strong>Communicate consciously and lovingly</strong> in every interaction.</span></li>
+            </ul>
+            <h2 class="int-h2 apg-closing rv">Start practicing authentic power <span class="accent">today.</span></h2>
+            <p class="apg-script rv" id="apg-script">Download Your Free Authentic Power Guidelines Now</p>
+            <div class="form-card apg-form rv" id="download" aria-labelledby="apg-script">
               <p class="form-card__note">Free. Delivered to your inbox.</p>
               <form novalidate>
                 <label class="field"><span>Name (optional)</span><input type="text" name="fullname" autocomplete="name" placeholder="Type your name" /></label>
@@ -120,9 +121,13 @@
       </section>
 
       <span class="apg-scene__border" aria-hidden="true"></span>
+      <span class="aspire__cue apg-hero__cue" aria-hidden="true"><span class="aspire__cue-line"></span></span>
+        <nav class="int-breadcrumbs" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page">Authentic Power Guidelines</span>
+        </nav>
     </div>
 
-    <section class="int-section" style="padding-top:0;">
+    <!-- <section class="int-section" style="padding-top:0;">
       <p class="int-eyebrow rv">Go deeper</p>
       <h2 class="int-h2 rv">Practice with <span class="accent">guidance.</span></h2>
       <div class="path-grid">
@@ -134,7 +139,8 @@
           <span class="path-card__go">Enroll in this life-changing course today! <span class="badge-ext">Kajabi ↗</span></span>
         </a>
       </div>
-    </section>
+    </section> -->
+    
   </main>
 
   <footer class="site-footer site-footer--v2">

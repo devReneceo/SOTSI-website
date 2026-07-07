@@ -17,7 +17,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Dancing+Script:wght@600&family=Pinyon+Script&display=swap" />
+  <link rel="preload" as="image" href="../assets/images/love-fear-lavender.webp" fetchpriority="high" />
   <link rel="stylesheet" href="../styles/internal.css" />
+  <link rel="stylesheet" href="./lf.css" />
 </head>
 <body class="int-page nav-dark nl-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
   <header class="snav snav--immersive" id="navImmersive">
@@ -56,62 +58,63 @@
 </header>
 
   <main>
-    <section class="int-hero int-hero--compact" style="--hero-image:url('../assets/images/Gary_outside_smiling_cb_146-scaled.jpg');">
-      <div class="int-hero__inner">
-        <p class="int-kicker">Free download · Handout</p>
-        <h1 class="int-title">Create Authentic Power: <span class="gold">Choose Love Over Fear</span></h1>
-        <hr class="int-rule" />
-        <p class="int-deck">Every moment of your life is shaped by one of two forces: Love or Fear. But how can you tell which is guiding you?</p>
-        <div class="int-hero__actions">
-          <a class="btn-cta" href="#download">
-            <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Get the free handout</span>
-            <span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
-          </a>
+    <!-- Escena única (patrón apg-optin): la lavanda del WP original cubre hero + descarga
+         y se funde hacia ciruela/navy profundo. Rebuild 2026-07-06 (feedback Joel:
+         bg lavanda de input, copy completo del WP, form centrado bajo la script line). -->
+    <div class="lf-scene">
+      <span class="lf-scene__bg" aria-hidden="true"></span>
+      <span class="lf-scene__scrim" aria-hidden="true"></span>
+
+      <section class="lf-hero" aria-labelledby="lf-title">
+        <div class="int-shell">
+          <!-- <p class="int-kicker int-rise" style="--ri:0;">Free download · Handout</p> -->
+          <h1 class="int-title lf-title" id="lf-title">
+            <span class="w" style="--wi:0;">Create</span>
+            <span class="w" style="--wi:1;">Authentic</span>
+            <span class="w" style="--wi:2;">Power:</span>
+            <span class="w gold lf-shimmer" style="--wi:3;">Choose&nbsp;Love</span>
+            <span class="w gold lf-shimmer" style="--wi:4;">Over&nbsp;Fear</span>
+          </h1>
+          <hr class="int-rule int-rise" style="--ri:6;" />
+          <p class="int-deck int-rise" style="--ri:8;">Every moment of your life is shaped by one of two forces: Love or Fear. But how can you tell which is guiding you?</p>
+          <p class="int-deck lf-corner int-rise" style="--ri:9;">Gary Zukav, author of <em class="lf-gold-em">The Seat of the Soul</em>, shows you how <strong>emotional awareness</strong> can help you recognize these forces, so you can intentionally create authentic power through conscious, loving choices.</p>
         </div>
-      </div>
+      </section>
+
+      <section class="lf-download int-band--dark" aria-label="Download the Love &amp; Fear handout">
+        <div class="int-shell">
+          <div class="lf-flow">
+            <h3 class="lf-download__subtitle rv" style="--rvd:1;">Download this <strong>free handout</strong> to:</h3>
+            <ul class="lf-list">
+              <li class="rv" style="--rvd:2;"><span class="tick" aria-hidden="true">✓</span><span>Recognize love and fear within yourself</span></li>
+              <li class="rv" style="--rvd:3;"><span class="tick" aria-hidden="true">✓</span><span>Cultivate emotional awareness to make empowered choices</span></li>
+              <li class="rv" style="--rvd:4;"><span class="tick" aria-hidden="true">✓</span><span>Create authentic power by choosing love in every moment</span></li>
+            </ul>
+            <p class="lf-script rv" id="lf-script">Begin creating the life you desire by choosing love over fear.</p>
+            <div class="form-card lf-form rv" id="download" aria-labelledby="lf-script">
+              <p class="form-card__note">Free. Delivered to your inbox.</p>
+              <form novalidate>
+                <label class="field"><span>Full Name (optional)</span><input type="text" name="fullname" autocomplete="name" placeholder="Type your name" /></label>
+                <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="Type your email" required /></label>
+                <button class="btn btn--gold" type="submit">Download the Free Handout</button>
+                <!-- <p class="form-fine">Prototype note: submissions will be centralized in ActiveCampaign (form id 76).</p> -->
+              </form>
+              <p class="form-success">Check your inbox — your Love &amp; Fear handout is on its way.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <span class="lf-scene__border" aria-hidden="true"></span>
+      <span class="aspire__cue lf-hero__cue" aria-hidden="true"><span class="aspire__cue-line"></span></span>
       <nav class="int-breadcrumbs" aria-label="Breadcrumb">
         <a href="../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page">Love &amp; Fear Handout</span>
       </nav>
-    </section>
+    </div>
 
-    <section class="int-section">
-      <div class="int-split">
-        <div class="rv">
-          <p class="int-eyebrow">Emotional awareness</p>
-          <h2 class="int-h2">Learn to recognize the force <span class="accent">guiding you.</span></h2>
-          <p class="int-lead">Gary Zukav, author of The Seat of the Soul, shows you how emotional awareness can help you recognize these forces, so you can intentionally create authentic power through conscious, loving choices.</p>
-          <h3 style="margin:1.8rem 0 0;font-family:var(--font-display);font-weight:500;font-size:1.2rem;">Download this free handout to:</h3>
-          <ul style="list-style:none;margin:1.1rem 0 0;padding:0;display:grid;gap:1.1rem;max-width:var(--int-copy);">
-            <li style="display:flex;gap:.8rem;align-items:flex-start;">
-              <span aria-hidden="true" style="color:var(--gold);font-weight:600;line-height:1.5;">✓</span>
-              <span>Recognize love and fear within yourself</span>
-            </li>
-            <li style="display:flex;gap:.8rem;align-items:flex-start;">
-              <span aria-hidden="true" style="color:var(--gold);font-weight:600;line-height:1.5;">✓</span>
-              <span>Cultivate emotional awareness to make empowered choices</span>
-            </li>
-            <li style="display:flex;gap:.8rem;align-items:flex-start;">
-              <span aria-hidden="true" style="color:var(--gold);font-weight:600;line-height:1.5;">✓</span>
-              <span>Create authentic power by choosing love in every moment</span>
-            </li>
-          </ul>
-          <p class="int-lead" style="margin-top:1.8rem;"><em>Begin creating the life you desire by choosing love over fear.</em></p>
-        </div>
-        <div class="form-card rv" id="download">
-          <h3 class="form-card__title">Love &amp; Fear Handout</h3>
-          <p class="form-card__note">Free. Delivered to your inbox.</p>
-          <form novalidate>
-            <label class="field"><span>Full Name (optional)</span><input type="text" name="fullname" autocomplete="name" placeholder="Type your name" /></label>
-            <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="Type your email" required /></label>
-            <button class="btn btn--gold" type="submit">Download the Free Handout</button>
-            <p class="form-fine">Prototype note: submissions will be centralized in ActiveCampaign (form id 76).</p>
-          </form>
-          <p class="form-success">Check your inbox — your Love &amp; Fear handout is on its way.</p>
-        </div>
-      </div>
-    </section>
+    <!-- Split viejo eliminado 2026-07-06: todo su copy vive ahora en la escena de arriba. -->
 
-    <section class="int-section" style="padding-top:0;">
+    <!-- <section class="int-section" style="padding-top:0;">
       <p class="int-eyebrow rv">Continue the practice</p>
       <h2 class="int-h2 rv">Where to go <span class="accent">next.</span></h2>
       <div class="path-grid">
@@ -137,7 +140,7 @@
           <span class="path-card__go">Browse the books <span class="arrow">→</span></span>
         </a>
       </div>
-    </section>
+    </section> -->
   </main>
 
   <footer class="site-footer site-footer--v2">

@@ -14,7 +14,7 @@
   isolation:isolate;
   color:var(--text-on-light);
   text-align:center;
-  padding:clamp(9.5rem,7rem + 6vw,13rem) clamp(1.1rem,4vw,2.6rem) clamp(4.5rem,6vw,7rem);
+  padding:clamp(9.5rem,7rem + 6vw,13rem) clamp(1.1rem,4vw,2.6rem) clamp(3rem,3.5vw,4.2rem);
 }
 /* foto (vertical 1080×1920): posicionada para mostrar pastel + banda rosa del horizonte */
 .wl-scene::before{
@@ -90,15 +90,61 @@
   text-shadow:0 2px 22px rgba(255,255,255,.6);
 }
 
-/* —— form unido a la escena (default claro de .form-card + acabado premium) —— */
+/* —— form glass claro ANCHO (estilo love-fear, versión clara sobre el cielo) —— */
 .wl-form{
-  width:min(600px,100%);
-  margin:clamp(2.8rem,4.5vw,4rem) auto 0;
+  align-self:stretch;
+  width:100%;
+  margin-top:clamp(2.8rem,4.5vw,4rem);
+  padding:clamp(2.2rem,4vw,3.2rem);
   text-align:left;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  box-shadow:0 24px 70px rgba(14,22,49,.16),inset 0 1px 0 rgba(255,255,255,.9);
+  /* frosted aurora sutil: blanco translúcido para que el cielo se lea a través del blur */
+  background:linear-gradient(160deg,rgba(255,255,255,.60),rgba(247,244,251,.46));
+  backdrop-filter:blur(24px) saturate(1.15);
+  -webkit-backdrop-filter:blur(24px) saturate(1.15);
+  border:1px solid rgba(255,255,255,.8);
+  box-shadow:
+    0 30px 80px rgba(14,22,49,.18),
+    0 0 60px rgba(254,212,87,.12),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+/* respiración de glow dorado (sutil); entrada rise vía .rv → internal.js añade .in */
+.wl-form.rv{transform:translateY(22px) scale(.985);}
+.wl-form.rv.in{
+  transform:none;
+  animation:wlFormGlow 8s ease-in-out 1.4s infinite;
+}
+@keyframes wlFormGlow{
+  0%,100%{box-shadow:0 30px 80px rgba(14,22,49,.18),0 0 60px rgba(254,212,87,.12),inset 0 1px 0 rgba(255,255,255,.95);}
+  50%{box-shadow:0 30px 80px rgba(14,22,49,.18),0 0 84px rgba(254,212,87,.22),inset 0 1px 0 rgba(255,255,255,.95);}
+}
+
+/* note con dot dorado (chip discreto) */
+.wl-form__note{
+  display:flex;align-items:center;gap:.55rem;
+}
+.wl-form__note::before{
+  content:"";flex:none;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--grad-gold,linear-gradient(120deg,#fed457,#ffeb45));
+  box-shadow:0 0 0 4px rgba(254,212,87,.16);
+}
+
+/* layout 2 columnas: Name | Email, botón abajo (span completo) */
+.wl-form form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem 1.3rem;
+  align-items:start;
+}
+.wl-form form .field{margin-bottom:0;}
+.wl-form form .btn{
+  grid-column:1 / -1;
+  justify-self:start;
+  margin-top:.5rem;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .wl-form.rv,.wl-form.rv.in{transform:none;animation:none;}
 }
 
 /* —— breadcrumb en navy sobre el cielo claro —— */
@@ -112,6 +158,9 @@
 @media (max-width:640px){
   /* aire extra para que el breadcrumb absoluto no choque con la tarjeta del form */
   .wl-scene{padding-bottom:7.5rem;}
+  /* form a 1 columna */
+  .wl-form form{grid-template-columns:1fr;}
+  .wl-form form .btn{justify-self:stretch;}
 }
 @media (max-width:560px){
   .wl-band{border-radius:8px;padding:.2em .55em .24em;}

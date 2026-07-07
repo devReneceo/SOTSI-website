@@ -1,0 +1,277 @@
+/* Love & Fear — opt-in (2026-07-06, patrón apg-optin/apg.css).
+   Escena única: la lavanda del WP original (input de Joel) cubre hero + formulario
+   y se funde hacia ciruela/navy profundo (mask). Sin background-attachment:fixed. */
+
+/* ---------- Escena ---------- */
+.lf-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--text-on-dark);
+  /* under-layer: continúa los morados de la lavanda hacia la noche ciruela/navy */
+  background: linear-gradient(180deg, #3a2f55 0%, #241b40 44%, #140e2c 100%);
+}
+
+.lf-scene__bg {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: min(120vh, 80vw);
+  z-index: -2;
+  background: url("../assets/images/love-fear-lavender.webp") center 38% / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 97%);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 97%);
+  will-change: transform;
+  transform-origin: 50% 30%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lf-scene__bg { animation: lfKenBurns 42s ease-in-out infinite alternate; }
+  @keyframes lfKenBurns {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
+  }
+}
+
+/* scrim: legibilidad del nav arriba + del copy/form, tinte ciruela de la foto */
+.lf-scene__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(24, 18, 48, 0.6) 0%, rgba(24, 18, 48, 0.3) 26%, rgba(24, 18, 48, 0.26) 48%, rgba(20, 14, 44, 0.62) 100%),
+    rgba(24, 18, 48, 0.16);
+}
+
+/* firma dorada al cierre de la escena */
+.lf-scene__border {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.78) 36%, rgba(255, 235, 69, 0.92) 50%, rgba(254, 212, 87, 0.78) 64%, transparent);
+  box-shadow: 0 0 22px rgba(254, 212, 87, 0.14);
+}
+
+/* ---------- Hero ---------- */
+/* Sin min-height centrado (lección apg 2026-07-06): el contenido fluye y la
+   sección de bullets sube pegada — todo lee como una sola sección. */
+.lf-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: clamp(9.5rem, 15vh, 12rem) 0 clamp(2rem, 4vh, 3rem);
+}
+
+.lf-hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.4rem, 2vh, 1.6rem);
+  z-index: 2;
+  height: 56px;
+  margin: 0;
+}
+
+.lf-title { max-width: 20ch; }
+
+/* word-split: cada palabra sube con blur (mismo eco del ink-drop del Home) */
+.lf-title .w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  filter: blur(5px);
+  animation: lfWord 0.7s var(--ease) forwards;
+  animation-delay: calc(var(--wi, 0) * 80ms + 180ms);
+}
+
+@keyframes lfWord {
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* shimmer SOLO en "Choose Love Over Fear" (oro sobre oscuro, marca LOCKED) */
+.lf-shimmer {
+  background: linear-gradient(100deg, #fed457 20%, #ffeb45 42%, #fff3a8 50%, #ffeb45 58%, #fed457 80%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: lfWord 0.7s var(--ease) forwards, lfShimmer 7s ease-in-out 1.6s infinite;
+}
+
+@keyframes lfShimmer {
+  0%, 100% { background-position: 0% 0; }
+  50% { background-position: 100% 0; }
+}
+
+/* ---------- Párrafo de Gary — concatenado al deck (mismo lenguaje apg-corner) ---------- */
+.lf-corner {
+  position: relative;
+  margin-top: clamp(1.4rem, 3vh, 2.1rem);
+  padding-left: 1.15rem;
+  border-left: 2px solid rgba(254, 212, 87, 0.65);
+}
+
+.lf-corner strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* "The Seat of the Soul" en itálica display con el oro shimmer de la marca */
+.lf-gold-em {
+  font-family: var(--font-display);
+  font-style: italic;
+  background: linear-gradient(100deg, #fed457 20%, #ffeb45 42%, #fff3a8 50%, #ffeb45 58%, #fed457 80%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: lfShimmer 7s ease-in-out 2.2s infinite;
+}
+
+/* ---------- Sección descarga (sobre la misma escena) ---------- */
+.lf-download { padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(5rem, 9vw, 7.5rem); }
+
+/* hereda los estilos dark de form/inputs vía .int-band--dark, sin pintar su fondo */
+.lf-scene .int-band--dark { background: transparent; }
+
+.lf-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* stagger de reveals dentro de la sección (usa el .rv de internal.js) */
+.lf-download .rv { transition-delay: calc(var(--rvd, 0) * 110ms); }
+
+.lf-download__subtitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.lf-download__subtitle strong {
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.lf-list {
+  list-style: none;
+  margin: 1.15rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.05rem;
+  max-width: var(--int-copy);
+}
+
+.lf-list li {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* ticks: pop sutil al entrar el li */
+.lf-list .tick {
+  display: inline-block;
+  color: var(--gold);
+  font-weight: 600;
+  line-height: 1.5;
+  transform: scale(0.4);
+  opacity: 0;
+  transition: transform 0.5s var(--ease), opacity 0.4s var(--ease);
+  transition-delay: calc(var(--rvd, 0) * 110ms + 180ms);
+}
+.lf-list li.in .tick { transform: scale(1); opacity: 1; }
+
+/* ---------- Script line — protagonista arriba del form ---------- */
+.lf-script {
+  align-self: center;
+  margin: clamp(2.6rem, 5vw, 4rem) 0 0;
+  max-width: 26ch;
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 1.3rem + 3.4vw, 4rem);
+  line-height: 1.12;
+  text-align: center;
+  text-wrap: balance;
+  background: linear-gradient(100deg, #fed457 22%, #ffeb45 44%, #fff3a8 50%, #ffeb45 56%, #fed457 78%);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 26px rgba(254, 212, 87, 0.22));
+}
+/* entrada: rise + blur, disparada por el observer .rv → .in */
+.lf-script.rv {
+  transform: translateY(26px);
+  filter: blur(6px) drop-shadow(0 4px 26px rgba(254, 212, 87, 0));
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), filter 0.8s var(--ease);
+}
+.lf-script.rv.in {
+  transform: none;
+  filter: blur(0) drop-shadow(0 4px 26px rgba(254, 212, 87, 0.22));
+  animation: lfShimmer 9s ease-in-out 1.2s infinite;
+}
+
+/* ---------- Form protagonista (ancho completo como b.png, mt 10–15px, halo dorado) ---------- */
+.lf-form {
+  align-self: stretch;
+  width: 100%;
+  margin-top: 12px;
+  padding: clamp(2.2rem, 4vw, 3.2rem);
+}
+.lf-scene .form-card {
+  background: rgba(16, 11, 34, 0.55);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border-color: rgba(254, 212, 87, 0.32);
+  box-shadow: 0 0 56px rgba(254, 212, 87, 0.14), 0 30px 80px rgba(10, 8, 26, 0.5);
+}
+/* entrada con leve scale + respiración muy lenta del halo */
+.lf-form.rv { transform: translateY(24px) scale(0.975); }
+.lf-form.rv.in {
+  transform: none;
+  animation: lfFormGlow 8s ease-in-out 1.6s infinite;
+}
+@keyframes lfFormGlow {
+  0%, 100% { box-shadow: 0 0 56px rgba(254, 212, 87, 0.14), 0 30px 80px rgba(10, 8, 26, 0.5); }
+  50% { box-shadow: 0 0 78px rgba(254, 212, 87, 0.24), 0 30px 80px rgba(10, 8, 26, 0.5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lf-title .w,
+  .lf-shimmer {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .lf-shimmer,
+  .lf-gold-em {
+    animation: none;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: var(--gold);
+  }
+  .lf-download .rv { transition-delay: 0s; }
+  .lf-list .tick { transform: none; opacity: 1; transition: none; }
+  .lf-script.rv,
+  .lf-script.rv.in {
+    transform: none;
+    filter: none;
+    animation: none;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: var(--gold);
+  }
+  .lf-form.rv, .lf-form.rv.in { transform: none; animation: none; }
+}

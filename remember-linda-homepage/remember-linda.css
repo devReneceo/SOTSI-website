@@ -100,7 +100,10 @@
   background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.85) 18%, rgba(254, 212, 87, 0.85) 82%, transparent);
 }
 
-@media (max-width: 720px) {
+/* ≤1199 (antes 720): en 721-1199 el cover pineado a la derecha desplaza la cara de Linda al
+   centro y el título la invadía (2.png, ~997px) — se extiende la composición poster del móvil
+   (título al fondo + veil vertical) a todo el rango tablet, mismo umbral del nav burger. */
+@media (max-width: 1199px) {
   .rl-hero {
     min-height: 34rem;
     align-items: flex-end;
@@ -108,6 +111,12 @@
   }
   .rl-hero__veil {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0.6) 54%, rgba(255, 255, 255, 0.85) 100%);
+  }
+}
+/* tablet respira más alto que el móvil */
+@media (min-width: 721px) and (max-width: 1199px) {
+  .rl-hero {
+    min-height: clamp(36rem, 76vh, 44rem);
   }
 }
 

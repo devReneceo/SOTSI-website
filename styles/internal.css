@@ -883,6 +883,14 @@ body.int-page main { overflow: clip; }
     -webkit-backdrop-filter: blur(22px);
     backdrop-filter: blur(22px);
   }
+  /* espejo del fix de mobile.css §1: sin blur en el header mientras el drawer está abierto,
+     o el backdrop-filter del .is-condensed atrapa al panel fixed (containing block) */
+  body.int-page.menu-open .snav,
+  body.nav-dark.int-page.menu-open .snav--immersive.is-condensed,
+  body.nav-light.int-page.menu-open .snav--immersive.is-condensed {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
   .int-page .snav__mobile-panel a { padding: 1rem 0.2rem; font-size: 1.15rem; min-height: 48px; display: flex; align-items: center; }
   .int-page .snav__mobile-panel .btn { min-height: 54px; display: flex; align-items: center; justify-content: center; margin-top: 1.2rem; }
 }

@@ -27,12 +27,12 @@
 /* cue de scroll navy: la línea blanca del patrón se pierde sobre la arena pastel */
 .sh-hero .aspire__cue-line {
   width: 2px;
-  background: linear-gradient(rgba(31, 71, 103, 0.8), rgba(31, 71, 103, 0));
+  background: linear-gradient(rgba(14, 22, 49, 0.8), rgba(14, 22, 49, 0));
 }
 
-/* "Explore" — la línea script del banner original, navy como venía horneada.
-   Tratamiento premium site-wide: tinta navy en gradiente (eco del accent de
-   get-started) + halo blanco drop-shadow (background-clip mata text-shadow). */
+/* "Explore" — palabra-acento del titular. Ley de marca sobre banda clara:
+   degradado púrpura→oro (RULES.md:125), no teal old-brand. Halo blanco
+   drop-shadow para legibilidad sobre la playa (background-clip mata text-shadow). */
 .sh-hero__script {
   display: block;
   font-family: var(--font-accent);
@@ -41,11 +41,11 @@
   line-height: 1.05;
   letter-spacing: 0.01em;
   margin-bottom: -0.24em;
-  background: linear-gradient(175deg, #35688f 4%, #1f4767 52%, #12314b 96%);
+  background: linear-gradient(118deg, var(--purple) 0%, #6d3a86 34%, #b47e3e 68%, var(--gold) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.45)) drop-shadow(0 6px 26px rgba(255, 255, 255, 0.5));
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.5)) drop-shadow(0 6px 26px rgba(255, 255, 255, 0.55));
 }
 
 /* "Seat of the Soul Offerings" — word-split rise (eco CSS-puro del APG/Home) */
@@ -59,11 +59,8 @@
 
 .sh-hero__line .sh-w {
   display: inline-block;
-  background: linear-gradient(175deg, #35688f 4%, #1f4767 52%, #12314b 96%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.4)) drop-shadow(0 8px 30px rgba(255, 255, 255, 0.45));
+  color: var(--navy);
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.45)) drop-shadow(0 8px 30px rgba(255, 255, 255, 0.5));
   opacity: 0;
   transform: translateY(0.35em);
   animation: shWord 0.7s var(--ease) forwards;

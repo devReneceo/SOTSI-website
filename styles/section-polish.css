@@ -105,27 +105,52 @@ body.theme-dawn .tools::after{opacity:.035;}
    se aclaraba a lila y el texto blanco se perdía). */
 body.theme-dawn .event{background:#181033 !important;color:#fff !important;}
 
-/* "Are you ready? ──→ Register Today!" — unidad pregunta→acción */
-.event__act{position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;
-  gap:clamp(1rem,2vw,1.6rem);margin-top:clamp(1.8rem,3vw,2.4rem);}
-.event__act .event__ready{margin:0;flex:0 0 auto;}          /* anula los márgenes grandes */
-.event__connector{flex:1 1 60px;min-width:48px;height:1px;align-self:center;
-  transform-origin:left;
-  background:linear-gradient(90deg, rgba(254,212,87,.85), rgba(254,212,87,.2));}
-.event__cta-row{position:relative;z-index:2;display:flex;flex:0 0 auto;margin:0;}
+/* =====================================================================
+   EVENT · cierre EDITORIAL premium (rediseño 2026-07-07, feedback "todo
+   amarillo → quiet luxury"). Statement en marfil con UN acento oro
+   ("creator of your life"); grid de 2 columnas que usa el espacio ancho:
+   [ statement ]  │  [ kicker · pregunta · botón ]. Oro = solo acento + botón.
+   ===================================================================== */
+.event__close{display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);
+  gap:clamp(2rem,5vw,5rem);align-items:center;}
 
-/* el conector crece de la pregunta al botón al revelarse (.event__act lleva .reveal → .in) */
+/* de-gold marfil: la línea 2 del statement y el acento del headline pasan a marfil */
+.event__statement .es--2{color:rgba(255,255,255,.92);}
+.event__headline .accent{color:rgba(255,255,255,.92);font-style:italic;}
+
+/* riel derecho = "invitación" en columna, dividido por una hairline vertical */
+.event__act{position:relative;z-index:2;display:flex;flex-direction:column;
+  align-items:flex-start;justify-content:center;
+  gap:clamp(1rem,2vw,1.5rem);padding-left:clamp(1.6rem,3vw,3rem);margin:0;}
+.event__kicker{margin:0;font-family:var(--font-body);
+  text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;font-weight:600;
+  color:rgba(255,255,255,.55);}
+.event__act .event__ready{margin:0;max-width:26ch;
+  font-family:var(--font-display);font-style:italic;font-weight:400;
+  font-size:clamp(1.1rem,.95rem + .6vw,1.45rem);line-height:1.35;letter-spacing:-.01em;
+  color:rgba(255,255,255,.82);}
+.event__cta-row{position:relative;z-index:2;display:flex;margin:0;}
+
+/* hairline VERTICAL divisoria; crece de arriba→abajo al revelarse (.event__act → .in) */
+.event__connector{position:absolute;left:0;top:0;bottom:0;width:1px;height:auto;
+  transform-origin:top;
+  background:linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.05));}
 body.anim-reveal .event__connector,
-body.anim-kinetic .event__connector{transform:scaleX(0);
+body.anim-kinetic .event__connector{transform:scaleY(0);
   transition:transform var(--dur-slow) var(--ease);}
 body.anim-reveal .event__act.in .event__connector,
-body.anim-kinetic .event__act.in .event__connector{transform:scaleX(1);}
+body.anim-kinetic .event__act.in .event__connector{transform:scaleY(1);}
 @media (prefers-reduced-motion:reduce){.event__connector{transform:none!important;}}
-/* móvil: la "Z" pasa a columna → el conector es una línea vertical fina, no un bloque.
-   El fix vive aquí porque section-polish.css carga después de mobile.css y ganaba el min-width:48px. */
+
+/* móvil: apila en una columna; hairline pasa a un guion corto horizontal.
+   Vive aquí porque section-polish.css carga después de mobile.css. */
 @media (max-width:768px){
-  .event__connector{flex:0 0 auto;width:1px;min-width:0;height:28px;
-    background:linear-gradient(180deg, rgba(254,212,87,.85), rgba(254,212,87,.2));}
+  .event__close{grid-template-columns:1fr;gap:1.6rem;}
+  .event__act{padding-left:0;}
+  .event__connector{position:relative;left:auto;top:auto;bottom:auto;
+    width:44px;height:1px;transform:none!important;
+    background:linear-gradient(90deg, rgba(255,255,255,.28), rgba(255,255,255,.05));}
   body.anim-reveal .event__connector,
   body.anim-kinetic .event__connector{transform:none;}
 }
@@ -174,8 +199,9 @@ body.anim-kinetic .event__act.in .event__connector{transform:scaleX(1);}
   .event .sec__eyebrow{text-align:right;}
   .event .accent-rule{margin-left:auto;margin-right:0;}
   .event__headline{margin-left:auto;margin-right:0;text-align:right;max-width:30ch;}
-  /* cierre como UNIDAD a la izquierda (diagonal: intro der · cierre izq) */
-  .event__close{margin-left:0;margin-right:auto;text-align:left;max-width:50rem;}
+  /* cierre = grid editorial de 2 cols a la izquierda (diagonal: intro der · cierre izq).
+     max-width amplio para que el statement respire y el riel derecho use el espacio. */
+  .event__close{margin-left:0;margin-right:auto;text-align:left;max-width:62rem;}
 }
 
 /* =====================================================================

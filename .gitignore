@@ -3,6 +3,7 @@
 **/.DS_Store
 
 # Internal docs — NOT for a public repo
+**/_hero-backup/
 PROJECT_MEMORY.md
 SECTION_STATUS_REPORT.md
 SOFT_LAUNCH_PLAN.md

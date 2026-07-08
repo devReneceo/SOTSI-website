@@ -1254,7 +1254,7 @@ body.nav-glass.hero-slide-light-nav.nl-centered-immersive #navCentered.is-conden
 /* nav usa un contenedor más ancho para acomodar logo + labels largos */
 .snav .wrap{width:min(100% - 2*var(--gutter), 1520px);}
 body.navsize-s{--nav-h:64px;--logo-h:42px;--nav-fz:.9rem;}
-body.navsize-m{--nav-h:84px;--logo-h:58px;--nav-fz:1.02rem;}   /* default */
+body.navsize-m{--nav-h:84px;--logo-h:58px;--nav-fz:1.1rem;}   /* default */
 body.navsize-l{--nav-h:108px;--logo-h:72px;--nav-fz:1.1rem;}
 /* en tamaños grandes, comprimir gaps/padding para que nada se corte */
 body.navsize-l .snav__side{gap:.05rem;} body.navsize-l .snav .nlink{padding:0 .6rem;}

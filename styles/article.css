@@ -277,12 +277,24 @@
 .art-essay__share .int-rule { margin: 0 auto 1.4rem; }
 
 .art-essay__share-label {
-  margin: 0 0 1.1rem;
+  display: inline-block; /* como <a> es inline y el margin vertical no aplicaba → quedaba pegado a los botones */
+  margin: 0 0 1.5rem;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--periwinkle);
+}
+a.art-essay__share-label {
+  text-decoration: underline;
+  text-decoration-color: rgba(210, 204, 253, 0.4);
+  text-underline-offset: 0.35em;
+  transition: color 0.25s ease, text-decoration-color 0.25s ease;
+}
+a.art-essay__share-label:hover,
+a.art-essay__share-label:focus-visible {
+  color: var(--yellow);
+  text-decoration-color: currentColor;
 }
 
 .art-essay__share-row {

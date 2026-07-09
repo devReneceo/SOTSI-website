@@ -2,6 +2,10 @@
 .DS_Store
 **/.DS_Store
 
+# Secrets — NUNCA commitear (repo público). Token de Instagram en .env (raíz)
+.env
+**/.env
+
 # Internal docs — NOT for a public repo
 **/_hero-backup/
 PROJECT_MEMORY.md

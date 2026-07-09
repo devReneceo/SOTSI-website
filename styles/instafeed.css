@@ -120,3 +120,54 @@ body.theme-dawn .instafeed__avatar {
   box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--purple) 48%, transparent),
               0 0 0 3px color-mix(in srgb, var(--periwinkle) 60%, transparent);
 }
+
+/* =============================================================================
+ * Reels curados (2026-07-08) — filas "Most viewed" / "The latest"
+ * ===========================================================================*/
+
+/* Separación entre filas (la fila "The latest" se activa cuando lleguen los nuevos) */
+.instafeed__row + .instafeed__row { margin-top: clamp(2.4rem, 4vw, 3.6rem); }
+
+/* Kicker de fila: mismo lenguaje del .sec__eyebrow, un escalón abajo en jerarquía */
+.instafeed__kicker {
+  margin: 0 0 1.15rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--purple) 74%, var(--navy));
+}
+
+/* Póster del reel: crop editorial 4:5 del 9:16 original (override del 16/17 del blog) */
+.instafeed .post__media--reel { aspect-ratio: 4 / 5; }
+
+/* Botón play glass centrado sobre el póster — solo transform/opacity al animar */
+.post__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: 2;
+  width: clamp(52px, 18%, 64px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: #fff;
+  background: color-mix(in srgb, var(--navy) 40%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.55),
+              0 10px 28px rgba(14, 22, 49, 0.35);
+  transition: transform 0.5s var(--ease);
+}
+.post__play svg {
+  width: 44%;
+  height: 44%;
+  transform: translateX(6%);   /* centrado óptico del triángulo */
+}
+.post:hover .post__play { transform: scale(1.09); }
+@media (prefers-reduced-motion: reduce) {
+  .post__play { transition: none; }
+  .post:hover .post__play { transform: none; }
+}

@@ -72,11 +72,16 @@
   overflow: hidden;
 }
 
-/* Stats ♥ / 💬 — reusa el color muted de .post__meta */
+/* Stats ▷ / ♥ / 💬 — reusa el color muted de .post__meta */
 .instafeed__stats {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+}
+/* Views: el número que vende (1.2M) — apenas más presente que likes/comments */
+.instafeed__stat--views {
+  font-weight: 600;
 }
 .instafeed__stat {
   display: inline-flex;

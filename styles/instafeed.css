@@ -110,6 +110,7 @@
   flex: none;
   box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--purple) 42%, transparent),
               0 0 0 3px color-mix(in srgb, var(--gold) 30%, transparent);
+  transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 .instafeed__avatar img {
   width: 100%;
@@ -120,6 +121,19 @@
   width: 0.98rem;
   height: 0.98rem;
   color: var(--purple);
+  transition: color 0.35s var(--ease);
+}
+/* Hover del pill: el fondo se vuelve morado sólido (.blog__all:hover) — el avatar
+   pasa a glifo blanco sobre velo blanco (como el circulito de la flecha) con anillo oro */
+.instafeed__follow:hover .instafeed__avatar,
+.instafeed__follow:focus-visible .instafeed__avatar {
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.75),
+              0 0 0 3px color-mix(in srgb, var(--gold) 55%, transparent);
+}
+.instafeed__follow:hover .instafeed__avatar svg,
+.instafeed__follow:focus-visible .instafeed__avatar svg {
+  color: #fff;
 }
 body.theme-dawn .instafeed__avatar {
   box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--purple) 48%, transparent),

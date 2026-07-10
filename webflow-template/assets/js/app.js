@@ -357,6 +357,22 @@
   }
   attachSwipe(hsliderEl, function(){ next('50%','50%'); restart(); }, function(){ prev('50%','50%'); restart(); });
   if(slides.length) restart();
+  /* feedback 2026-07-06: con el cursor sobre el CTA el autoplay se pausa (y la barra de progreso se detiene);
+     al salir, restart() rearma los 12s completos */
+  [].forEach.call(document.querySelectorAll('.hslide__cta .btn-cta'), function(cta){
+    cta.addEventListener('pointerenter', function(){
+      if(timer){ clearInterval(timer); timer=null; }
+      if(hprogress) hprogress.classList.remove('is-running');
+    });
+    cta.addEventListener('pointerleave', function(){ restart(); });
+  });
+  /* QA 2026-07-09: autoplay pausado con tab oculto o hero fuera del viewport (patrón del carrusel Praise) */
+  var heroOn = true;
+  function heroPause(){ if(timer){ clearInterval(timer); timer=null; } if(hprogress) hprogress.classList.remove('is-running'); }
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) heroPause(); else if(heroOn) restart(); });
+  if('IntersectionObserver' in window && hsliderEl){
+    new IntersectionObserver(function(es){ heroOn = es[0].isIntersecting; if(heroOn && !document.hidden) restart(); else heroPause(); },{threshold:.15}).observe(hsliderEl);
+  }
 
   /* hero ORIGINAL slider (réplica fiel · 5 slides, self-contained) */
   var oslides=[].slice.call(document.querySelectorAll('.oslide'));
@@ -478,6 +494,21 @@
     }
     attachSwipe(osliderEl, function(){ onext('50%','50%'); orestart(); }, function(){ oprevf('50%','50%'); orestart(); });
     orestart();
+    /* feedback 2026-07-06: pausa del autoplay con el cursor sobre el CTA (paridad con el estático) */
+    [].forEach.call(document.querySelectorAll('.oslide__cta .btn-cta'), function(cta){
+      cta.addEventListener('pointerenter', function(){
+        if(otimer){ clearInterval(otimer); otimer=null; }
+        if(oprogress) oprogress.classList.remove('is-running');
+      });
+      cta.addEventListener('pointerleave', function(){ orestart(); });
+    });
+    /* QA 2026-07-09: autoplay pausado con tab oculto o slider fuera del viewport (patrón del carrusel Praise) */
+    var oOn = true;
+    function oPause(){ if(otimer){ clearInterval(otimer); otimer=null; } if(oprogress) oprogress.classList.remove('is-running'); }
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) oPause(); else if(oOn) orestart(); });
+    if('IntersectionObserver' in window && osliderEl){
+      new IntersectionObserver(function(es){ oOn = es[0].isIntersecting; if(oOn && !document.hidden) orestart(); else oPause(); },{threshold:.15}).observe(osliderEl);
+    }
   }
 
   /* Ink al cargar: anima la entrada del hero visible (default = original) */
@@ -710,15 +741,27 @@
     sec.addEventListener('mousemove', function(e){
       var r=sec.getBoundingClientRect(); var t=(e.clientX-r.left)/r.width; t=t<0?0:(t>1?1:t); tar=-t*maxShift;
     });
+    /* QA 2026-07-09: el loop solo corre con la sección en viewport y el tab visible
+       (antes era un rAF permanente — único loop sin gate) */
+    var rafId=0, onscreen=false;
     function tick(){
+      rafId=0;
       var d=tar-cur, moving=Math.abs(d)>1.5;
       if(aL) aL.classList.toggle('is-active', moving && d>0);
       if(aR) aR.classList.toggle('is-active', moving && d<0);
       cur+=d*EASE; if(Math.abs(tar-cur)<.2) cur=tar;
       track.style.transform='translateX('+cur.toFixed(1)+'px)';
-      requestAnimationFrame(tick);
+      if(onscreen && !document.hidden) rafId=requestAnimationFrame(tick);
     }
-    requestAnimationFrame(tick);
+    function glideStart(){ if(!rafId && onscreen && !document.hidden) rafId=requestAnimationFrame(tick); }
+    function glideStop(){ if(rafId){ cancelAnimationFrame(rafId); rafId=0; } }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        onscreen=es[0].isIntersecting;
+        if(onscreen) glideStart(); else glideStop();
+      },{rootMargin:'80px'}).observe(sec);
+    } else { onscreen=true; glideStart(); }
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) glideStop(); else glideStart(); });
   })();
 
   /* ---- Stories / testimonials: entrada scroll-reveal (rise+fade) de fotos y bubbles ---- */

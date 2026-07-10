@@ -6,8 +6,8 @@
    + Jost sans. Tipografía sigue el switcher (--font-display/body).
    ============================================================ */
 
-/* ---- ritmo vertical generoso ---- */
-.sec{position:relative;padding-block:clamp(5.5rem,4rem + 7vw,11rem);overflow:hidden;}
+/* ---- ritmo vertical generoso (tokenizado · Phase 2 — mismo valor, ahora token) ---- */
+.sec{position:relative;padding-block:var(--space-section-showcase);overflow:hidden;}
 .sec__inner{width:min(var(--maxw-wide,1180px),100% - 2*var(--gutter));margin-inline:auto;position:relative;z-index:1;}
 
 /* tipografía base de sección */

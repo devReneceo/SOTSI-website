@@ -5,9 +5,10 @@
    de luz animados + grain, con la firma dorada + prose polish (drop cap).
    ========================================================================== */
 
-/* grano fino local (espejo de section-polish.css:12 — internal.css no importa esa capa) */
+/* --art-grain ahora es un alias del canónico --grain (tokens.css, cargado vía internal.css).
+   Se conserva el nombre para no tocar article.css:100 ni lf-series.css:70 (Phase 2 · single source). */
 :root {
-  --art-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --art-grain: var(--grain);
 }
 
 /* --------------------------------------------------------------------------
@@ -20,7 +21,7 @@
 .art-hero {
   --halo-x: 68%;
   position: relative;
-  min-height: min(100svh, 900px);
+  min-height: min(100svh, var(--hero-cap));   /* tope compartido (Phase 2) — antes literal 900px */
   display: flex;
   align-items: center;
   overflow: hidden;

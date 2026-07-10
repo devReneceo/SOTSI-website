@@ -5,7 +5,7 @@
 .rl-hero {
   position: relative;
   isolation: isolate;
-  min-height: clamp(30rem, 78vh, 46rem);
+  min-height: clamp(30rem, 78svh, 46rem);   /* svh (no vh) — evita el salto por la barra de URL móvil (Phase 2 · item 7) */
   display: flex;
   align-items: center;
   padding: clamp(9rem, 8rem + 6vh, 12rem) var(--gutter) clamp(4rem, 8vh, 6rem);
@@ -116,7 +116,7 @@
 /* tablet respira más alto que el móvil */
 @media (min-width: 721px) and (max-width: 1199px) {
   .rl-hero {
-    min-height: clamp(36rem, 76vh, 44rem);
+    min-height: clamp(36rem, 76svh, 44rem);   /* svh (no vh) — Phase 2 · item 7 */
   }
 }
 
@@ -713,14 +713,15 @@
 .reveals-on .rl-page .rl-hero__rule[data-reveal].is-revealed { transform: scaleX(1); }
 .reveals-on .rl-page .rl-hero__sub[data-reveal] { transition-delay: 0.62s; }
 
-/* Breadcrumb sobre hero CLARO: variante navy (el blanco global fallaría contraste) */
-.rl-page .about-breadcrumbs--corner {
+/* Breadcrumb sobre hero CLARO: variante navy (el blanco de la clase canónica .int-breadcrumbs
+   fallaría contraste sobre las nubes pastel). Override scoped a .rl-page (Phase 2 · item 8). */
+.rl-page .int-breadcrumbs {
   color: rgba(14, 22, 49, 0.62);
   text-shadow: 0 1px 10px rgba(255, 255, 255, 0.6);
 }
-.rl-page .about-breadcrumbs--corner a { color: rgba(14, 22, 49, 0.62); }
-.rl-page .about-breadcrumbs--corner a:hover { color: var(--purple); }
-.rl-page .about-breadcrumbs--corner [aria-current="page"] { color: var(--purple); }
+.rl-page .int-breadcrumbs a { color: rgba(14, 22, 49, 0.62); }
+.rl-page .int-breadcrumbs a:hover { color: var(--purple); }
+.rl-page .int-breadcrumbs [aria-current="page"] { color: var(--purple); }
 
 @media (prefers-reduced-motion: reduce) {
   .reveals-on .rl-page [data-reveal],

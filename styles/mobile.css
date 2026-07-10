@@ -17,10 +17,11 @@
 /* =====================================================================
    1 · NAVIGATION  (immersive default + bar + centered)
    logo left · burger right · inline links & CTA hidden (CTA in drawer)
-   2026-07-02: corte 1024 → 1199 (coordinado con brand.css: el row desktop
-   no cabe entre 1025–1199 ni comprimido; tier compacto 1200–1459 allá).
+   2026-07-02 → Phase 4: corte del burger ≤1319 (coordinado con brand.css /
+   internal.css: el row desktop comprimido sólo cabe desde 1320; tier compacto
+   1320–1679 allá; tamaño normal ≥1680).
    ===================================================================== */
-@media (max-width: 1199px){
+@media (max-width: 1319px){
   .snav__main .wrap{
     display:flex !important; align-items:center; justify-content:space-between;
     gap:.75rem; min-height:60px;
@@ -49,7 +50,7 @@
    .snav--immersive is position:absolute with z-auto, while hero slides are
    z-index:2 — so the in-flow panel painted UNDER the hero. Lift the header
    above everything when open and make the panel a fixed full-screen sheet. */
-@media (max-width: 1199px){
+@media (max-width: 1319px){
   body.menu-open{ overflow:hidden; }
   body.menu-open .snav{ z-index:1300 !important; }                /* header context above hero (slides z2 / chrome z6) */
   body.menu-open .snav--immersive{ position:fixed !important; }

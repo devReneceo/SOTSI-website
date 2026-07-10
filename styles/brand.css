@@ -5,19 +5,19 @@
    ============================================================ */
 
 /* ---- Fuentes reales de marca (self-hosted desde assets) ---- */
+/* Canela (self-hosted) — display de marca del brandbook. Restaurada 2026-07-09 para el prototipo (match producción / captura 2w). Archivos *-Trial.otf → licenciar antes del deploy final de producción. */
 @font-face{font-family:"Canela";src:url("../assets/fonts/6a3342a6143842a7481663a5_Canela-Regular-Trial.otf") format("opentype");font-weight:400;font-display:swap;}
 @font-face{font-family:"Canela";src:url("../assets/fonts/6a3342a6143842a7481663fb_Canela-Bold-Trial.otf") format("opentype");font-weight:700;font-display:swap;}
 @font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/6a3342a6143842a7481663fa_Jost-Regular.ttf") format("truetype");font-weight:400;font-display:swap;}
 @font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/6a3342a6143842a7481663ba_Jost-SemiBold.ttf") format("truetype");font-weight:600;font-display:swap;}
 @font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/6a3342a6143842a7481663b7_Jost-Bold.ttf") format("truetype");font-weight:700;font-display:swap;}
+/* WorldDiscovery (self-hosted) — script emotivo de marca. Restaurada 2026-07-09 para el prototipo (match producción). Archivo *_PERSONAL_USE_ONLY.otf → licenciar antes del deploy final de producción. */
 @font-face{font-family:"WorldDiscovery";src:url("../assets/fonts/6a3342a6143842a7481663f9_WorldDiscovery_PERSONAL_USE_ONLY.otf") format("opentype");font-weight:400;font-display:swap;}
 
 :root{
-  --font-display:"Canela",Georgia,serif;
-  --font-body:"Jost SOTSI","Jost",system-ui,sans-serif;
-  --font-script:"WorldDiscovery","Dancing Script",cursive;
-  /* brandbook immersive canvas */
-  --grad-brand:linear-gradient(135deg,#0e1631 0%,#1d1340 45%,#3c1951 100%);
+  /* --font-display/-body/-script y --grad-brand → consolidados en tokens.css (Phase 2 · single token source).
+     tokens.css carga antes que brand.css en todas las páginas, así que es la fuente única.
+     body.font-brand (más abajo) sigue siendo el estado "default" del dev font-switcher y coincide con tokens. */
   --glass-dark:rgba(14,22,49,.55);
   --glass-border:rgba(255,255,255,.14);
 }
@@ -114,10 +114,10 @@ body.nav-dark .snav__mobile-panel{background:rgba(14,22,49,.96);} body.nav-dark 
 body.nav-light .snav__mobile-panel{background:#fff;} body.nav-light .snav__mobile-panel a{color:var(--navy);border-color:var(--hairline);}
 .snav__mobile-panel .btn{margin-top:1rem;width:100%;}
 
-/* 2026-07-02: burger sube de 1024 → 1199 (el row desktop con 6 links + CTA solo cabe desde
-   ~1200 comprimido; a 1025–1399 el CTA "Soul Store" se salía del viewport). Coordinado con
-   mobile.css (mismo corte) y el tier compacto 1200–1459 de abajo. */
-@media (max-width:1199px){
+/* 2026-07-02 → Phase 4: burger ≤1319 (medición Phase 4: el row desktop comprimido sólo cabe
+   desde 1320; entre 1200–1319 el CTA "Soul Store" se salía del viewport). Coordinado con
+   mobile.css / internal.css (mismo corte) y el tier compacto 1320–1679 de abajo. */
+@media (max-width:1319px){
   .snav__side{display:none;}
   .snav__main .wrap{grid-template-columns:1fr auto 1fr;}
   .snav__burger{display:inline-grid;place-items:center;justify-self:start;}
@@ -741,10 +741,7 @@ body.hero-original .hero-original-wrap{display:block;}
    sans Montserrat blanco, script de acento, botones ghost outline.
    NO usa el glow/gold de marca — sólo para comparar contra el rediseño.
    ============================================================ */
-@font-face{font-family:"Montserrat SOTSI";src:url("../assets/fonts/6a3342a6143842a74816631a_Montserrat-Light.ttf") format("truetype");font-weight:300;font-display:swap;}
-@font-face{font-family:"Montserrat SOTSI";src:url("../assets/fonts/6a3342a6143842a748166329_Montserrat-Regular.ttf") format("truetype");font-weight:400;font-display:swap;}
-@font-face{font-family:"Montserrat SOTSI";src:url("../assets/fonts/6a3342a6143842a748166325_Montserrat-Medium.ttf") format("truetype");font-weight:500;font-display:swap;}
-@font-face{font-family:"Montserrat SOTSI";src:url("../assets/fonts/6a3342a6143842a748166316_Montserrat-SemiBold.ttf") format("truetype");font-weight:600;font-display:swap;}
+/* Montserrat SOTSI @font-face retirado 2026-07-08 (Phase 1): cargado pero sin ningún selector que lo use. */
 
 .oslider{position:relative;height:var(--hero-h-original);overflow:hidden;background:#0e1631;isolation:isolate;
   font-family:var(--font-body);--water-origin-x:78%;--water-origin-y:50%;}
@@ -1091,23 +1088,26 @@ body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .log
 body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .logo--for-light{display:block !important;}
 body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .snav__burger{color:var(--navy);}
 
-@media (max-width:1199px){
+@media (max-width:1319px){
   .snav--bar .snav__row,.snav--immersive .snav__row{display:none;}
 }
 
-/* Tier compacto 1200–1459 (2026-07-02): el row completo (About · Courses… · Deepcast · Blog ·
-   Resources · In Celebration… + CTA) necesita ~1420px a tamaño normal. Aquí se comprime
-   tipografía/espaciado manteniendo min-height 44px (touch target) hasta que el ancho normal
-   quepa (≥1460). */
-@media (min-width:1200px) and (max-width:1459px){
+/* Tier compacto 1320–1679 (2026-07-02 · rango corregido en Phase 4): el row completo
+   (About · Courses… · Deepcast · Blog · Resources · In Celebration… + CTA) mide ~1572px a
+   tamaño normal → sólo cabe sin comprimir desde ≥1680. Aquí se comprime tipografía/espaciado
+   (manteniendo min-height 44px touch target) para caber ya desde 1320. Medición Phase 4: el
+   CTA se salía del viewport en 1200–1319 (compacto insuficiente) y en 1460–1619 (el tamaño
+   normal reentraba demasiado pronto); ambos rangos corregidos. Coordinado con el corte del
+   burger (≤1319) en mobile.css / internal.css / arriba. */
+@media (min-width:1320px) and (max-width:1679px){
   .snav--bar .snav__main .wrap,
-  .snav--immersive .snav__main .wrap{gap:.8rem;}
+  .snav--immersive .snav__main .wrap{gap:.72rem;}
   .snav--bar .snav .nlink,
   .snav--immersive .snav .nlink,
   .snav--bar .nlink,
-  .snav--immersive .nlink{font-size:.86rem;padding:0 .48rem;}
+  .snav--immersive .nlink{font-size:.86rem;padding:0 .42rem;}
   .snav--bar .nlink::after,
-  .snav--immersive .nlink::after{left:.48rem;right:.48rem;}
+  .snav--immersive .nlink::after{left:.42rem;right:.42rem;}
   .snav--bar .snav__end,
   .snav--immersive .snav__end{gap:.55rem;}
   .snav--bar .btn-cta--sm .btn-cta__inner,

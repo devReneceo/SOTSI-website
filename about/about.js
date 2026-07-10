@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const burgers = document.querySelectorAll("[data-burger]");
   burgers.forEach((button) => {
-    const panel = button.closest(".snav")?.querySelector("[data-mobile]");
+    // sin optional chaining: Safari <13.1 (iPads viejos) no lo parsea y mataría todo el archivo
+    const nav = button.closest(".snav");
+    const panel = nav && nav.querySelector("[data-mobile]");
     if (!panel) return;
 
     button.addEventListener("click", () => {
@@ -75,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (linkPath === currentPath) {
         link.setAttribute("aria-current", "page");
       }
-    } catch {
+    } catch (err) {
       // ignore malformed relative hrefs
     }
   });
@@ -83,7 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Soul Tide — campo de puntos en oleaje (canvas 2D), portado del Home (#soul-tide) y afinado
   // MÁS SUTIL para el hero de About Gary: deriva lenta, amplitud baja, puntos tenues (no compite
   // con las olas doradas ya integradas en gary-bg.webp). Sin dependencias 3D. Respeta reduced-motion.
-  mountTideCanvas(document.querySelector(".about-hero__tide")?.closest(".about-hero"));
+  const heroTide = document.querySelector(".about-hero__tide");
+  mountTideCanvas(heroTide && heroTide.closest(".about-hero"));
 
   // Hero video (About Gary): respeta reduced-motion → pausa y muestra un fotograma estático.
   const heroVideo = document.querySelector(".about-hero__video");
@@ -93,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         heroVideo.pause();
         heroVideo.currentTime = 0;
-      } catch {
+      } catch (err) {
         /* currentTime puede no estar listo aún; el poster cubre ese caso */
       }
     };

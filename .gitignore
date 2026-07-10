@@ -37,3 +37,7 @@ report-*/evidence/before-hero-prev.png
 
 # Internal design/build rules — NOT for public repo
 RULES.md
+
+# Internal audit + webflow-migration reports — NEVER publish (repo público);
+# la carpeta publicable es report-9f3a2c/, NO esta.
+reports/

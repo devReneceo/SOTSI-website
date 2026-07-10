@@ -296,6 +296,12 @@
   .uh-hero { min-height: auto; }
   .uh-bio__portrait { justify-self: center; }
 }
+@media (max-width: 360px) {
+  /* "Universal Human" (unido por &nbsp; → una sola línea) se salía del viewport a 320px
+     (QA Phase 4: clip de +20px ≤339px). Se baja el mínimo tipográfico para que la firma
+     de una línea quepa en los teléfonos más estrechos sin partir el título. */
+  .uh-hero__title { font-size: clamp(2.5rem, 12.5vw, 3.05rem); }
+}
 
 /* ===========================================================================
    REDUCED MOTION — congela rises + oculta el video de olas (poster queda)

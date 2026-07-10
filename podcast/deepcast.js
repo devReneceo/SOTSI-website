@@ -32,16 +32,17 @@
 
   const store = {
     get() {
-      try { return JSON.parse(sessionStorage.getItem(STORE_KEY)); } catch { return null; }
+      try { return JSON.parse(sessionStorage.getItem(STORE_KEY)); } catch (err) { return null; }
     },
     set(value) {
-      try { sessionStorage.setItem(STORE_KEY, JSON.stringify(value)); } catch { /* private mode */ }
+      try { sessionStorage.setItem(STORE_KEY, JSON.stringify(value)); } catch (err) { /* private mode */ }
     },
   };
 
   let indexPromise = null;
   const loadIndex = () => {
-    indexPromise ||= fetch(DATA_URL).then((res) => {
+    // sin logical assignment de ES2021: Safari <14 no lo parsea y mataría todo el archivo
+    indexPromise = indexPromise || fetch(DATA_URL).then((res) => {
       if (!res.ok) throw new Error(`episodes index ${res.status}`);
       return res.json();
     });
@@ -283,7 +284,7 @@
       toggle(btn, megaId) {
         if (activeBtn === btn) { stop(); return; }
         stop();
-        audio ||= new Audio();
+        audio = audio || new Audio();
         audio.src = mp3Url(megaId);
         audio.play().catch(stop);
         audio.onended = stop;
@@ -457,7 +458,7 @@
     };
 
     let debounce = 0;
-    searchInput?.addEventListener("input", () => {
+    if (searchInput) searchInput.addEventListener("input", () => {
       clearTimeout(debounce);
       debounce = setTimeout(() => update({ q: searchInput.value, shown: BATCH }), 130);
     });
@@ -467,9 +468,9 @@
         update({ series: chip.dataset.dcFilter, shown: BATCH });
       })
     );
-    sortSel?.addEventListener("change", () => update({ sort: sortSel.value, shown: BATCH }));
-    moreBtn?.addEventListener("click", () => update({ shown: state.shown + BATCH }));
-    clearBtn?.addEventListener("click", () => {
+    if (sortSel) sortSel.addEventListener("change", () => update({ sort: sortSel.value, shown: BATCH }));
+    if (moreBtn) moreBtn.addEventListener("click", () => update({ shown: state.shown + BATCH }));
+    if (clearBtn) clearBtn.addEventListener("click", () => {
       if (searchInput) searchInput.value = "";
       chips.forEach((c) => c.classList.toggle("is-active", c.dataset.dcFilter === "all"));
       if (sortSel) sortSel.value = "new";
@@ -486,7 +487,7 @@
     loadIndex()
       .then((data) => {
         episodes = data.episodes || [];
-        skel?.remove();
+        if (skel) skel.remove();
         render();
         buildMarquee(episodes);
         if (saved && saved.scrollY > 0) {
@@ -494,14 +495,14 @@
         }
       })
       .catch(() => {
-        skel?.remove();
+        if (skel) skel.remove();
         if (emptyEl) {
           emptyEl.hidden = false;
           const h3 = $("h3", emptyEl);
           const p = $("p", emptyEl);
           if (h3) h3.textContent = "The episode list could not load.";
           if (p) p.textContent = "Please refresh the page, or browse every episode on seatofthesoul.com/podcast.";
-          clearBtn?.remove();
+          if (clearBtn) clearBtn.remove();
         }
       });
 

@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Visita normal: cualquier marker anterior ya no aplica.
       sessionStorage.removeItem(RETURN_KEY);
     }
-  } catch {
+  } catch (err) {
     /* sessionStorage puede no estar disponible (modo privado antiguo) */
   }
 
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
           label: "Get Started",
           ts: Date.now(),
         }));
-      } catch {
+      } catch (err) {
         /* href relativo malformado o storage lleno — sin smart back */
       }
     },
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         heroVideo.pause();
         heroVideo.currentTime = 0;
-      } catch {
+      } catch (err) {
         /* currentTime may not be ready; the poster covers that case */
       }
     };

@@ -3,8 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SOTSI · Nav + Hero (branding nuevo) — propuesta</title>
-<meta name="description" content="Spiritual growth and emotional awareness with Gary Zukav. Create authentic power, at your own pace." />
+<title>Seat of the Soul Institute · Gary Zukav — Create Authentic Power</title>
+<meta name="description" content="Spiritual growth and emotional awareness with Gary Zukav, co-founder of the Seat of the Soul Institute. Create authentic power at your own pace — books, courses, and the Deepcast podcast." />
+<link rel="canonical" href="https://seatofthesoul.com/" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Seat of the Soul Institute" />
+<meta property="og:title" content="Seat of the Soul Institute · Gary Zukav — Create Authentic Power" />
+<meta property="og:description" content="Spiritual growth and emotional awareness with Gary Zukav, co-founder of the Seat of the Soul Institute. Create authentic power at your own pace — books, courses, and the Deepcast podcast." />
+<meta property="og:url" content="https://seatofthesoul.com/" />
+<meta property="og:image" content="https://seatofthesoul.com/assets/images/slides/beach-creating-authentic-power-clean-1280.webp" />
+<meta property="og:image:width" content="1280" />
+<meta property="og:image:height" content="720" />
+<meta property="og:image:alt" content="A calm beach at sunset — Creating Authentic Power" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Seat of the Soul Institute · Gary Zukav — Create Authentic Power" />
+<meta name="twitter:description" content="Spiritual growth and emotional awareness with Gary Zukav, co-founder of the Seat of the Soul Institute. Create authentic power at your own pace — books, courses, and the Deepcast podcast." />
+<meta name="twitter:image" content="https://seatofthesoul.com/assets/images/slides/beach-creating-authentic-power-clean-1280.webp" />
 <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
@@ -12,7 +28,8 @@
 <!-- Preload the LCP hero image (first slide) so it starts fetching before CSS -->
 <link rel="preload" as="image" href="assets/images/slides/beach-creating-authentic-power-clean.webp" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Pinyon+Script&family=Allura&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Mulish:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=Libre+Caslon+Display&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<!-- Phase 1 2026-07-08: recortado a las 4 familias de producción (Fraunces display + Cormorant fallback, Pinyon accent, Dancing script). Las 7 restantes servían al switcher dev de tipografía. -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Pinyon+Script&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles/tokens.css" />
 <link rel="stylesheet" href="styles/concepts.css" />
 <link rel="stylesheet" href="styles/brand.css" />
@@ -190,6 +207,58 @@
 }
 </script>
 <!-- IG-TOP3-JSONLD:END -->
+<!-- Core site schema (Organization + WebSite + Person Gary Zukav). Static — FUERA de los marcadores IG-TOP3 para que refresh_top3.py NO lo sobrescriba. Añadido Phase 1 2026-07-08. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://seatofthesoul.com/#organization",
+      "name": "The Seat of the Soul Institute",
+      "url": "https://seatofthesoul.com/",
+      "logo": "https://seatofthesoul.com/assets/logoicon.png",
+      "foundingDate": "1999",
+      "founder": [
+        { "@id": "https://seatofthesoul.com/#gary-zukav" },
+        { "@type": "Person", "name": "Linda Francis" }
+      ],
+      "description": "The Seat of the Soul Institute, co-founded by Gary Zukav and Linda Francis in 1999, assists people worldwide in creating authentic power — the alignment of the personality with the soul."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://seatofthesoul.com/#website",
+      "url": "https://seatofthesoul.com/",
+      "name": "Seat of the Soul Institute",
+      "publisher": { "@id": "https://seatofthesoul.com/#organization" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://seatofthesoul.com/search/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://seatofthesoul.com/#gary-zukav",
+      "name": "Gary Zukav",
+      "url": "https://seatofthesoul.com/",
+      "jobTitle": "Author & Co-founder",
+      "worksFor": { "@id": "https://seatofthesoul.com/#organization" },
+      "description": "Author of The Seat of the Soul and co-founder of the Seat of the Soul Institute.",
+      "sameAs": [
+        "https://www.instagram.com/gary_zukav/",
+        "https://www.facebook.com/GaryZukav/",
+        "https://x.com/gary_zukav",
+        "https://www.tiktok.com/@gary.zukav.soul",
+        "https://www.youtube.com/@TheGaryZukav"
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <!-- PRINCIPAL: centrado inmersivo · nav M · logo normal · glow OFF · botón Propuesta 2 · hero original · tipografía marca -->
 <body class="nav-dark cta-grad nl-immersive hero-original heroheight-full heroborder-on navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand anim-ink">
@@ -210,28 +279,27 @@
       <div class="snav__side left">
         <a class="nlink" href="get-started/"><span class="glow"></span>Get Started</a>
         <div class="has-dd">
-          <a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About
+          <a class="nlink" href="shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-          <div class="dd" role="menu"><a href="about/seat-of-the-soul-institute/">About SOTSI</a><a href="about-gary-zukav/">About Gary</a><a href="about-linda-francis/">About Linda</a></div>
+          <div class="dd" role="menu"><a href="shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div>
         </div>
-        <a class="nlink" href="remember-linda-homepage/"><span class="glow"></span>In Celebration of Linda Francis</a>
         <a class="nlink" href="podcast/"><span class="glow"></span>Deepcast</a>
-        <a class="nlink" href="blog/"><span class="glow"></span>Blog</a>
       </div>
       <a class="snav__logo" href="index.html" aria-label="Seat of the Soul Institute — home">
         <img class="logo--for-dark" src="assets/whitelogo.webp" width="1014" height="183" decoding="async" alt="Seat of the Soul Institute" />
         <img class="logo--for-light" src="assets/darklogo.webp" width="327" height="60" decoding="async" alt="Seat of the Soul Institute" />
       </a>
       <div class="snav__side right">
+        <a class="nlink" href="blog/"><span class="glow"></span>Blog</a>
         <div class="has-dd">
           <a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>Resources
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dd" role="menu"><a href="failing-government/">What to do about Failing Governments</a><a href="ai-and-human-evolution/">AI and Human Evolution</a><a href="soul-connections-newsletter/">Soul Connections Newsletter</a><a href="books/">Get The Books</a><a href="apg-optin/">Authentic Power Guidelines</a></div>
         </div>
         <div class="has-dd">
-          <a class="nlink" href="shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities
+          <a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-          <div class="dd" role="menu"><a href="shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div>
+          <div class="dd" role="menu"><a href="about/seat-of-the-soul-institute/">About SOTSI</a><a href="about-gary-zukav/">About Gary</a><a href="about-linda-francis/">About Linda</a><a href="remember-linda-homepage/">In Celebration of Linda Francis</a></div>
         </div>
         <a class="btn-cta btn-cta--sm" href="https://www.universalhumanfoundation.org/" target="_blank" rel="noopener" style="margin-left:.5rem;">
           <span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Soul Store</span>
@@ -242,10 +310,23 @@
     </div>
   </nav>
   <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
-    <a href="get-started/">Get Started</a><span class="snav__mobile-label">About</span><a class="subnav-link" href="about/seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="about-gary-zukav/">About Gary</a><a class="subnav-link" href="about-linda-francis/">About Linda</a><a href="remember-linda-homepage/">In Celebration of Linda Francis</a><a href="podcast/">Deepcast</a><a href="blog/">Blog</a><span class="snav__mobile-label">Resources</span><a class="subnav-link" href="failing-government/">What to do about Failing Governments</a><a class="subnav-link" href="ai-and-human-evolution/">AI and Human Evolution</a><a class="subnav-link" href="soul-connections-newsletter/">Soul Connections Newsletter</a><a class="subnav-link" href="books/">Get The Books</a><a class="subnav-link" href="apg-optin/">Authentic Power Guidelines</a>
-    <a href="shop/">Courses, Events &amp; Activities</a>
-    <a class="btn btn--primary" href="https://www.universalhumanfoundation.org/" target="_blank" rel="noopener">Soul Store</a>
-  </div></div>
+        <a href="get-started/">Get Started</a>
+        <a href="shop/">Courses, Events &amp; Activities</a>
+        <a href="podcast/">Deepcast</a>
+        <a href="blog/">Blog</a>
+        <span class="snav__mobile-label">Resources</span>
+        <a class="subnav-link" href="failing-government/">What to do about Failing Governments</a>
+        <a class="subnav-link" href="ai-and-human-evolution/">AI and Human Evolution</a>
+        <a class="subnav-link" href="soul-connections-newsletter/">Soul Connections Newsletter</a>
+        <a class="subnav-link" href="books/">Get The Books</a>
+        <a class="subnav-link" href="apg-optin/">Authentic Power Guidelines</a>
+        <span class="snav__mobile-label">About</span>
+        <a class="subnav-link" href="about/seat-of-the-soul-institute/">About SOTSI</a>
+        <a class="subnav-link" href="about-gary-zukav/">About Gary</a>
+        <a class="subnav-link" href="about-linda-francis/">About Linda</a>
+        <a class="subnav-link" href="remember-linda-homepage/">In Celebration of Linda Francis</a>
+        <a class="btn btn--primary" href="https://www.universalhumanfoundation.org/" target="_blank" rel="noopener">Soul Store</a>
+      </div></div>
 </header>
 
 <!-- ============ NAV 1 · PERSISTENT BAR ============ -->
@@ -258,15 +339,14 @@
       </a>
       <div class="snav__row">
         <a class="nlink" href="get-started/"><span class="glow"></span>Get Started</a>
-        <div class="has-dd"><a class="nlink" href="#"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-          <div class="dd" role="menu"><a href="about/seat-of-the-soul-institute/">About SOTSI</a><a href="about-gary-zukav/">About Gary</a><a href="about-linda-francis/">About Linda</a></div></div>
-        <a class="nlink" href="remember-linda-homepage/"><span class="glow"></span>In Celebration of Linda Francis</a>
+        <div class="has-dd"><a class="nlink" href="shop/"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div></div>
         <a class="nlink" href="podcast/"><span class="glow"></span>Deepcast</a>
         <a class="nlink" href="blog/"><span class="glow"></span>Blog</a>
         <div class="has-dd"><a class="nlink" href="#"><span class="glow"></span>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dd" role="menu"><a href="failing-government/">What to do about Failing Governments</a><a href="ai-and-human-evolution/">AI and Human Evolution</a><a href="soul-connections-newsletter/">Soul Connections Newsletter</a><a href="books/">Get The Books</a><a href="apg-optin/">Authentic Power Guidelines</a></div></div>
-        <div class="has-dd"><a class="nlink" href="shop/"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-          <div class="dd" role="menu"><a href="shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div></div>
+        <div class="has-dd"><a class="nlink" href="#"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="about/seat-of-the-soul-institute/">About SOTSI</a><a href="about-gary-zukav/">About Gary</a><a href="about-linda-francis/">About Linda</a><a href="remember-linda-homepage/">In Celebration of Linda Francis</a></div></div>
       </div>
       <div class="snav__end">
         <a class="btn-cta btn-cta--sm" href="https://www.universalhumanfoundation.org/" target="_blank" rel="noopener">
@@ -278,10 +358,23 @@
     </div>
   </nav>
   <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
-    <a href="get-started/">Get Started</a><span class="snav__mobile-label">About</span><a class="subnav-link" href="about/seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="about-gary-zukav/">About Gary</a><a class="subnav-link" href="about-linda-francis/">About Linda</a><a href="remember-linda-homepage/">In Celebration of Linda Francis</a><a href="podcast/">Deepcast</a><a href="blog/">Blog</a><span class="snav__mobile-label">Resources</span><a class="subnav-link" href="failing-government/">What to do about Failing Governments</a><a class="subnav-link" href="ai-and-human-evolution/">AI and Human Evolution</a><a class="subnav-link" href="soul-connections-newsletter/">Soul Connections Newsletter</a><a class="subnav-link" href="books/">Get The Books</a><a class="subnav-link" href="apg-optin/">Authentic Power Guidelines</a>
-    <a href="shop/">Courses, Events &amp; Activities</a>
-    <a class="btn btn--primary" href="https://www.universalhumanfoundation.org/" target="_blank" rel="noopener">Soul Store</a>
-  </div></div>
+        <a href="get-started/">Get Started</a>
+        <a href="shop/">Courses, Events &amp; Activities</a>
+        <a href="podcast/">Deepcast</a>
+        <a href="blog/">Blog</a>
+        <span class="snav__mobile-label">Resources</span>
+        <a class="subnav-link" href="failing-government/">What to do about Failing Governments</a>
+        <a class="subnav-link" href="ai-and-human-evolution/">AI and Human Evolution</a>
+        <a class="subnav-link" href="soul-connections-newsletter/">Soul Connections Newsletter</a>
+        <a class="subnav-link" href="books/">Get The Books</a>
+        <a class="subnav-link" href="apg-optin/">Authentic Power Guidelines</a>
+        <span class="snav__mobile-label">About</span>
+        <a class="subnav-link" href="about/seat-of-the-soul-institute/">About SOTSI</a>
+        <a class="subnav-link" href="about-gary-zukav/">About Gary</a>
+        <a class="subnav-link" href="about-linda-francis/">About Linda</a>
+        <a class="subnav-link" href="remember-linda-homepage/">In Celebration of Linda Francis</a>
+        <a class="btn btn--primary" href="https://www.universalhumanfoundation.org/" target="_blank" rel="noopener">Soul Store</a>
+      </div></div>
 </header>
 
 <!-- ============ NAV 2 · IMMERSIVE (transparent → solid) ============ -->
@@ -294,15 +387,14 @@
       </a>
       <div class="snav__row">
         <a class="nlink" href="get-started/"><span class="glow"></span>Get Started</a>
-        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-          <div class="dd" role="menu"><a href="about/seat-of-the-soul-institute/">About SOTSI</a><a href="about-gary-zukav/">About Gary</a><a href="about-linda-francis/">About Linda</a></div></div>
-        <a class="nlink" href="remember-linda-homepage/"><span class="glow"></span>In Celebration of Linda Francis</a>
+        <div class="has-dd"><a class="nlink" href="shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div></div>
         <a class="nlink" href="podcast/"><span class="glow"></span>Deepcast</a>
         <a class="nlink" href="blog/"><span class="glow"></span>Blog</a>
         <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dd" role="menu"><a href="failing-government/">What to do about Failing Governments</a><a href="ai-and-human-evolution/">AI and Human Evolution</a><a href="soul-connections-newsletter/">Soul Connections Newsletter</a><a href="books/">Get The Books</a><a href="apg-optin/">Authentic Power Guidelines</a></div></div>
-        <div class="has-dd"><a class="nlink" href="shop/" aria-haspopup="true"><span class="glow"></span>Courses, Events &amp; Activities <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
-          <div class="dd" role="menu"><a href="shop/">Explore All Learning Opportunities</a><a href="https://experience.seatofthesoul.com/evening-with-gary" target="_blank" rel="noopener">An Evening With Gary Zukav ↗</a><a href="https://experience.seatofthesoul.com/emotional-awareness" target="_blank" rel="noopener">NEW! Emotional Awareness Course ↗</a><a href="https://experience.seatofthesoul.com/soulthemes" target="_blank" rel="noopener">Soul Themes Course ↗</a><a href="https://experience.seatofthesoul.com/beyond-the-5-senses" target="_blank" rel="noopener">Beyond the Five Senses Course ↗</a><a href="https://experience.seatofthesoul.com/authentic-power-guidelines" target="_blank" rel="noopener">Authentic Power Guidelines Course ↗</a></div></div>
+        <div class="has-dd"><a class="nlink" href="#" aria-haspopup="true"><span class="glow"></span>About <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="dd" role="menu"><a href="about/seat-of-the-soul-institute/">About SOTSI</a><a href="about-gary-zukav/">About Gary</a><a href="about-linda-francis/">About Linda</a><a href="remember-linda-homepage/">In Celebration of Linda Francis</a></div></div>
       </div>
       <div class="snav__end">
         <a class="btn-cta btn-cta--sm" href="https://www.universalhumanfoundation.org/" target="_blank" rel="noopener">
@@ -314,10 +406,23 @@
     </div>
   </nav>
   <div class="snav__mobile"><div class="snav__mobile-panel" data-mobile hidden>
-    <a href="get-started/">Get Started</a><span class="snav__mobile-label">About</span><a class="subnav-link" href="about/seat-of-the-soul-institute/">About SOTSI</a><a class="subnav-link" href="about-gary-zukav/">About Gary</a><a class="subnav-link" href="about-linda-francis/">About Linda</a><a href="remember-linda-homepage/">In Celebration of Linda Francis</a><a href="podcast/">Deepcast</a><a href="blog/">Blog</a><span class="snav__mobile-label">Resources</span><a class="subnav-link" href="failing-government/">What to do about Failing Governments</a><a class="subnav-link" href="ai-and-human-evolution/">AI and Human Evolution</a><a class="subnav-link" href="soul-connections-newsletter/">Soul Connections Newsletter</a><a class="subnav-link" href="books/">Get The Books</a><a class="subnav-link" href="apg-optin/">Authentic Power Guidelines</a>
-    <a href="shop/">Courses, Events &amp; Activities</a>
-    <a class="btn btn--primary" href="https://www.universalhumanfoundation.org/" target="_blank" rel="noopener">Soul Store</a>
-  </div></div>
+        <a href="get-started/">Get Started</a>
+        <a href="shop/">Courses, Events &amp; Activities</a>
+        <a href="podcast/">Deepcast</a>
+        <a href="blog/">Blog</a>
+        <span class="snav__mobile-label">Resources</span>
+        <a class="subnav-link" href="failing-government/">What to do about Failing Governments</a>
+        <a class="subnav-link" href="ai-and-human-evolution/">AI and Human Evolution</a>
+        <a class="subnav-link" href="soul-connections-newsletter/">Soul Connections Newsletter</a>
+        <a class="subnav-link" href="books/">Get The Books</a>
+        <a class="subnav-link" href="apg-optin/">Authentic Power Guidelines</a>
+        <span class="snav__mobile-label">About</span>
+        <a class="subnav-link" href="about/seat-of-the-soul-institute/">About SOTSI</a>
+        <a class="subnav-link" href="about-gary-zukav/">About Gary</a>
+        <a class="subnav-link" href="about-linda-francis/">About Linda</a>
+        <a class="subnav-link" href="remember-linda-homepage/">In Celebration of Linda Francis</a>
+        <a class="btn btn--primary" href="https://www.universalhumanfoundation.org/" target="_blank" rel="noopener">Soul Store</a>
+      </div></div>
 </header>
 
 <main>
@@ -332,7 +437,7 @@
       <span class="hslide__scrim" aria-hidden="true" style="background:linear-gradient(0deg,rgba(14,22,49,.92) 0%,rgba(14,22,49,.55) 35%,rgba(14,22,49,.12) 70%,transparent 100%);"></span><span class="hslide__glow" aria-hidden="true"></span>
       <div class="wrap hslide__inner"><div class="hslide__content">
         <p class="hslide__kicker">Supporting you in</p>
-        <h1 class="hslide__title hslide__title--xl">Creating <span class="gold">Authentic Power</span></h1>
+        <div class="hslide__title hslide__title--xl">Creating <span class="gold">Authentic Power</span></div>
         <span class="hslide__accent-rule" aria-hidden="true"></span>
         <!-- message + action (feedback Sara 2026-07-07): beneficio para el visitante + CTA a destino real -->
         <p class="hslide__deck">Learn to meet fear with love and turn everyday choices into real, lasting personal power.</p>
@@ -494,7 +599,7 @@
   <div class="wrap heroA__grid">
     <div>
       <p class="eyebrow">Spiritual growth &amp; emotional awareness with Gary Zukav</p>
-      <h1 class="heroA__title" id="hs-h1">Authentic<br>Power</h1>
+      <div class="heroA__title" id="hs-h1">Authentic<br>Power</div>
       <p class="heroA__sub">Align your personality with your soul — one choice at a time.</p>
       <p class="heroA__body">A calm, guided space to recognize your emotions as messages from the soul and choose from love instead of fear. No rush. No perfection.</p>
       <div class="heroA__cta">
@@ -1588,6 +1693,13 @@
   }
   attachSwipe(hsliderEl, function(){ next('50%','50%'); restart(); }, function(){ prev('50%','50%'); restart(); });
   restart();
+  /* QA 2026-07-09: autoplay pausado con tab oculto o hero fuera del viewport (patrón del carrusel Praise) */
+  var heroOn = true;
+  function heroPause(){ if(timer){ clearInterval(timer); timer=null; } if(hprogress) hprogress.classList.remove('is-running'); }
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) heroPause(); else if(heroOn) restart(); });
+  if('IntersectionObserver' in window && hsliderEl){
+    new IntersectionObserver(function(es){ heroOn = es[0].isIntersecting; if(heroOn && !document.hidden) restart(); else heroPause(); },{threshold:.15}).observe(hsliderEl);
+  }
 
   /* hero ORIGINAL slider (réplica fiel · 5 slides, self-contained) */
   var oslides=[].slice.call(document.querySelectorAll('.oslide'));
@@ -1715,6 +1827,13 @@
     }
     attachSwipe(osliderEl, function(){ onext('50%','50%'); orestart(); }, function(){ oprevf('50%','50%'); orestart(); });
     orestart();
+    /* QA 2026-07-09: autoplay pausado con tab oculto o slider fuera del viewport (patrón del carrusel Praise) */
+    var oOn = true;
+    function oPause(){ if(otimer){ clearInterval(otimer); otimer=null; } if(oprogress) oprogress.classList.remove('is-running'); }
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) oPause(); else if(oOn) orestart(); });
+    if('IntersectionObserver' in window && osliderEl){
+      new IntersectionObserver(function(es){ oOn = es[0].isIntersecting; if(oOn && !document.hidden) orestart(); else oPause(); },{threshold:.15}).observe(osliderEl);
+    }
   }
 
   /* switcher — herramienta de DEV: visible solo en localhost o con #dev en la URL; oculto en producción */
@@ -1995,15 +2114,27 @@
     sec.addEventListener('mousemove', function(e){
       var r=sec.getBoundingClientRect(); var t=(e.clientX-r.left)/r.width; t=t<0?0:(t>1?1:t); tar=-t*maxShift;
     });
+    /* QA 2026-07-09: el loop solo corre con la sección en viewport y el tab visible
+       (antes era un rAF permanente — único loop sin gate del Home) */
+    var rafId=0, onscreen=false;
     function tick(){
+      rafId=0;
       var d=tar-cur, moving=Math.abs(d)>1.5;
       if(aL) aL.classList.toggle('is-active', moving && d>0);
       if(aR) aR.classList.toggle('is-active', moving && d<0);
       cur+=d*EASE; if(Math.abs(tar-cur)<.2) cur=tar;
       track.style.transform='translateX('+cur.toFixed(1)+'px)';
-      requestAnimationFrame(tick);
+      if(onscreen && !document.hidden) rafId=requestAnimationFrame(tick);
     }
-    requestAnimationFrame(tick);
+    function glideStart(){ if(!rafId && onscreen && !document.hidden) rafId=requestAnimationFrame(tick); }
+    function glideStop(){ if(rafId){ cancelAnimationFrame(rafId); rafId=0; } }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        onscreen=es[0].isIntersecting;
+        if(onscreen) glideStart(); else glideStop();
+      },{rootMargin:'80px'}).observe(sec);
+    } else { onscreen=true; glideStart(); }
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) glideStop(); else glideStart(); });
   })();
 
   /* ---- Stories / testimonials: entrada scroll-reveal (rise+fade) de fotos y bubbles ---- */

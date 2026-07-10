@@ -15,7 +15,7 @@
 @import "./responsive-fix.css";
 
 :root {
-  --int-shell: min(1240px, calc(100vw - 2 * var(--gutter)));
+  --int-shell: var(--shell);   /* fuente única en tokens.css (Phase 2). Se ensancha abajo en ≥1440/1920px. */
   --int-copy: 68ch;
   --int-hero-min: 480px;
 }
@@ -192,7 +192,7 @@ body.int-page main { overflow: clip; }
 .int-section {
   width: var(--int-shell);
   margin: 0 auto;
-  padding: clamp(3.5rem, 6vw, 6rem) 0;
+  padding: var(--space-section-compact) 0;   /* mismo valor, ahora token (Phase 2) */
 }
 
 .int-eyebrow {
@@ -247,7 +247,7 @@ body.int-page main { overflow: clip; }
 }
 
 /* Full-bleed tinted bands */
-.int-band { padding: clamp(3.5rem, 6vw, 6rem) 0; }
+.int-band { padding: var(--space-section-compact) 0; }   /* mismo valor, ahora token (Phase 2) */
 .int-band > .int-shell { padding: 0; }
 .int-band--lilac { background: var(--grad-airy); }
 .int-band--dark { background: var(--grad-immersive); color: var(--text-on-dark); }
@@ -851,7 +851,7 @@ body.int-page main { overflow: clip; }
    internal.css SÍ importa mobile.css (paridad §A); este bloque queda como
    refuerzo scoped .int-page con los mismos valores (gana la cascada, cero
    cambio visual). Drawer state driven by body.menu-open (assets/js/internal.js). */
-@media (max-width: 1199px) {
+@media (max-width: 1319px) {
   .int-page .snav__main .wrap {
     display: flex !important;
     align-items: center;
@@ -1045,7 +1045,7 @@ body.int-page main { overflow: clip; }
           <video class="int-hero__video" autoplay muted loop playsinline poster="...">…
    El gradiente base de .int-hero queda como fallback mientras el video carga. */
 .int-hero--video {
-  min-height: min(100svh, 900px);
+  min-height: min(100svh, var(--hero-cap));   /* tope compartido (Phase 2) — antes literal 900px */
   display: flex;
   align-items: center;
   overflow: hidden;

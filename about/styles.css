@@ -7,7 +7,7 @@
 @import "../styles/responsive-fix.css";
 
 :root {
-  --about-shell: min(1240px, calc(100vw - 2 * var(--gutter)));
+  --about-shell: var(--shell);   /* fuente única en tokens.css (Phase 2) — mismo valor (cap 1240, sin bumps) */
   --about-copy: 68ch;
   --about-hero-min: 560px;
 }
@@ -101,24 +101,33 @@ body.about-page .site-footer {
   margin: 0 auto;
 }
 
-.about-breadcrumbs {
+/* Breadcrumb unificado → clase canónica única .int-breadcrumbs (Phase 2 · item 8).
+   Idéntica a styles/internal.css .int-breadcrumbs. El cluster About no importa internal.css,
+   por eso se define aquí también (mismos valores). Antes: .about-breadcrumbs + .about-breadcrumbs--corner. */
+.int-breadcrumbs {
+  position: absolute;
+  left: clamp(1.1rem, 4vw, 2.6rem);
+  bottom: clamp(1.4rem, 3vh, 2.6rem);
+  z-index: 5;
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 1.25rem;
-  color: rgba(255, 255, 255, 0.74);
-  font-size: 0.92rem;
-  letter-spacing: 0.08em;
+  gap: 0.5rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  text-shadow: 0 1px 12px rgba(14, 22, 49, 0.45);
 }
 
-.about-breadcrumbs a {
-  color: inherit;
-  text-decoration: none;
-}
+.int-breadcrumbs a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.int-breadcrumbs a:hover { color: var(--gold); }
+.int-breadcrumbs [aria-current="page"] { color: var(--gold); }
+.int-breadcrumbs .crumb-sep { opacity: 0.55; }
 
-.about-breadcrumbs a:hover {
-  color: var(--gold);
+@media (max-width: 560px) {
+  .int-breadcrumbs { font-size: 0.64rem; }
 }
 
 .about-kicker {
@@ -860,31 +869,8 @@ body.about-page .site-footer {
   height: 16px;
 }
 
-/* Breadcrumb — RULES §F (rev 2026-07-04): texto plano sutil, SIN chip (sin pill/borde/blur);
-   abajo-izquierda, separador de punto (·). */
-.about-breadcrumbs--corner {
-  position: absolute;
-  left: clamp(1.1rem, 4vw, 2.6rem);
-  right: auto;
-  bottom: clamp(1.4rem, 3vh, 2.6rem);
-  width: auto;
-  margin: 0;
-  transform: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  z-index: 5;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 1px 12px rgba(14, 22, 49, 0.45);
-}
-.about-breadcrumbs--corner a { color: rgba(255, 255, 255, 0.85); }
-.about-breadcrumbs--corner [aria-current="page"] { color: var(--gold); }
-.about-breadcrumbs--corner .crumb-sep { opacity: 0.55; }
-@media (max-width: 560px) {
-  .about-breadcrumbs--corner { font-size: 0.64rem; }
-}
+/* Breadcrumb corner-overlay → fusionado en la clase canónica .int-breadcrumbs (arriba, Phase 2 · item 8).
+   Ya no hay .about-breadcrumbs--corner: el look era idéntico al canónico. */
 
 /* Reveal de entrada SUTIL (reutiliza about.js [data-reveal]): 14px, sin blur, leve stagger.
    Reemplaza el text-wave GSAP del Home (yPercent 120 + blur 8px) que el cliente vio "muy tosco".
@@ -2363,4 +2349,54 @@ body.about-page .site-footer {
     filter: none;
     transition: none;
   }
+}
+
+/* ── Phase 3 (2026-07-09) · FAQ / AEO block ─────────────────────────────────
+   Additive, self-contained — NOT a redesign. Dark editorial band matching the
+   About Gary aesthetic (navy #0e1631 + gold #e7b75a + inherited Fraunces).
+   The visible Q&As mirror the FAQPage JSON-LD injected in <head>. The answer
+   class (.about-faq__a) is also reused by the About-SOTSI FAQ, so its styling
+   is scoped under .about-faq to avoid leaking onto that lighter page. */
+.about-faq {
+  position: relative;
+  background: #0e1631;
+  color: #e8ecf7;
+  padding: clamp(3.5rem, 3rem + 4vw, 7rem) 1.5rem;
+}
+.about-faq__inner {
+  width: min(760px, 92%);
+  margin: 0 auto;
+}
+.about-faq__eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #e7b75a;
+}
+.about-faq__title {
+  margin: 0 0 2.2rem;
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 3rem);
+  line-height: 1.1;
+  color: #fff;
+}
+.about-faq__list {
+  display: grid;
+  gap: 1.3rem;
+}
+.about-faq__item {
+  padding-top: 1.3rem;
+  border-top: 1px solid rgba(231, 183, 90, 0.28);
+}
+.about-faq__q {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.35rem);
+  line-height: 1.35;
+  color: #fff;
+}
+.about-faq .about-faq__a {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #c9d2e6;
 }

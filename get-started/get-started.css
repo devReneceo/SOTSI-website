@@ -20,27 +20,11 @@
 .gs-page .snav .nlink[aria-current="page"] { color: var(--gold); position: relative; }
 .gs-page .snav__mobile-panel a[aria-current="page"] { color: var(--gold); font-weight: 600; }
 
-/* Breadcrumb — RULES §F (rev 2026-07-04): texto plano sutil, SIN chip, bottom-left, dot separator */
-.gs-hero .crumb-pill {
-  position: absolute;
-  left: clamp(1.1rem, 4vw, 2.6rem);
-  bottom: clamp(1.4rem, 3vh, 2.6rem);
-  z-index: 5;
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  font-family: var(--font-body); font-size: 0.72rem;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 1px 12px rgba(14, 22, 49, 0.45);
-}
-.gs-hero .crumb-pill a { color: rgba(255, 255, 255, 0.85); text-decoration: none; transition: color 0.2s; }
-.gs-hero .crumb-pill a:hover { color: var(--gold); }
-.gs-hero .crumb-pill [aria-current="page"] { color: var(--gold); }
-.gs-hero .crumb-pill__sep { opacity: 0.55; }
+/* Breadcrumb → clase canónica .int-breadcrumbs (styles/internal.css). get-started carga internal.css,
+   así que usa el sistema compartido (Phase 2 · item 8). Se eliminó .gs-hero .crumb-pill: el look era
+   idéntico al canónico. .int-breadcrumbs es absolute y se ancla a .gs-hero (position:relative). */
 /* keep the dev ribbon clear of the breadcrumb */
 .gs-page .proto-ribbon { left: auto; right: 1rem; }
-@media (max-width: 560px) {
-  .gs-hero .crumb-pill { font-size: 0.64rem; }
-}
 
 /* Shared inner shell for the CTA movements (matches internal.css --int-shell) */
 .gs-shell { width: var(--int-shell); margin-inline: auto; }

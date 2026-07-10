@@ -11,7 +11,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  min-height: min(100svh, 900px);
+  min-height: min(100svh, var(--hero-cap));   /* tope compartido (Phase 2) — antes literal 900px */
   padding: clamp(8.5rem, 14vh, 11rem) 0 clamp(5rem, 9vh, 7rem);
   background: var(--grad-deep);
   color: var(--text-on-dark);

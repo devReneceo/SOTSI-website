@@ -50,16 +50,17 @@
 
   const store = {
     get() {
-      try { return JSON.parse(sessionStorage.getItem(STORE_KEY)); } catch { return null; }
+      try { return JSON.parse(sessionStorage.getItem(STORE_KEY)); } catch (err) { return null; }
     },
     set(value) {
-      try { sessionStorage.setItem(STORE_KEY, JSON.stringify(value)); } catch { /* private mode */ }
+      try { sessionStorage.setItem(STORE_KEY, JSON.stringify(value)); } catch (err) { /* private mode */ }
     },
   };
 
   let indexPromise = null;
   const loadIndex = () => {
-    indexPromise ||= fetch(DATA_URL).then((res) => {
+    // sin logical assignment de ES2021: Safari <14 no lo parsea y mataría todo el archivo
+    indexPromise = indexPromise || fetch(DATA_URL).then((res) => {
       if (!res.ok) throw new Error(`blog index ${res.status}`);
       return res.json();
     });
@@ -374,7 +375,11 @@
     function buildPicks() {
       if (!picksHost) return;
       const ranked = posts.filter((p) => p.rank > 0).sort((a, b) => a.rank - b.rank).slice(0, 3);
-      if (!ranked.length) { picksHost.closest("section")?.setAttribute("hidden", ""); return; }
+      if (!ranked.length) {
+        const picksSection = picksHost.closest("section");
+        if (picksSection) picksSection.setAttribute("hidden", "");
+        return;
+      }
       picksHost.textContent = "";
       ranked.forEach((post, i) => {
         const { clean } = titleParts(post);
@@ -456,13 +461,13 @@
     };
 
     let debounce = 0;
-    searchInput?.addEventListener("input", () => {
+    if (searchInput) searchInput.addEventListener("input", () => {
       clearTimeout(debounce);
       debounce = setTimeout(() => update({ q: searchInput.value, shown: BATCH }), 130);
     });
-    sortSel?.addEventListener("change", () => update({ sort: sortSel.value, shown: BATCH }));
-    moreBtn?.addEventListener("click", () => update({ shown: state.shown + BATCH }));
-    clearBtn?.addEventListener("click", () => {
+    if (sortSel) sortSel.addEventListener("change", () => update({ sort: sortSel.value, shown: BATCH }));
+    if (moreBtn) moreBtn.addEventListener("click", () => update({ shown: state.shown + BATCH }));
+    if (clearBtn) clearBtn.addEventListener("click", () => {
       if (searchInput) searchInput.value = "";
       state.topic = "all";
       syncChips();
@@ -474,7 +479,7 @@
       .then((data) => {
         posts = data.posts || [];
         if (totalEl) totalEl.textContent = String(posts.length);
-        skel?.remove();
+        if (skel) skel.remove();
         buildChips();
         buildHeroVisual();
         buildPicks();
@@ -485,7 +490,7 @@
         }
       })
       .catch(() => {
-        skel?.remove();
+        if (skel) skel.remove();
         if (gridView) gridView.hidden = false;
         if (moreBtn) moreBtn.hidden = true;
         if (emptyEl) {
@@ -494,7 +499,7 @@
           const p = $("p", emptyEl);
           if (h3) h3.textContent = "The blog directory could not load.";
           if (p) p.textContent = "Please refresh the page, or read every reflection on seatofthesoul.com/blog.";
-          clearBtn?.remove();
+          if (clearBtn) clearBtn.remove();
         }
       });
 
@@ -817,6 +822,17 @@
             host.classList.remove("is-ready");
           });
           host.appendChild(viewer);
+
+          // QA 2026-07-09: tras montar, el WebGL corría en continuo. display:none apaga
+          // raster/composición cuando el hero sale del viewport o el tab se oculta
+          // (el poster de marca queda detrás); al volver se muestra sin re-init.
+          const setRunning = (run) => { viewer.style.display = run ? "" : "none"; };
+          const visIO = new IntersectionObserver(([e]) => {
+            inView = e.isIntersecting;
+            setRunning(inView && !document.hidden);
+          }, { threshold: 0, rootMargin: "120px" });
+          visIO.observe(host);
+          document.addEventListener("visibilitychange", () => setRunning(inView && !document.hidden));
 
           // Kill the "Built with Spline" badge. It's added to the viewer's open
           // shadow root as #logo — sometimes only AFTER the scene finishes

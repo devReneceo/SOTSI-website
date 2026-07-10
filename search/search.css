@@ -110,7 +110,7 @@
 }
 .srch-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
 /* .chip / .chip.is-active come from internal.css — only size deltas here */
-.srch-chips .chip { min-height: 40px; padding: 0.4rem 0.95rem; font-size: 0.92rem; }
+.srch-chips .chip { min-height: 44px; padding: 0.4rem 0.95rem; font-size: 0.92rem; }  /* 44px touch target (Phase 4 QA) */
 .srch-chips .chip:focus-visible { outline: 3px solid rgba(254, 212, 87, 0.55); outline-offset: 2px; }
 .srch-count {
   margin: 0 0.25rem 0 auto;

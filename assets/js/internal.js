@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (year) year.textContent = String(new Date().getFullYear());
 
   document.querySelectorAll("[data-burger]").forEach((button) => {
-    const panel = button.closest(".snav")?.querySelector("[data-mobile]");
+    // sin optional chaining: Safari <13.1 (iPads viejos) no lo parsea y mataría todo el archivo
+    const nav = button.closest(".snav");
+    const panel = nav && nav.querySelector("[data-mobile]");
     if (!panel) return;
 
     button.addEventListener("click", () => {
@@ -48,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (linkPath === currentPath) {
         link.setAttribute("aria-current", "page");
       }
-    } catch {
+    } catch (err) {
       // ignore malformed relative hrefs
     }
   });
@@ -103,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
       const card = form.closest(".form-card");
       if (card) card.classList.add("is-sent");
-      const success = card?.querySelector(".form-success");
+      const success = card ? card.querySelector(".form-success") : null;
       if (success) success.setAttribute("role", "status");
     });
   });
@@ -166,14 +168,14 @@ document.addEventListener("DOMContentLoaded", () => {
       back.addEventListener("click", () => {
         try {
           sessionStorage.setItem(RETURN_GO, "1");
-        } catch {
+        } catch (err) {
           /* sin storage el link igual navega al origen */
         }
       });
       document.body.appendChild(back);
       requestAnimationFrame(() => back.classList.add("is-on"));
     }
-  } catch {
+  } catch (err) {
     /* referrer opaco o storage inaccesible — simplemente no hay píldora */
   }
 });

@@ -7,7 +7,7 @@ Estos son los **snippets exactos** para el sitio Webflow. Reemplaza `{BASE_URL}`
 > (requiere haber empujado `webflow-template/` a ese repo). Tras publicar, fija una versión/tag en vez de `@main` para producción.
 >
 > **Pin ACTUAL en el sitio "SOTSI Demo" (2026-07-01/02, rama `webflow-mcp-assets`):**
-> `https://cdn.jsdelivr.net/gh/devReneceo/SOTSI-website@4b3a8ea22ac27f291d06704687f99488221c7285/webflow-template`
+> `https://cdn.jsdelivr.net/gh/devReneceo/SOTSI-website@3ca6a17fa6dd23b65ec18835efa2abcdfb569332/webflow-template`
 >
 > ⚠️ **2026-07-04: pin OBSOLETO para `tokens/brand/mobile/section-polish.css`** — la rama tiene el sync del estático (nav real + Blog → blog/ + Oprah/Books). Tras push de esta rama: **repin quirúrgico** al nuevo SHA (leer el head vivo por MCP y cambiar SOLO el SHA — nunca pegar este md encima).
 > (incluye: sync lote cliente 2026-06-30, guards hslider+greeting, normalización de booleanos

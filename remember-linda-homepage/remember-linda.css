@@ -1,0 +1,733 @@
+/* In Celebration of Linda Francis — estilos propios (2026-07-03).
+   Se apoya en ../about/styles.css (tokens + brand + about-*). Prefijo rl-. */
+
+/* ============ 1 · HERO — Linda sobre nubes pastel (texto a la izquierda) ============ */
+.rl-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(30rem, 78svh, 46rem);   /* svh (no vh) — evita el salto por la barra de URL móvil (Phase 2 · item 7) */
+  display: flex;
+  align-items: center;
+  padding: clamp(9rem, 8rem + 6vh, 12rem) var(--gutter) clamp(4rem, 8vh, 6rem);
+  background: url("../assets/images/remember-linda-hero.webp") center right / cover no-repeat, linear-gradient(180deg, #dfe3f0, #cfd5ea);
+  color: var(--navy);
+}
+
+/* veil: legibilidad del título sobre las nubes, se desvanece hacia Linda (derecha) */
+.rl-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.34) 34%, rgba(255, 255, 255, 0) 62%);
+  pointer-events: none;
+}
+
+/* scrim superior navy: el nav blanco se perdía sobre las nubes claras (feedback 2026-07-04).
+   Franja corta que muere antes de la zona del título; al hacer scroll is-condensed ya pinta sólido. */
+.rl-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: clamp(120px, 16vh, 170px);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(14, 22, 49, 0.46) 0%, rgba(14, 22, 49, 0.22) 55%, transparent 100%);
+}
+
+.rl-hero__inner {
+  position: relative;
+  z-index: 2;
+  width: min(var(--maxw), 100%);
+  margin: 0 auto;
+}
+
+/* eyebrow + subline del hero (copy descriptivo del contenido real de la página) */
+.rl-hero__kicker {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(14, 22, 49, 0.55);
+}
+
+.rl-hero__sub {
+  margin: 1.15rem 0 0;
+  max-width: 44ch;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.18rem);
+  line-height: 1.6;
+  color: rgba(14, 22, 49, 0.72);
+}
+
+.rl-hero__title {
+  margin: 0;
+  max-width: 12ch;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.9rem, 1.9rem + 4.6vw, 6.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  color: var(--navy);
+  text-shadow: 0 1px 22px rgba(255, 255, 255, 0.55);
+}
+
+.rl-hero__name {
+  display: block;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--purple);
+}
+
+.rl-hero__rule {
+  display: block;
+  width: clamp(72px, 9vw, 118px);
+  height: 2px;
+  margin: 1.6rem 0 0;
+  background: linear-gradient(90deg, rgba(254, 212, 87, 0.95), rgba(254, 212, 87, 0));
+}
+
+/* hairline oro al pie del hero — mismo lenguaje que los heroes About */
+.rl-hero__border {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.85) 18%, rgba(254, 212, 87, 0.85) 82%, transparent);
+}
+
+/* ≤1199 (antes 720): en 721-1199 el cover pineado a la derecha desplaza la cara de Linda al
+   centro y el título la invadía (2.png, ~997px) — se extiende la composición poster del móvil
+   (título al fondo + veil vertical) a todo el rango tablet, mismo umbral del nav burger. */
+@media (max-width: 1199px) {
+  .rl-hero {
+    min-height: 34rem;
+    align-items: flex-end;
+    background-position: 80% center;
+  }
+  .rl-hero__veil {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0.6) 54%, rgba(255, 255, 255, 0.85) 100%);
+  }
+}
+/* tablet respira más alto que el móvil */
+@media (min-width: 721px) and (max-width: 1199px) {
+  .rl-hero {
+    min-height: clamp(36rem, 76svh, 44rem);   /* svh (no vh) — Phase 2 · item 7 */
+  }
+}
+
+/* ============ 2 · BANDA INMERSIVA — Soul Tide + video + CTA + share ============ */
+.rl-tide {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(5rem, 4rem + 6vh, 8.5rem) var(--gutter);
+  color: var(--text-on-dark);
+  background: var(--grad-immersive, linear-gradient(155deg, #0e1631 0%, #1d1340 48%, #3c1951 100%));
+}
+
+.rl-tide__waves {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.rl-tide__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(70% 56% at 50% 42%, rgba(14, 22, 49, 0.6) 0%, rgba(14, 22, 49, 0.24) 55%, rgba(14, 22, 49, 0) 82%);
+}
+
+.rl-tide__inner {
+  position: relative;
+  z-index: 2;
+  width: min(66rem, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2.2rem, 5vh, 3.4rem);
+}
+
+/* -- row 1 · video con halo -- */
+.rl-video {
+  position: relative;
+  width: min(58rem, 100%);
+}
+
+/* halo dorado que respira detrás del marco (eco del halo del retrato del Home) */
+.rl-video__halo {
+  position: absolute;
+  inset: -14% -10%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(254, 212, 87, 0.22) 0%, rgba(210, 204, 253, 0.12) 46%, transparent 72%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.rl-video__frame {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #0a0f22;
+  box-shadow:
+    0 0 0 1px rgba(254, 212, 87, 0.35),
+    0 0 0 6px rgba(255, 255, 255, 0.04),
+    0 30px 80px -24px rgba(0, 0, 0, 0.7),
+    0 0 90px -18px rgba(254, 212, 87, 0.28);
+}
+
+.rl-video__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.rl-video__facade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: block;
+}
+
+.rl-video__facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 900ms var(--ease), opacity var(--dur) var(--ease);
+}
+
+.rl-video__facade:hover img,
+.rl-video__facade:focus-visible img { transform: scale(1.025); }
+
+.rl-video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(64px, 9vw, 88px);
+  height: clamp(64px, 9vw, 88px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--navy);
+  background: linear-gradient(160deg, #ffeb9a, var(--gold));
+  box-shadow: 0 0 0 8px rgba(254, 212, 87, 0.22), 0 18px 44px -12px rgba(0, 0, 0, 0.6);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.rl-video__play svg { width: 44%; height: 44%; margin-left: 6%; }
+
+.rl-video__facade:hover .rl-video__play,
+.rl-video__facade:focus-visible .rl-video__play {
+  transform: translate(-50%, -50%) scale(1.07);
+  box-shadow: 0 0 0 12px rgba(254, 212, 87, 0.28), 0 18px 44px -12px rgba(0, 0, 0, 0.6);
+}
+
+.rl-video__facade:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; border-radius: var(--radius-lg); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .rl-video__halo { animation: rlHaloBreathe 7s ease-in-out infinite alternate; }
+  @keyframes rlHaloBreathe {
+    from { opacity: 0.75; transform: scale(0.97); }
+    to { opacity: 1; transform: scale(1.03); }
+  }
+}
+
+/* -- row 2 · CTA -- */
+.rl-tide__cta { text-align: center; max-width: 100%; }
+.rl-tide__cta .btn-cta__label { text-transform: none; }
+
+/* labels largos deben envolver en pantallas chicas (base: white-space nowrap) */
+@media (max-width: 720px) {
+  .rl-tide__cta .btn-cta,
+  .rl-celebrate__cta .btn-cta { max-width: 100%; }
+  .rl-tide__cta .btn-cta__inner,
+  .rl-celebrate__cta .btn-cta__inner {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+  }
+  .rl-tide__cta .btn-cta__label,
+  .rl-celebrate__cta .btn-cta__label { max-width: 26ch; }
+}
+
+/* -- row 3 · share bar -- */
+.rl-share {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  text-align: center;
+}
+
+.rl-share__label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.3rem, 1.1rem + 1vw, 1.9rem);
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+
+.rl-share__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.rl-share__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: var(--tap, 52px);
+  padding: 0 1.4rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(254, 212, 87, 0.42);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.rl-share__btn svg { width: 20px; height: 20px; flex: none; }
+
+.rl-share__btn:hover,
+.rl-share__btn:focus-visible {
+  background: rgba(254, 212, 87, 0.16);
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.rl-share__btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.rl-share__btn.is-copied { background: rgba(254, 212, 87, 0.24); border-color: var(--gold); color: var(--gold); }
+
+.rl-share__url {
+  margin: 0;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.55);
+  word-break: break-all;
+}
+
+.rl-share__live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* ============ 3 · CELEBRATING LINDA ============ */
+.rl-celebrate {
+  position: relative;
+  padding: var(--space-section) var(--gutter);
+  background: linear-gradient(180deg, var(--surface, #fff) 0%, var(--surface-periwinkle, #eceaff) 100%);
+  color: var(--text-on-light);
+  overflow: hidden;
+}
+
+.rl-celebrate__inner {
+  width: min(var(--maxw-wide, 1180px), 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 5rem);
+}
+
+.rl-celebrate__media { position: relative; }
+
+/* halo suave detrás del PNG (los círculos dorados ya vienen integrados en la imagen) */
+.rl-celebrate__haloline {
+  position: absolute;
+  inset: 6% 2%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 212, 87, 0.2) 0%, rgba(254, 212, 87, 0.07) 46%, transparent 68%);
+  pointer-events: none;
+}
+
+.rl-celebrate__figure { margin: 0; position: relative; }
+
+.rl-celebrate__figure img {
+  width: min(100%, 34rem);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rl-celebrate__figure { animation: rlFloat 9s ease-in-out infinite alternate; }
+  @keyframes rlFloat {
+    from { transform: translateY(-6px); }
+    to { transform: translateY(8px); }
+  }
+}
+
+.rl-celebrate__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(1.2rem, 2.5vh, 1.8rem);
+}
+
+/* supertítulo script (Pinyon vía --font-accent) — eco del "Linda" script del Home */
+.rl-celebrate__title {
+  margin: 0;
+  max-width: 100%;
+  font-family: var(--font-accent, "Pinyon Script", cursive);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 1.5rem + 5.4vw, 6rem);
+  line-height: 1.12;
+  color: var(--purple);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.rl-celebrate__title::after {
+  content: "";
+  display: block;
+  width: 96px;
+  height: 2px;
+  margin: 0.9rem auto 0;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.95) 50%, transparent);
+}
+
+.rl-celebrate__text {
+  margin: 0;
+  max-width: 46ch;
+  font-size: var(--text-lead, 1.25rem);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-on-light-soft);
+  text-wrap: pretty;
+}
+
+/* CTA sobre fondo claro: btnstyle-2 (ghost) es para fondos oscuros → píldora navy
+   sólida con label blanco/oro (marca LOCKED: oro solo como acento sobre navy) */
+.rl-celebrate__cta .btn-cta .btn-cta__inner {
+  background: linear-gradient(160deg, #16204a 0%, var(--navy) 60%, #1d1340 100%);
+  border-color: transparent;
+}
+
+.rl-celebrate__cta .btn-cta .btn-cta__label { color: #fff; }
+.rl-celebrate__cta .btn-cta .btn-cta__icon { color: var(--gold); }
+
+.rl-celebrate__cta .btn-cta:hover .btn-cta__inner,
+.rl-celebrate__cta .btn-cta:focus-visible .btn-cta__inner {
+  box-shadow: 0 14px 34px -12px rgba(14, 22, 49, 0.5), 0 0 0 2px rgba(254, 212, 87, 0.55);
+}
+
+@media (max-width: 900px) {
+  .rl-celebrate__inner { grid-template-columns: minmax(0, 1fr); }
+  .rl-celebrate__figure img { width: min(78vw, 26rem); }
+}
+
+@media (max-width: 480px) {
+  .rl-celebrate__title { font-size: min(2.5rem, 11.5vw); }
+}
+
+/* ============ 4 · MEMORIAS — slider ============ */
+.rl-memories {
+  position: relative;
+  padding: calc(var(--space-section) * 0.85) 0 calc(var(--space-section) * 0.85);
+  background: var(--surface-soft, #f6f4fb);
+  color: var(--text-on-light);
+  overflow: hidden;
+}
+
+.rl-memories__head {
+  width: min(var(--maxw), 100%);
+  margin: 0 auto clamp(1.6rem, 3.5vh, 2.4rem);
+  padding: 0 var(--gutter);
+  text-align: center;
+}
+
+.rl-memories__divider {
+  display: block;
+  width: min(520px, 68%);
+  height: 1px;
+  margin: clamp(1.4rem, 3vh, 2rem) auto 0;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.9) 50%, transparent);
+}
+
+/* Eyebrow: las 4 palabras verbatim, chicas y tracked — el peso visual pasa al sub */
+.rl-memories__title {
+  margin: 0 0 1rem;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35em 0.65em;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(0.78rem, 0.72rem + 0.3vw, 0.95rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(14, 22, 49, 0.72);
+}
+
+.rl-memories__dot {
+  color: var(--gold, #fed457);
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.rl-memories__sub {
+  margin: 0 auto;
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 1.2rem + 2vw, 2.6rem);
+  line-height: 1.25;
+  color: var(--navy);
+}
+
+/* Acento "Linda" — degradado púrpura→oro (patrón LOCKED, ver get-started .accent) */
+.rl-memories__accent {
+  font-style: italic;
+  background: linear-gradient(92deg, var(--purple) 0%, #7c4a9e 52%, #b8860b 108%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* -- muro de memorias: masonry por CSS columns, alturas naturales -- */
+.rl-wall {
+  width: min(var(--maxw), 100%);
+  margin: 0 auto;
+  padding: 0.6rem var(--gutter) 0;
+  columns: 3;
+  column-gap: clamp(1.1rem, 2vw, 1.6rem);
+}
+
+@media (max-width: 1100px) { .rl-wall { columns: 2; } }
+@media (max-width: 720px) { .rl-wall { columns: 1; } }
+
+.rl-card {
+  break-inside: avoid;
+  width: 100%;
+  margin-bottom: clamp(1.1rem, 2vw, 1.6rem);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 2.4vw, 2.2rem) clamp(1.3rem, 2.2vw, 2rem);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  border: 1px solid var(--hairline, rgba(14, 22, 49, 0.08));
+  box-shadow: var(--shadow-md, 0 18px 44px -20px rgba(14, 22, 49, 0.22));
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+/* hover memorial suave: lift + hairline oro (sin spotlight) */
+.rl-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(254, 212, 87, 0.55);
+  box-shadow: 0 26px 54px -22px rgba(14, 22, 49, 0.3);
+}
+
+/* reveal escalonado del muro (la base [data-reveal] vive en about/styles.css) */
+.reveals-on .rl-wall .rl-card[data-reveal]:nth-child(3n + 2) { transition-delay: 90ms; }
+.reveals-on .rl-wall .rl-card[data-reveal]:nth-child(3n) { transition-delay: 180ms; }
+
+/* comilla decorativa Fraunces */
+.rl-card__quote {
+  position: relative;
+  margin: 0;
+  padding-top: 2.1rem;
+}
+
+.rl-card__quote::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.4rem;
+  left: -0.35rem;
+  font-family: var(--font-display);
+  font-size: 4.6rem;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+.rl-card__quote p {
+  margin: 0 0 1em;
+  font-size: clamp(1rem, 0.96rem + 0.25vw, 1.14rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--text-on-light);
+  text-wrap: pretty;
+}
+
+.rl-card__quote p:last-child { margin-bottom: 0; }
+
+/* clamp + fade para tributos largos */
+.rl-card__quote.is-clamped {
+  max-height: 16.5em;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+}
+
+.rl-card__more {
+  align-self: flex-start;
+  margin-top: 0.9rem;
+  padding: 0.35rem 0;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--purple);
+  border-bottom: 1px solid rgba(60, 25, 81, 0.35);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.rl-card__more:hover,
+.rl-card__more:focus-visible { color: var(--navy); border-color: var(--gold); }
+.rl-card__more:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.rl-card__foot {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-top: auto;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--hairline, rgba(14, 22, 49, 0.08));
+}
+
+.rl-card__quote { margin-bottom: 1.6rem; }
+
+.rl-card__photo {
+  flex: none;
+  width: clamp(84px, 12vw, 118px);
+  height: clamp(84px, 12vw, 118px);
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px var(--gold), 0 0 0 7px rgba(254, 212, 87, 0.16);
+}
+
+.rl-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rl-card__initial {
+  flex: none;
+  width: clamp(84px, 12vw, 118px);
+  height: clamp(84px, 12vw, 118px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(160deg, var(--surface-periwinkle, #eceaff), #dcd5f7);
+  color: var(--purple);
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  box-shadow: 0 0 0 2px rgba(254, 212, 87, 0.55), 0 0 0 7px rgba(254, 212, 87, 0.12);
+}
+
+.rl-card__cite {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.55rem);
+  color: var(--navy);
+}
+
+/* reveals: mismo lenguaje que About (opacidad/translate viven en about/styles.css vía [data-reveal]) */
+
+@media (prefers-reduced-motion: reduce) {
+  .rl-card { transition: none; }
+  .rl-card:hover { transform: none; }
+  .rl-video__halo { animation: none; }
+  .rl-celebrate__figure { animation: none; }
+}
+
+/* ============ 6 · REVEALS (fix 2026-07-04) ============
+   about/styles.css acota el estado oculto de [data-reveal] a contenedores
+   .about-*; esta página usa .rl-* y quedaba inerte. Regla base scoped a
+   .rl-page (gated por html.reveals-on de about.js → sin JS todo visible). */
+.reveals-on .rl-page [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.72s var(--ease), transform 0.72s var(--ease);
+}
+.reveals-on .rl-page [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Secuencia staged del hero: kicker → título → nombre → rule → subline */
+.reveals-on .rl-page .rl-hero__title[data-reveal] { transition-delay: 0.1s; }
+.reveals-on .rl-page .rl-hero__title .rl-hero__name {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s var(--ease) 0.3s, transform 0.8s var(--ease) 0.3s;
+}
+.reveals-on .rl-page .rl-hero__title.is-revealed .rl-hero__name {
+  opacity: 1;
+  transform: none;
+}
+.reveals-on .rl-page .rl-hero__rule[data-reveal] {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition-delay: 0.5s;
+}
+.reveals-on .rl-page .rl-hero__rule[data-reveal].is-revealed { transform: scaleX(1); }
+.reveals-on .rl-page .rl-hero__sub[data-reveal] { transition-delay: 0.62s; }
+
+/* Breadcrumb sobre hero CLARO: variante navy (el blanco de la clase canónica .int-breadcrumbs
+   fallaría contraste sobre las nubes pastel). Override scoped a .rl-page (Phase 2 · item 8). */
+.rl-page .int-breadcrumbs {
+  color: rgba(14, 22, 49, 0.62);
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.6);
+}
+.rl-page .int-breadcrumbs a { color: rgba(14, 22, 49, 0.62); }
+.rl-page .int-breadcrumbs a:hover { color: var(--purple); }
+.rl-page .int-breadcrumbs [aria-current="page"] { color: var(--purple); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveals-on .rl-page [data-reveal],
+  .reveals-on .rl-page .rl-hero__title .rl-hero__name {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

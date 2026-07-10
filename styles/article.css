@@ -1,0 +1,315 @@
+/* ==========================================================================
+   Article pages (failing-government/, ai-and-human-evolution/) — shared layer
+   on top of styles/internal.css. Hero "aurora" sin fotografía (rev 2026-07-04,
+   los ensayos WP originales no llevan imágenes): gradiente inmersivo + blobs
+   de luz animados + grain, con la firma dorada + prose polish (drop cap).
+   ========================================================================== */
+
+/* --art-grain ahora es un alias del canónico --grain (tokens.css, cargado vía internal.css).
+   Se conserva el nombre para no tocar article.css:100 ni lf-series.css:70 (Phase 2 · single source). */
+:root {
+  --art-grain: var(--grain);
+}
+
+/* --------------------------------------------------------------------------
+   1 · HERO AURORA — sin foto; el lado del copy se elige por página:
+       .art-hero--left  → copy a la izquierda (halo a la izquierda)
+       .art-hero--right → copy a la derecha  (halo a la derecha)
+       Acento por página: .art-hero--aurora-ai (periwinkle, "mente")
+                          .art-hero--aurora-gov (oro/lilac, "amanecer cívico")
+   -------------------------------------------------------------------------- */
+.art-hero {
+  --halo-x: 68%;
+  position: relative;
+  min-height: min(100svh, var(--hero-cap));   /* tope compartido (Phase 2) — antes literal 900px */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--grad-immersive);
+  color: var(--text-on-dark);
+}
+.art-hero--left { --halo-x: 32%; }
+/* halo sutil detrás del titular */
+.art-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(46% 60% at var(--halo-x) 42%, rgba(210, 204, 253, 0.1), transparent 70%);
+}
+/* aurora: 3 blobs de luz, solo transform animado (compositor-friendly) */
+.art-hero__aurora {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.art-hero__aurora i {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  will-change: transform;
+  animation: artAurora 26s ease-in-out infinite alternate;
+}
+.art-hero__aurora i:nth-child(1) {
+  width: min(52vw, 760px);
+  aspect-ratio: 1;
+  top: -18%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(210, 204, 253, 0.3), transparent 66%);
+}
+.art-hero__aurora i:nth-child(2) {
+  width: min(46vw, 640px);
+  aspect-ratio: 1;
+  bottom: -24%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(124, 74, 158, 0.34), transparent 66%);
+  animation-duration: 34s;
+  animation-direction: alternate-reverse;
+}
+.art-hero__aurora i:nth-child(3) {
+  width: min(24vw, 340px);
+  aspect-ratio: 1;
+  top: 26%;
+  left: 34%;
+  background: radial-gradient(circle, rgba(254, 212, 87, 0.14), transparent 62%);
+  animation-duration: 21s;
+}
+@keyframes artAurora {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to { transform: translate3d(4%, 3%, 0) scale(1.09); }
+}
+/* IA — periwinkle dominante (frío, "mente") */
+.art-hero--aurora-ai .art-hero__aurora i:nth-child(1) { background: radial-gradient(circle, rgba(210, 204, 253, 0.36), transparent 66%); }
+.art-hero--aurora-ai .art-hero__aurora i:nth-child(3) { background: radial-gradient(circle, rgba(254, 212, 87, 0.12), transparent 62%); }
+/* Government — oro/lilac dominante ("amanecer cívico", sin tonos partidistas) */
+.art-hero--aurora-gov .art-hero__aurora i:nth-child(1) { background: radial-gradient(circle, rgba(210, 204, 253, 0.18), transparent 66%); }
+.art-hero--aurora-gov .art-hero__aurora i:nth-child(2) { background: radial-gradient(circle, rgba(231, 212, 241, 0.26), transparent 66%); }
+.art-hero--aurora-gov .art-hero__aurora i:nth-child(3) {
+  width: min(34vw, 480px);
+  background: radial-gradient(circle, rgba(254, 212, 87, 0.22), transparent 62%);
+}
+/* grain filmic encima de la aurora */
+.art-hero__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--art-grain);
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+}
+/* viñeta inferior ligera: contraste para cue + breadcrumb (ya no hay foto que domar) */
+.art-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 46%, rgba(14, 22, 49, 0.55) 100%);
+}
+/* THE GOLD BORDER — same gradient as the Home hero (brand.css:704-719) */
+.art-hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.78) 36%, rgba(255, 235, 69, 0.92) 50%, rgba(254, 212, 87, 0.78) 64%, transparent);
+  box-shadow: 0 0 22px rgba(254, 212, 87, 0.14);
+}
+.art-hero__inner {
+  position: relative;
+  z-index: 2;
+  width: var(--int-shell);
+  margin-inline: auto;
+  padding-top: clamp(8rem, 13vh, 10rem);
+  padding-bottom: clamp(6.5rem, 11vh, 8.5rem);
+}
+.art-hero__copy { max-width: clamp(38ch, 52vw, 60ch); }
+.art-hero--right .art-hero__copy { margin-left: auto; }
+.art-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.7rem, 1.6rem + 4.4vw, 5.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  text-shadow: 0 2px 34px rgba(14, 22, 49, 0.45);
+}
+.art-hero__title .gold { color: var(--gold); }
+.art-hero .int-rule { margin: 1.6rem 0 0; }
+/* descending cue-line (§C signature) into the essay */
+.art-hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(3.2rem, 6vh, 4.4rem);
+  z-index: 2;
+  height: 56px;
+  margin: 0;
+}
+
+/* CSS-only entrance — hero copy never depends on JS to become visible */
+.art-rise { animation: artRise 0.85s var(--ease) backwards; animation-delay: calc(var(--ri, 0) * 120ms + 100ms); }
+@keyframes artRise { from { opacity: 0; transform: translateY(22px); } }
+@media (prefers-reduced-motion: reduce) {
+  .art-rise { animation: none; }
+  .art-hero__aurora i { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .art-hero__copy, .art-hero--right .art-hero__copy { max-width: 100%; margin-left: 0; }
+}
+@media (max-width: 720px) {
+  .art-hero__aurora i { filter: blur(48px); }
+}
+
+/* --------------------------------------------------------------------------
+   1b · BYLINE sin foto — monograma con gradiente de marca (rev 2026-07-04)
+   -------------------------------------------------------------------------- */
+.int-byline__mono {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--grad-immersive);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 0 2px var(--gold), 0 6px 16px -8px rgba(14, 22, 49, 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   2 · PROSE POLISH — editorial drop cap + centered pull-quote
+   -------------------------------------------------------------------------- */
+.art-prose > p:first-child::first-letter {
+  float: left;
+  padding: 0.12em 0.14em 0 0;
+  font-family: var(--font-display);
+  font-size: 4.1em;
+  line-height: 0.76;
+  color: var(--purple);
+}
+
+/* (.art-pull retirado 2026-07-04 — feedback: copy de más en los artículos.) */
+
+/* --------------------------------------------------------------------------
+   3 · ESSAY SCENE (failing-government + ai-and-human-evolution, rev 2026-07-06c
+   — feedback Joel a1/a2.png: como el WP original)
+   Hero + ensayo en UNA sola escena aurora, columna editorial única centrada.
+   Header CENTRADO (título → divisor → byline serif "Gary Zukav" — Pinyon es el
+   lenguaje de Linda, Gary usa la display serif como en founders), prosa debajo,
+   y los CTAs de compartir AL FINAL del ensayo (Download/Print · Email · WhatsApp).
+   Scoped a .art-essay — lo comparten ambos ensayos, cada uno con su aurora.
+   -------------------------------------------------------------------------- */
+.art-essay {
+  min-height: auto;
+  align-items: stretch;
+  overflow: clip;
+}
+
+/* la escena crece con el ensayo; aire extra abajo para el breadcrumb absoluto */
+.art-essay .art-hero__inner {
+  padding-top: clamp(8.5rem, 14vh, 11rem);
+  padding-bottom: clamp(7rem, 10vw, 9.5rem);
+}
+
+/* columna única centrada con medida de lectura */
+.art-essay__grid {
+  max-width: 72ch;
+  margin-inline: auto;
+}
+
+/* header centrado como el WP original */
+.art-essay__rail { text-align: center; }
+.art-essay .int-rule { margin-inline: auto; }
+
+/* Fraunces explícita: font-brand pone --font-display en Canela, que esta página
+   no carga (caía al fallback Georgia) */
+.art-essay .art-hero__title {
+  font-family: "Fraunces", var(--font-display);
+  font-size: clamp(2.4rem, 1.3rem + 3.4vw, 4.3rem);
+}
+
+/* byline — serif display de Gary (la Pinyon cursiva queda para Linda) */
+.art-essay__byline {
+  margin: 1.3rem 0 0;
+  font-family: "Fraunces", var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.6rem);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--gold);
+  text-shadow: 0 2px 20px rgba(14, 22, 49, 0.4);
+}
+
+/* aire entre el header centrado y el arranque de la prosa */
+.art-essay__prose { margin-top: clamp(2.6rem, 5vh, 3.8rem); }
+
+/* prosa sobre la aurora: blanco suave (el .int-prose base es para fondo claro) */
+.art-essay__prose {
+  color: rgba(255, 255, 255, 0.88);
+}
+.art-essay__prose strong, .art-essay__prose em { color: #fff; }
+
+/* drop cap en oro (el púrpura del .art-prose base se pierde sobre navy),
+   y Fraunces explícita (mismo gotcha Canela/Georgia del título) */
+.art-essay__prose > p:first-child::first-letter {
+  font-family: "Fraunces", var(--font-display);
+  color: var(--gold);
+}
+
+/* si el primer párrafo es un lede corto (AI: una sola línea), el siguiente
+   párrafo no debe envolver la drop cap flotada */
+.art-essay__prose > p:first-child + p { clear: left; }
+
+/* share al final del ensayo, centrado como el WP original */
+.art-essay__share {
+  margin-top: clamp(3rem, 6vh, 4.5rem);
+  text-align: center;
+}
+.art-essay__share .int-rule { margin: 0 auto 1.4rem; }
+
+.art-essay__share-label {
+  display: inline-block; /* como <a> es inline y el margin vertical no aplicaba → quedaba pegado a los botones */
+  margin: 0 0 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--periwinkle);
+}
+a.art-essay__share-label {
+  text-decoration: underline;
+  text-decoration-color: rgba(210, 204, 253, 0.4);
+  text-underline-offset: 0.35em;
+  transition: color 0.25s ease, text-decoration-color 0.25s ease;
+}
+a.art-essay__share-label:hover,
+a.art-essay__share-label:focus-visible {
+  color: var(--yellow);
+  text-decoration-color: currentColor;
+}
+
+.art-essay__share-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+}
+.art-essay__share-row .btn svg { width: 18px; height: 18px; flex: none; }
+
+/* ghost sobre la aurora (el default de concepts.css es navy sobre claro) */
+.art-essay__share-row .btn--ghost {
+  --btn-fg: #fff;
+  border-color: rgba(255, 255, 255, 0.38);
+}
+.art-essay__share-row .btn--ghost:hover { border-color: rgba(255, 255, 255, 0.72); }

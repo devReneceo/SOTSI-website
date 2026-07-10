@@ -1,0 +1,45 @@
+name: Refresh Instagram top 3
+
+# Recalcula el top 3 REAL por views de @gary_zukav (insights de la Graph API)
+# y regenera los bloques IG-TOP3 (cards) e IG-TOP3-JSONLD (schema.org) de
+# index.html + assets/data/instagram-top3.json + pósters reel-*.webp.
+# El token vive SOLO en el Secret INSTAGRAM_ACCESSTOKEN.
+
+on:
+  schedule:
+    - cron: "41 9 * * 1"   # semanal, lunes ~9:41 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instafeed-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install webp tools
+        run: sudo apt-get update -q && sudo apt-get install -y -q webp
+
+      - name: Refresh top 3
+        env:
+          INSTAGRAM_ACCESSTOKEN: ${{ secrets.INSTAGRAM_ACCESSTOKEN }}
+        run: python3 .github/scripts/refresh_top3.py
+
+      - name: Commit & push if changed
+        run: |
+          git add index.html assets/data/instagram-top3.json assets/images/instagram/reel-*.webp
+          if git diff --cached --quiet; then
+            echo "Sin cambios — nada que commitear."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh Instagram top 3 (views)"
+          git pull --rebase origin main
+          git push

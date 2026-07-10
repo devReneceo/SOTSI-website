@@ -1,0 +1,190 @@
+/* Soul Connections Newsletter — capa de página (2026-07-04).
+   Hero de video (patrón .int-hero--video de internal.css) + feature-rows premium. */
+
+/* --- Qué recibes: feature rows --- */
+.nl-gifts {
+  display: grid;
+  gap: 1.2rem;
+  margin-top: 1.8rem;
+  max-width: var(--int-copy);
+}
+
+.nl-gift {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  padding: clamp(1.15rem, 2vw, 1.5rem) clamp(1.2rem, 2.2vw, 1.7rem);
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.nl-gift:hover {
+  transform: translateY(-4px);
+  border-color: rgba(254, 212, 87, 0.55);
+  box-shadow: var(--shadow-md);
+}
+
+.nl-gift__icon {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--grad-gold);
+  color: var(--navy);
+}
+
+.nl-gift__icon svg { width: 22px; height: 22px; }
+
+.nl-gift h3 {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.22rem;
+  color: var(--navy);
+}
+
+.nl-gift p {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-on-light);
+}
+
+/* --- Strip de confianza --- */
+.nl-assure {
+  margin: 0 auto;
+  max-width: 64ch;
+  padding-top: clamp(1.4rem, 3vw, 2.2rem);
+  text-align: center;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--text-on-light-soft);
+}
+
+.nl-assure::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin: 0 auto 1.1rem;
+  background: var(--grad-gold);
+}
+
+/* --- Copy del hero: two weekly emails (Soul Seeds / Wisdom Wednesday) --- */
+.nl-copy {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.7rem;
+  max-width: 56ch;
+}
+
+.nl-copy__lead {
+  margin: 0;
+  font-size: var(--text-lead);
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* Cada punto = párrafo plano con tick dorado (patrón .apg-list — sin cajas
+   ni acentos de color; feedback Joel 2026-07-06) */
+.nl-point {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  margin: 0;
+  font-size: var(--text-lead);
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.nl-point .tick {
+  color: var(--gold);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.nl-point__body { flex: 1 1 auto; min-width: 0; }
+
+/* frase inicial en bold blanco como el WP (Jost 300 + bolder solo da 400 — forzar) */
+.nl-point strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Highlight de marca — solo en el deck del hero */
+.nl-hl {
+  color: var(--yellow);
+  font-weight: 500;
+}
+
+/* "Subscribe today!" — gradiente oro + flecha-cue hacia el form */
+.nl-cta-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.7rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.32rem;
+  letter-spacing: -0.01em;
+}
+
+.nl-cta-text__label {
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nl-cta-arrow {
+  display: inline-grid;
+  place-items: center;
+  color: var(--gold);
+  animation: nl-bob 1.6s var(--ease, ease-in-out) infinite;
+}
+.nl-cta-arrow svg { width: 20px; height: 20px; }
+
+@keyframes nl-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(4px); }
+}
+
+/* Form protagonista: ancho completo del shell + halo dorado sutil
+   (mismo tratamiento que .apg-form; feedback Joel 2026-07-06) */
+.nl-form {
+  width: 100%;
+  margin-top: clamp(2rem, 4vw, 2.8rem);
+  padding: clamp(2.2rem, 4vw, 3.2rem);
+}
+
+.int-hero .nl-form {
+  border-color: rgba(254, 212, 87, 0.32);
+  box-shadow: 0 0 56px rgba(254, 212, 87, 0.14), 0 30px 80px rgba(8, 10, 26, 0.5);
+}
+
+/* En desktop los campos van en fila para que la caja ancha no quede vacía */
+@media (min-width: 760px) {
+  .nl-form form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1.1rem;
+    align-items: end;
+  }
+  .nl-form .field { margin-bottom: 0; }
+  .nl-form .btn { min-height: var(--tap); }
+}
+
+/* Deja aire bajo el form para que no choque con el breadcrumb absoluto del hero */
+.nl-immersive .int-hero { padding-bottom: clamp(5rem, 8vw, 7rem); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nl-cta-arrow { animation: none; opacity: 1; transform: none; }
+}

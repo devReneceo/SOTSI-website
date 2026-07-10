@@ -1,0 +1,314 @@
+/* ============================================================================
+   UNIVERSAL HUMAN · page-scoped styles (rebuild cálido y fiel al WP)
+   Loads after ../styles/internal.css. El cliente relajó el brand-lock navy SOLO
+   en esta página de libro: se reconstruye el mundo cálido del WP original
+   (naranja / durazno / océano / amarillo) y se enmarca con navy + oro de marca
+   (texto navy sobre bandas claras, blanco sobre naranja profundo, oro en CTAs).
+   Orden fiel a los 7 screenshots: hero · intro · waves · bio · oprah · tap · close.
+   ========================================================================== */
+
+:root {
+  /* paleta cálida scoped (derivada de los screenshots) */
+  --uh-orange:      #de5a24;   /* hero + split Oprah */
+  --uh-orange-deep: #c24e1e;   /* wash del hero / panel Oprah */
+  --uh-orange-deeper:#b0451a;
+  --uh-peach:       #e4a96c;   /* banda intro (sección 2) */
+  --uh-peach-soft:  #ebdac6;   /* banda bio (sección 4) */
+  --uh-rose:        #e6c9c6;
+  --uh-wall:        #f1bf48;   /* pared amarilla (sección 6) */
+  --uh-close:       #dd8c4f;   /* banda de cierre (sección 7) */
+  --uh-ocean:       #24404f;   /* base del video de olas (sección 3) */
+  --uh-script: "Dancing Script", "WorldDiscovery", cursive;
+}
+
+/* ---- entrada del hero (CSS-only; los reveals .rv los maneja internal.js) --- */
+.uh-rise { opacity: 0; transform: translateY(20px); animation: uhRise .85s var(--ease) forwards; animation-delay: calc(var(--ri, 0) * 100ms + 120ms); }
+@keyframes uhRise { to { opacity: 1; transform: none; } }
+
+/* ===========================================================================
+   BOTONES · scoped a esta página (internal.css no importa section-polish)
+   Base .btn-cta de marca desactivada; dos variantes cálidas.
+   ======================================================================== */
+.uh-btn { background: transparent; padding: 0; border: 0; box-shadow: 0 16px 32px -18px rgba(40, 16, 0, .5); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+.uh-btn .btn-cta__inner { padding: .86rem 1.05rem .86rem 1.5rem; border: 0 !important; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14) !important; }
+.uh-btn .btn-cta__inner::before { display: none !important; }
+.uh-btn .btn-cta__sheen { display: none !important; }
+.uh-btn:hover { transform: translateY(-2px); box-shadow: 0 22px 44px -20px rgba(40, 16, 0, .55); }
+.uh-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: var(--radius-pill); }
+
+.uh-btn--gold .btn-cta__inner { background: linear-gradient(118deg, #fed457, #ffe184) !important; color: var(--navy) !important; }
+.uh-btn--gold .btn-cta__label { color: var(--navy) !important; }
+.uh-btn--gold .btn-cta__icon { background: rgba(14, 22, 49, .16) !important; color: var(--navy) !important; box-shadow: inset 0 0 0 1px rgba(14, 22, 49, .18) !important; }
+.uh-btn--gold:hover .btn-cta__inner { background: linear-gradient(118deg, #ffdc6a, #ffe9a0) !important; }
+
+.uh-btn--navy .btn-cta__inner { background: var(--navy) !important; color: var(--gold) !important; }
+.uh-btn--navy .btn-cta__label { color: var(--gold) !important; }
+.uh-btn--navy .btn-cta__icon { background: rgba(254, 212, 87, .18) !important; color: var(--gold) !important; box-shadow: inset 0 0 0 1px rgba(254, 212, 87, .32) !important; }
+.uh-btn--navy:hover .btn-cta__inner { background: #16223f !important; }
+
+/* ===========================================================================
+   1 · HERO (12.png) — naranja, título script, portada estática
+   ======================================================================== */
+.uh-hero {
+  position: relative;
+  min-height: min(100svh, 820px);
+  display: grid; align-items: center;
+  overflow: hidden; isolation: isolate;
+  background: var(--uh-orange);
+}
+.uh-hero__bg {
+  position: absolute; inset: 0; z-index: -3;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 78% 30%;
+}
+.uh-hero__wash {
+  position: absolute; inset: 0; z-index: -2;
+  background:
+    linear-gradient(96deg, var(--uh-orange-deep) 0%, rgba(194,78,30,.86) 34%, rgba(194,78,30,.30) 62%, rgba(194,78,30,.02) 100%),
+    linear-gradient(0deg, rgba(176,69,26,.5), rgba(176,69,26,0) 38%);
+}
+.uh-hero__inner {
+  position: relative; z-index: 1;
+  width: var(--int-shell); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  gap: clamp(1rem, 4vw, 3rem);
+  align-items: center;
+  padding-block: clamp(6rem, 13vh, 9rem);
+}
+.uh-hero__copy { max-width: 34rem; }
+.uh-hero__title {
+  margin: 0 0 .2rem;
+  font-family: var(--uh-script);
+  font-weight: 600; color: #fff;
+  font-size: clamp(3.1rem, 1.5rem + 6.6vw, 6.6rem);
+  line-height: 1; letter-spacing: 0;
+  text-shadow: 0 6px 30px rgba(90, 30, 0, .3);
+}
+.uh-hero__byline {
+  margin: 0 0 1.7rem;
+  font-family: var(--font-body); text-transform: uppercase;
+  font-weight: 500; letter-spacing: .16em; color: #fff;
+  font-size: clamp(1rem, .85rem + .55vw, 1.35rem);
+}
+.uh-hero__award {
+  margin: 0 0 2rem;
+  font-family: var(--font-body); color: rgba(255, 255, 255, .94);
+  font-size: clamp(1.05rem, .98rem + .3vw, 1.3rem); line-height: 1.5;
+  max-width: 24rem; font-weight: 300;
+}
+.uh-hero__ctarow { margin: 0; }
+
+/* portada estática (sin tilt, sin glow) integrada a la escena como en 12.png */
+.uh-hero__book { justify-self: end; align-self: center; }
+.uh-hero__bookimg {
+  width: clamp(180px, 24vw, 320px); height: auto; display: block;
+  transform: rotate(-3deg);
+  filter: drop-shadow(0 34px 60px rgba(60, 20, 0, .5));
+}
+
+/* borde-oro inferior (firma §B) */
+.uh-hero::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  height: 4px;
+  background: linear-gradient(120deg, #fed457, #ffeb45);
+}
+
+/* ===========================================================================
+   2 · BOOK INTRO (sec2.png) — banda durazno, texto navy + foto Gary azul
+   ======================================================================== */
+.uh-intro { background: linear-gradient(180deg, #e7b079 0%, var(--uh-peach) 100%); }
+.uh-intro__shell {
+  width: var(--int-shell); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+.uh-intro__body { max-width: 34rem; }
+.uh-intro__lead {
+  margin: 0 0 2rem;
+  font-family: var(--font-body);
+  font-size: clamp(1.12rem, 1rem + .6vw, 1.5rem); line-height: 1.62;
+  color: var(--navy); font-weight: 400;
+}
+.uh-intro__lead em { font-style: italic; }
+.uh-intro__cta { margin: 0; }
+.uh-intro__photo { margin: 0; }
+.uh-intro__photo img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 34px 66px -30px rgba(70, 30, 8, .55);
+}
+
+/* ===========================================================================
+   3 · WAVES (d4.png) — océano, script blanco + caps
+   ======================================================================== */
+.uh-waves {
+  position: relative; overflow: hidden; isolation: isolate;
+  min-height: min(58svh, 460px);
+  display: grid; place-items: center; text-align: center;
+  background: var(--uh-ocean);
+}
+.uh-waves__vid { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+.uh-waves__scrim {
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(18,36,52,.4), rgba(18,36,52,.14) 45%, rgba(18,36,52,.44));
+}
+.uh-waves__line {
+  display: flex; flex-direction: column; align-items: center; gap: .45rem;
+  margin: 0; padding: 2.5rem 1.25rem;
+}
+.uh-waves__script {
+  font-family: var(--uh-script); font-weight: 600; color: #fff;
+  font-size: clamp(2.2rem, 1.3rem + 3.7vw, 4.7rem); line-height: 1.04;
+  text-shadow: 0 4px 26px rgba(0, 0, 0, .38);
+}
+.uh-waves__caps {
+  font-family: var(--font-body); text-transform: uppercase;
+  letter-spacing: .18em; font-weight: 500; color: #fff;
+  font-size: clamp(1rem, .85rem + .55vw, 1.4rem);
+}
+
+/* ===========================================================================
+   4 · BIO GARY (ec4.png) — banda durazno→rosado, script navy + retrato circular
+   ======================================================================== */
+.uh-bio { background: linear-gradient(155deg, var(--uh-peach-soft) 0%, #e9d2cb 55%, var(--uh-rose) 100%); }
+.uh-bio__shell {
+  width: var(--int-shell); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+.uh-bio__body { max-width: 34rem; }
+.uh-bio__name {
+  margin: 0 0 .55rem;
+  font-family: var(--uh-script); font-weight: 600; color: var(--navy);
+  font-size: clamp(2.6rem, 1.6rem + 3.6vw, 4.8rem); line-height: 1;
+}
+.uh-bio__rule {
+  display: block; width: min(320px, 72%); height: 2px; margin: 0 0 1.6rem;
+  background: linear-gradient(90deg, var(--gold), rgba(254, 212, 87, 0));
+}
+.uh-bio__lead {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, .95rem + .5vw, 1.32rem); line-height: 1.65;
+  color: var(--navy); font-weight: 400;
+}
+.uh-bio__lead em { font-style: italic; }
+.uh-bio__portrait { margin: 0; justify-self: center; }
+.uh-bio__portrait img {
+  width: clamp(220px, 30vw, 360px); height: clamp(220px, 30vw, 360px);
+  object-fit: cover; border-radius: 50%;
+  box-shadow: 0 0 0 10px rgba(254, 212, 87, .92), 0 30px 60px -24px rgba(90, 45, 20, .5);
+}
+
+/* ===========================================================================
+   5 · OPRAH (tt5.png) — split · foto full-bleed / panel naranja
+   ======================================================================== */
+.uh-oprah {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
+  background: var(--uh-orange);
+}
+.uh-oprah__media { margin: 0; }
+.uh-oprah__media img { width: 100%; height: 100%; min-height: 340px; object-fit: cover; display: block; }
+.uh-oprah__panel {
+  background: linear-gradient(160deg, #c64e1d, var(--uh-orange-deeper));
+  color: #fff;
+  display: flex; flex-direction: column; justify-content: center; gap: 1.4rem;
+  padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 5vw, 4.5rem);
+}
+.uh-oprah__p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, .95rem + .5vw, 1.35rem); line-height: 1.6;
+  color: #fff; font-weight: 300;
+}
+
+/* ===========================================================================
+   6 · TAP INTO / AWARD (3333.png) — pared amarilla, CTA + medalla + libro repisa
+   ======================================================================== */
+.uh-tap { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--uh-wall) 0%, #edb63d 100%); }
+.uh-tap__shell {
+  width: var(--int-shell); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+.uh-tap__body { max-width: 30rem; }
+.uh-tap__title {
+  margin: 0 0 1.8rem;
+  font-family: var(--font-body); font-weight: 300; text-transform: uppercase;
+  letter-spacing: .02em; color: var(--navy);
+  font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3.5rem); line-height: 1.1;
+}
+.uh-tap__cta { margin: 0 0 2rem; }
+.uh-tap__award {
+  display: flex; align-items: center; gap: 1rem; margin: 0;
+  font-family: var(--font-body); color: var(--navy);
+  font-size: clamp(1rem, .95rem + .3vw, 1.2rem); line-height: 1.4;
+  max-width: 26rem;
+}
+.uh-tap__seal { flex: 0 0 auto; width: 64px; height: 64px; filter: drop-shadow(0 8px 16px rgba(120, 80, 0, .32)); }
+.uh-tap__gold { font-weight: 600; }
+.uh-tap__shelf { margin: 0; align-self: end; }
+.uh-tap__shelf img { width: 100%; height: auto; display: block; }
+
+/* ===========================================================================
+   7 · CIERRE (3s.png) — banda naranja, cita centrada navy
+   ======================================================================== */
+.uh-close { background: linear-gradient(180deg, #e0925a 0%, var(--uh-close) 100%); padding-block: clamp(4rem, 8vw, 7rem); }
+.uh-close__q { width: min(var(--int-shell), 58ch); margin-inline: auto; text-align: center; }
+.uh-close__q p {
+  margin: 0;
+  font-family: var(--font-body); font-weight: 300; color: var(--navy);
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.75rem); line-height: 1.3;
+  text-wrap: balance;
+}
+
+/* ===========================================================================
+   RESPONSIVE
+   ======================================================================== */
+@media (max-width: 900px) {
+  .uh-hero__inner { grid-template-columns: 1fr; gap: clamp(1.5rem, 5vw, 2.5rem); padding-block: clamp(6.5rem, 16vh, 8rem); }
+  .uh-hero__copy { max-width: none; }
+  .uh-hero__book { order: -1; justify-self: start; }
+  .uh-hero__bookimg { width: clamp(150px, 34vw, 210px); }
+  .uh-hero__bg { object-position: 72% 26%; }
+
+  .uh-intro__shell,
+  .uh-bio__shell,
+  .uh-tap__shell { grid-template-columns: 1fr; }
+  .uh-intro__photo { order: -1; }
+  .uh-bio__portrait { justify-self: start; }
+  .uh-tap__shelf { order: -1; }
+
+  .uh-oprah { grid-template-columns: 1fr; }
+  .uh-oprah__media img { min-height: 260px; max-height: 60vh; }
+}
+@media (max-width: 560px) {
+  .uh-hero { min-height: auto; }
+  .uh-bio__portrait { justify-self: center; }
+}
+@media (max-width: 360px) {
+  /* "Universal Human" (unido por &nbsp; → una sola línea) se salía del viewport a 320px
+     (QA Phase 4: clip de +20px ≤339px). Se baja el mínimo tipográfico para que la firma
+     de una línea quepa en los teléfonos más estrechos sin partir el título. */
+  .uh-hero__title { font-size: clamp(2.5rem, 12.5vw, 3.05rem); }
+}
+
+/* ===========================================================================
+   REDUCED MOTION — congela rises + oculta el video de olas (poster queda)
+   ======================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .uh-rise { animation: none; opacity: 1; transform: none; }
+  .uh-btn { transition: none; }
+  .uh-waves__vid { display: none; }
+  .uh-waves { background: var(--uh-ocean) url("../assets/images/universal-human/uh-waves-poster.webp") center / cover no-repeat; }
+}

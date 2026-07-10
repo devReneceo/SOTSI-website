@@ -1,0 +1,560 @@
+/* ============================================================
+   About SOTS · estilos de página (seat-of-the-soul-institute)
+   Se carga después de ../styles.css. Estructura y fondos son
+   1:1 con el WP vivo; la expresión visual es del brand book.
+   ============================================================ */
+
+/* ---- Hero: la foto real (acantilado/océano) protagoniza ---- */
+/* Altura completa como .about-hero--gary (styles.css): el pill breadcrumb
+   anclado al bottom queda abajo-izquierda del viewport, igual que en las
+   demás About, en vez de flotar a media pantalla sobre un hero de 560px. */
+.sots-hero {
+  overflow: hidden;
+  min-height: var(--hero-h-original);
+  display: grid;
+  align-content: center;
+  padding-top: clamp(9rem, 13vh, 12rem);
+  padding-bottom: clamp(4rem, 6vw, 6rem);
+}
+
+.sots-hero::after {
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+.sots-hero::before {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(254, 212, 87, 0.14), transparent 24%),
+    linear-gradient(180deg, rgba(14, 22, 49, 0.5) 0%, rgba(14, 22, 49, 0.22) 45%, rgba(21, 74, 111, 0.66) 100%);
+}
+
+.sots-hero__title {
+  max-width: 18ch;
+  font-size: clamp(2.9rem, 1.9rem + 4.4vw, 5.6rem);
+  text-shadow: 0 2px 34px rgba(14, 22, 49, 0.55);
+}
+
+/* Fade inferior del hero → #12213e, el tono con el que ARRANCA el overlay de Founding
+   (mismo recurso que .about-hero--gary .about-hero__fade): el acantilado se hunde en
+   el navy-teal de la banda siguiente en vez de cortar contra ella. */
+.sots-hero .about-hero__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(120px, 18vh, 200px);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(18, 33, 62, 0.55) 60%, #12213e 100%);
+}
+
+/* ---- Fundación + Inspiration / Mission / Means (fondo teal) ---- */
+.sots-founding {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--space-section) 0;
+  color: var(--text-on-dark);
+  background-color: #154a6f; /* color base del WP vivo bajo la imagen */
+}
+
+.sots-founding::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url("../assets/images/about-sots-teal.webp");
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Costuras (2026-07-02): arranca SÓLIDO en #12213e (donde termina el fade del hero) y
+   termina SÓLIDO en #0e1631 (donde arranca el seam superior de la cita) — el teal de la
+   imagen respira en el tramo central, sin líneas de corte arriba ni abajo. */
+.sots-founding::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, #12213e 0%, rgba(14, 22, 49, 0.44) 14%, rgba(21, 74, 111, 0.18) 42%, rgba(14, 22, 49, 0.55) 84%, #0e1631 100%);
+}
+
+.sots-founding__inner {
+  width: var(--about-shell);
+  margin: 0 auto;
+}
+
+.sots-founding__head {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 4vw, 4rem);
+}
+
+.sots-founding__brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 1.7rem + 3vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: var(--tracking-title);
+  color: var(--gold);
+  text-wrap: balance;
+}
+
+.sots-founding__sub {
+  margin: 0.9rem auto 0;
+  max-width: 34ch;
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+  text-wrap: balance;
+}
+
+.sots-arrow {
+  display: block;
+  width: 24px;
+  height: clamp(72px, 9vw, 118px);
+  margin: clamp(1.6rem, 3vw, 2.4rem) auto 0;
+  color: rgba(254, 212, 87, 0.7);
+}
+
+/* Bloques alternados izq/der como el WP vivo */
+.sots-block {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.sots-block--end > .sots-panel {
+  grid-column: 2;
+}
+
+.sots-panel {
+  padding: clamp(1.7rem, 2.6vw, 2.6rem);
+  border-radius: var(--radius-lg);
+  background: rgba(14, 22, 49, 0.44);
+  border: 1px solid var(--hairline-on-dark);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.sots-panel:hover {
+  transform: translateY(-4px);
+  border-color: rgba(254, 212, 87, 0.34);
+  box-shadow: 0 30px 70px -38px rgba(14, 22, 49, 0.6);
+}
+
+/* Títulos de panel (2026-07-02: de Pinyon Script → Fraunces, las fuentes generales del sitio).
+   Kicker numerado 01–05 (counter sobre .sots-panel) + hairline oro corta bajo el título,
+   mismo lenguaje que .about-rule / los eyebrows de Gary. */
+main {
+  counter-reset: sots-panel;
+}
+
+.sots-panel {
+  counter-increment: sots-panel;
+}
+
+.sots-script {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.55rem, 1.3rem + 1vw, 2.2rem);
+  line-height: 1.14;
+  letter-spacing: var(--tracking-title);
+  color: var(--gold);
+}
+
+.sots-script::before {
+  content: "0" counter(sots-panel);
+  display: block;
+  margin-bottom: 0.7rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  color: rgba(254, 212, 87, 0.66);
+}
+
+.sots-script::after {
+  content: "";
+  display: block;
+  width: 46px;
+  height: 1px;
+  margin-top: 0.7rem;
+  background: linear-gradient(90deg, rgba(254, 212, 87, 0.9), rgba(254, 212, 87, 0));
+}
+
+/* Eyebrow reutilizable (founding head + CTA) — patrón kicker del Home/Gary */
+.sots-eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(254, 212, 87, 0.78);
+}
+
+.sots-panel p {
+  margin: 0;
+  max-width: 56ch;
+  font-size: var(--text-body);
+  line-height: 1.78;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+/* ---- Cita de propósito (banda inmersiva de marca) ---- */
+.sots-quote {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--space-section) 0;
+  background: var(--grad-immersive);
+  color: var(--text-on-dark);
+}
+
+.sots-quote::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 78% 24%, rgba(255, 235, 69, 0.12), transparent 34%);
+}
+
+/* Costuras de la banda (2026-07-02) — --grad-immersive es DIAGONAL (155deg), así que sus
+   bordes no casan solos con los vecinos (mismo problema/solución que .about-emerge de Gary):
+   arriba recibe el #0e1631 en que termina Founding; abajo se funde a #2a1342, el tono con el
+   que arranca la disolución superior de Horizon. Pinta sobre el radial (::before, mismo z,
+   posterior en orden) y bajo el copy. */
+.sots-quote::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #0e1631, rgba(14, 22, 49, 0.5) 46%, transparent 100%) top / 100% clamp(90px, 14vh, 150px) no-repeat,
+    linear-gradient(0deg, #2a1342, rgba(42, 19, 66, 0.5) 46%, transparent 100%) bottom / 100% clamp(90px, 14vh, 150px) no-repeat;
+}
+
+.sots-quote__inner {
+  position: relative;
+  width: var(--about-shell);
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Comilla editorial gigante tras el texto (oro muy tenue) — profundidad sin ruido.
+   DESACTIVADA 2026-07-06: al quitar el párrafo se superponía sobre "And trust the Universe".
+   Se deja el bloque por si se quiere recuperar luego. */
+/* .sots-quote__inner::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.16em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  font-family: var(--font-display);
+  font-size: clamp(7rem, 5rem + 9vw, 13rem);
+  line-height: 1;
+  color: rgba(254, 212, 87, 0.14);
+  pointer-events: none;
+} */
+
+.sots-quote blockquote {
+  margin: 0;
+}
+
+.sots-quote blockquote p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 1.2rem + 1.5vw, 2.6rem);
+  line-height: 1.42;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Firma en patrón attrib/eyebrow del sitio (Jost uppercase) con hairlines doradas
+   flanqueando — reemplaza la script (2026-07-02) */
+.sots-quote__cite {
+  margin-top: clamp(1.6rem, 3vw, 2.4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.8rem, 2vw, 1.2rem);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(0.82rem, 0.76rem + 0.3vw, 0.98rem);
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.sots-quote__cite::before,
+.sots-quote__cite::after {
+  content: "";
+  flex: 0 0 auto;
+  width: clamp(34px, 6vw, 70px);
+  height: 1px;
+}
+
+.sots-quote__cite::before {
+  background: linear-gradient(90deg, transparent, rgba(254, 212, 87, 0.7));
+}
+
+.sots-quote__cite::after {
+  background: linear-gradient(90deg, rgba(254, 212, 87, 0.7), transparent);
+}
+
+/* ---- Values / Vision (fondo atardecer, anclado abajo como el vivo) ---- */
+.sots-horizon {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--space-section) 0 clamp(9rem, 16vw, 16rem);
+}
+
+.sots-horizon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url("../assets/images/about-sots-sunset.webp");
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Costuras (2026-07-02) — el corte más duro de la página era oscuro→blanco contra la cita.
+   Tres capas: (1) "disolución de amanecer" — banda acotada que arranca en el #2a1342 en que
+   termina la cita y se disuelve sobre el blanco (mismo recurso que la disolución de cielo de
+   Threshold en Gary); (2) seam inferior que funde el atardecer hacia #fed457, el arranque de
+   --grad-gold del CTA; (3) el velo blanco original que revela la foto hacia abajo. */
+.sots-horizon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, #2a1342, rgba(42, 19, 66, 0.55) 38%, rgba(58, 40, 96, 0.22) 68%, transparent 100%) top / 100% clamp(120px, 18vh, 210px) no-repeat,
+    linear-gradient(0deg, #fed457, rgba(254, 212, 87, 0.42) 40%, transparent 100%) bottom / 100% clamp(80px, 11vh, 140px) no-repeat,
+    linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 34%, rgba(255, 255, 255, 0) 72%);
+}
+
+.sots-horizon__inner {
+  width: var(--about-shell);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.sots-panel--light {
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(14, 22, 49, 0.08);
+  box-shadow: 0 26px 70px -46px rgba(14, 22, 49, 0.45);
+}
+
+.sots-panel--light p {
+  color: var(--text-on-light);
+}
+
+.sots-script--dark {
+  color: var(--purple);
+}
+
+/* Sobre panel claro el oro pierde contraste: kicker y hairline pasan a púrpura */
+.sots-script--dark::before {
+  color: rgba(60, 25, 81, 0.55);
+}
+
+.sots-script--dark::after {
+  background: linear-gradient(90deg, rgba(60, 25, 81, 0.7), rgba(60, 25, 81, 0));
+}
+
+.sots-panel--light:hover {
+  border-color: rgba(60, 25, 81, 0.28);
+  box-shadow: 0 30px 74px -42px rgba(14, 22, 49, 0.55);
+}
+
+.sots-panel--vision {
+  margin-top: clamp(2.5rem, 6vw, 5.5rem); /* escalonado como el vivo (Values arriba-izq, Vision abajo-der) */
+}
+
+/* ---- CTA final (banda dorada, eco del #E7B75A del vivo) ---- */
+.sots-cta {
+  padding: clamp(4.5rem, 7vw, 7rem) 0;
+  background: var(--grad-gold);
+  color: var(--navy);
+}
+
+.sots-cta__inner {
+  width: var(--about-shell);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.6rem, 3vw, 2.2rem);
+  text-align: center;
+}
+
+.sots-cta__title {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: var(--tracking-title);
+  color: var(--navy);
+  text-wrap: balance;
+}
+
+/* Sobre la banda dorada el eyebrow va en navy; el gap del flex ya separa (margin fuera) */
+.sots-eyebrow--navy {
+  margin: 0 0 -0.6rem;
+  color: rgba(14, 22, 49, 0.62);
+}
+
+/* Botón sólido navy para contraste sobre la banda dorada */
+body.btnstyle-2 .sots-cta .btn-cta {
+  border-color: var(--navy);
+}
+
+body.btnstyle-2 .sots-cta .btn-cta__inner {
+  background: var(--navy);
+  color: #fff;
+}
+
+body.btnstyle-2 .sots-cta .btn-cta:hover {
+  box-shadow: 0 20px 44px -20px rgba(14, 22, 49, 0.55);
+}
+
+body.btnstyle-2 .sots-cta .btn-cta:hover .btn-cta__inner {
+  background: var(--purple);
+  color: #fff;
+}
+
+body.btnstyle-2 .sots-cta .btn-cta__icon {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+}
+
+body.btnstyle-2 .sots-cta .btn-cta:hover .btn-cta__icon {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Reveals (activados por about.js con .reveals-on) ---- */
+.reveals-on [data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+}
+
+.reveals-on [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Values → Vision entran como beat escalonado (en desktop conviven lado a lado) */
+.reveals-on .sots-horizon__inner > [data-reveal]:nth-child(2) {
+  transition-delay: 0.14s;
+}
+
+/* ---- Responsive (2026-07-02: escalonado 1040/768/520 + reduced-motion, breakpoints de Gary) ---- */
+
+/* ≤1040 — tablet: los grids de dos columnas apilan (antes 900; se sube para casar con el resto
+   de las About) y el escalonado Values/Vision deja de tener sentido apilado. */
+@media (max-width: 1040px) {
+  .sots-block,
+  .sots-horizon__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .sots-block--end > .sots-panel {
+    grid-column: auto;
+  }
+
+  .sots-panel--vision {
+    margin-top: 0;
+  }
+
+  .sots-horizon {
+    padding-bottom: clamp(11rem, 42vw, 15rem); /* deja respirar el atardecer bajo los paneles */
+  }
+}
+
+/* ≤768 — móvil: paneles más compactos, flecha más corta, medidas de ch liberadas. */
+@media (max-width: 768px) {
+  .sots-panel {
+    padding: 1.4rem 1.25rem 1.55rem;
+  }
+
+  .sots-panel p,
+  .sots-founding__sub {
+    max-width: 100%;
+  }
+
+  .sots-arrow {
+    height: clamp(56px, 10vw, 84px);
+  }
+
+  .sots-horizon {
+    padding-bottom: clamp(9rem, 46vw, 13rem);
+  }
+}
+
+/* ≤520 — teléfonos chicos: pisos tipográficos (los clamps de escritorio quedan grandes para
+   375/320) y CTA a ancho completo, sin overflow horizontal. */
+@media (max-width: 520px) {
+  .sots-hero__title {
+    font-size: clamp(2.35rem, 10.5vw, 2.9rem);
+  }
+
+  .sots-founding__brand {
+    font-size: clamp(2rem, 9vw, 2.4rem);
+  }
+
+  .sots-script {
+    font-size: clamp(1.45rem, 6.6vw, 1.7rem);
+  }
+
+  .sots-quote blockquote p {
+    font-size: clamp(1.28rem, 5.8vw, 1.55rem);
+  }
+
+  .sots-quote__cite {
+    letter-spacing: 0.14em;
+  }
+
+  .sots-cta__title {
+    max-width: 100%;
+    font-size: clamp(1.85rem, 8.4vw, 2.1rem);
+  }
+
+  .sots-cta__inner {
+    align-items: stretch;
+  }
+
+  .sots-cta .btn-cta {
+    width: 100%;
+  }
+}
+
+/* Reduced-motion: los reveals de esta página se muestran en sitio (sin desplazamiento ni fade).
+   sots.css solo lo carga About SOTSI, así que el selector genérico queda scoped a la página. */
+@media (prefers-reduced-motion: reduce) {
+  .reveals-on [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

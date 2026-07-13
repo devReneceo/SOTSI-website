@@ -209,6 +209,14 @@
   transform: translate3d(0, var(--parx-copy, 0px), 0);
   will-change: transform;
 }
+/* Cada palabra clipea su propio gradiente — evita ghost-glyphs del raster
+   del contenedor cuando Canela hace swap tardío (bug reporte cliente 07-13). */
+.gs-wave__provide .gs-w {
+  background: linear-gradient(100deg, var(--gold) 0%, #ffe9a8 46%, var(--yellow) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 /* Halo radial dorado que ancla el texto (respiración lenta). */
 .gs-wave__provide::before {
   content: "";
@@ -541,6 +549,9 @@
   transition-delay: calc(var(--wi, 0) * 55ms);
 }
 .reveals-on .gs-page [data-words].is-revealed .gs-w { opacity: 1; transform: none; filter: none; }
+/* Sin blur en el lead dorado: blur + background-clip:text produce glifos
+   fantasma superpuestos en Chrome (reporte cliente 07-13). */
+.reveals-on .gs-page .gs-wave__provide .gs-w { filter: none; }
 /* el contenedor [data-words] NO se oculta a nivel bloque: solo animan sus palabras */
 .reveals-on .gs-page [data-words][data-reveal] { opacity: 1; transform: none; filter: none; }
 

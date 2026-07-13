@@ -109,6 +109,17 @@ document.addEventListener("DOMContentLoaded", () => {
     mountThresholdParallax(closing, ".gs-kinetic__copy");
   }
 
+  // Fuentes tardías (Canela .otf swap): al completar la carga, re-raster del
+  // lead dorado para descartar glifos pintados con la fuente fallback.
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      var provide = document.querySelector(".gs-wave__provide");
+      if (!provide) return;
+      provide.style.willChange = "auto";
+      requestAnimationFrame(function () { provide.style.willChange = ""; });
+    });
+  }
+
   // Section 1 — video hero respects reduced-motion (freeze to poster frame).
   const heroVideo = document.querySelector(".gs-hero__video");
   if (heroVideo && matchMedia("(prefers-reduced-motion: reduce)").matches) {

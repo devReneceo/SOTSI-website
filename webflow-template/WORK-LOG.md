@@ -122,3 +122,27 @@ Construida NATIVA con `data_whtml_builder` (markup verbatim de `index.template.h
 1. Commit en main + push de esta rama → **repin quirúrgico** del jsDelivr (el pin `@4b3a8ea` queda obsoleto para los 4 CSS sincronizados).
 2. El nav nativo del site tiene los links viejos → actualizar por MCP con estos destinos (en especial Blog → blog/ si el demo gana página de blog, o mantener # hasta que exista en Webflow).
 3. La sección Blog CMS del site (3 items curados) ahora tiene contrapartida real en el estático (`blog/` con 175 posts) — evaluar si el demo necesita colección ampliada o link out.
+
+---
+
+## 2026-07-13 — Fase 0 prep deploy: merge main + footer v2 al template (SIN tocar el site vivo)
+
+- **Merge `main` (`4d92006`)** → `2e9063b`: reorden del footer Links site-wide. Solo HTML —
+  **el pin `@3ca6a17` sigue válido** (ningún CSS/JS de webflow-template/ cambió).
+- **Footer v2 trasplantado** a `index.template.html`: reemplaza el footer v1 (links absolutos a
+  seatofthesoul.com) por el `site-footer--v2` verbatim de main con el orden nuevo de Links
+  (Get Started · Courses · Deepcast · Blog · Resources · About SOTSI · About Gary · In Celebration).
+  CSS de footv2 ya estaba en los stylesheets pineados. Cierra el pendiente "footer v2".
+  OJO: links relativos de paridad (misma convención que el nav v2) — en el site nativo apuntar
+  a las páginas Webflow cuando existan, o `#` mientras tanto.
+- **CSVs de import listos** (repo local, gitignored): `reports/webflow-migration/import/`
+  — podcast (181) · blog extra (20) · categorías (33). Runbook ejecutable en
+  `reports/webflow-migration/MCP_DEPLOY_RUNBOOK.md`.
+
+## Pendiente (actualizado)
+- [ ] Al conectar MCP: aplicar footer v2 en el Home nativo (Fase 1 del runbook) + resto de fases.
+- [ ] Praise/Testimonials: solo si el cliente la reactiva.
+- [ ] CTAs `href="#"`: destinos reales cuando el cliente los defina.
+- [ ] Instafeed: mock → Meta Graph API / CMS (INSTAGRAM-WEBFLOW.md).
+- [ ] Repin quirúrgico SOLO si un push futuro toca CSS/JS pineados.
+- [ ] Clone link al terminar.

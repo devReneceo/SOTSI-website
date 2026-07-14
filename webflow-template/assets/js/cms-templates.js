@@ -290,6 +290,15 @@
     var LABELS = { "Blog": "Blogs", "Soul Feast": "Soul Feasts", "Soul Snack": "Soul Snacks", "all": "All posts" };
     var KEY = "wfblg:series";
 
+    /* Webflow strips the value attr off the first <option> on publish, so the
+       Blogs option arrives as value="" — normalize it back. */
+    function normValue(v) { return (v === "" || v == null) ? "Blog" : v; }
+    function setSelect(value) {
+      for (var i = 0; i < select.options.length; i++) {
+        if (normValue(select.options[i].value) === value) { select.selectedIndex = i; return; }
+      }
+    }
+
     function hasClass(el, cls) { return (" " + el.className + " ").indexOf(" " + cls + " ") > -1; }
     function paneFor(value) {
       var cls = PANE_CLASS[value] || "is-blog";
@@ -317,8 +326,9 @@
 
     for (var o = 0; o < select.options.length; o++) {
       var opt = select.options[o];
-      var base = LABELS[opt.value] || opt.text;
-      opt.textContent = haveCounts ? base + " (" + countFor(opt.value) + ")" : base;
+      var val = normValue(opt.value);
+      var base = LABELS[val] || opt.text;
+      opt.textContent = haveCounts ? base + " (" + countFor(val) + ")" : base;
     }
 
     var mast = $(".blg_count");
@@ -337,7 +347,7 @@
           .replace(/\s+$/, "");
       }
       target.className += " is-active";
-      select.value = value;
+      setSelect(value);
       var tc = $(".blg_toolbar_count");
       if (tc) {
         var shown = target.querySelectorAll(".blg_card").length;
@@ -365,7 +375,7 @@
     if (!initial || !(initial in PANE_CLASS)) initial = "Blog";
     apply(initial, false);
 
-    select.addEventListener("change", function () { apply(select.value, true); });
+    select.addEventListener("change", function () { apply(normValue(select.value), true); });
     if (select.form) select.form.addEventListener("submit", function (ev) { ev.preventDefault(); });
   }
 

@@ -40,6 +40,21 @@
     });
   }
 
+  function fixCardLinks() {
+    /* MCP-written collectionPage links publish as the literal template slug
+       ("detail_blog"/"detail_podcast") instead of the item URL. Each card
+       carries a hidden slug block (.blg_card_slug / .pod_card_slug, bound to
+       the CMS Slug field) — rebuild the real href from it. */
+    $all(".blg_card_link").forEach(function (a) {
+      var s = txt($(".blg_card_slug", a));
+      if (s) a.setAttribute("href", "/blog/" + s);
+    });
+    $all(".pod_card_link").forEach(function (a) {
+      var s = txt($(".pod_card_slug", a));
+      if (s) a.setAttribute("href", "/podcast/" + s);
+    });
+  }
+
   function tintBadges() {
     $all(".bp_badge, .ep_badge, .blg_card_badge, .pod_card_badge").forEach(function (el) {
       var s = txt(el).toLowerCase();
@@ -380,6 +395,7 @@
   }
 
   function init() {
+    fixCardLinks();
     formatDates();
     tintBadges();
     initPost();

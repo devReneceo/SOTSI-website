@@ -19,7 +19,8 @@
   const artSrc = (post, hero) => ART_DIR + ((hero ? post.hero : post.thumb) || "_default.webp");
   const BATCH = 24;
   const TOPIC_CHIPS = 6;                 // how many topic filters to surface in the toolbar
-  const STORE_KEY = "bl:list:v2";        // v2 — filter is by topic, not series
+  const STORE_KEY = "bl:list:v3";        // v3 — adds the series (content type) axis
+  const SERIES_VALUES = ["Blog", "Soul Feast", "Soul Snack", "all"]; // JSON values + "all"
   const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Hero visual mode: "wall" = 3D auto-scrolling mosaic of recent covers (21st-inspired),
@@ -132,6 +133,7 @@
     const grid = $("[data-bl-grid]");
     const searchInput = $("[data-bl-search]");
     const chipsHost = $("[data-bl-chips]");
+    const seriesSel = $("[data-bl-series]");
     const sortSel = $("[data-bl-sort]");
     const countEl = $("[data-bl-count]");
     const moreBtn = $("[data-bl-more]");
@@ -143,21 +145,24 @@
     const stackHost = $("[data-bl-stack]");
     const totalEl = $("[data-bl-total]");
 
-    const state = { q: "", topic: "all", sort: "new", shown: BATCH };
+    // series defaults to "Blog": the directory opens on the true Blogs (non-Soul posts).
+    const state = { q: "", topic: "all", series: "Blog", sort: "new", shown: BATCH };
     const saved = store.get();
     if (saved && typeof saved === "object") {
       state.q = typeof saved.q === "string" ? saved.q : "";
       state.topic = typeof saved.topic === "string" ? saved.topic : "all"; // re-validated after load
+      state.series = SERIES_VALUES.includes(saved.series) ? saved.series : "Blog";
       state.sort = ["new", "old", "rank", "az"].includes(saved.sort) ? saved.sort : "new";
       state.shown = Math.max(BATCH, saved.shown | 0);
     }
     if (searchInput) searchInput.value = state.q;
+    if (seriesSel) seriesSel.value = state.series;
     if (sortSel) sortSel.value = state.sort;
 
     let posts = [];
     let chips = [];
     const persist = () =>
-      store.set({ q: state.q, topic: state.topic, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
+      store.set({ q: state.q, topic: state.topic, series: state.series, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
     const navPersist = () => persist();
 
     const syncChips = () =>
@@ -187,11 +192,26 @@
     }
 
     const matchesTopic = (post) => state.topic === "all" || (post.categories || []).includes(state.topic);
+    const matchesSeries = (post) => state.series === "all" || post.series === state.series;
+
+    /* --- content-type select: refresh the option labels with live counts --- */
+    function buildSeriesOptions() {
+      if (!seriesSel) return;
+      const counts = {};
+      posts.forEach((p) => { counts[p.series] = (counts[p.series] || 0) + 1; });
+      const labels = { Blog: "Blogs", "Soul Feast": "Soul Feasts", "Soul Snack": "Soul Snacks", all: "All posts" };
+      Array.prototype.forEach.call(seriesSel.options, (opt) => {
+        const n = opt.value === "all" ? posts.length : (counts[opt.value] || 0);
+        opt.textContent = `${labels[opt.value] || opt.value} (${n})`;
+      });
+      seriesSel.value = state.series;
+    }
 
     const filtered = () => {
       const query = state.q.trim().toLowerCase();
       const subset = posts.filter(
         (post) =>
+          matchesSeries(post) &&
           matchesTopic(post) &&
           (!query ||
             post.title.toLowerCase().includes(query) ||
@@ -465,14 +485,16 @@
       clearTimeout(debounce);
       debounce = setTimeout(() => update({ q: searchInput.value, shown: BATCH }), 130);
     });
+    if (seriesSel) seriesSel.addEventListener("change", () => update({ series: seriesSel.value, shown: BATCH }));
     if (sortSel) sortSel.addEventListener("change", () => update({ sort: sortSel.value, shown: BATCH }));
     if (moreBtn) moreBtn.addEventListener("click", () => update({ shown: state.shown + BATCH }));
     if (clearBtn) clearBtn.addEventListener("click", () => {
       if (searchInput) searchInput.value = "";
       state.topic = "all";
       syncChips();
+      if (seriesSel) seriesSel.value = "all"; // widen so the reader always lands on results
       if (sortSel) sortSel.value = "new";
-      update({ q: "", sort: "new", shown: BATCH });
+      update({ q: "", series: "all", sort: "new", shown: BATCH });
     });
 
     loadIndex()
@@ -481,6 +503,7 @@
         if (totalEl) totalEl.textContent = String(posts.length);
         if (skel) skel.remove();
         buildChips();
+        buildSeriesOptions();
         buildHeroVisual();
         buildPicks();
         initResizeSync();

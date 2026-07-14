@@ -220,6 +220,18 @@
           <input type="search" data-bl-search placeholder="Search reflections — try 'intuition' or 'fear'" autocomplete="off" />
         </label>
         <!-- <div class="bl-toolbar__chips" data-bl-chips aria-label="Filter by topic"></div> -->
+        <!-- Content type (client request): only non-Soul posts are "Blogs" on the new site —
+             Soul Feasts / Soul Snacks are their own kinds. Defaults to Blogs; blog.js
+             refreshes the counts from the live index. -->
+        <label>
+          <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Content type</span>
+          <select class="bl-toolbar__sort" data-bl-series>
+            <option value="Blog" selected>Blogs (20)</option>
+            <option value="Soul Feast">Soul Feasts (87)</option>
+            <option value="Soul Snack">Soul Snacks (88)</option>
+            <option value="all">All posts (195)</option>
+          </select>
+        </label>
         <label>
           <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Sort reflections</span>
           <select class="bl-toolbar__sort" data-bl-sort>

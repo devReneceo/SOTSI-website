@@ -1,9 +1,11 @@
-/* SOTSI Webflow — CMS templates & listings runtime (Fase 6)
+/* SOTSI Webflow — CMS templates & listings runtime (Fase 6 + Fase 7 filter)
    Served via jsDelivr (pinned by SHA) into per-page HtmlEmbeds.
    ES2017-safe (no optional chaining / template literals / arrow-only tricks).
    Handles: blog post template (.bp_shell), episode template (.ep_shell),
    blog/podcast listings (.blg_shell / .pod_shell): date formatting, badge
-   tints, YouTube facade, Megaphone audio + chapter seek, JSON-LD. */
+   tints, YouTube facade, Megaphone audio + chapter seek, JSON-LD, and the
+   blog content-type filter (Blogs / Soul Feasts / Soul Snacks / All) that
+   toggles the four native Collection List panes on /blog. */
 (function () {
   "use strict";
 
@@ -251,9 +253,11 @@
 
   function initListings() {
     /* card links: whole card clickable already via LinkBlock; nothing dynamic yet.
-       Count line: "N reflections" / "N episodes" from rendered collection items. */
+       Count line: "N reflections" / "N episodes" from rendered collection items.
+       When the content-type filter is present, initSeriesFilter owns .blg_count
+       (rendered-card counting would sum all four panes). */
     var blg = $(".blg_shell");
-    if (blg) {
+    if (blg && !$(".blg_filter_select")) {
       var items = $all(".blg_card", blg);
       var count = $(".blg_count");
       if (count && items.length) count.textContent = items.length + " reflections · New posts weekly";
@@ -266,12 +270,112 @@
     }
   }
 
+  /* ---------- blog content-type filter (Fase 7) ----------
+     /blog holds four native Collection List panes (.blg_pane is-blog /
+     is-feast / is-snack / is-all), each filtered server-side on the CMS
+     `series` Option, plus three hidden counter lists (.blg_counter, order
+     blog → feast → snack) that expose true per-series totals despite the
+     24/page pagination. The select toggles panes; native pagination reloads
+     the page, so the active pane is restored from the pagination query param
+     (each list has a unique `<prefix>_page` param) or sessionStorage. */
+
+  function initSeriesFilter() {
+    var shell = $(".blg_shell");
+    var select = $(".blg_filter_select");
+    if (!shell || !select) return;
+    var panes = $all(".blg_pane", shell);
+    if (!panes.length) return;
+
+    var PANE_CLASS = { "Blog": "is-blog", "Soul Feast": "is-feast", "Soul Snack": "is-snack", "all": "is-all" };
+    var LABELS = { "Blog": "Blogs", "Soul Feast": "Soul Feasts", "Soul Snack": "Soul Snacks", "all": "All posts" };
+    var KEY = "wfblg:series";
+
+    function hasClass(el, cls) { return (" " + el.className + " ").indexOf(" " + cls + " ") > -1; }
+    function paneFor(value) {
+      var cls = PANE_CLASS[value] || "is-blog";
+      for (var i = 0; i < panes.length; i++) if (hasClass(panes[i], cls)) return panes[i];
+      return panes[0];
+    }
+    function valueForPane(pane) {
+      for (var v in PANE_CLASS) if (hasClass(pane, PANE_CLASS[v])) return v;
+      return "Blog";
+    }
+
+    var counters = $all(".blg_counter", shell);
+    var counts = {};
+    var total = 0;
+    var haveCounts = counters.length >= 3;
+    if (haveCounts) {
+      var order = ["Blog", "Soul Feast", "Soul Snack"];
+      for (var c = 0; c < 3; c++) {
+        var n = counters[c].querySelectorAll(".w-dyn-item").length;
+        counts[order[c]] = n;
+        total += n;
+      }
+    }
+    function countFor(value) { return value === "all" ? total : (counts[value] || 0); }
+
+    for (var o = 0; o < select.options.length; o++) {
+      var opt = select.options[o];
+      var base = LABELS[opt.value] || opt.text;
+      opt.textContent = haveCounts ? base + " (" + countFor(opt.value) + ")" : base;
+    }
+
+    var mast = $(".blg_count");
+    if (mast && haveCounts && total > 0) mast.textContent = total + " reflections · New posts weekly";
+
+    function apply(value, persist) {
+      if (!(value in PANE_CLASS)) value = "Blog";
+      var target = paneFor(value);
+      for (var i = 0; i < panes.length; i++) {
+        /* strip is-active-1 BEFORE is-active: \bis-active\b also matches
+           inside "is-active-1" (the hyphen is a word boundary) */
+        panes[i].className = panes[i].className
+          .replace(/\bis-active-1\b/g, "")
+          .replace(/\bis-active\b/g, "")
+          .replace(/\s{2,}/g, " ")
+          .replace(/\s+$/, "");
+      }
+      target.className += " is-active";
+      select.value = value;
+      var tc = $(".blg_toolbar_count");
+      if (tc) {
+        var shown = target.querySelectorAll(".blg_card").length;
+        var subtotal = haveCounts ? countFor(value) : shown;
+        if (shown > subtotal) shown = subtotal;
+        tc.textContent = subtotal ? "Showing " + shown + " of " + subtotal : "No posts in this section yet";
+      }
+      if (persist) { try { sessionStorage.setItem(KEY, value); } catch (e) { /* private mode */ } }
+    }
+
+    function valueFromUrl() {
+      var search = location.search || "";
+      if (search.indexOf("_page=") === -1) return null;
+      for (var i = 0; i < panes.length; i++) {
+        var link = panes[i].querySelector(".w-pagination-next, .w-pagination-previous");
+        if (!link) continue;
+        var m = (link.getAttribute("href") || "").match(/[?&]([A-Za-z0-9_]+_page)=/);
+        if (m && search.indexOf(m[1] + "=") > -1) return valueForPane(panes[i]);
+      }
+      return null;
+    }
+
+    var initial = valueFromUrl();
+    if (!initial) { try { initial = sessionStorage.getItem(KEY); } catch (e) { initial = null; } }
+    if (!initial || !(initial in PANE_CLASS)) initial = "Blog";
+    apply(initial, false);
+
+    select.addEventListener("change", function () { apply(select.value, true); });
+    if (select.form) select.form.addEventListener("submit", function (ev) { ev.preventDefault(); });
+  }
+
   function init() {
     formatDates();
     tintBadges();
     initPost();
     initEpisode();
     initListings();
+    initSeriesFilter();
   }
 
   if (document.readyState === "loading") {

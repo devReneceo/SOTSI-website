@@ -7,8 +7,9 @@
    Book JSON-LD, empty-meta hiding), shop listing (.shl_shell: anchor ids from
    slugs, tag compose, cursor spotlight), course template (.shd_shell: Course
    JSON-LD): date formatting, badge tints, YouTube facade, Megaphone audio +
-   chapter seek, JSON-LD, external-link targets, and the blog content-type
-   filter that toggles the four native Collection List panes on /blog. */
+   chapter seek, JSON-LD, external-link targets, the blog content-type
+   filter that toggles the four native Collection List panes on /blog, and
+   the ActiveCampaign bridge for the native lead forms ([data-ac-form]). */
 (function () {
   "use strict";
 
@@ -646,6 +647,56 @@
     injectLd(ld);
   }
 
+  /* ---------- ActiveCampaign bridge (Fase 7C) ----------
+     Native Webflow lead forms carry data-ac-form="<id>" (waitlist 66 ·
+     love-fear 76 · apg-optin 80 · newsletter 3). On submit we mirror the
+     lead into ActiveCampaign with a fire-and-forget POST to proc.php —
+     Webflow's own AJAX capture keeps running untouched (double capture).
+     u/f = numeric form id (same contract as the live WP inline embeds);
+     "or" is the per-form origin hash harvested from the production embeds. */
+
+  var AC_PROC_URL = "https://seatofthesoul.activehosted.com/proc.php";
+  var AC_FORMS = {
+    "66": { or: "f7baff13-d3db-4261-92d0-c85cadf8b7b5", nameField: "fullname" },
+    "76": { or: "ca9f6d38fe4a1280feb7d6fdc0709be8", nameField: "fullname" },
+    "80": { or: "beb5c09c-c6f0-48ed-97ba-7720769f2a71", nameField: "fullname" },
+    "3":  { or: "b4cda6f8-9892-4188-900b-36578aac794a", nameField: "firstname" }
+  };
+
+  function initAcForms() {
+    $all("[data-ac-form]").forEach(function (host) {
+      var id = host.getAttribute("data-ac-form");
+      var conf = AC_FORMS[id];
+      if (!conf) return;
+      var form = host.tagName === "FORM" ? host : $("form", host);
+      if (!form || form.getAttribute("data-ac-bound")) return;
+      form.setAttribute("data-ac-bound", "1");
+      form.addEventListener("submit", function () {
+        var emailEl = $('input[type="email"]', form);
+        var email = emailEl ? emailEl.value.replace(/^\s+|\s+$/g, "") : "";
+        if (!email || email.indexOf("@") < 1) return;
+        var nameEl = $('input[type="text"]', form);
+        var params = new URLSearchParams();
+        params.append("u", id);
+        params.append("f", id);
+        params.append("v", "2");
+        params.append("c", "0");
+        params.append("m", "0");
+        params.append("act", "sub");
+        params.append("or", conf.or);
+        params.append("email", email);
+        if (nameEl && nameEl.value) params.append(conf.nameField, nameEl.value);
+        try {
+          if (window.fetch) {
+            fetch(AC_PROC_URL, { method: "POST", mode: "no-cors", keepalive: true, body: params });
+          } else if (navigator.sendBeacon) {
+            navigator.sendBeacon(AC_PROC_URL, params);
+          }
+        } catch (e) { /* the AC mirror must never block the native submit */ }
+      });
+    });
+  }
+
   function init() {
     fixCardLinks();
     formatDates();
@@ -658,6 +709,7 @@
     initBookTemplate();
     initShopListing();
     initCourseTemplate();
+    initAcForms();
     extTargets();
   }
 

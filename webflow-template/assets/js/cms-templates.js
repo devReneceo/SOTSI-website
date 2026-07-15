@@ -1,11 +1,14 @@
-/* SOTSI Webflow — CMS templates & listings runtime (Fase 6 + Fase 7 filter)
-   Served via jsDelivr (pinned by SHA) into per-page HtmlEmbeds.
+/* SOTSI Webflow — CMS templates & listings runtime (Fase 6A/6B + Fase 7 filter)
+   Served via jsDelivr (pinned by SHA), applied per page as hosted script.
    ES2017-safe (no optional chaining / template literals / arrow-only tricks).
    Handles: blog post template (.bp_shell), episode template (.ep_shell),
-   blog/podcast listings (.blg_shell / .pod_shell): date formatting, badge
-   tints, YouTube facade, Megaphone audio + chapter seek, JSON-LD, and the
-   blog content-type filter (Blogs / Soul Feasts / Soul Snacks / All) that
-   toggles the four native Collection List panes on /blog. */
+   blog/podcast listings (.blg_shell / .pod_shell), books listing (.bkl_shell:
+   hero video, shelf reveal + column parallax), book template (.bkd_shell:
+   Book JSON-LD, empty-meta hiding), shop listing (.shl_shell: anchor ids from
+   slugs, tag compose, cursor spotlight), course template (.shd_shell: Course
+   JSON-LD): date formatting, badge tints, YouTube facade, Megaphone audio +
+   chapter seek, JSON-LD, external-link targets, and the blog content-type
+   filter that toggles the four native Collection List panes on /blog. */
 (function () {
   "use strict";
 
@@ -52,6 +55,33 @@
     $all(".pod_card_link").forEach(function (a) {
       var s = txt($(".pod_card_slug", a));
       if (s) a.setAttribute("href", "/podcast/" + s);
+    });
+    /* Fase 6B: same publish bug on /books and /shop cards; the hidden slug
+       block lives once per item, so resolve item-scoped. */
+    $all(".bkl_book").forEach(function (item) {
+      var s = txt($(".bkl_card_slug", item));
+      if (!s) return;
+      $all(".bkl_card_link, .bkl_card_more", item).forEach(function (a) {
+        a.setAttribute("href", "/books/" + s);
+      });
+    });
+    $all(".shl_offers .w-dyn-item").forEach(function (item) {
+      var s = txt($(".shl_card_slug", item));
+      if (!s) return;
+      $all(".shl_card_more", item).forEach(function (a) {
+        a.setAttribute("href", "/shop/" + s);
+      });
+    });
+  }
+
+  /* whtml drops target attrs on publish — re-arm external CTAs (new tab). */
+  function extTargets() {
+    $all(".bkl_buy, .bkd_buy_btn, .shl_offer_media, .shl_offer_btn, .shd_enroll_btn").forEach(function (a) {
+      var h = a.getAttribute("href") || "";
+      if (h.indexOf("http") === 0) {
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener");
+      }
     });
   }
 
@@ -394,6 +424,228 @@
     if (select.form) select.form.addEventListener("submit", function (ev) { ev.preventDefault(); });
   }
 
+  /* ---------- books listing (Fase 6B) ---------- */
+
+  function initBooksListing() {
+    var shell = $(".bkl_shell");
+    if (!shell) return;
+
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* Webflow wipes boolean attrs (autoplay/muted/loop/playsinline) on
+       publish — re-arm the hero waves video by property. */
+    var video = $(".bkl_hero_video");
+    if (video && !reduced) {
+      video.muted = true;
+      video.loop = true;
+      video.autoplay = true;
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      try {
+        var pp = video.play();
+        if (pp && pp.catch) pp.catch(function () {});
+      } catch (e) { /* autoplay blocked */ }
+    }
+
+    /* domId via MCP conflicts on whtml elements — set the anchor here. */
+    var shelf = $(".bkl_shelf");
+    if (shelf && !shelf.id) shelf.id = "catalog";
+
+    var grid = $(".bkl_grid");
+    var books = $all(".bkl_book");
+
+    /* reveal: progressive enhancement — without JS the shelf is visible */
+    if (grid && books.length && !reduced && "IntersectionObserver" in window) {
+      grid.className += " bkl_js";
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            en.target.className += " is-in";
+            io.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+      books.forEach(function (b) { io.observe(b); });
+    }
+
+    /* column parallax (port of books.js): center column sinks, side columns
+       rise as the shelf crosses the viewport center. Off ≤1020px / reduced. */
+    if (shelf && books.length && !reduced) {
+      var AMPLITUDE = 26;
+      var active = false;
+      var ticking = false;
+      var mq = window.matchMedia("(max-width: 1020px)");
+
+      function applyPar() {
+        ticking = false;
+        if (!active || mq.matches) return;
+        var r = shelf.getBoundingClientRect();
+        var vh = window.innerHeight || 1;
+        var progress = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2);
+        if (progress < -1) progress = -1;
+        if (progress > 1) progress = 1;
+        for (var i = 0; i < books.length; i++) {
+          var dir = (i % 3 === 1) ? 1 : -1;
+          books[i].style.setProperty("--shelf-par", (dir * -progress * AMPLITUDE).toFixed(1) + "px");
+        }
+      }
+      function clearPar() {
+        for (var i = 0; i < books.length; i++) books[i].style.removeProperty("--shelf-par");
+      }
+      function onScroll() {
+        if (!ticking) { ticking = true; requestAnimationFrame(applyPar); }
+      }
+      function onMq() {
+        if (mq.matches) clearPar(); else onScroll();
+      }
+      if ("IntersectionObserver" in window) {
+        var pio = new IntersectionObserver(function (entries) {
+          active = entries[0].isIntersecting;
+          if (active) onScroll();
+        }, { rootMargin: "12% 0px" });
+        pio.observe(shelf);
+      } else {
+        active = true;
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      if (mq.addEventListener) mq.addEventListener("change", onMq);
+      onScroll();
+    }
+  }
+
+  /* ---------- book template (Fase 6B) ---------- */
+
+  function initBookTemplate() {
+    var shell = $(".bkd_shell");
+    if (!shell) return;
+
+    /* hide empty meta rows / award pill (fields are optional) */
+    $all(".bkd_meta_row", shell).forEach(function (row) {
+      var val = row.children.length > 1 ? txt(row.children[1]) : "";
+      if (!val) row.style.display = "none";
+    });
+    var award = $(".bkd_award", shell);
+    if (award && !txt(award)) award.style.display = "none";
+
+    var name = txt($(".bkd_title", shell));
+    if (name) document.title = name + " — Books · Seat of the Soul Institute";
+
+    var data = $(".bkd_data");
+    var isbn = "", publisher = "";
+    if (data && data.children.length >= 2) {
+      isbn = txt(data.children[0]);
+      publisher = txt(data.children[1]);
+    }
+    var cover = $(".bkd_cover", shell);
+    var buy = $(".bkd_buy_btn", shell);
+    var buyHref = buy ? (buy.getAttribute("href") || "") : "";
+
+    var ld = {
+      "@context": "https://schema.org",
+      "@type": "Book",
+      "name": name,
+      "url": location.href,
+      "author": { "@type": "Person", "name": txt($(".bkd_author", shell)) || "Gary Zukav" }
+    };
+    if (isbn) ld.isbn = isbn;
+    if (publisher) ld.publisher = { "@type": "Organization", "name": publisher };
+    if (cover && cover.src) ld.image = cover.src;
+    if (buyHref.indexOf("http") === 0) ld.offers = { "@type": "Offer", "url": buyHref, "availability": "https://schema.org/InStock" };
+    injectLd(ld);
+  }
+
+  /* ---------- shop listing (Fase 6B) ---------- */
+
+  function composeTag(tagTextEl, modules) {
+    if (!tagTextEl) return;
+    var label = "Course";
+    var n = parseInt(modules, 10);
+    if (n > 0) label += " · " + n + " modules";
+    tagTextEl.textContent = label;
+  }
+
+  function initShopListing() {
+    var shell = $(".shl_shell");
+    if (!shell) return;
+
+    /* anchor ids: static card = #evening; CMS cards = their slug (chips jump) */
+    $all(".shl_offer", shell).forEach(function (card) {
+      if (card.id) return;
+      var item = card.closest ? card.closest(".w-dyn-item") : null;
+      if (item) {
+        var s = txt($(".shl_card_slug", card));
+        if (s) card.id = s;
+      } else {
+        card.id = "evening";
+      }
+    });
+
+    /* CMS tag chips: "Course · N modules" from the hidden data block */
+    $all(".shl_offers .w-dyn-item .shl_offer_tag", shell).forEach(function (tag) {
+      var card = tag.parentNode;
+      while (card && (" " + card.className + " ").indexOf(" shl_offer ") === -1) card = card.parentNode;
+      if (!card) return;
+      composeTag($(".shl_tag_text", tag), txt($(".shl_data_modules", card)));
+    });
+
+    /* enroll buttons: append the external arrow the text binding replaced */
+    $all(".shl_offers .w-dyn-item .shl_offer_btn", shell).forEach(function (btn) {
+      if (btn.textContent.indexOf("↗") === -1) btn.textContent = btn.textContent.replace(/\s+$/, "") + " ↗";
+    });
+
+    /* cursor spotlight (port of the Home post--glow pattern) */
+    var fine = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (fine && !reduced) {
+      $all(".shl_offer", shell).forEach(function (card) {
+        var raf = false;
+        card.addEventListener("mousemove", function (ev) {
+          if (raf) return;
+          raf = true;
+          requestAnimationFrame(function () {
+            raf = false;
+            var r = card.getBoundingClientRect();
+            card.style.setProperty("--mx", (((ev.clientX - r.left) / r.width) * 100).toFixed(2) + "%");
+            card.style.setProperty("--my", (((ev.clientY - r.top) / r.height) * 100).toFixed(2) + "%");
+          });
+        });
+        card.addEventListener("mouseenter", function () { card.style.setProperty("--glow", "1"); });
+        card.addEventListener("mouseleave", function () { card.style.setProperty("--glow", "0"); });
+      });
+    }
+  }
+
+  /* ---------- course template (Fase 6B) ---------- */
+
+  function initCourseTemplate() {
+    var shell = $(".shd_shell");
+    if (!shell) return;
+
+    composeTag($(".shd_tag_text", shell), txt($(".shd_data_modules")));
+
+    var enroll = $(".shd_enroll_btn", shell);
+    if (enroll && enroll.textContent.indexOf("↗") === -1) {
+      enroll.textContent = enroll.textContent.replace(/\s+$/, "") + " ↗";
+    }
+
+    var name = txt($(".shd_title", shell));
+    if (name) document.title = name + " — Learning Opportunities · Seat of the Soul Institute";
+
+    var summary = txt($(".shd_summary", shell));
+    var href = enroll ? (enroll.getAttribute("href") || "") : "";
+    var ld = {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": name,
+      "url": location.href,
+      "provider": { "@type": "Organization", "name": txt($(".shd_provider", shell)) || "Seat of the Soul Institute" },
+      "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "online" }
+    };
+    if (summary) ld.description = summary.length > 300 ? summary.slice(0, 297) + "..." : summary;
+    if (href.indexOf("http") === 0) ld.offers = { "@type": "Offer", "url": href, "category": "Paid" };
+    injectLd(ld);
+  }
+
   function init() {
     fixCardLinks();
     formatDates();
@@ -402,6 +654,11 @@
     initEpisode();
     initListings();
     initSeriesFilter();
+    initBooksListing();
+    initBookTemplate();
+    initShopListing();
+    initCourseTemplate();
+    extTargets();
   }
 
   if (document.readyState === "loading") {

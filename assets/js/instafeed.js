@@ -6,17 +6,28 @@
  * el token NUNCA llega al cliente) y pinta las 3 tarjetas con el MISMO
  * formato de la fila estática "Most viewed" de index.html.
  * Si el JSON falta o falla, la fila queda oculta (hidden) sin errores.
+ * Dual-origin: en dominios que no sirven el estático (p.ej. Webflow) el fetch
+ * relativo 404ea → se reintenta contra GitHub Pages y las imágenes relativas
+ * del JSON se prefijan con ese mismo origen.
  * ===========================================================================*/
 (function () {
   'use strict';
 
-  var JSON_URL = 'assets/data/instagram-feed.json';
+  var JSON_PATH = 'assets/data/instagram-feed.json';
+  var REMOTE_BASE = 'https://devreneceo.github.io/SOTSI-website/';
+  var assetBase = '';
   var LIMIT = 3;
 
   function escapeHtml(str) {
     return String(str == null ? '' : str)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function resolveImg(src) {
+    src = String(src == null ? '' : src);
+    if (/^(https?:)?\/\//.test(src) || src.indexOf('data:') === 0) return src;
+    return assetBase + src;
   }
 
   function compactCount(n) {
@@ -61,7 +72,7 @@
       '<a class="post post--glow post--insta reveal" href="' + escapeHtml(item.permalink) + '" ' +
         'target="_blank" rel="noopener noreferrer">' +
         '<span class="post__media post__media--reel">' +
-          '<img src="' + escapeHtml(item.image) + '" width="720" height="1280" ' +
+          '<img src="' + escapeHtml(resolveImg(item.image)) + '" width="720" height="1280" ' +
             'decoding="async" loading="lazy" alt="' + escapeHtml(item.quote) + ' — on Instagram" />' +
           '<span class="post__play" aria-hidden="true">' + PLAY_GLYPH + '</span>' +
           '<span class="post__chip post__chip--insta">' + IG_GLYPH + chipLabel + '</span>' +
@@ -93,6 +104,9 @@
     if (!row || !grid || !items.length) return;
     grid.innerHTML = items.slice(0, LIMIT).map(cardHtml).join('');
     row.hidden = false;
+    /* En Webflow la fila se oculta con un combo class display:none (el attr
+     * hidden se stripea al publicar) → el inline la revela solo con feed real. */
+    row.style.display = 'block';
 
     if (window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches) {
       [].slice.call(grid.querySelectorAll('.post--glow')).forEach(bindGlow);
@@ -109,9 +123,21 @@
     }
   }
 
+  function fetchFeed(url) {
+    return fetch(url, { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+  }
+
   function load() {
-    fetch(JSON_URL, { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    /* Guard: el archivo puede llegar dos veces (bundle site-wide + hosted
+     * script por página en Webflow) — solo la primera inclusión renderiza. */
+    if (window.__sotsiInstafeed) return;
+    window.__sotsiInstafeed = true;
+    fetchFeed(JSON_PATH)
+      .catch(function () {
+        assetBase = REMOTE_BASE;
+        return fetchFeed(REMOTE_BASE + JSON_PATH);
+      })
       .then(function (data) {
         var items = (data && Array.isArray(data.items)) ? data.items.filter(function (it) {
           return it && it.permalink && it.image && it.quote;

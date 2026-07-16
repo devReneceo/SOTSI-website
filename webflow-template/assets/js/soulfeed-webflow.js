@@ -1,0 +1,728 @@
+/* SOTSI · Soul Feed (blog listing) — Webflow runtime
+   Paridad con el prototipo sotsi landing/blog/blog.js (2026-07-16).
+   Página: /blog (proposal-03.webflow.io). Los datos y el arte se sirven
+   client-side desde GitHub Pages (blog-index.json, 276 posts) porque el
+   import CMS sigue bloqueado (cap 50/50).
+
+   Links slug-aware:
+   - LIVE = slugs presentes en las Collection Lists legacy OCULTAS (.blg_card_slug)
+     → /blog/<slug> nativo.
+   - resto → reader del prototipo en GH Pages (blog/post/?post=<slug>) en _blank.
+   - ALL_LIVE: si las listas ocultas traen ≥20 cards (post-import), TODO va nativo
+     sin tocar este archivo (runbook §2d).
+
+   ES2017-safe (sin ?., ??, ||=). Guard: window.__sotsiSoulFeed. */
+(function () {
+  "use strict";
+  if (window.__sotsiSoulFeed) return;
+  window.__sotsiSoulFeed = true;
+
+  var $ = function (sel, root) { return (root || document).querySelector(sel); };
+  var $all = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  var GH = "https://devreneceo.github.io/SOTSI-website/";
+  var DATA_URL = GH + "assets/data/blog-index.json";
+  var ART_DIR = GH + "assets/images/blog/";
+  var READER_URL = GH + "blog/post/?post=";
+  var BATCH = 24;
+  var STORE_KEY = "blw:list:v1";
+  var SERIES_VALUES = ["Blog", "Soul Feast", "Soul Snack", "all"];
+  var REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var WALL_COUNT = 42;
+  var WALL_COLS = 6;
+  var WALL_SPEED = 18;
+  var WALL_GAP = 14;
+  var SPLINE_SCENE = "https://prod.spline.design/us3ALejTXl6usHZ7/scene.splinecode";
+  var SPLINE_VIEWER_SRC = "https://unpkg.com/@splinetool/viewer@1.9.48/build/spline-viewer.js"; // pinned
+
+  /* --- slugs vivos en CMS: sensor = Collection Lists legacy ocultas (Fase 7A) --- */
+  var LIVE = {};
+  $all(".blg_card_slug").forEach(function (el) {
+    var slug = (el.textContent || "").trim();
+    if (slug) LIVE[slug] = 1;
+  });
+  // OJO: se cuentan slugs ÚNICOS, no .blg_card — los 4 panes legacy duplican
+  // cada post (hoy 10 posts = 20 cards; con cards crudas el flip dispararía en falso).
+  var ALL_LIVE = Object.keys(LIVE).length >= 20; // post-import las listas se llenan solas
+
+  var postHref = function (slug) {
+    if (ALL_LIVE || LIVE[slug]) return { href: "/blog/" + encodeURIComponent(slug), ext: false };
+    return { href: READER_URL + encodeURIComponent(slug), ext: true };
+  };
+  var linkTo = function (a, slug) {
+    var t = postHref(slug);
+    a.href = t.href;
+    if (t.ext) { a.target = "_blank"; a.rel = "noopener"; }
+  };
+
+  var primaryTopic = function (post) { return (post.categories && post.categories[0]) || ""; };
+  var fmtDate = function (iso) {
+    return iso ? new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "";
+  };
+  var titleParts = function (post) {
+    var m = post.title.match(/^(Soul (?:Snack|Feast))\s*#(\d+)\s*[:–—-]\s*(.+)$/i);
+    if (m) return { num: m[2], clean: m[3] };
+    return { num: "", clean: post.title };
+  };
+  var artSrc = function (post) { return ART_DIR + (post.thumb || "_default.webp"); };
+
+  var store = {
+    get: function () {
+      try { return JSON.parse(sessionStorage.getItem(STORE_KEY)); } catch (err) { return null; }
+    },
+    set: function (value) {
+      try { sessionStorage.setItem(STORE_KEY, JSON.stringify(value)); } catch (err) { /* private mode */ }
+    }
+  };
+
+  var el = function (tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
+  var svg = function (markup) {
+    var span = document.createElement("span");
+    span.innerHTML = markup; // solo iconos estáticos, nunca datos de posts
+    return span.firstElementChild;
+  };
+  var ICON_VIDEO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="m16 10 5-3v10l-5-3z"/></svg>';
+  var ICON_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>';
+  var ICON_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+
+  var srOnly = function (node) {
+    node.style.position = "absolute";
+    node.style.width = "1px";
+    node.style.height = "1px";
+    node.style.overflow = "hidden";
+    node.style.clip = "rect(0 0 0 0)";
+    return node;
+  };
+
+  var indexPromise = null;
+  var loadIndex = function () {
+    if (!indexPromise) {
+      indexPromise = fetch(DATA_URL).then(function (res) {
+        if (!res.ok) throw new Error("blog index " + res.status);
+        return res.json();
+      });
+    }
+    return indexPromise;
+  };
+
+  /* ---------- prep: ids, clase JS ---------- */
+  function prep() {
+    document.body.classList.add("blw-js");
+    $all("[data-anchor]").forEach(function (node) {
+      if (!node.id) node.id = node.getAttribute("data-anchor");
+    });
+    $all("[data-dom-id]").forEach(function (node) {
+      if (!node.id) node.id = node.getAttribute("data-dom-id");
+    });
+  }
+
+  /* ---------- reveals (.rv del prototipo → [data-rv]) ---------- */
+  function observeReveals() {
+    var nodes = $all("[data-rv]");
+    if (!nodes.length) return;
+    if (REDUCE || !("IntersectionObserver" in window)) {
+      nodes.forEach(function (n) { n.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
+    nodes.forEach(function (n) { io.observe(n); });
+  }
+
+  /* ---------- shared card factory (blog.js · cardFor) ---------- */
+  function cardFor(post, opts) {
+    opts = opts || {};
+    var parts = titleParts(post);
+    var li = el("li", "bl-card");
+    if (opts.enterIndex !== undefined && !REDUCE) {
+      li.classList.add("bl-card--enter");
+      li.style.animationDelay = Math.min(opts.enterIndex, 10) * 30 + "ms";
+    }
+
+    var link = el("a", "bl-card__link");
+    linkTo(link, post.slug);
+    if (opts.onNavigate) link.addEventListener("click", opts.onNavigate);
+
+    var cover = el("span", "bl-card__cover");
+    var img = document.createElement("img");
+    img.src = artSrc(post);
+    img.alt = "";
+    img.loading = opts.eager ? "eager" : "lazy";
+    img.decoding = "async";
+    img.width = 320;
+    img.height = 320;
+    cover.appendChild(img);
+    if (post.hasVideo) {
+      var flag = el("span", "bl-card__flag");
+      flag.appendChild(svg(ICON_VIDEO));
+      flag.setAttribute("aria-hidden", "true");
+      cover.appendChild(flag);
+    }
+
+    var meta = el("span", "bl-card__meta");
+    var topic = primaryTopic(post);
+    if (topic) meta.appendChild(el("span", "bl-badge bl-badge--topic", topic));
+
+    var title = el("span", "bl-card__title", parts.clean);
+    var sub = el("span", "bl-card__sub", fmtDate(post.date) + " · " + post.readMins + " min read");
+
+    link.appendChild(cover);
+    if (meta.childElementCount) link.appendChild(meta);
+    link.appendChild(title);
+    link.appendChild(sub);
+    li.appendChild(link);
+    return li;
+  }
+
+  /* ---------- toolbar (JS-rendered en el host vacío) ---------- */
+  function buildToolbar(host, state) {
+    host.textContent = "";
+
+    var searchLabel = el("label", "bl-toolbar__search");
+    var searchSr = srOnly(el("span", "", "Search reflections"));
+    var searchIcon = svg(ICON_SEARCH);
+    var input = document.createElement("input");
+    input.type = "search";
+    input.setAttribute("data-bl-search", "1");
+    input.placeholder = "Search reflections — try 'intuition' or 'fear'";
+    input.autocomplete = "off";
+    input.value = state.q;
+    searchLabel.appendChild(searchSr);
+    searchLabel.appendChild(searchIcon);
+    searchLabel.appendChild(input);
+
+    var makeSelect = function (srText, dataAttr, options, current) {
+      var wrap = el("span", "blw-selwrap");
+      var label = el("label");
+      label.appendChild(srOnly(el("span", "", srText)));
+      var sel = document.createElement("select");
+      sel.className = "bl-toolbar__sort";
+      sel.setAttribute(dataAttr, "1");
+      options.forEach(function (opt) {
+        var o = document.createElement("option");
+        o.value = opt[0];
+        o.textContent = opt[1];
+        sel.appendChild(o);
+      });
+      sel.value = current;
+      label.appendChild(sel);
+      wrap.appendChild(label);
+      return { wrap: wrap, sel: sel };
+    };
+
+    // Content type (regla del cliente): Blogs = lo no-Soul; abre en Blogs.
+    var series = makeSelect("Content type", "data-bl-series", [
+      ["Blog", "Blogs"],
+      ["Soul Feast", "Soul Feasts"],
+      ["Soul Snack", "Soul Snacks"],
+      ["all", "All posts"]
+    ], state.series);
+
+    var sort = makeSelect("Sort reflections", "data-bl-sort", [
+      ["new", "Newest first"],
+      ["old", "Oldest first"],
+      ["rank", "Editor's ranking"],
+      ["az", "A → Z"]
+    ], state.sort);
+
+    var count = el("p", "bl-count");
+    count.setAttribute("data-bl-count", "1");
+    count.setAttribute("aria-live", "polite");
+
+    host.appendChild(searchLabel);
+    host.appendChild(series.wrap);
+    host.appendChild(sort.wrap);
+    host.appendChild(count);
+
+    return { search: input, seriesSel: series.sel, sortSel: sort.sel, countEl: count };
+  }
+
+  /* ---------- gridview + empty + load-more (JS-rendered) ---------- */
+  function buildListScaffold(host) {
+    host.textContent = "";
+
+    var gridView = el("div", "bl-gridview");
+    gridView.setAttribute("data-bl-gridview", "1");
+    gridView.hidden = true;
+
+    var grid = el("ol", "bl-grid");
+    grid.setAttribute("data-bl-grid", "1");
+
+    var empty = el("div", "bl-empty");
+    empty.setAttribute("data-bl-empty", "1");
+    empty.hidden = true;
+    empty.appendChild(el("h3", "", "No reflections match that yet."));
+    empty.appendChild(el("p", "", "Try another word, or clear the search and filters."));
+    var clearBtn = el("button", "btn btn--ghost", "Clear search & filters");
+    clearBtn.type = "button";
+    clearBtn.setAttribute("data-bl-clear", "1");
+    empty.appendChild(clearBtn);
+
+    var moreWrap = el("div", "bl-more-wrap");
+    var moreBtn = el("button", "btn btn--ghost", "Load more reflections");
+    moreBtn.type = "button";
+    moreBtn.setAttribute("data-bl-more", "1");
+    moreBtn.hidden = true;
+    var moreNote = el("p", "bl-more-note");
+    moreNote.setAttribute("data-bl-more-note", "1");
+    moreNote.setAttribute("aria-live", "polite");
+    moreWrap.appendChild(moreBtn);
+    moreWrap.appendChild(moreNote);
+
+    gridView.appendChild(grid);
+    gridView.appendChild(empty);
+    gridView.appendChild(moreWrap);
+    host.appendChild(gridView);
+
+    return { gridView: gridView, grid: grid, empty: empty, clearBtn: clearBtn, moreBtn: moreBtn, moreNote: moreNote };
+  }
+
+  /* ---------- hero cover wall (blog.js · buildWall/animateWall) ---------- */
+  function buildWall(stackHost, posts) {
+    if (!stackHost) return;
+    stackHost.classList.add("is-wall");
+    stackHost.removeAttribute("aria-hidden"); // interactivo: cada tile enlaza a su post
+
+    var picks = posts.slice(0, WALL_COUNT);
+    var shortfall = picks.length % WALL_COLS;
+    if (picks.length && shortfall) {
+      for (var i = 0; i < WALL_COLS - shortfall; i++) picks.push(picks[i % picks.length]);
+    }
+
+    var makeGrid = function (copy) {
+      var gridEl = el("div", "bl-wall__grid");
+      if (copy > 0) gridEl.setAttribute("aria-hidden", "true");
+      picks.forEach(function (post, i) {
+        var tile = document.createElement("a");
+        tile.className = "bl-wall__tile";
+        linkTo(tile, post.slug);
+        tile.setAttribute("aria-label", post.title || "Read post");
+        var clean = titleParts(post).clean;
+        tile.setAttribute("data-title", clean.length > 60 ? clean.slice(0, 57).replace(/\s+$/, "") + "…" : clean);
+        tile.style.setProperty("--ti", i);
+        if (copy > 0) tile.tabIndex = -1;
+        var inner = el("span", "bl-wall__tile-in");
+        var img = document.createElement("img");
+        img.src = artSrc(post);
+        img.alt = "";
+        img.loading = copy === 0 && i < 12 ? "eager" : "lazy";
+        img.decoding = "async";
+        img.width = 160;
+        img.height = 160;
+        inner.appendChild(img);
+        tile.appendChild(inner);
+        gridEl.appendChild(tile);
+      });
+      return gridEl;
+    };
+
+    var win = el("div", "bl-wall__window");
+    if (REDUCE) {
+      win.appendChild(makeGrid(0));
+      stackHost.appendChild(win);
+      return;
+    }
+
+    var plane = el("div", "bl-wall__plane");
+    var track = el("div", "bl-wall__track");
+    var first = makeGrid(0);
+    track.appendChild(first);
+    track.appendChild(makeGrid(1));
+    plane.appendChild(track);
+    win.appendChild(plane);
+
+    var tip = el("div", "bl-wall__tip");
+    tip.hidden = true;
+
+    stackHost.appendChild(win);
+    stackHost.appendChild(tip);
+    animateWall(stackHost, track, first, tip);
+  }
+
+  function animateWall(host, track, firstGrid, tip) {
+    var wrap = 0;
+    var y = 0;
+    var rafId = 0;
+    var last = 0;
+    var hovered = false;
+    var onscreen = true;
+
+    var canRun = function () { return wrap > 0 && !hovered && onscreen && !document.hidden; };
+
+    var step = function (now) {
+      rafId = 0;
+      if (!canRun()) return;
+      var dt = Math.min(64, now - last);
+      last = now;
+      y -= (WALL_SPEED * dt) / 1000;
+      if (y <= -wrap) y += wrap;
+      track.style.transform = "translate3d(0, " + y + "px, 0)";
+      rafId = requestAnimationFrame(step);
+    };
+    var play = function () {
+      if (rafId || !canRun()) return;
+      last = performance.now();
+      rafId = requestAnimationFrame(step);
+    };
+    var pause = function () {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = 0;
+    };
+
+    if (typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(function () {
+        wrap = firstGrid.offsetHeight + WALL_GAP;
+        play();
+      }).observe(firstGrid);
+    } else {
+      wrap = firstGrid.offsetHeight + WALL_GAP;
+    }
+
+    host.addEventListener("pointerover", function (event) {
+      var tile = event.target.closest(".bl-wall__tile");
+      if (!tile || !host.contains(tile)) return;
+      hovered = true;
+      pause();
+      var tileBox = tile.getBoundingClientRect();
+      var hostBox = host.getBoundingClientRect();
+      tip.textContent = tile.getAttribute("data-title") || "";
+      tip.hidden = !tip.textContent;
+      tip.style.left = tileBox.left - hostBox.left + tileBox.width / 2 + "px";
+      tip.style.top = tileBox.top - hostBox.top + "px";
+    });
+    host.addEventListener("pointerleave", function () {
+      hovered = false;
+      tip.hidden = true;
+      play();
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) pause(); else play();
+    });
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        onscreen = entries[0].isIntersecting;
+        if (onscreen) play(); else pause();
+      }, { rootMargin: "80px" }).observe(host);
+    }
+
+    play();
+  }
+
+  /* ---------- Editor's Picks (top 3 por rank editorial) ---------- */
+  function buildPicks(picksHost, posts, navPersist) {
+    if (!picksHost) return;
+    var ranked = posts.filter(function (p) { return p.rank > 0; })
+      .sort(function (a, b) { return a.rank - b.rank; })
+      .slice(0, 3);
+    if (!ranked.length) {
+      var picksSection = picksHost.closest("section");
+      if (picksSection) picksSection.setAttribute("hidden", "");
+      return;
+    }
+    picksHost.textContent = "";
+    ranked.forEach(function (post, i) {
+      var parts = titleParts(post);
+      var card = el("a", "bl-pick" + (i === 0 ? " bl-pick--lead" : ""));
+      linkTo(card, post.slug);
+      card.addEventListener("click", navPersist);
+
+      var cover = el("span", "bl-pick__cover");
+      var img = document.createElement("img");
+      img.src = artSrc(post);
+      img.alt = "";
+      img.loading = "eager";
+      img.decoding = "async";
+      img.width = 320;
+      img.height = 320;
+      cover.appendChild(img);
+
+      var body = el("span", "bl-pick__body");
+      var topic = primaryTopic(post);
+      if (topic) {
+        var meta = el("span", "bl-card__meta");
+        meta.appendChild(el("span", "bl-badge bl-badge--topic", topic));
+        body.appendChild(meta);
+      }
+      body.appendChild(el("span", "bl-pick__title", parts.clean));
+      if (i === 0 && post.excerpt) body.appendChild(el("span", "bl-pick__excerpt", post.excerpt));
+      body.appendChild(el("span", "bl-card__sub", fmtDate(post.date) + " · " + post.readMins + " min read"));
+      var cta = el("span", "bl-pick__cta", "Read the reflection");
+      cta.appendChild(svg(ICON_ARROW));
+      body.appendChild(cta);
+
+      card.appendChild(cover);
+      card.appendChild(body);
+      picksHost.appendChild(card);
+    });
+  }
+
+  function initResizeSync(picksHost) {
+    if (!picksHost || typeof ResizeObserver === "undefined") return;
+    var raf = 0;
+    var apply = function () {
+      raf = 0;
+      picksHost.classList.toggle("bl-picks__grid--stack", picksHost.clientWidth < 620);
+    };
+    new ResizeObserver(function () {
+      if (!raf) raf = requestAnimationFrame(apply);
+    }).observe(picksHost);
+  }
+
+  /* ---------- list page ---------- */
+  function initList() {
+    var toolbarHost = $("[data-blw-toolbar]");
+    var listHost = $("[data-blw-listhost]");
+    if (!toolbarHost || !listHost) return;
+
+    var skel = $("[data-bl-skel]");
+    var picksHost = $("[data-bl-picks]");
+    var stackHost = $("[data-bl-stack]");
+    var totalEl = $("[data-bl-total]") || $(".bl-hero__micro strong");
+
+    // series arranca en "Blog": el directorio abre en los blogs no-Soul.
+    var state = { q: "", series: "Blog", sort: "new", shown: BATCH };
+    var saved = store.get();
+    if (saved && typeof saved === "object") {
+      state.q = typeof saved.q === "string" ? saved.q : "";
+      state.series = SERIES_VALUES.indexOf(saved.series) !== -1 ? saved.series : "Blog";
+      state.sort = ["new", "old", "rank", "az"].indexOf(saved.sort) !== -1 ? saved.sort : "new";
+      state.shown = Math.max(BATCH, saved.shown | 0);
+    }
+
+    var ui = buildToolbar(toolbarHost, state);
+    var scaffold = buildListScaffold(listHost);
+    var searchInput = ui.search;
+    var seriesSel = ui.seriesSel;
+    var sortSel = ui.sortSel;
+    var countEl = ui.countEl;
+    var gridView = scaffold.gridView;
+    var grid = scaffold.grid;
+    var emptyEl = scaffold.empty;
+    var clearBtn = scaffold.clearBtn;
+    var moreBtn = scaffold.moreBtn;
+    var moreNote = scaffold.moreNote;
+
+    var posts = [];
+    var persist = function () {
+      store.set({ q: state.q, series: state.series, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
+    };
+    var navPersist = function () { persist(); };
+
+    function buildSeriesOptions() {
+      var counts = {};
+      posts.forEach(function (p) { counts[p.series] = (counts[p.series] || 0) + 1; });
+      var labels = { Blog: "Blogs", "Soul Feast": "Soul Feasts", "Soul Snack": "Soul Snacks", all: "All posts" };
+      Array.prototype.forEach.call(seriesSel.options, function (opt) {
+        var n = opt.value === "all" ? posts.length : (counts[opt.value] || 0);
+        opt.textContent = (labels[opt.value] || opt.value) + " (" + n + ")";
+      });
+      seriesSel.value = state.series;
+    }
+
+    var matchesSeries = function (post) { return state.series === "all" || post.series === state.series; };
+
+    var filtered = function () {
+      var query = state.q.trim().toLowerCase();
+      var subset = posts.filter(function (post) {
+        return matchesSeries(post) &&
+          (!query ||
+            post.title.toLowerCase().indexOf(query) !== -1 ||
+            (post.excerpt || "").toLowerCase().indexOf(query) !== -1);
+      });
+      switch (state.sort) {
+        case "old": return subset.slice().reverse();
+        case "az": return subset.slice().sort(function (a, b) { return titleParts(a).clean.localeCompare(titleParts(b).clean); });
+        case "rank": return subset.slice().sort(function (a, b) { return (a.rank || 9999) - (b.rank || 9999); });
+        default: return subset; // el índice viene newest-first
+      }
+    };
+
+    function renderGrid() {
+      var subset = filtered();
+      var slice = subset.slice(0, state.shown);
+      grid.textContent = "";
+      var frag = document.createDocumentFragment();
+      slice.forEach(function (post, i) {
+        frag.appendChild(cardFor(post, { enterIndex: i, eager: i < 8, onNavigate: navPersist }));
+      });
+      grid.appendChild(frag);
+
+      var remaining = subset.length - slice.length;
+      moreBtn.hidden = remaining <= 0;
+      moreNote.textContent = subset.length ? "Showing " + slice.length + " of " + subset.length : "";
+      emptyEl.hidden = subset.length > 0;
+      return subset.length;
+    }
+
+    function render() {
+      gridView.hidden = false;
+      var visible = renderGrid();
+      countEl.textContent = visible + " reflection" + (visible === 1 ? "" : "s");
+    }
+
+    var update = function (patch) {
+      Object.assign(state, patch);
+      persist();
+      render();
+    };
+
+    var debounce = 0;
+    searchInput.addEventListener("input", function () {
+      clearTimeout(debounce);
+      debounce = setTimeout(function () { update({ q: searchInput.value, shown: BATCH }); }, 130);
+    });
+    seriesSel.addEventListener("change", function () { update({ series: seriesSel.value, shown: BATCH }); });
+    sortSel.addEventListener("change", function () { update({ sort: sortSel.value, shown: BATCH }); });
+    moreBtn.addEventListener("click", function () { update({ shown: state.shown + BATCH }); });
+    clearBtn.addEventListener("click", function () {
+      searchInput.value = "";
+      seriesSel.value = "all"; // ensancha para aterrizar siempre en resultados
+      sortSel.value = "new";
+      update({ q: "", series: "all", sort: "new", shown: BATCH });
+    });
+
+    loadIndex()
+      .then(function (data) {
+        posts = (data && data.posts) || [];
+        if (totalEl) totalEl.textContent = String(posts.length);
+        if (skel) skel.parentNode.removeChild(skel);
+        buildSeriesOptions();
+        buildWall(stackHost, posts);
+        buildPicks(picksHost, posts, navPersist);
+        initResizeSync(picksHost);
+        render();
+        if (saved && saved.scrollY > 0) {
+          requestAnimationFrame(function () { window.scrollTo(0, saved.scrollY); });
+        }
+        document.body.setAttribute("data-blw-ready", "1");
+      })
+      .catch(function () {
+        if (skel && skel.parentNode) skel.parentNode.removeChild(skel);
+        gridView.hidden = false;
+        moreBtn.hidden = true;
+        emptyEl.hidden = false;
+        var h3 = $("h3", emptyEl);
+        var p = $("p", emptyEl);
+        if (h3) h3.textContent = "The blog directory could not load.";
+        if (p) p.textContent = "Please refresh the page, or read every reflection on seatofthesoul.com/blog.";
+        if (clearBtn.parentNode) clearBtn.parentNode.removeChild(clearBtn);
+        document.body.setAttribute("data-blw-ready", "error");
+      });
+
+    window.addEventListener("pagehide", persist);
+  }
+
+  /* ---------- hero galaxy (Spline 3D · solo desktop capaz) ---------- */
+  function mountSpline() {
+    var host = $("[data-bl-spline]");
+    if (!host) return;
+    if (REDUCE) return;
+    if (!matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)").matches) return;
+    var conn = navigator.connection;
+    if (conn && (conn.saveData || /^(slow-)?2g$/.test(conn.effectiveType || ""))) return;
+
+    var loaded = false;
+    var inView = false;
+
+    function ensureViewerScript() {
+      if (window.__splineViewerLoading) return window.__splineViewerLoading;
+      window.__splineViewerLoading = new Promise(function (resolve, reject) {
+        if (customElements.get("spline-viewer")) return resolve();
+        var s = document.createElement("script");
+        s.type = "module";
+        s.src = SPLINE_VIEWER_SRC;
+        s.onload = function () { resolve(); };
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      return window.__splineViewerLoading;
+    }
+
+    function mountViewer() {
+      if (loaded) return;
+      loaded = true;
+      ensureViewerScript()
+        .then(function () {
+          var viewer = document.createElement("spline-viewer");
+          viewer.setAttribute("url", SPLINE_SCENE);
+          viewer.setAttribute("loading", "eager");
+          viewer.setAttribute("loading-anim-type", "none");
+          // "load-start"/"load" varían por versión → fade-in por evento o timeout.
+          var reveal = function () { host.classList.add("is-ready"); };
+          viewer.addEventListener("load-start", reveal, { once: true });
+          viewer.addEventListener("load", reveal, { once: true });
+          var revealTimer = setTimeout(reveal, 1000);
+          viewer.addEventListener("error", function () {
+            clearTimeout(revealTimer);
+            host.classList.remove("is-ready");
+          });
+          host.appendChild(viewer);
+
+          // WebGL en pausa fuera de viewport / tab oculto (display:none apaga raster)
+          var setRunning = function (run) { viewer.style.display = run ? "" : "none"; };
+          var visIO = new IntersectionObserver(function (entries) {
+            inView = entries[0].isIntersecting;
+            setRunning(inView && !document.hidden);
+          }, { threshold: 0, rootMargin: "120px" });
+          visIO.observe(host);
+          document.addEventListener("visibilitychange", function () { setRunning(inView && !document.hidden); });
+
+          // badge "Built with Spline" → fuera (shadow root + observer + hoja de estilo)
+          var killBadge = function (root) {
+            $all('#logo, a[href*="spline.design"]', root).forEach(function (n) { n.parentNode.removeChild(n); });
+          };
+          var badgeTries = 0;
+          var badgeTimer = setInterval(function () {
+            var root = viewer.shadowRoot;
+            if (!root) { if (++badgeTries > 40) clearInterval(badgeTimer); return; }
+            clearInterval(badgeTimer);
+            if (!root.querySelector("style[data-hide-logo]")) {
+              var st = document.createElement("style");
+              st.setAttribute("data-hide-logo", "");
+              st.textContent = '#logo,a[href*="spline.design"]{display:none!important}';
+              root.appendChild(st);
+            }
+            killBadge(root);
+            new MutationObserver(function () { killBadge(root); }).observe(root, { childList: true, subtree: true });
+          }, 100);
+        })
+        .catch(function () {
+          window.__splineViewerLoading = null;
+          loaded = false; // CDN caído → queda el poster de marca
+        });
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      inView = entries[0].isIntersecting;
+      if (inView) { mountViewer(); io.disconnect(); }
+    }, { threshold: 0, rootMargin: "200px" });
+    io.observe(host);
+  }
+
+  /* ---------- boot ---------- */
+  var boot = function () {
+    prep();
+    observeReveals();
+    mountSpline();
+    initList();
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();

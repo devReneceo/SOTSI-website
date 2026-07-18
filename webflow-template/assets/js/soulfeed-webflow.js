@@ -1,15 +1,18 @@
-/* SOTSI · Soul Feed (blog listing) — Webflow runtime
+/* SOTSI · Soul Feed (blog listing) — Webflow runtime v1.1.0
    Paridad con el prototipo sotsi landing/blog/blog.js (2026-07-16).
-   Página: /blog (proposal-03.webflow.io). Los datos y el arte se sirven
-   client-side desde GitHub Pages (blog-index.json, 276 posts) porque el
-   import CMS sigue bloqueado (cap 50/50).
+   Página: /blog (proposal-03.webflow.io).
 
-   Links slug-aware:
-   - LIVE = slugs presentes en las Collection Lists legacy OCULTAS (.blg_card_slug)
+   v1.1.0 — el board 22d-trello actúa de CMS headless: el índice se pide
+   PRIMERO al feed live del board (Cloud Run, mismo contrato JSON) y cae a
+   GitHub Pages si el feed no responde (pre-deploy / hiccup). El artículo
+   abre en /post?slug=<slug> (reader estático en el dominio Webflow); el arte
+   acepta thumbs absolutos (board) o filenames GH.
+
+   Links slug-aware (sin cambios):
+   - LIVE = slugs en las Collection Lists legacy OCULTAS (.blg_card_slug)
      → /blog/<slug> nativo.
-   - resto → reader del prototipo en GH Pages (blog/post/?post=<slug>) en _blank.
-   - ALL_LIVE: si las listas ocultas traen ≥20 cards (post-import), TODO va nativo
-     sin tocar este archivo (runbook §2d).
+   - ALL_LIVE: si las listas ocultas traen ≥20 cards (post-import CMS), TODO
+     va nativo sin tocar este archivo (runbook §2d).
 
    ES2017-safe (sin ?., ??, ||=). Guard: window.__sotsiSoulFeed. */
 (function () {
@@ -21,9 +24,11 @@
   var $all = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
 
   var GH = "https://devreneceo.github.io/SOTSI-website/";
-  var DATA_URL = GH + "assets/data/blog-index.json";
+  var BOARD_FEED = "https://trello-22d-juyszotmca-uc.a.run.app/feed/"; // board = headless CMS
+  var DATA_URL = BOARD_FEED + "blog-index.json";
+  var DATA_URL_FALLBACK = GH + "assets/data/blog-index.json";
   var ART_DIR = GH + "assets/images/blog/";
-  var READER_URL = GH + "blog/post/?post=";
+  var READER_URL = "/post?slug=";
   var BATCH = 24;
   var STORE_KEY = "blw:list:v1";
   var SERIES_VALUES = ["Blog", "Soul Feast", "Soul Snack", "all"];
@@ -48,7 +53,8 @@
 
   var postHref = function (slug) {
     if (ALL_LIVE || LIVE[slug]) return { href: "/blog/" + encodeURIComponent(slug), ext: false };
-    return { href: READER_URL + encodeURIComponent(slug), ext: true };
+    // v1.1.0: reader estático /post en el MISMO dominio Webflow (antes: GH _blank)
+    return { href: READER_URL + encodeURIComponent(slug), ext: false };
   };
   var linkTo = function (a, slug) {
     var t = postHref(slug);
@@ -65,7 +71,11 @@
     if (m) return { num: m[2], clean: m[3] };
     return { num: "", clean: post.title };
   };
-  var artSrc = function (post) { return ART_DIR + (post.thumb || "_default.webp"); };
+  // El board emite thumbs como URL absoluta; GH Pages como filename relativo.
+  var artSrc = function (post) {
+    if (post.thumb && /^https?:\/\//i.test(post.thumb)) return post.thumb;
+    return ART_DIR + (post.thumb || "_default.webp");
+  };
 
   var store = {
     get: function () {
@@ -100,12 +110,18 @@
     return node;
   };
 
+  var fetchJson = function (url) {
+    return fetch(url).then(function (res) {
+      if (!res.ok) throw new Error("blog index " + res.status);
+      return res.json();
+    });
+  };
   var indexPromise = null;
   var loadIndex = function () {
     if (!indexPromise) {
-      indexPromise = fetch(DATA_URL).then(function (res) {
-        if (!res.ok) throw new Error("blog index " + res.status);
-        return res.json();
+      // board primero (contenido live publicado desde 22d-trello); GH si falla.
+      indexPromise = fetchJson(DATA_URL).catch(function () {
+        return fetchJson(DATA_URL_FALLBACK);
       });
     }
     return indexPromise;

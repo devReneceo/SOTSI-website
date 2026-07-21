@@ -110,7 +110,11 @@
     var img = document.createElement("img");
     img.src = "https://i.ytimg.com/vi/" + yt + "/hqdefault.jpg";
     img.alt = "";
-    img.loading = "lazy";
+    /* above-the-fold en post/episodio: es el LCP → eager + priority (perf 2026-07-21) */
+    img.loading = "eager";
+    img.setAttribute("fetchpriority", "high");
+    img.decoding = "async";
+    img.width = 480; img.height = 360;
     var btn = document.createElement("button");
     btn.className = "bp_video_btn";
     btn.type = "button";

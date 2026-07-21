@@ -117,18 +117,20 @@
      SCROLL: una cresta (oro/púrpura) viaja por las letras al bajar y retrocede al
      subir. Se monta en Aspiration, Tools y Event. Respeta el switcher Animación + RM. */
 
-  /* a11y: aria-label está prohibido en p/span genéricos → texto real a un hermano
-     .sr-only y la línea animada queda aria-hidden (los chars spliteados no se leen). */
+  /* a11y: SplitText 3.13 por default (aria:"auto") pone aria-label en el target —
+     prohibido en p/span genéricos (axe aria-prohibited-attr). Patrón correcto:
+     texto real a un hermano .sr-only ANTES del split + la línea animada queda
+     aria-hidden + SplitText con aria:"none" (no emite atributos). */
   function a11yLines(lines){
     lines.forEach(function(el){
-      var lbl = el.getAttribute('aria-label');
-      if(!lbl) return;
+      if(el.getAttribute('data-srdone')) return;
       var sr = document.createElement('span');
       sr.className = 'sr-only';
-      sr.textContent = lbl + ' ';
+      sr.textContent = (el.textContent || '').replace(/\s+/g, ' ').trim() + ' ';
       el.parentNode.insertBefore(sr, el);
       el.removeAttribute('aria-label');
       el.setAttribute('aria-hidden', 'true');
+      el.setAttribute('data-srdone', '1');
     });
   }
 
@@ -142,7 +144,7 @@
 
     function init(){
       var splits = lines.map(function(el){
-        return new SplitText(el, {type: splitType, charsClass:'asp-char', wordsClass:'tw-word'});
+        return new SplitText(el, {type: splitType, charsClass:'asp-char', wordsClass:'tw-word', aria:'none'});
       });
       var entrance = [], colorST = null, lastOn = null;
 

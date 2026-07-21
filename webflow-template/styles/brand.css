@@ -4,15 +4,19 @@
    tokens.css y concepts.css (reusa .btn, .eyebrow, .heroA, .logo).
    ============================================================ */
 
-/* ---- Fuentes reales de marca (self-hosted desde assets) ---- */
-/* Canela (self-hosted) — display de marca del brandbook. Restaurada 2026-07-09 para el prototipo (match producción / captura 2w). Archivos *-Trial.otf → licenciar antes del deploy final de producción. */
-@font-face{font-family:"Canela";src:url("../assets/fonts/6a3342a6143842a7481663a5_Canela-Regular-Trial.otf") format("opentype");font-weight:400;font-display:swap;}
-@font-face{font-family:"Canela";src:url("../assets/fonts/6a3342a6143842a7481663fb_Canela-Bold-Trial.otf") format("opentype");font-weight:700;font-display:swap;}
-@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/6a3342a6143842a7481663fa_Jost-Regular.ttf") format("truetype");font-weight:400;font-display:swap;}
-@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/6a3342a6143842a7481663ba_Jost-SemiBold.ttf") format("truetype");font-weight:600;font-display:swap;}
-@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/6a3342a6143842a7481663b7_Jost-Bold.ttf") format("truetype");font-weight:700;font-display:swap;}
-/* WorldDiscovery (self-hosted) — script emotivo de marca. Restaurada 2026-07-09 para el prototipo (match producción). Archivo *_PERSONAL_USE_ONLY.otf → licenciar antes del deploy final de producción. */
-@font-face{font-family:"WorldDiscovery";src:url("../assets/fonts/6a3342a6143842a7481663f9_WorldDiscovery_PERSONAL_USE_ONLY.otf") format("opentype");font-weight:400;font-display:swap;}
+/* ---- Fuentes reales de marca (self-hosted, woff2 — perf 2026-07-21) ---- */
+/* Canela — display. Archivos derivados de *-Trial → licenciar antes del deploy final de producción. */
+@font-face{font-family:"Canela";src:url("../assets/fonts/Canela-Regular.woff2") format("woff2");font-weight:400;font-display:swap;}
+@font-face{font-family:"Canela";src:url("../assets/fonts/Canela-Bold.woff2") format("woff2");font-weight:700;font-display:swap;}
+@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/Jost-Regular.woff2") format("woff2");font-weight:400;font-display:swap;}
+@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/Jost-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap;}
+@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/Jost-Bold.woff2") format("woff2");font-weight:700;font-display:swap;}
+/* Alias "Jost": estas caras (declaradas DESPUÉS del CSS de Webflow) shadowean la project font
+   Jost .ttf de fastly → una sola descarga woff2 para "Jost SOTSI" y "Jost". */
+@font-face{font-family:"Jost";src:url("../assets/fonts/Jost-Regular.woff2") format("woff2");font-weight:400;font-display:swap;}
+@font-face{font-family:"Jost";src:url("../assets/fonts/Jost-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap;}
+@font-face{font-family:"Jost";src:url("../assets/fonts/Jost-Bold.woff2") format("woff2");font-weight:700;font-display:swap;}
+@font-face{font-family:"WorldDiscovery";src:url("../assets/fonts/WorldDiscovery.woff2") format("woff2");font-weight:400;font-display:swap;}
 
 :root{
   /* --font-display/-body/-script y --grad-brand → consolidados en tokens.css (Phase 2 · single token source).
@@ -1538,3 +1542,6 @@ body.herocta-2 .oslide__cta .btn-cta:focus-visible .btn-cta__icon{box-shadow:0 0
 
 /* Cards de Linda bloqueadas (pedido cliente 2026-07-02): anchor sin href = visible pero no clickeable */
 a.founders__meet:not([href]),a.about-hub__card:not([href]),a.path-card:not([href]){pointer-events:none;opacity:.78;}
+
+/* a11y: texto solo para lectores de pantalla (patrón SplitText aria) */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}

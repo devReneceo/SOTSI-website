@@ -133,10 +133,15 @@
      * script por página en Webflow) — solo la primera inclusión renderiza. */
     if (window.__sotsiInstafeed) return;
     window.__sotsiInstafeed = true;
-    fetchFeed(JSON_PATH)
+    /* Dual-origin según host (2026-07-21): en hosts que NO sirven el estático
+     * (Webflow) se va DIRECTO a GH Pages — evita el 404 de consola del fetch
+     * relativo. En github.io/localhost se mantiene el relativo primero. */
+    var localHost = /github\.io$|^localhost$|^127\./.test(location.hostname);
+    if (!localHost) assetBase = REMOTE_BASE;
+    fetchFeed(localHost ? JSON_PATH : REMOTE_BASE + JSON_PATH)
       .catch(function () {
-        assetBase = REMOTE_BASE;
-        return fetchFeed(REMOTE_BASE + JSON_PATH);
+        assetBase = localHost ? REMOTE_BASE : '';
+        return fetchFeed(localHost ? REMOTE_BASE + JSON_PATH : JSON_PATH);
       })
       .then(function (data) {
         var items = (data && Array.isArray(data.items)) ? data.items.filter(function (it) {

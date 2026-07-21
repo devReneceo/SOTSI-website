@@ -3,6 +3,8 @@
    (.hslider/.oslider) · swipe · scroll-reveal · stats count-up · praise carousel.
    Cargar DESPUÉS del DOM (al final de <body>), ANTES de soul-tide.js. */
 (function(){
+  /* guard: evita doble-ejecución si el archivo llega dos veces (freeform + registered) */
+  if (window.__sotsiApp) return; window.__sotsiApp = true;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---- Footer copyright year (auto-updating via JS) ---- */
@@ -460,6 +462,10 @@
     };
     syncOriginalChrome(0);
     var onextBtn = document.getElementById('onext'), oprevBtn = document.getElementById('oprev');
+    /* a11y (label-in-name): el nombre accesible debe CONTENER el texto visible
+       ("Back"/"Next") — se alinean los aria-label con las labels del slider. */
+    if(oprevBtn) oprevBtn.setAttribute('aria-label', 'Back — previous slide');
+    if(onextBtn) onextBtn.setAttribute('aria-label', 'Next slide');
     if(onextBtn) onextBtn.addEventListener('click', function(){ onext('82%','50%'); orestart(); });
     if(oprevBtn) oprevBtn.addEventListener('click', function(){ oprevf('18%','50%'); orestart(); });
     if(osliderEl && ocursor && ocursorLabel && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches){

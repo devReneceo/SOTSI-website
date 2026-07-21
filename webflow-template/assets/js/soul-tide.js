@@ -1,27 +1,42 @@
-/* SOTSI · soul-tide.js — efecto a medida (extraído de index.html #soul-tide).
+/* SOTSI · soul-tide.js v1.1.0 — efecto a medida (extraído de index.html #soul-tide).
    A) Campo de puntos en oleaje (Canvas 2D, perspectiva) en #aspire + .event.
    B) Text-wave con GSAP SplitText + ScrollTrigger (Aspiration / Tools / Event).
-   REQUIERE GSAP + ScrollTrigger + SplitText cargados ANTES (ver custom code). */
+   REQUIERE GSAP + ScrollTrigger + SplitText cargados ANTES (ver custom code).
+   v1.1.0 (perf 2026-07-21): boot en requestIdleCallback + montaje por sección al
+   acercarse al viewport (IO 600px) + canvas SIN loop en <768px (frame estático)
+   + patrón a11y: aria-label de líneas animadas → hermano .sr-only + aria-hidden. */
 (function(){
+  if (window.__sotsiSoulTide) return; window.__sotsiSoulTide = true;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var small = matchMedia('(max-width: 767px)').matches;
+
+  /* dispara fn cuando el elemento se acerca al viewport (una sola vez) */
+  function whenNear(el, fn){
+    if(!('IntersectionObserver' in window)){ fn(); return; }
+    var io = new IntersectionObserver(function(es){
+      for(var i = 0; i < es.length; i++){
+        if(es[i].isIntersecting){ io.disconnect(); fn(); return; }
+      }
+    }, {rootMargin: '600px 0px 600px 0px'});
+    io.observe(el);
+  }
 
   /* ---------- A · campo de puntos en oleaje (canvas 2D, perspectiva) ----------
-     Adaptación del "dotted-surface" (Three.js) a Canvas — mismo look de oleaje
-     pero sin dependencia 3D (más liviano, porta a Webflow como un solo embed).
      Color de marca: periwinkle en los valles → dorado en las crestas, sobre navy.
-     Reutilizable → se monta en Aspiration y en Statement (mismo Soul Tide). */
+     En móvil (<768px) o reduced-motion: SOLO el primer frame estático (perf). */
   function mountTideCanvas(section){
     var canvas = section.querySelector('canvas');
     if(!canvas) return;
     var ctx = canvas.getContext('2d', {alpha:true});
     var inView = true;
+    var animate = !reduce && !small;
     var COOL = [210,204,253];   /* Soft Periwinkle #D2CCFD — valle, frío, tenue */
     var WARM = [254,212,87];    /* Golden Yellow  #FED457 — cresta, cálido       */
     var AMOUNTX = 46, AMOUNTY = 72, SEP = 150, WAVE = 46;
     var CAM_Y = 300, CAM_Z = 1180;        /* cámara (mira por el plano de agua) */
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var W = 0, H = 0, cx = 0, cy = 0, focal = 0;
-    var count = reduce ? 0.0 : 0.0, raf = 0, running = false;
+    var count = 0.0, raf = 0, running = false;
 
     function resize(){
       var r = section.getBoundingClientRect();
@@ -78,38 +93,51 @@
       scrollBoost *= 0.92;                      /* decae suave hasta volver a la deriva */
       draw();
     }
-    function start(){ if(running || reduce) return; running = true; loop(); }
+    function start(){ if(running || !animate) return; running = true; loop(); }
     function stop(){ running = false; if(raf) cancelAnimationFrame(raf); raf = 0; }
 
     resize();
     draw();                                    /* primer frame estático siempre */
-    if(!reduce) start();
+    if(animate) start();
     addEventListener('resize', function(){ resize(); draw(); }, {passive:true});
-    if(!reduce) addEventListener('scroll', onWaveScroll, {passive:true});
+    if(animate) addEventListener('scroll', onWaveScroll, {passive:true});
     document.addEventListener('visibilitychange', function(){
       if(document.hidden) stop(); else if(inView) start();
     });
     /* pausa cuando la sección no está en pantalla (perf) */
-    if('IntersectionObserver' in window){
+    if(animate && 'IntersectionObserver' in window){
       new IntersectionObserver(function(es){
         es.forEach(function(e){ inView = e.isIntersecting; inView ? start() : stop(); });
       }, {threshold:0}).observe(section);
     }
   }
 
-  /* montar el oleaje de puntos SÓLO en Aspiration (el Statement usa su propio shader de plasma) */
-  var aspire = document.getElementById('aspire');
-  if(aspire) mountTideCanvas(aspire);
-
   /* ---------- B · wave de texto (GSAP SplitText) — REUTILIZABLE ----------
      (1) ENTRADA en ola: cada letra sube + aparece (una vez). (2) COLOR ligado al
      SCROLL: una cresta (oro/púrpura) viaja por las letras al bajar y retrocede al
      subir. Se monta en Aspiration, Tools y Event. Respeta el switcher Animación + RM. */
+
+  /* a11y: aria-label está prohibido en p/span genéricos → texto real a un hermano
+     .sr-only y la línea animada queda aria-hidden (los chars spliteados no se leen). */
+  function a11yLines(lines){
+    lines.forEach(function(el){
+      var lbl = el.getAttribute('aria-label');
+      if(!lbl) return;
+      var sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = lbl + ' ';
+      el.parentNode.insertBefore(sr, el);
+      el.removeAttribute('aria-label');
+      el.setAttribute('aria-hidden', 'true');
+    });
+  }
+
   function mountTextWave(section, lineSel, colorsFor, splitType){
     if(!section || !window.gsap || !window.SplitText) return;
     gsap.registerPlugin(ScrollTrigger, SplitText);
     var lines = [].slice.call(section.querySelectorAll(lineSel));
     if(!lines.length) return;
+    a11yLines(lines);
     splitType = splitType || 'chars';
 
     function init(){
@@ -174,32 +202,45 @@
 
       sync();
       new MutationObserver(sync).observe(document.body, {attributes:true, attributeFilter:['class']});
-      addEventListener('load', function(){ ScrollTrigger.refresh(); });
+      ScrollTrigger.refresh();
     }
 
-    /* esperar las fuentes (Canela) para que SplitText mida bien los chars */
-    if(document.fonts && document.fonts.ready){
-      var done = false, go = function(){ if(done) return; done = true; init(); };
-      document.fonts.ready.then(go);
-      setTimeout(go, 1200);                        /* fallback si fonts.ready tarda */
-    } else { init(); }
+    /* montar al acercarse la sección; esperar las fuentes (Canela) para que
+       SplitText mida bien los chars */
+    whenNear(section, function(){
+      if(document.fonts && document.fonts.ready){
+        var done = false, go = function(){ if(done) return; done = true; init(); };
+        document.fonts.ready.then(go);
+        setTimeout(go, 1200);                        /* fallback si fonts.ready tarda */
+      } else { init(); }
+    });
   }
 
-  /* Aspiration — colores por clase (comportamiento original, intacto) */
-  mountTextWave(aspire, '[data-asp-line]', function(el){
-    if(el.classList.contains('aspire__word--accent')) return ['#FED457','#FFF3CC'];
-    if(el.classList.contains('aspire__word'))          return ['#ffffff','#FED457'];
-    if(el.classList.contains('aspire__tag'))           return ['rgba(255,255,255,0.6)','rgba(255,233,160,0.96)'];
-    return ['rgba(255,255,255,0.55)','rgba(255,237,176,0.95)'];                   /* intro */
-  });
+  function boot(){
+    /* montar el oleaje de puntos SÓLO en Aspiration (el Statement usa su propio shader de plasma) */
+    var aspire = document.getElementById('aspire');
+    if(aspire) whenNear(aspire, function(){ mountTideCanvas(aspire); });
 
-  /* Tools + Event (y cualquier .textwave) — colores por data-attr; Event suma el canvas Soul Tide */
-  function dataColors(el){
-    return [el.getAttribute('data-wave-base') || '#ffffff', el.getAttribute('data-wave-crest') || '#FED457'];
+    /* Aspiration — colores por clase (comportamiento original, intacto) */
+    mountTextWave(aspire, '[data-asp-line]', function(el){
+      if(el.classList.contains('aspire__word--accent')) return ['#FED457','#FFF3CC'];
+      if(el.classList.contains('aspire__word'))          return ['#ffffff','#FED457'];
+      if(el.classList.contains('aspire__tag'))           return ['rgba(255,255,255,0.6)','rgba(255,233,160,0.96)'];
+      return ['rgba(255,255,255,0.55)','rgba(255,237,176,0.95)'];                   /* intro */
+    });
+
+    /* Tools + Event (y cualquier .textwave) — colores por data-attr; Event suma el canvas Soul Tide */
+    function dataColors(el){
+      return [el.getAttribute('data-wave-base') || '#ffffff', el.getAttribute('data-wave-crest') || '#FED457'];
+    }
+    [].slice.call(document.querySelectorAll('.textwave')).forEach(function(sec){
+      if(sec === aspire) return;
+      mountTextWave(sec, '[data-wave-line]', dataColors, 'words,chars');
+      if(sec.querySelector('canvas.tw-tide')) whenNear(sec, function(){ mountTideCanvas(sec); });
+    });
   }
-  [].slice.call(document.querySelectorAll('.textwave')).forEach(function(sec){
-    if(sec === aspire) return;
-    mountTextWave(sec, '[data-wave-line]', dataColors, 'words,chars');
-    if(sec.querySelector('canvas.tw-tide')) mountTideCanvas(sec);
-  });
+
+  /* fuera del camino crítico: idle (o pequeño defer si no hay rIC) */
+  if('requestIdleCallback' in window) requestIdleCallback(boot, {timeout: 1500});
+  else setTimeout(boot, 200);
 })();

@@ -109,7 +109,17 @@
   /* ---------- display-word char split ([data-dc-split]) ---------- */
   function splitChars(root) {
     var label = root.getAttribute("aria-label") || root.textContent.trim();
-    root.setAttribute("aria-label", label);
+    /* a11y: aria-label prohibido en p/span genéricos → texto a hermano .sr-only
+       + aria-hidden en el contenedor spliteado (patrón soul-tide v1.1.1) */
+    if (!root.getAttribute("data-srdone")) {
+      var sr = document.createElement("span");
+      sr.className = "sr-only";
+      sr.textContent = label + " ";
+      root.parentNode.insertBefore(sr, root);
+      root.setAttribute("data-srdone", "1");
+    }
+    root.removeAttribute("aria-label");
+    root.setAttribute("aria-hidden", "true");
     var index = 0;
     var walk = function (node) {
       Array.prototype.slice.call(node.childNodes).forEach(function (child) {
@@ -256,6 +266,9 @@
     if (!card || !overlay) return;
     overlay.setAttribute("role", "button");
     overlay.setAttribute("tabindex", "0");
+    /* a11y (label-in-name): si el overlay tiene texto visible, el nombre accesible
+       debe salir del contenido — se quita el aria-label del canvas. */
+    if (overlay.textContent && overlay.textContent.trim()) overlay.removeAttribute("aria-label");
     var video = null;
     var play = function () {
       if (!video) {

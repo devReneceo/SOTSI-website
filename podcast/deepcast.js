@@ -14,6 +14,7 @@
   const ROOT = IS_EPISODE ? "../../" : "../";
   const LIST_URL = IS_EPISODE ? "../" : "./";
   const DATA_URL = `${ROOT}assets/data/episodes-index.json`;
+  const SHORTS_URL = `${ROOT}assets/data/shorts-mapping.json`;
   const SHARD_URL = (slug) => `${ROOT}assets/data/episodes/${encodeURIComponent(slug)}.json`;
   const ART_DIR = `${ROOT}assets/images/episodes/`;
   const mp3Url = (megaId) => `https://traffic.megaphone.fm/${megaId}.mp3`;
@@ -48,6 +49,16 @@
     });
     return indexPromise;
   };
+
+  let shortsPromise = null;
+  const loadShorts = () => {
+    // optional: a missing/failed fetch degrades to "no episode has shorts", never breaks the page
+    shortsPromise = shortsPromise || fetch(SHORTS_URL)
+      .then((res) => (res.ok ? res.json() : { bySlug: {} }))
+      .catch(() => ({ bySlug: {} }));
+    return shortsPromise;
+  };
+  const withShorts = (ep, shortsBySlug) => ({ ...ep, shorts: shortsBySlug[ep.slug] || [] });
 
   const svg = (markup) => {
     const span = document.createElement("span");
@@ -408,6 +419,16 @@
       subdate.className = "dc-row__subdate";
       subdate.textContent = `${fmtDate(ep.date)}${ep.duration ? ` · ${fmtDur(ep.duration)}` : ""}`;
       sub.append(badge, subdate);
+      if (ep.shorts && ep.shorts.length) {
+        const shortsLink = document.createElement("a");
+        shortsLink.className = "dc-badge dc-badge--shorts dc-row__shortslink";
+        shortsLink.href = `https://www.youtube.com/shorts/${ep.shorts[0].id}`;
+        shortsLink.target = "_blank";
+        shortsLink.rel = "noopener";
+        shortsLink.textContent = ep.shorts.length > 1 ? `Shorts (${ep.shorts.length})` : "Short";
+        shortsLink.addEventListener("click", (event) => event.stopPropagation());
+        sub.appendChild(shortsLink);
+      }
       main.append(link, sub);
 
       const date = document.createElement("span");
@@ -484,9 +505,10 @@
       preview.toggle(btn, btn.dataset.dcPlay);
     });
 
-    loadIndex()
-      .then((data) => {
-        episodes = data.episodes || [];
+    Promise.all([loadIndex(), loadShorts()])
+      .then(([data, shortsData]) => {
+        const shortsBySlug = (shortsData && shortsData.bySlug) || {};
+        episodes = (data.episodes || []).map((ep) => withShorts(ep, shortsBySlug));
         if (skel) skel.remove();
         render();
         buildMarquee(episodes);
@@ -606,6 +628,25 @@
       return card;
     }
 
+    function shortsBlock(ep) {
+      if (!ep.shorts || !ep.shorts.length) return null;
+      const wrap = el("aside", "dc-shorts");
+      wrap.appendChild(el("p", "dc-shorts__label",
+        ep.shorts.length > 1 ? "Watch the Shorts from this episode" : "Watch the Short from this episode"));
+      const row = el("div", "dc-shorts__row");
+      ep.shorts.forEach((short, i) => {
+        const link = document.createElement("a");
+        link.className = "btn btn--ghost";
+        link.href = `https://www.youtube.com/shorts/${short.id}`;
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.textContent = ep.shorts.length > 1 ? `Watch Short ${i + 1} ↗` : "Watch the Short ↗";
+        row.appendChild(link);
+      });
+      wrap.appendChild(row);
+      return wrap;
+    }
+
     function chaptersBlock(ep) {
       if (!ep.chapters || !ep.chapters.length || !detailAudio) return null;
       const wrap = el("section", "dc-chapters");
@@ -715,6 +756,8 @@
       if (media) mount.appendChild(media);
       const audio = audioBlock(ep);
       if (audio) mount.appendChild(audio);
+      const shorts = shortsBlock(ep);
+      if (shorts) mount.appendChild(shorts);
       const chapters = chaptersBlock(ep);
       if (chapters) mount.appendChild(chapters);
       const desc = descBlock(ep);
@@ -743,9 +786,10 @@
         });
     }
 
-    loadIndex()
-      .then((data) => {
-        episodes = data.episodes || [];
+    Promise.all([loadIndex(), loadShorts()])
+      .then(([data, shortsData]) => {
+        const shortsBySlug = (shortsData && shortsData.bySlug) || {};
+        episodes = (data.episodes || []).map((ep) => withShorts(ep, shortsBySlug));
         if (!episodes.length) throw new Error("empty index");
         show(getSlug(), false);
       })

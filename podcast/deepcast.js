@@ -15,6 +15,7 @@
   const LIST_URL = IS_EPISODE ? "../" : "./";
   const DATA_URL = `${ROOT}assets/data/episodes-index.json`;
   const SHORTS_URL = `${ROOT}assets/data/shorts-mapping.json`;
+  const SHORTS_ENABLED = false; // TEMP: off while matches are being validated — flip to true to re-enable
   const SHARD_URL = (slug) => `${ROOT}assets/data/episodes/${encodeURIComponent(slug)}.json`;
   const ART_DIR = `${ROOT}assets/images/episodes/`;
   const mp3Url = (megaId) => `https://traffic.megaphone.fm/${megaId}.mp3`;
@@ -495,7 +496,7 @@
       subdate.className = "dc-row__subdate";
       subdate.textContent = `${fmtDate(ep.date)}${ep.duration ? ` · ${fmtDur(ep.duration)}` : ""}`;
       sub.append(badge, subdate);
-      if (ep.shorts && ep.shorts.length) {
+      if (SHORTS_ENABLED && ep.shorts && ep.shorts.length) {
         const shortsBtn = document.createElement("button");
         shortsBtn.type = "button";
         shortsBtn.className = "dc-badge dc-badge--shorts dc-row__shortslink";
@@ -700,7 +701,7 @@
     }
 
     function shortsBlock(ep) {
-      if (!ep.shorts || !ep.shorts.length) return null;
+      if (!SHORTS_ENABLED || !ep.shorts || !ep.shorts.length) return null;
       const wrap = el("aside", "dc-shorts");
       wrap.appendChild(el("p", "dc-shorts__label",
         ep.shorts.length > 1 ? "Watch the Shorts from this episode" : "Watch the Short from this episode"));

@@ -68,6 +68,82 @@
   const ICON_PLAY = '<svg class="ico-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>';
   const ICON_PAUSE = '<svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z"/></svg>';
 
+  const el = (tag, className, text) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
+
+  /* ---------- Shorts: shared inline click-to-play card (list modal + detail page) ---------- */
+  function shortCard(short) {
+    const box = el("div", "dc-short");
+    const img = document.createElement("img");
+    img.src = `https://i.ytimg.com/vi/${short.id}/hqdefault.jpg`;
+    img.alt = "";
+    img.loading = "lazy";
+    const btn = el("button", "dc-short__btn");
+    btn.type = "button";
+    btn.setAttribute("aria-label", `Play the Short: ${short.title}`);
+    const circle = el("span", "dc-trailer__play");
+    circle.setAttribute("aria-hidden", "true");
+    circle.appendChild(svg(ICON_PLAY.replace(' class="ico-play"', "")));
+    btn.appendChild(circle);
+    btn.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${short.id}?autoplay=1&rel=0`;
+      iframe.title = short.title;
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+      box.textContent = "";
+      box.appendChild(iframe);
+    }, { once: true });
+    const label = el("p", "dc-short__label", short.title);
+    box.append(img, btn, label);
+    return box;
+  }
+
+  /* ---------- Shorts: shared modal (opened from the listing row badge, stays on-site) ---------- */
+  let shortsModalEl = null;
+  function openShortsModal(ep) {
+    if (!shortsModalEl) {
+      shortsModalEl = el("div", "dc-shmodal");
+      shortsModalEl.setAttribute("role", "dialog");
+      shortsModalEl.setAttribute("aria-modal", "true");
+      shortsModalEl.hidden = true;
+      const backdrop = el("div", "dc-shmodal__backdrop");
+      const panel = el("div", "dc-shmodal__panel");
+      const closeBtn = el("button", "dc-shmodal__close");
+      closeBtn.type = "button";
+      closeBtn.setAttribute("aria-label", "Close");
+      closeBtn.textContent = "×";
+      const title = el("p", "dc-shmodal__title");
+      const row = el("div", "dc-shmodal__row");
+      panel.append(closeBtn, title, row);
+      shortsModalEl.append(backdrop, panel);
+      document.body.appendChild(shortsModalEl);
+      const close = () => {
+        shortsModalEl.hidden = true;
+        document.body.classList.remove("dc-shmodal-open");
+        row.textContent = "";
+      };
+      backdrop.addEventListener("click", close);
+      closeBtn.addEventListener("click", close);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !shortsModalEl.hidden) close();
+      });
+      shortsModalEl._row = row;
+      shortsModalEl._title = title;
+    }
+    shortsModalEl._title.textContent = ep.shorts.length > 1
+      ? `Shorts from ${ep.fullTitle}`
+      : `Short from ${ep.fullTitle}`;
+    shortsModalEl._row.textContent = "";
+    ep.shorts.forEach((short) => shortsModalEl._row.appendChild(shortCard(short)));
+    shortsModalEl.hidden = false;
+    document.body.classList.add("dc-shmodal-open");
+  }
+
   /* ---------- display-word char split ([data-dc-split]) ---------- */
   function splitChars(el) {
     const label = el.getAttribute("aria-label") || el.textContent.trim();
@@ -420,14 +496,16 @@
       subdate.textContent = `${fmtDate(ep.date)}${ep.duration ? ` · ${fmtDur(ep.duration)}` : ""}`;
       sub.append(badge, subdate);
       if (ep.shorts && ep.shorts.length) {
-        const shortsLink = document.createElement("a");
-        shortsLink.className = "dc-badge dc-badge--shorts dc-row__shortslink";
-        shortsLink.href = `https://www.youtube.com/shorts/${ep.shorts[0].id}`;
-        shortsLink.target = "_blank";
-        shortsLink.rel = "noopener";
-        shortsLink.textContent = ep.shorts.length > 1 ? `Shorts (${ep.shorts.length})` : "Short";
-        shortsLink.addEventListener("click", (event) => event.stopPropagation());
-        sub.appendChild(shortsLink);
+        const shortsBtn = document.createElement("button");
+        shortsBtn.type = "button";
+        shortsBtn.className = "dc-badge dc-badge--shorts dc-row__shortslink";
+        shortsBtn.textContent = ep.shorts.length > 1 ? `Shorts (${ep.shorts.length})` : "Short";
+        shortsBtn.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          openShortsModal(ep);
+        });
+        sub.appendChild(shortsBtn);
       }
       main.append(link, sub);
 
@@ -550,13 +628,6 @@
     let currentSlug = null;
     let renderSeq = 0; // guards against out-of-order shard fetches on rapid prev/next
 
-    const el = (tag, className, text) => {
-      const node = document.createElement(tag);
-      if (className) node.className = className;
-      if (text !== undefined) node.textContent = text;
-      return node;
-    };
-
     function fillHero(ep) {
       if (slots.badge) {
         slots.badge.className = `dc-badge dc-badge--${ep.series}`;
@@ -634,15 +705,7 @@
       wrap.appendChild(el("p", "dc-shorts__label",
         ep.shorts.length > 1 ? "Watch the Shorts from this episode" : "Watch the Short from this episode"));
       const row = el("div", "dc-shorts__row");
-      ep.shorts.forEach((short, i) => {
-        const link = document.createElement("a");
-        link.className = "btn btn--ghost";
-        link.href = `https://www.youtube.com/shorts/${short.id}`;
-        link.target = "_blank";
-        link.rel = "noopener";
-        link.textContent = ep.shorts.length > 1 ? `Watch Short ${i + 1} ↗` : "Watch the Short ↗";
-        row.appendChild(link);
-      });
+      ep.shorts.forEach((short) => row.appendChild(shortCard(short)));
       wrap.appendChild(row);
       return wrap;
     }

@@ -18,6 +18,7 @@
   function txt(el) { return el ? (el.textContent || "").trim() : ""; }
 
   var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var SHORTS_ENABLED = false; // TEMP: off while matches are being validated — flip to true to re-enable
 
   function parseDate(raw) {
     if (!raw) return null;
@@ -283,7 +284,7 @@
     /* Watch the Short(s) inline (never link out to youtube.com): comma-delimited
        YouTube Short IDs from the shorts-ids CMS field. */
     var sslot = $(".ep_shorts_slot");
-    if (sslot && shortsIds) {
+    if (SHORTS_ENABLED && sslot && shortsIds) {
       var ids = shortsIds.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
       if (ids.length) {
         var scard = document.createElement("div");

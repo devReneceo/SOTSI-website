@@ -19,6 +19,7 @@
   var GH = "https://devreneceo.github.io/SOTSI-website/";
   var DATA_URL = GH + "assets/data/episodes-index.json";
   var SHORTS_URL = GH + "assets/data/shorts-mapping.json";
+  var SHORTS_ENABLED = false; // TEMP: off while matches are being validated — flip to true to re-enable
   var ART_DIR = GH + "assets/images/episodes/";
   var TRAILER_MP4 = GH + "assets/Gary-Zukav-Podcast-Trailer-web.mp4";
   var mp3Url = function (megaId) { return "https://traffic.megaphone.fm/" + megaId + ".mp3"; };
@@ -590,7 +591,7 @@
       var subdate = el("span", "dc-row__subdate", fmtDate(ep.date) + (ep.duration ? " · " + fmtDur(ep.duration) : ""));
       sub.appendChild(badge);
       sub.appendChild(subdate);
-      if (ep.shorts && ep.shorts.length) {
+      if (SHORTS_ENABLED && ep.shorts && ep.shorts.length) {
         var shortsBtn = document.createElement("button");
         shortsBtn.type = "button";
         shortsBtn.className = "dc-badge dc-badge--shorts dc-row__shortslink";

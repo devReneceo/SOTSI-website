@@ -142,6 +142,39 @@
     return card;
   }
 
+  /* Vertical (9:16) click-to-embed card for a YouTube Short — appended into `slot`,
+     which may already hold other short cards (multiple Shorts per episode). */
+  function shortFacade(slot, yt, label) {
+    var card = document.createElement("div");
+    card.className = "dc-short";
+    var img = document.createElement("img");
+    img.src = "https://i.ytimg.com/vi/" + yt + "/hqdefault.jpg";
+    img.alt = "";
+    img.loading = "lazy";
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "dc-short__btn";
+    btn.setAttribute("aria-label", label);
+    var play = document.createElement("span");
+    play.className = "dc-trailer__play";
+    play.setAttribute("aria-hidden", "true");
+    play.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    btn.appendChild(play);
+    card.appendChild(img);
+    card.appendChild(btn);
+    btn.addEventListener("click", function () {
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + yt + "?autoplay=1&rel=0";
+      f.title = label;
+      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      f.setAttribute("allowfullscreen", "");
+      card.innerHTML = "";
+      card.appendChild(f);
+    });
+    slot.appendChild(card);
+    return card;
+  }
+
   /* ---------- blog post template ---------- */
 
   function initPost() {
@@ -247,7 +280,8 @@
       aslot.appendChild(card);
     }
 
-    /* Watch the Short(s): comma-delimited YouTube Short IDs from the shorts-ids CMS field */
+    /* Watch the Short(s) inline (never link out to youtube.com): comma-delimited
+       YouTube Short IDs from the shorts-ids CMS field. */
     var sslot = $(".ep_shorts_slot");
     if (sslot && shortsIds) {
       var ids = shortsIds.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
@@ -260,13 +294,7 @@
         var srow = document.createElement("div");
         srow.className = "dc-shorts__row";
         ids.forEach(function (id, i) {
-          var slink = document.createElement("a");
-          slink.className = "btn btn--ghost";
-          slink.href = "https://www.youtube.com/shorts/" + id;
-          slink.target = "_blank";
-          slink.rel = "noopener";
-          slink.textContent = ids.length > 1 ? "Watch Short " + (i + 1) + " ↗" : "Watch the Short ↗";
-          srow.appendChild(slink);
+          shortFacade(srow, id, ids.length > 1 ? "Play Short " + (i + 1) : "Play the Short");
         });
         scard.appendChild(slabel);
         scard.appendChild(srow);

@@ -88,6 +88,79 @@
   var ICON_PAUSE = '<svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z"/></svg>';
   var ICON_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>';
 
+  /* ---------- Shorts: inline click-to-play card + on-site modal (never link out to youtube.com) ---------- */
+  var shortCard = function (short) {
+    var box = el("div", "dc-short");
+    var img = document.createElement("img");
+    img.src = "https://i.ytimg.com/vi/" + short.id + "/hqdefault.jpg";
+    img.alt = "";
+    img.loading = "lazy";
+    var btn = el("button", "dc-short__btn");
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Play the Short: " + short.title);
+    var circle = el("span", "dc-trailer__play");
+    circle.setAttribute("aria-hidden", "true");
+    circle.appendChild(svg(ICON_PLAY.replace(' class="ico-play"', "")));
+    btn.appendChild(circle);
+    btn.addEventListener("click", function () {
+      var iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube-nocookie.com/embed/" + short.id + "?autoplay=1&rel=0";
+      iframe.title = short.title;
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.setAttribute("allowfullscreen", "");
+      box.innerHTML = "";
+      box.appendChild(iframe);
+    });
+    var label = el("p", "dc-short__label", short.title);
+    box.appendChild(img);
+    box.appendChild(btn);
+    box.appendChild(label);
+    return box;
+  };
+
+  var shortsModalEl = null;
+  var openShortsModal = function (ep) {
+    if (!shortsModalEl) {
+      shortsModalEl = el("div", "dc-shmodal");
+      shortsModalEl.setAttribute("role", "dialog");
+      shortsModalEl.setAttribute("aria-modal", "true");
+      shortsModalEl.hidden = true;
+      var backdrop = el("div", "dc-shmodal__backdrop");
+      var panel = el("div", "dc-shmodal__panel");
+      var closeBtn = el("button", "dc-shmodal__close");
+      closeBtn.type = "button";
+      closeBtn.setAttribute("aria-label", "Close");
+      closeBtn.textContent = "×";
+      var title = el("p", "dc-shmodal__title");
+      var row = el("div", "dc-shmodal__row");
+      panel.appendChild(closeBtn);
+      panel.appendChild(title);
+      panel.appendChild(row);
+      shortsModalEl.appendChild(backdrop);
+      shortsModalEl.appendChild(panel);
+      document.body.appendChild(shortsModalEl);
+      var close = function () {
+        shortsModalEl.hidden = true;
+        document.body.classList.remove("dc-shmodal-open");
+        row.innerHTML = "";
+      };
+      backdrop.addEventListener("click", close);
+      closeBtn.addEventListener("click", close);
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !shortsModalEl.hidden) close();
+      });
+      shortsModalEl._row = row;
+      shortsModalEl._title = title;
+    }
+    shortsModalEl._title.textContent = ep.shorts.length > 1
+      ? "Shorts from " + ep.fullTitle
+      : "Short from " + ep.fullTitle;
+    shortsModalEl._row.innerHTML = "";
+    ep.shorts.forEach(function (short) { shortsModalEl._row.appendChild(shortCard(short)); });
+    shortsModalEl.hidden = false;
+    document.body.classList.add("dc-shmodal-open");
+  };
+
   /* ---------- page prep: reveal gate, anchors, hero fetch priority, form ---------- */
   function prep() {
     document.body.classList.add("dcw-js");
@@ -518,14 +591,16 @@
       sub.appendChild(badge);
       sub.appendChild(subdate);
       if (ep.shorts && ep.shorts.length) {
-        var shortsLink = document.createElement("a");
-        shortsLink.className = "dc-badge dc-badge--shorts dc-row__shortslink";
-        shortsLink.href = "https://www.youtube.com/shorts/" + ep.shorts[0].id;
-        shortsLink.target = "_blank";
-        shortsLink.rel = "noopener";
-        shortsLink.textContent = ep.shorts.length > 1 ? "Shorts (" + ep.shorts.length + ")" : "Short";
-        shortsLink.addEventListener("click", function (event) { event.stopPropagation(); });
-        sub.appendChild(shortsLink);
+        var shortsBtn = document.createElement("button");
+        shortsBtn.type = "button";
+        shortsBtn.className = "dc-badge dc-badge--shorts dc-row__shortslink";
+        shortsBtn.textContent = ep.shorts.length > 1 ? "Shorts (" + ep.shorts.length + ")" : "Short";
+        shortsBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          openShortsModal(ep);
+        });
+        sub.appendChild(shortsBtn);
       }
       main.appendChild(link);
       main.appendChild(sub);

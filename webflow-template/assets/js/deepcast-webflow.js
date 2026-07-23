@@ -18,6 +18,7 @@
 
   var GH = "https://devreneceo.github.io/SOTSI-website/";
   var DATA_URL = GH + "assets/data/episodes-index.json";
+  var SHORTS_URL = GH + "assets/data/shorts-mapping.json";
   var ART_DIR = GH + "assets/images/episodes/";
   var TRAILER_MP4 = GH + "assets/Gary-Zukav-Podcast-Trailer-web.mp4";
   var mp3Url = function (megaId) { return "https://traffic.megaphone.fm/" + megaId + ".mp3"; };
@@ -58,6 +59,18 @@
       return res.json();
     });
     return indexPromise;
+  };
+
+  var shortsPromise = null;
+  var loadShorts = function () {
+    shortsPromise = shortsPromise || fetch(SHORTS_URL).then(function (res) {
+      return res.ok ? res.json() : { bySlug: {} };
+    }).catch(function () { return { bySlug: {} }; });
+    return shortsPromise;
+  };
+  var withShorts = function (ep, shortsBySlug) {
+    ep.shorts = shortsBySlug[ep.slug] || [];
+    return ep;
   };
 
   var el = function (tag, cls, text) {
@@ -504,6 +517,16 @@
       var subdate = el("span", "dc-row__subdate", fmtDate(ep.date) + (ep.duration ? " · " + fmtDur(ep.duration) : ""));
       sub.appendChild(badge);
       sub.appendChild(subdate);
+      if (ep.shorts && ep.shorts.length) {
+        var shortsLink = document.createElement("a");
+        shortsLink.className = "dc-badge dc-badge--shorts dc-row__shortslink";
+        shortsLink.href = "https://www.youtube.com/shorts/" + ep.shorts[0].id;
+        shortsLink.target = "_blank";
+        shortsLink.rel = "noopener";
+        shortsLink.textContent = ep.shorts.length > 1 ? "Shorts (" + ep.shorts.length + ")" : "Short";
+        shortsLink.addEventListener("click", function (event) { event.stopPropagation(); });
+        sub.appendChild(shortsLink);
+      }
       main.appendChild(link);
       main.appendChild(sub);
 
@@ -581,9 +604,11 @@
       preview.toggle(btn, btn.getAttribute("data-dc-play"));
     });
 
-    loadIndex()
-      .then(function (data) {
-        episodes = data.episodes || [];
+    Promise.all([loadIndex(), loadShorts()])
+      .then(function (results) {
+        var data = results[0];
+        var shortsBySlug = (results[1] && results[1].bySlug) || {};
+        episodes = (data.episodes || []).map(function (ep) { return withShorts(ep, shortsBySlug); });
         if (skel) skel.parentNode.removeChild(skel);
         render();
         buildMarquee(episodes);

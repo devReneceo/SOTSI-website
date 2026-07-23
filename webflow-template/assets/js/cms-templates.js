@@ -191,14 +191,17 @@
     var shell = $(".ep_shell");
     if (!shell) return;
 
-    /* hidden data slots: [0]=duration-sec [1]=megaphone-id [2]=youtube-id [3]=episode-number */
+    /* hidden data slots: [0]=duration-sec [1]=megaphone-id [2]=youtube-id [3]=episode-number [4]=shorts-ids */
     var data = $(".ep_data");
-    var dur = "", mega = "", yt = "", num = "";
+    var dur = "", mega = "", yt = "", num = "", shortsIds = "";
     if (data && data.children.length >= 4) {
       dur = txt(data.children[0]);
       mega = txt(data.children[1]);
       yt = txt(data.children[2]);
       num = txt(data.children[3]);
+    }
+    if (data && data.children.length >= 5) {
+      shortsIds = txt(data.children[4]);
     }
 
     /* facts line: "#74 · March 4, 2026 · 12 min · Video + audio" */
@@ -242,6 +245,33 @@
       card.appendChild(icon);
       card.appendChild(body);
       aslot.appendChild(card);
+    }
+
+    /* Watch the Short(s): comma-delimited YouTube Short IDs from the shorts-ids CMS field */
+    var sslot = $(".ep_shorts_slot");
+    if (sslot && shortsIds) {
+      var ids = shortsIds.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+      if (ids.length) {
+        var scard = document.createElement("div");
+        scard.className = "dc-shorts";
+        var slabel = document.createElement("p");
+        slabel.className = "dc-shorts__label";
+        slabel.textContent = ids.length > 1 ? "Watch the Shorts from this episode" : "Watch the Short from this episode";
+        var srow = document.createElement("div");
+        srow.className = "dc-shorts__row";
+        ids.forEach(function (id, i) {
+          var slink = document.createElement("a");
+          slink.className = "btn btn--ghost";
+          slink.href = "https://www.youtube.com/shorts/" + id;
+          slink.target = "_blank";
+          slink.rel = "noopener";
+          slink.textContent = ids.length > 1 ? "Watch Short " + (i + 1) + " ↗" : "Watch the Short ↗";
+          srow.appendChild(slink);
+        });
+        scard.appendChild(slabel);
+        scard.appendChild(srow);
+        sslot.appendChild(scard);
+      }
     }
 
     /* Chapter seek: any <strong>M:SS</strong> (or H:MM:SS) inside .ep_chapters seeks the audio */

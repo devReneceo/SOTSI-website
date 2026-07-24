@@ -715,15 +715,17 @@
      love-fear 76 · apg-optin 80 · newsletter 3). On submit we mirror the
      lead into ActiveCampaign with a fire-and-forget POST to proc.php —
      Webflow's own AJAX capture keeps running untouched (double capture).
-     u/f = numeric form id (same contract as the live WP inline embeds);
-     "or" is the per-form origin hash harvested from the production embeds. */
+     f = numeric form id; u + "or" = the per-form account id + origin hash,
+     harvested live from the production embeds (embed.php?id=<f>) 2026-07-24.
+     These MUST match the current embed or AC silently drops the submit. */
 
   var AC_PROC_URL = "https://seatofthesoul.activehosted.com/proc.php";
   var AC_FORMS = {
-    "66": { or: "f7baff13-d3db-4261-92d0-c85cadf8b7b5", nameField: "fullname" },
-    "76": { or: "ca9f6d38fe4a1280feb7d6fdc0709be8", nameField: "fullname" },
-    "80": { or: "beb5c09c-c6f0-48ed-97ba-7720769f2a71", nameField: "fullname" },
-    "3":  { or: "b4cda6f8-9892-4188-900b-36578aac794a", nameField: "firstname" }
+    "3":  { u: "6A63C4F63C7C6", or: "24c2434f-0525-463a-9cc4-27e2adefac2f", nameField: "firstname" },
+    "66": { u: "6A63C462BE060", or: "a695087d-c247-4f55-bc1c-9660bdf5f2f3", nameField: "fullname" },
+    "76": { u: "6A63C4F70C13F", or: "6e46ff05-26f4-4be3-957c-41b85a7769ab", nameField: "fullname" },
+    "80": { u: "6A63C4F78E0BD", or: "36d80b8e-10ee-43b7-be23-ff37ff1e141c", nameField: "fullname" },
+    "68": { u: "6A63C4F81EB04", or: "3c6ffe26-b865-4fb4-8acf-769bddac156a", nameField: "firstname" }
   };
 
   function initAcForms() {
@@ -740,7 +742,7 @@
         if (!email || email.indexOf("@") < 1) return;
         var nameEl = $('input[type="text"]', form);
         var params = new URLSearchParams();
-        params.append("u", id);
+        params.append("u", conf.u);
         params.append("f", id);
         params.append("v", "2");
         params.append("c", "0");

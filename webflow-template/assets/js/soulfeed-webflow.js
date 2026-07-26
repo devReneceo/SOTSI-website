@@ -1,6 +1,12 @@
-/* SOTSI · Soul Feed (blog listing) — Webflow runtime v1.1.0
+/* SOTSI · Soul Feed (blog listing) — Webflow runtime v1.2.0
    Paridad con el prototipo sotsi landing/blog/blog.js (2026-07-16).
    Página: /blog (proposal-03.webflow.io).
+
+   v1.2.0 (2026-07-25) — regla del cliente: el blog muestra SOLO los posts
+   "Blog" (90). Los Soul Feast / Soul Snack viven en Deepcast (/podcast) con
+   su propio filtro. El feed del board sigue trayendo los 275; se filtra a
+   series==="Blog" al cargar y se retira el selector "Content type" del toolbar
+   (ya no hay nada que elegir). Sin cambios de diseño.
 
    v1.1.0 — el board 22d-trello actúa de CMS headless: el índice se pide
    PRIMERO al feed live del board (Cloud Run, mismo contrato JSON) y cae a
@@ -30,8 +36,7 @@
   var ART_DIR = GH + "assets/images/blog/";
   var READER_URL = "/post?slug=";
   var BATCH = 24;
-  var STORE_KEY = "blw:list:v1";
-  var SERIES_VALUES = ["Blog", "Soul Feast", "Soul Snack", "all"];
+  var STORE_KEY = "blw:list:v2"; // v2: sin `series` (estado viejo invalidado)
   var REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var WALL_COUNT = 42;
@@ -238,14 +243,7 @@
       return { wrap: wrap, sel: sel };
     };
 
-    // Content type (regla del cliente): Blogs = lo no-Soul; abre en Blogs.
-    var series = makeSelect("Content type", "data-bl-series", [
-      ["Blog", "Blogs"],
-      ["Soul Feast", "Soul Feasts"],
-      ["Soul Snack", "Soul Snacks"],
-      ["all", "All posts"]
-    ], state.series);
-
+    // v1.2.0: se retira el selector "Content type" — el blog es solo Blogs.
     var sort = makeSelect("Sort reflections", "data-bl-sort", [
       ["new", "Newest first"],
       ["old", "Oldest first"],
@@ -258,11 +256,10 @@
     count.setAttribute("aria-live", "polite");
 
     host.appendChild(searchLabel);
-    host.appendChild(series.wrap);
     host.appendChild(sort.wrap);
     host.appendChild(count);
 
-    return { search: input, seriesSel: series.sel, sortSel: sort.sel, countEl: count };
+    return { search: input, sortSel: sort.sel, countEl: count };
   }
 
   /* ---------- gridview + empty + load-more (JS-rendered) ---------- */
@@ -509,12 +506,11 @@
     var stackHost = $("[data-bl-stack]");
     var totalEl = $("[data-bl-total]") || $(".bl-hero__micro strong");
 
-    // series arranca en "Blog": el directorio abre en los blogs no-Soul.
-    var state = { q: "", series: "Blog", sort: "new", shown: BATCH };
+    // v1.2.0: sin `series` — el directorio es solo Blogs.
+    var state = { q: "", sort: "new", shown: BATCH };
     var saved = store.get();
     if (saved && typeof saved === "object") {
       state.q = typeof saved.q === "string" ? saved.q : "";
-      state.series = SERIES_VALUES.indexOf(saved.series) !== -1 ? saved.series : "Blog";
       state.sort = ["new", "old", "rank", "az"].indexOf(saved.sort) !== -1 ? saved.sort : "new";
       state.shown = Math.max(BATCH, saved.shown | 0);
     }
@@ -522,7 +518,6 @@
     var ui = buildToolbar(toolbarHost, state);
     var scaffold = buildListScaffold(listHost);
     var searchInput = ui.search;
-    var seriesSel = ui.seriesSel;
     var sortSel = ui.sortSel;
     var countEl = ui.countEl;
     var gridView = scaffold.gridView;
@@ -534,30 +529,16 @@
 
     var posts = [];
     var persist = function () {
-      store.set({ q: state.q, series: state.series, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
+      store.set({ q: state.q, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
     };
     var navPersist = function () { persist(); };
-
-    function buildSeriesOptions() {
-      var counts = {};
-      posts.forEach(function (p) { counts[p.series] = (counts[p.series] || 0) + 1; });
-      var labels = { Blog: "Blogs", "Soul Feast": "Soul Feasts", "Soul Snack": "Soul Snacks", all: "All posts" };
-      Array.prototype.forEach.call(seriesSel.options, function (opt) {
-        var n = opt.value === "all" ? posts.length : (counts[opt.value] || 0);
-        opt.textContent = (labels[opt.value] || opt.value) + " (" + n + ")";
-      });
-      seriesSel.value = state.series;
-    }
-
-    var matchesSeries = function (post) { return state.series === "all" || post.series === state.series; };
 
     var filtered = function () {
       var query = state.q.trim().toLowerCase();
       var subset = posts.filter(function (post) {
-        return matchesSeries(post) &&
-          (!query ||
-            post.title.toLowerCase().indexOf(query) !== -1 ||
-            (post.excerpt || "").toLowerCase().indexOf(query) !== -1);
+        return !query ||
+          post.title.toLowerCase().indexOf(query) !== -1 ||
+          (post.excerpt || "").toLowerCase().indexOf(query) !== -1;
       });
       switch (state.sort) {
         case "old": return subset.slice().reverse();
@@ -601,22 +582,21 @@
       clearTimeout(debounce);
       debounce = setTimeout(function () { update({ q: searchInput.value, shown: BATCH }); }, 130);
     });
-    seriesSel.addEventListener("change", function () { update({ series: seriesSel.value, shown: BATCH }); });
     sortSel.addEventListener("change", function () { update({ sort: sortSel.value, shown: BATCH }); });
     moreBtn.addEventListener("click", function () { update({ shown: state.shown + BATCH }); });
     clearBtn.addEventListener("click", function () {
       searchInput.value = "";
-      seriesSel.value = "all"; // ensancha para aterrizar siempre en resultados
       sortSel.value = "new";
-      update({ q: "", series: "all", sort: "new", shown: BATCH });
+      update({ q: "", sort: "new", shown: BATCH });
     });
 
     loadIndex()
       .then(function (data) {
-        posts = (data && data.posts) || [];
+        // v1.2.0: el feed trae los 275 (Blog + Soul Feast + Soul Snack);
+        // el blog muestra SOLO "Blog" (los Soul viven en Deepcast /podcast).
+        posts = ((data && data.posts) || []).filter(function (p) { return p.series === "Blog"; });
         if (totalEl) totalEl.textContent = String(posts.length);
         if (skel) skel.parentNode.removeChild(skel);
-        buildSeriesOptions();
         buildWall(stackHost, posts);
         buildPicks(picksHost, posts, navPersist);
         initResizeSync(picksHost);

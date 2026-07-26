@@ -499,7 +499,11 @@
 
     loadIndex()
       .then((data) => {
-        posts = data.posts || [];
+        // Soul Feast/Snack viven en Deepcast (/podcast): el blog es solo "Blog".
+        // Se filtra aquí client-side (además del filtro en build_blog.py) para que
+        // el listado, el hero total y el redirect de artículos sean correctos
+        // aunque el índice traiga las 3 series. Paridad con soulfeed-webflow.
+        posts = (data.posts || []).filter((p) => p.series === "Blog");
         if (totalEl) totalEl.textContent = String(posts.length);
         if (skel) skel.remove();
         buildChips();
@@ -759,7 +763,11 @@
 
     loadIndex()
       .then((data) => {
-        posts = data.posts || [];
+        // Soul Feast/Snack viven en Deepcast (/podcast): el blog es solo "Blog".
+        // Se filtra aquí client-side (además del filtro en build_blog.py) para que
+        // el listado, el hero total y el redirect de artículos sean correctos
+        // aunque el índice traiga las 3 series. Paridad con soulfeed-webflow.
+        posts = (data.posts || []).filter((p) => p.series === "Blog");
         if (!posts.length) throw new Error("empty index");
         show(getSlug(), false);
       })

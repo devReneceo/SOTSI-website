@@ -19,7 +19,7 @@
   const artSrc = (post, hero) => ART_DIR + ((hero ? post.hero : post.thumb) || "_default.webp");
   const BATCH = 24;
   const TOPIC_CHIPS = 6;                 // how many topic filters to surface in the toolbar
-  const STORE_KEY = "bl:list:v3";        // v3 — adds the series (content type) axis
+  const STORE_KEY = "bl:list:v4";        // v4 — Soul Feast/Snack moved to Deepcast; blog = Blog only
   const SERIES_VALUES = ["Blog", "Soul Feast", "Soul Snack", "all"]; // JSON values + "all"
   const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -145,8 +145,8 @@
     const stackHost = $("[data-bl-stack]");
     const totalEl = $("[data-bl-total]");
 
-    // series defaults to "Blog": the directory opens on the true Blogs (non-Soul posts).
-    const state = { q: "", topic: "all", series: "Blog", sort: "new", shown: BATCH };
+    // Soul Feast/Snack moved to Deepcast — the blog index is now Blog-only, so series is always "all".
+    const state = { q: "", topic: "all", series: "all", sort: "new", shown: BATCH };
     const saved = store.get();
     if (saved && typeof saved === "object") {
       state.q = typeof saved.q === "string" ? saved.q : "";
@@ -735,6 +735,11 @@
     }
 
     function show(slug, push) {
+      // Soul Feast/Snack moved to Deepcast — redirect their old blog URLs to the episode reader.
+      if (slug && /^soul-(feast|snack)-/i.test(slug) && !posts.some((p) => p.slug === slug)) {
+        location.replace("../../podcast/episode/?ep=" + encodeURIComponent(slug));
+        return;
+      }
       const foundIndex = posts.findIndex((p) => p.slug === slug);
       const index = Math.max(0, foundIndex);
       const entry = posts[index];

@@ -1,4 +1,7 @@
-/* SOTSI · deepcast-webflow.js v1.0.0 — /podcast parity with the static prototype.
+/* SOTSI · deepcast-webflow.js v1.5.0 — /podcast parity with the static prototype.
+   v1.5.0 (2026-07-25): filtro por serie en el toolbar — chips All · Soul Feast ·
+   Soul Snack (los Soul Feast/Snack se movieron del blog a Deepcast). El resto
+   del filtrado ya existía; solo faltaban los botones (antes solo "All").
    Adapts sotsi landing/podcast/deepcast.js to the Webflow-native page built by MCP:
    Soul Tide canvas (immersive) + trailer (lazy <video>) + split headings + artwork
    marquee + Spotify-style directory fetched from the GH Pages episodes index.
@@ -458,9 +461,14 @@
     label.appendChild(svg(ICON_SEARCH));
     label.appendChild(input);
 
-    var chip = el("button", "chip is-active", "All");
-    chip.type = "button";
-    chip.setAttribute("data-dc-filter", "all");
+    // v1.5.0: filtro por serie — Deepcast reúne Soul Feast + Soul Snack.
+    var chipDefs = [["all", "All"], ["feast", "Soul Feast"], ["snack", "Soul Snack"]];
+    var chipEls = chipDefs.map(function (def) {
+      var c = el("button", def[0] === "all" ? "chip is-active" : "chip", def[1]);
+      c.type = "button";
+      c.setAttribute("data-dc-filter", def[0]);
+      return c;
+    });
 
     var sortLabel = el("label", "dcw-sortwrap");
     var sortSr = el("span", "dcw-hide", "Sort episodes");
@@ -481,7 +489,7 @@
     count.setAttribute("aria-live", "polite");
 
     host.appendChild(label);
-    host.appendChild(chip);
+    chipEls.forEach(function (c) { host.appendChild(c); });
     host.appendChild(sortLabel);
     host.appendChild(count);
   }

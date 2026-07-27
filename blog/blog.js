@@ -19,7 +19,33 @@
   const artSrc = (post, hero) => ART_DIR + ((hero ? post.hero : post.thumb) || "_default.webp");
   const BATCH = 24;
   const TOPIC_CHIPS = 6;                 // how many topic filters to surface in the toolbar
-  const STORE_KEY = "bl:list:v4";        // v4 — Soul Feast/Snack moved to Deepcast; blog = Blog only
+  const STORE_KEY = "bl:list:v5";        // v5 — Exclude posts hidden; v4 — Soul Feast/Snack moved to Deepcast
+  // Regla del cliente (2026-07-27): estos posts son Deepcast Show Notes (Ginni
+  // Media) / serie Miracle / Soul Thoughts — NO blogs. En el board 22d-trello
+  // llevan categories[0]="Exclude" y el sitio Webflow los filtra por ese dato
+  // (soulfeed-webflow v1.3.0); los datos del proto vienen de WP y no traen el
+  // flag, así que aquí va el snapshot de slugs (fuente de verdad = el board).
+  // Fuera del LISTING; el detalle por link directo sigue abriendo (a propósito).
+  const EXCLUDED_SLUGS = new Set([
+    "moments-with-marianne-internet",
+    "explore-multisensory-perception-and-spiritual-partnership",
+    "gary-zukav-and-linda-francis-share-their-insight",
+    "the-ongoing-conversation",
+    "the-new-male-and-authentic-power-internet",
+    "the-catherine-bradford-show-seattle",
+    "rhythm-flow-radio-dallas",
+    "im-thankful-network-seattle",
+    "the-miracle-of-the-coronavirus-part-3",
+    "the-miracle-of-the-coronavirus-part-2",
+    "the-miracle-of-the-coronavirus-part-1",
+    "coronavirus-the-heart-of-the-matter",
+    "coronavirus-opportunity-or-obstacle",
+    "keep-your-eye-on-the-ball",
+    "coronavirus-and-karma",
+    "love-in-or-lock-down",
+    "winter-solstice",
+    "universal-human",
+  ]);
   const SERIES_VALUES = ["Blog", "Soul Feast", "Soul Snack", "all"]; // JSON values + "all"
   const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -503,7 +529,8 @@
         // Se filtra aquí client-side (además del filtro en build_blog.py) para que
         // el listado, el hero total y el redirect de artículos sean correctos
         // aunque el índice traiga las 3 series. Paridad con soulfeed-webflow.
-        posts = (data.posts || []).filter((p) => p.series === "Blog");
+        // v5: y sin los show notes / Exclude (ver EXCLUDED_SLUGS arriba).
+        posts = (data.posts || []).filter((p) => p.series === "Blog" && !EXCLUDED_SLUGS.has(p.slug));
         if (totalEl) totalEl.textContent = String(posts.length);
         if (skel) skel.remove();
         buildChips();
@@ -647,7 +674,8 @@
       const gridEl = el("div", "bl-post-nav__grid");
       const card = (slug, kind) => {
         const entry = posts.find((p) => p.slug === slug);
-        if (!entry) return null;
+        // los Exclude no se ofrecen en prev/next (siguen abriendo por link directo)
+        if (!entry || EXCLUDED_SLUGS.has(slug)) return null;
         const { clean } = titleParts(entry);
         const a = el("a", `bl-post-nav__card${kind === "next" ? " bl-post-nav__card--next" : ""}`);
         a.href = `?post=${encodeURIComponent(entry.slug)}`;
@@ -794,7 +822,7 @@
       if (!current) return;
       // arrows walk the series (prev = older), mirroring the on-page cards
       const shardDir = event.key === "ArrowLeft" ? "prevSlug" : "nextSlug";
-      const ordered = posts.filter((p) => p.series === current.series); // newest first
+      const ordered = posts.filter((p) => p.series === current.series && !EXCLUDED_SLUGS.has(p.slug)); // newest first, sin Exclude
       const at = ordered.findIndex((p) => p.slug === current.slug);
       const next = shardDir === "prevSlug" ? ordered[at + 1] : ordered[at - 1];
       if (next) show(next.slug, true);

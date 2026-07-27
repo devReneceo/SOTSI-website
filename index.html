@@ -2512,5 +2512,35 @@
      el token vive en GitHub Secrets / .env local, nunca en el cliente). -->
 <script src="assets/js/instafeed.js" defer></script>
 
+<script src="assets/js/cookie-notice.js" defer></script>
+<!-- Preload inteligente (2026-07-27): al quedar el navegador ocioso tras load,
+     calienta los JSON que /blog y /deepcast van a pedir (mismo origen,
+     max-age=600 en GH Pages) e inyecta Speculation Rules para que Chrome
+     pre-renderice ambas páginas; browsers sin soporte ignoran el tag y se
+     quedan con el warm de JSON. Guards: Save-Data / red 2g → no hace nada.
+     Espejo de sotsipreload 1.0.0 en Webflow. -->
+<script>
+(() => {
+  "use strict";
+  const conn = navigator.connection || {};
+  if (conn.saveData || /(^|\b)2g/.test(String(conn.effectiveType || ""))) return;
+  const warm = () => {
+    ["assets/data/blog-index.json", "assets/data/episodes-index.json"].forEach((u) => {
+      try { fetch(u).catch(() => {}); } catch (e) { /* best effort */ }
+    });
+    try {
+      const s = document.createElement("script");
+      s.type = "speculationrules";
+      s.textContent = JSON.stringify({ prerender: [{ source: "list", urls: ["blog/", "deepcast/"] }] });
+      document.head.appendChild(s);
+    } catch (e) { /* sin soporte: no pasa nada */ }
+  };
+  const idle = () => ("requestIdleCallback" in window
+    ? requestIdleCallback(warm, { timeout: 4000 })
+    : setTimeout(warm, 1500));
+  if (document.readyState === "complete") idle();
+  else window.addEventListener("load", idle, { once: true });
+})();
+</script>
 </body>
 </html>

@@ -11,7 +11,7 @@ Disallow: /report-9f3a2c/
 Disallow: /prototype/
 Disallow: /webflow-template/
 
-# Note: the client-rendered shells (search/, blog/post/, podcast/episode/) and the
+# Note: the client-rendered shells (search/, blog/post/, deepcast/episode/) and the
 # About duplicate/hub carry <meta robots=noindex> and are intentionally left crawlable
 # so those directives are read.
 

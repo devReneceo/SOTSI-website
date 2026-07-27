@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reflection · Soul Feed — Seat of the Soul Institute</title>
-  <meta name="description" content="A written reflection from Gary Zukav on the Soul Feed, the Seat of the Soul Institute blog." />
-  <meta name="robots" content="noindex" />
+  <meta name="robots" content="noindex, follow" />
+  <title>Episode · The Gary Zukav Deepcast · Seat of the Soul Institute</title>
+  <meta name="description" content="Listen to an episode of The Gary Zukav Deepcast — Exploring the New Consciousness. Video, audio and chapter markers for every Soul Feast and Soul Snack." />
   <!--
-    Shell de detalle del blog (2026-07-04): blog.js lee ?post=<slug>, carga el
-    shard assets/data/blog/<slug>.json y llena hero + prosa + video + prev/next.
-    Mismo patrón que deepcast/episode/ (renderSeq guard, pushState, flechas).
+    Prototype Fase 2 · Deepcast episode shell (2026-07-04)
+    One reusable page for all 181 episodes: ?ep=<wp-slug> picks the episode,
+    deepcast.js renders it from assets/data/episodes/<slug>.json.
+    Prev/next + arrow keys navigate via history.pushState (no full reload).
   -->
   <link rel="icon" type="image/x-icon" href="../../assets/favicon/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png" />
@@ -20,7 +21,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Dancing+Script:wght@600&family=Pinyon+Script&display=swap" />
   <link rel="stylesheet" href="../../styles/internal.css" />
   <link rel="stylesheet" href="../../styles/section-polish.css" />
-  <link rel="stylesheet" href="../blog.css" />
+  <link rel="stylesheet" href="../deepcast.css" />
 </head>
 <body class="int-page nav-dark nl-immersive navsize-m logosize-m logoframe-2 btnstyle-2 herocta-2 font-brand">
   <header class="snav snav--immersive" id="navImmersive">
@@ -71,32 +72,57 @@
 </header>
 
   <main>
-    <!-- HERO — filled by blog.js from the shard -->
-    <section class="bl-post-hero" data-bl-post-hero aria-labelledby="post-heading">
-      <span class="bl-post-hero__art" aria-hidden="true"></span>
-      <span class="bl-post-hero__scrim" aria-hidden="true"></span>
-      <div class="bl-post-hero__inner">
-        <p class="bl-post-hero__eyebrow"><span class="bl-badge" data-post-badge>Reflection</span><span class="bl-post-hero__num" data-post-num></span></p>
-        <h1 class="bl-post-hero__title" id="post-heading" data-post-title>Loading this reflection…</h1>
-        <div class="bl-byline">
-          <span class="int-byline__mono" aria-hidden="true">GZ</span>
-          <div>
-            <p class="bl-byline__name" data-post-editor>Gary Zukav</p>
-            <p class="bl-byline__meta" data-post-facts></p>
-          </div>
-        </div>
+    <!-- Episode hero — filled by deepcast.js from the ?ep=<slug> shard -->
+    <section class="dc-ep-hero" data-dc-ep-hero aria-labelledby="episode-heading">
+      <div class="dc-ep-hero__inner">
+        <p class="dc-ep-hero__meta">
+          <span class="dc-badge" data-ep-badge></span>
+          <span class="dc-ep-hero__num" data-ep-num></span>
+        </p>
+        <h1 class="dc-ep-hero__title" data-ep-title id="episode-heading">Loading the episode…</h1>
+        <p class="dc-ep-hero__facts" data-ep-facts></p>
       </div>
       <nav class="int-breadcrumbs" aria-label="Breadcrumb">
-        <a href="../../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span><a href="../">Blog</a><span class="crumb-sep" aria-hidden="true">·</span><span aria-current="page" data-post-crumb>Reflection</span>
+        <a href="../../index.html">Home</a><span class="crumb-sep" aria-hidden="true">·</span>
+        <a href="../">Deepcast</a><span class="crumb-sep" aria-hidden="true">·</span>
+        <span aria-current="page" data-ep-crumb>Episode</span>
       </nav>
     </section>
 
-    <!-- BODY — article shell -->
-    <article class="bl-post" data-bl-post>
-      <div class="bl-skel bl-skel--post" aria-hidden="true">
-        <div class="bl-skelcard"></div>
+    <div class="dc-ep-main" data-dc-episode>
+      <div class="dc-skel dc-ep-skel" aria-hidden="true">
+        <div class="dc-skel__bar"></div>
+        <div class="dc-skel__bar"></div>
       </div>
-    </article>
+      <noscript>
+        <p class="int-lead">This episode player needs JavaScript. You can browse every episode on
+          <a href="https://seatofthesoul.com/deepcast/" target="_blank" rel="noopener">seatofthesoul.com/deepcast ↗</a>
+          or listen on <a href="https://open.spotify.com/show/2UzjQIkP3b5OKjJkn2L8Sz" target="_blank" rel="noopener">Spotify ↗</a>.</p>
+        <style>.dc-ep-skel { display: none; }</style>
+      </noscript>
+    </div>
+
+    <!-- Newsletter (same prototype form, ActiveCampaign id 3) -->
+    <section class="newsband">
+      <div class="newsband__inner">
+        <div>
+          <p class="int-eyebrow">Never miss an episode</p>
+          <h2 class="int-h2">Receive new episodes <span class="accent">in your inbox.</span></h2>
+          <p class="int-lead">Subscribe to the newsletter and receive weekly, wisdom infused, insights from Gary.</p>
+        </div>
+        <div class="form-card">
+          <h3 class="form-card__title">Receive the Soul Connections Newsletter</h3>
+          <p class="form-card__note">New episodes Mondays &amp; Fridays. Free. Unsubscribe anytime.</p>
+          <form novalidate>
+            <label class="field"><span>First name</span><input type="text" name="first_name" autocomplete="given-name" placeholder="Type your first name" required /></label>
+            <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="Type your email" required /></label>
+            <button class="btn btn--gold" type="submit">Sign Up</button>
+            <!-- <p class="form-fine">Prototype note: submissions will be centralized in ActiveCampaign (form id 3).</p> -->
+          </form>
+          <p class="form-success">You're in. New episodes will arrive in your inbox.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer site-footer--v2">
@@ -178,6 +204,6 @@
 
   <!-- <div class="proto-ribbon" aria-hidden="true">Prototype · Fase 2</div> -->
   <script src="../../assets/js/internal.js"></script>
-  <script src="../blog.js" defer></script>
+  <script src="../deepcast.js" defer></script>
 </body>
 </html>

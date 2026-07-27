@@ -1,4 +1,4 @@
-/* Deepcast page behavior (podcast/ + podcast/episode/).
+/* Deepcast page behavior (deepcast/ + deepcast/episode/).
    List page: renders the Spotify-style directory from assets/data/episodes-index.json
    (search, series chips, sort, batched "Load more", sessionStorage state restore,
    inline mp3 preview, artwork marquee, trailer). Detail shell: renders one episode
@@ -602,7 +602,7 @@
           const h3 = $("h3", emptyEl);
           const p = $("p", emptyEl);
           if (h3) h3.textContent = "The episode list could not load.";
-          if (p) p.textContent = "Please refresh the page, or browse every episode on seatofthesoul.com/podcast.";
+          if (p) p.textContent = "Please refresh the page, or browse every episode on seatofthesoul.com/deepcast.";
           if (clearBtn) clearBtn.remove();
         }
       });

@@ -5,7 +5,7 @@
    "Load more", sessionStorage state restore. Detail shell: renders one post
    shard (?post=<slug>) with a YouTube facade, rich-text body, series
    prev/next cards, arrow keys and history.pushState navigation.
-   Patterns ported from podcast/deepcast.js — nav wiring stays in internal.js. */
+   Patterns ported from deepcast/deepcast.js — nav wiring stays in internal.js. */
 (() => {
   "use strict";
 
@@ -499,7 +499,7 @@
 
     loadIndex()
       .then((data) => {
-        // Soul Feast/Snack viven en Deepcast (/podcast): el blog es solo "Blog".
+        // Soul Feast/Snack viven en Deepcast (/deepcast): el blog es solo "Blog".
         // Se filtra aquí client-side (además del filtro en build_blog.py) para que
         // el listado, el hero total y el redirect de artículos sean correctos
         // aunque el índice traiga las 3 series. Paridad con soulfeed-webflow.
@@ -741,7 +741,7 @@
     function show(slug, push) {
       // Soul Feast/Snack moved to Deepcast — redirect their old blog URLs to the episode reader.
       if (slug && /^soul-(feast|snack)-/i.test(slug) && !posts.some((p) => p.slug === slug)) {
-        location.replace("../../podcast/episode/?ep=" + encodeURIComponent(slug));
+        location.replace("../../deepcast/episode/?ep=" + encodeURIComponent(slug));
         return;
       }
       const foundIndex = posts.findIndex((p) => p.slug === slug);
@@ -763,7 +763,7 @@
 
     loadIndex()
       .then((data) => {
-        // Soul Feast/Snack viven en Deepcast (/podcast): el blog es solo "Blog".
+        // Soul Feast/Snack viven en Deepcast (/deepcast): el blog es solo "Blog".
         // Se filtra aquí client-side (además del filtro en build_blog.py) para que
         // el listado, el hero total y el redirect de artículos sean correctos
         // aunque el índice traiga las 3 series. Paridad con soulfeed-webflow.

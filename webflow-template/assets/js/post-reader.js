@@ -1,4 +1,4 @@
-/* SOTSI · Post reader — Webflow runtime v2.0.1
+/* SOTSI · Post reader — Webflow runtime v2.0.2
    Página estática /post (proposal-03.webflow.io). Reader de artículos del blog
    EN el dominio Webflow: lee ?slug= (o ?post=, compat con el reader GH viejo),
    pide el shard al feed live del board 22d-trello (CMS headless, mismo contrato
@@ -297,6 +297,12 @@
       inner.textContent = "";
       var tpl = document.createElement("template");
       tpl.innerHTML = post.bodyHtml || ""; // sanitizado server-side (allowlist)
+      /* el bodyHtml del board suele abrir repitiendo el título como heading — el h1 del hero ya lo dice */
+      var lead = tpl.content.firstElementChild;
+      if (lead && /^H[1-4]$/.test(lead.tagName) &&
+          lead.textContent.trim().toLowerCase() === (post.title || "").trim().toLowerCase()) {
+        lead.parentNode.removeChild(lead);
+      }
       var videoId = extractVideoId(post, tpl.content);
       var junk = tpl.content.querySelectorAll("script, style, iframe");
       for (var i = 0; i < junk.length; i++) junk[i].parentNode.removeChild(junk[i]);

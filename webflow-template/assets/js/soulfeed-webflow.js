@@ -1,6 +1,15 @@
-/* SOTSI · Soul Feed (blog listing) — Webflow runtime v1.2.0
+/* SOTSI · Soul Feed (blog listing) — Webflow runtime v1.3.0
    Paridad con el prototipo sotsi landing/blog/blog.js (2026-07-16).
    Página: /blog (proposal-03.webflow.io).
+
+   v1.3.0 (2026-07-27) — regla del cliente (1.png): los posts cuyo badge dice
+   "Exclude" (categories[0] — show notes de Ginni Media, serie Miracle, Soul
+   Thoughts) NO son blogs → fuera del listing. OJO dato del board: los 90
+   posts Blog llevan "Exclude" en ALGUNA posición de categories (etiqueta
+   interna) — filtrar por "contiene Exclude" vaciaría el blog; la regla es
+   SOLO categories[0]. Además visibleCats sanea "Exclude" del badge en
+   cualquier posición (paridad post-reader). Para revivir un post: en el
+   board, quitar "Exclude" o ponerlo después de otra categoría.
 
    v1.2.0 (2026-07-25) — regla del cliente: el blog muestra SOLO los posts
    "Blog" (90). Los Soul Feast / Soul Snack viven en Deepcast (/podcast) con
@@ -67,7 +76,18 @@
     if (t.ext) { a.target = "_blank"; a.rel = "noopener"; }
   };
 
-  var primaryTopic = function (post) { return (post.categories && post.categories[0]) || ""; };
+  /* "Exclude" es etiqueta interna de triage del board — nunca se muestra */
+  var visibleCats = function (post) {
+    return (post.categories || []).filter(function (c) {
+      return c && String(c).toLowerCase() !== "exclude";
+    });
+  };
+  /* categories[0]==="Exclude" = show note / no-blog → fuera del listing */
+  var isExcluded = function (post) {
+    var first = post.categories && post.categories[0];
+    return !!first && String(first).toLowerCase() === "exclude";
+  };
+  var primaryTopic = function (post) { return visibleCats(post)[0] || ""; };
   var fmtDate = function (iso) {
     return iso ? new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "";
   };
@@ -594,7 +614,10 @@
       .then(function (data) {
         // v1.2.0: el feed trae los 275 (Blog + Soul Feast + Soul Snack);
         // el blog muestra SOLO "Blog" (los Soul viven en Deepcast /podcast).
-        posts = ((data && data.posts) || []).filter(function (p) { return p.series === "Blog"; });
+        // v1.3.0: y sin los "Exclude" (show notes) — ver isExcluded arriba.
+        posts = ((data && data.posts) || []).filter(function (p) {
+          return p.series === "Blog" && !isExcluded(p);
+        });
         if (totalEl) totalEl.textContent = String(posts.length);
         if (skel) skel.parentNode.removeChild(skel);
         buildWall(stackHost, posts);

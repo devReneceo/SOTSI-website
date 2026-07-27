@@ -1,4 +1,9 @@
-/* SOTSI · Post reader — Webflow runtime v2.0.3
+/* SOTSI · Post reader — Webflow runtime v2.0.4
+   v2.0.4 (2026-07-27) — los posts con categories[0]==="Exclude" (show notes)
+   salieron del listing /blog (soulfeed v1.3.0); prev/next y las flechas ← →
+   ya no llevan a ellos (isExcluded + navigable). El post excluido en sí SIGUE
+   abriendo por link directo /post?slug= — intencional (lista "en la mira").
+
    Página estática /post (proposal-03.webflow.io). Reader de artículos del blog
    EN el dominio Webflow: lee ?slug= (o ?post=, compat con el reader GH viejo),
    pide el shard al feed live del board 22d-trello (CMS headless, mismo contrato
@@ -117,6 +122,20 @@
     return (post.categories || []).filter(function (c) {
       return c && String(c).toLowerCase() !== "exclude";
     });
+  };
+  /* categories[0]==="Exclude" = show note / no-blog (fuera del listing) */
+  var isExcluded = function (post) {
+    var first = post.categories && post.categories[0];
+    return !!first && String(first).toLowerCase() === "exclude";
+  };
+  /* ¿el slug destino de prev/next se puede ofrecer? Si está en el índice y es
+     excluido → no; si no está en el índice (raro) se deja pasar (fallback). */
+  var navigable = function (index, slugTo) {
+    if (!slugTo) return false;
+    for (var i = 0; i < index.length; i++) {
+      if (index[i].slug === slugTo) return !isExcluded(index[i]);
+    }
+    return true;
   };
 
   /* ---------- hero ---------- */
@@ -250,13 +269,15 @@
   };
 
   var seriesNav = function (post, index) {
-    if (!post.prevSlug && !post.nextSlug) return null;
+    var prevOk = navigable(index, post.prevSlug);
+    var nextOk = navigable(index, post.nextSlug);
+    if (!prevOk && !nextOk) return null;
     var wrap = el("nav", "bl-post-nav");
     wrap.setAttribute("aria-label", "More reflections");
     wrap.appendChild(el("p", "bl-post-nav__kicker", "Keep reading"));
     var grid = el("div", "bl-post-nav__grid");
-    if (post.prevSlug) grid.appendChild(navCard(index, post.prevSlug, "prev"));
-    if (post.nextSlug) grid.appendChild(navCard(index, post.nextSlug, "next"));
+    if (prevOk) grid.appendChild(navCard(index, post.prevSlug, "prev"));
+    if (nextOk) grid.appendChild(navCard(index, post.nextSlug, "next"));
     wrap.appendChild(grid);
     var hint = el("p", "bl-post-nav__hint");
     hint.appendChild(document.createTextNode("Tip: use "));
@@ -278,13 +299,13 @@
     return p;
   };
 
-  var wireArrows = function (post) {
+  var wireArrows = function (post, index) {
     document.addEventListener("keydown", function (event) {
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
       var t = event.target;
       if (t && /^(input|textarea|select)$/i.test(t.tagName)) return;
       var dest = event.key === "ArrowLeft" ? post.prevSlug : post.nextSlug;
-      if (dest) location.href = READER_URL + encodeURIComponent(dest);
+      if (dest && navigable(index, dest)) location.href = READER_URL + encodeURIComponent(dest);
     });
   };
 
@@ -343,7 +364,7 @@
     var art = $("[data-bpr-article]");
     if (art) art.hidden = false;
 
-    wireArrows(post);
+    wireArrows(post, index);
     seo(post);
     document.body.setAttribute("data-bpr-ready", "1");
   };

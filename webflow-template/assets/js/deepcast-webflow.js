@@ -1,5 +1,5 @@
-/* SOTSI · deepcast-webflow.js v1.5.0 — /podcast parity with the static prototype.
-   v1.5.0 (2026-07-25): filtro por serie en el toolbar — chips All · Soul Feast ·
+/* SOTSI · deepcast-webflow.js v1.6.0 — /deepcast parity with the static prototype.
+   v1.6.0 (2026-07-27): rename /podcast→/deepcast (ruta nativa + texto noscript). v1.5.0 (2026-07-25): filtro por serie en el toolbar — chips All · Soul Feast ·
    Soul Snack (los Soul Feast/Snack se movieron del blog a Deepcast). El resto
    del filtrado ya existía; solo faltaban los botones (antes solo "All").
    Adapts sotsi landing/podcast/deepcast.js to the Webflow-native page built by MCP:
@@ -33,11 +33,11 @@
 
   /* CMS-aware episode links. LIVE_SLUGS = items already imported; once the
      hidden legacy Collection List renders >= 20 cards (post-import) every
-     slug resolves to its native /podcast/<slug> template page. */
+     slug resolves to its native /deepcast/<slug> template page. */
   var LIVE_SLUGS = { "soul-snack-74-every-moment-is-big": 1 };
   var ALL_LIVE = $all(".pod_card").length >= 20;
   var epHref = function (ep) {
-    if (ALL_LIVE || LIVE_SLUGS[ep.slug]) return "/podcast/" + encodeURIComponent(ep.slug);
+    if (ALL_LIVE || LIVE_SLUGS[ep.slug]) return "/deepcast/" + encodeURIComponent(ep.slug);
     if (ep.youtubeId) return "https://www.youtube.com/watch?v=" + encodeURIComponent(ep.youtubeId);
     return "";
   };
@@ -708,7 +708,7 @@
           var h3 = $("h3", emptyEl);
           var p = $("p", emptyEl);
           if (h3) h3.textContent = "The episode list could not load.";
-          if (p) p.textContent = "Please refresh the page, or browse every episode on seatofthesoul.com/podcast.";
+          if (p) p.textContent = "Please refresh the page, or browse every episode on seatofthesoul.com/deepcast.";
           if (clearBtn) clearBtn.parentNode.removeChild(clearBtn);
         }
         document.body.setAttribute("data-dcw-ready", "error");

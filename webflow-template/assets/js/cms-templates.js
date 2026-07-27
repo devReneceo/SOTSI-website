@@ -56,7 +56,7 @@
     });
     $all(".pod_card_link").forEach(function (a) {
       var s = txt($(".pod_card_slug", a));
-      if (s) a.setAttribute("href", "/podcast/" + s);
+      if (s) a.setAttribute("href", "/deepcast/" + s);
     });
     /* Fase 6B: same publish bug on /books and /shop cards; the hidden slug
        block lives once per item, so resolve item-scoped. */

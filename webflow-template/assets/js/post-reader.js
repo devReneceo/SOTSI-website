@@ -1,4 +1,4 @@
-/* SOTSI · Post reader — Webflow runtime v2.0.0
+/* SOTSI · Post reader — Webflow runtime v2.0.1
    Página estática /post (proposal-03.webflow.io). Reader de artículos del blog
    EN el dominio Webflow: lee ?slug= (o ?post=, compat con el reader GH viejo),
    pide el shard al feed live del board 22d-trello (CMS headless, mismo contrato
@@ -112,10 +112,17 @@
     document.head.appendChild(ld);
   };
 
+  /* "Exclude" es etiqueta interna de triage del board — nunca se muestra */
+  var visibleCats = function (post) {
+    return (post.categories || []).filter(function (c) {
+      return c && String(c).toLowerCase() !== "exclude";
+    });
+  };
+
   /* ---------- hero ---------- */
   var fillHero = function (post) {
     var badge = $("[data-bpr-kicker]");
-    var topic = (post.categories && post.categories[0]) || post.series || "";
+    var topic = visibleCats(post)[0] || post.series || "";
     if (badge) {
       badge.className = "bl-badge bl-badge--topic";
       badge.textContent = topic;
@@ -199,10 +206,11 @@
   };
 
   var tagsBlock = function (post) {
-    if (!post.categories || !post.categories.length) return null;
+    var cats = visibleCats(post);
+    if (!cats.length) return null;
     var wrap = el("div", "bl-tags");
     wrap.setAttribute("aria-label", "Topics");
-    post.categories.forEach(function (cat) { wrap.appendChild(el("span", "bl-tag", cat)); });
+    cats.forEach(function (cat) { wrap.appendChild(el("span", "bl-tag", cat)); });
     return wrap;
   };
 

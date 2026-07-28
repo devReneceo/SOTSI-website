@@ -653,19 +653,6 @@
       return wrap;
     }
 
-    function sourceBlock(post) {
-      if (!post.wpUrl) return null;
-      const p = el("p", "bl-source");
-      const a = el("a", "int-link");
-      a.href = post.wpUrl;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.append("Read on seatofthesoul.com ");
-      a.appendChild(el("span", "arrow", "↗"));
-      p.appendChild(a);
-      return p;
-    }
-
     function seriesNav(post) {
       if (!post.prevSlug && !post.nextSlug) return null;
       const wrap = el("nav", "bl-post-nav");
@@ -756,8 +743,6 @@
       if (prose) inner.appendChild(prose);
       const tags = tagsBlock(post);
       if (tags) inner.appendChild(tags);
-      const source = sourceBlock(post);
-      if (source) inner.appendChild(source);
       const nav = seriesNav(post);
       if (nav) inner.appendChild(nav);
       mount.appendChild(inner);

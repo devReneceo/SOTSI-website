@@ -1,4 +1,6 @@
-/* SOTSI · Post reader — Webflow runtime v2.0.4
+/* SOTSI · Post reader — Webflow runtime v2.0.5
+   v2.0.5 (2026-07-27) — retirado el link "Read on seatofthesoul.com" del pie
+   del artículo (pedido Joel: sin escape al WP viejo; muere al cutover).
    v2.0.4 (2026-07-27) — los posts con categories[0]==="Exclude" (show notes)
    salieron del listing /blog (soulfeed v1.3.0); prev/next y las flechas ← →
    ya no llevan a ellos (isExcluded + navigable). El post excluido en sí SIGUE
@@ -233,19 +235,6 @@
     return wrap;
   };
 
-  var sourceBlock = function (post) {
-    if (!post.wpUrl) return null;
-    var p = el("p", "bl-source");
-    var a = el("a", "int-link");
-    a.href = post.wpUrl;
-    a.target = "_blank";
-    a.rel = "noopener";
-    a.appendChild(document.createTextNode("Read on seatofthesoul.com "));
-    a.appendChild(el("span", "arrow", "↗"));
-    p.appendChild(a);
-    return p;
-  };
-
   /* ---------- prev / next ---------- */
   var navCard = function (index, slugTo, kind) {
     var entry = null;
@@ -352,8 +341,6 @@
       if (prose) inner.appendChild(prose);
       var tags = tagsBlock(post);
       if (tags) inner.appendChild(tags);
-      var source = sourceBlock(post);
-      if (source) inner.appendChild(source);
       var nav = seriesNav(post, index);
       if (nav) inner.appendChild(nav);
       inner.appendChild(backLink());

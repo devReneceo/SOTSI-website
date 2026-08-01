@@ -5,14 +5,17 @@
    ============================================================ */
 
 /* ---- Fuentes reales de marca (self-hosted desde assets) ---- */
-/* Canela (self-hosted) — display de marca del brandbook. Restaurada 2026-07-09 para el prototipo (match producción / captura 2w). Archivos *-Trial.otf → licenciar antes del deploy final de producción. */
-@font-face{font-family:"Canela";src:url("../assets/fonts/6a3342a6143842a7481663a5_Canela-Regular-Trial.otf") format("opentype");font-weight:400;font-display:swap;}
-@font-face{font-family:"Canela";src:url("../assets/fonts/6a3342a6143842a7481663fb_Canela-Bold-Trial.otf") format("opentype");font-weight:700;font-display:swap;}
-@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/6a3342a6143842a7481663fa_Jost-Regular.ttf") format("truetype");font-weight:400;font-display:swap;}
-@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/6a3342a6143842a7481663ba_Jost-SemiBold.ttf") format("truetype");font-weight:600;font-display:swap;}
-@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/6a3342a6143842a7481663b7_Jost-Bold.ttf") format("truetype");font-weight:700;font-display:swap;}
-/* WorldDiscovery (self-hosted) — script emotivo de marca. Restaurada 2026-07-09 para el prototipo (match producción). Archivo *_PERSONAL_USE_ONLY.otf → licenciar antes del deploy final de producción. */
-@font-face{font-family:"WorldDiscovery";src:url("../assets/fonts/6a3342a6143842a7481663f9_WorldDiscovery_PERSONAL_USE_ONLY.otf") format("opentype");font-weight:400;font-display:swap;}
+/* TEST FRAUNCES 2026-07-31 (pedido Joel): display = Fraunces 72pt (OFL, gratis) en lugar de Canela Trial,
+   para evaluar en vivo el reemplazo sin comprar la licencia ($325). Revert: git revert de este commit.
+   FIX CARGA: todas las fuentes self-hosted pasan a woff2 SUBSETEADO latin (antes OTF/TTF completos):
+   display 75→18.5KB · Jost 61→9.5KB c/u · WorldDiscovery 214→57KB (+ preload en páginas clave). */
+@font-face{font-family:"Fraunces";src:url("../assets/fonts/Fraunces-Regular.woff2") format("woff2");font-weight:400;font-display:swap;}
+@font-face{font-family:"Fraunces";src:url("../assets/fonts/Fraunces-Bold.woff2") format("woff2");font-weight:700;font-display:swap;}
+@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/Jost-Regular.woff2") format("woff2");font-weight:400;font-display:swap;}
+@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/Jost-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap;}
+@font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/Jost-Bold.woff2") format("woff2");font-weight:700;font-display:swap;}
+/* WorldDiscovery (self-hosted) — script emotivo de marca. PERSONAL_USE → licenciar "World Discovery One" Regular ($4.68 MyFonts) antes de producción. */
+@font-face{font-family:"WorldDiscovery";src:url("../assets/fonts/WorldDiscovery-PERSONAL.woff2") format("woff2");font-weight:400;font-display:swap;}
 
 :root{
   /* --font-display/-body/-script y --grad-brand → consolidados en tokens.css (Phase 2 · single token source).
@@ -1290,7 +1293,7 @@ body.logosize-xl .snav--centered .snav__logo{align-self:center;}
    TIPOGRAFÍA · variantes (dropdown). Cambian --font-display/body.
    Recomendadas para quiet-luxury espiritual (ui-ux-pro-max / premium-library).
    ============================================================ */
-body.font-brand{--font-display:"Canela",Georgia,serif;--font-body:"Jost SOTSI","Jost",system-ui,sans-serif;}
+body.font-brand{--font-display:"Fraunces",Georgia,serif;--font-body:"Jost SOTSI","Jost",system-ui,sans-serif;}  /* TEST 07-31 Canela→Fraunces */
 body.font-fraunces{--font-display:"Fraunces",Georgia,serif;--font-body:"Inter",system-ui,sans-serif;}
 body.font-cormorant{--font-display:"Cormorant Garamond",Georgia,serif;--font-body:"Mulish",system-ui,sans-serif;}
 body.font-playfair{--font-display:"Playfair Display",Georgia,serif;--font-body:"Source Sans 3",system-ui,sans-serif;}

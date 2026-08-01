@@ -43,7 +43,7 @@
   /* ---- Tipografía ----
      Canela (títulos) → fallback Cormorant Garamond/Fraunces.
      Jost (cuerpo). Cargadas en cada HTML desde Google Fonts. */
-  --font-display: "Canela", "Fraunces", "Cormorant Garamond", Georgia, serif;
+  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;  /* TEST 07-31: Canela → Fraunces (self-hosted woff2) */
   --font-body: "Jost SOTSI", "Jost", "Inter", system-ui, -apple-system, sans-serif;   /* "Jost SOTSI" = self-hosted (brand.css @font-face). Fuente única — brand.css ya no redefine --font-* (Phase 2). */
   --font-script: "WorldDiscovery", "Dancing Script", cursive;
   --font-accent: "Pinyon Script", "Allura", "Fraunces", cursive;   /* script elegante para frases emotivas (brand book) */

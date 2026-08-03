@@ -665,7 +665,7 @@
   <div class="sec__inner">
     <div class="greeting__stage" id="greetStage">
     <div class="greeting__card reveal" id="greetCard">
-      <video id="greetVideo" poster="assets/images/greeting-poster.webp" playsinline preload="metadata">
+      <video id="greetVideo" poster="assets/images/greeting-poster.webp" data-poster-mobile="assets/images/greeting-poster-mobile.webp" playsinline preload="metadata">
         <source src="assets/SOTS-Homepage-Video-web.mp4" type="video/mp4" /></video>
       <span class="greeting__scrim" aria-hidden="true"></span>
       <span class="greeting__bokeh" aria-hidden="true"></span>
@@ -2061,6 +2061,28 @@
       gpre.observe(gsec);
     } else { try{ gv.preload='auto'; }catch(err){} }
   }
+
+  /* ---- Greeting poster: bucket mobile (<=767) usa un poster mas chico (misma toma, solo reescalada) ---- */
+  (function(){
+    var v=document.getElementById('greetVideo');
+    if(!v) return;
+    var mobileSrc=v.getAttribute('data-poster-mobile');
+    if(!mobileSrc) return;
+    var defaultSrc=v.getAttribute('poster');
+    var cur='';
+    function apply(){
+      var isMobile=(window.innerWidth||document.documentElement.clientWidth||1280)<=767;
+      var want=isMobile?'mobile':'default';
+      if(want===cur) return;
+      cur=want;
+      v.poster=isMobile?mobileSrc:defaultSrc;
+    }
+    apply();
+    var t;
+    function onR(){ clearTimeout(t); t=setTimeout(apply,180); }
+    window.addEventListener('resize',onR);
+    window.addEventListener('orientationchange',onR);
+  })();
 
   /* ---- Spotlight cards (.post--glow): el brillo del borde sigue al cursor — Soul Feed + Courses ---- */
   if(matchMedia('(hover:hover) and (pointer:fine)').matches){

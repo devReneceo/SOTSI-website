@@ -1,14 +1,16 @@
-/* SOTSI · Cookie notice — Webflow runtime v1.0.0 (handle sotsicookies)
+/* SOTSI · Cookie notice — Webflow runtime v1.1.0 (handle sotsicookies)
    Paridad con el aviso del WordPress vivo (barra inferior "This website uses
    cookies… ACCEPT / Learn more"), re-estilado a la marca: card navy glass,
    texto marfil, ACCEPT dorado (oro como único acento), "Learn more" →
-   /privacy-policy#sec-6 (la sección "Cookies" de la Privacy Policy).
+   /privacy-policy#sec-5 (la sección "Cookies" de la Privacy Policy).
 
-   - Aviso informativo (igual que el WP actual), no un CMP: aquí no corre
-     analytics y los embeds de YouTube usan facade click-to-play (no sueltan
-     cookies hasta que el usuario da play).
-   - La aceptación se guarda en localStorage bajo clave VERSIONADA
-     (sotsi_cc_v1) — no bloquea ver cambios nuevos del sitio.
+   - Aviso informativo, no un CMP con categorías: aquí no corre analytics y
+     los embeds de YouTube usan facade click-to-play (no sueltan cookies
+     hasta que el usuario da play) — pero SÍ ofrece Accept/Decline reales,
+     ambos se recuerdan (el texto promete "you can opt-out if you wish").
+   - La elección se guarda en localStorage bajo clave VERSIONADA
+     (sotsi_cc_v1, choice: "accepted"|"declined") — no bloquea ver cambios
+     nuevos del sitio.
    - Para re-mostrarlo en pruebas: abrir cualquier página con ?cookies=reset
      (limpia el flag y vuelve a salir), o borrar Site Data del navegador.
    - 0 CLS (position:fixed), animación transform/opacity, respeta
@@ -18,7 +20,7 @@
   "use strict";
 
   var KEY = "sotsi_cc_v1";
-  var PRIVACY_HREF = "/privacy-policy#sec-6";
+  var PRIVACY_HREF = "/privacy-policy#sec-5";
   var COPY = "This website uses cookies to improve your experience. " +
     "We'll assume you're ok with this, but you can opt-out if you wish.";
 
@@ -29,9 +31,9 @@
     }
   } catch (e) { /* URL rara: seguimos */ }
 
-  var accepted = null;
-  try { accepted = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
-  if (accepted && accepted.choice === "accepted") return;
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
+  if (saved && (saved.choice === "accepted" || saved.choice === "declined")) return;
 
   var CSS = "" +
     ".sotsi-cc{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom,16px));" +
@@ -51,6 +53,12 @@
     "transition:transform .2s ease,box-shadow .2s ease}" +
     ".sotsi-cc__accept:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(254,212,87,.35)}" +
     ".sotsi-cc__accept:focus-visible{outline:2px solid var(--gold,#fed457);outline-offset:3px}" +
+    ".sotsi-cc__decline{cursor:pointer;border:1px solid rgba(246,241,231,.4);border-radius:999px;" +
+    "padding:.6em 1.4em;background:transparent;color:#f6f1e7;font:inherit;font-weight:600;" +
+    "font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;" +
+    "transition:border-color .2s ease,background .2s ease}" +
+    ".sotsi-cc__decline:hover{border-color:#f6f1e7;background:rgba(246,241,231,.08)}" +
+    ".sotsi-cc__decline:focus-visible{outline:2px solid #f6f1e7;outline-offset:3px}" +
     ".sotsi-cc__more{color:#f6f1e7;opacity:.85;text-decoration:underline;" +
     "text-underline-offset:3px;white-space:nowrap}" +
     ".sotsi-cc__more:hover{opacity:1;color:var(--gold,#fed457)}" +
@@ -78,6 +86,11 @@
     var actions = document.createElement("div");
     actions.className = "sotsi-cc__actions";
 
+    var decline = document.createElement("button");
+    decline.type = "button";
+    decline.className = "sotsi-cc__decline";
+    decline.textContent = "Decline";
+
     var accept = document.createElement("button");
     accept.type = "button";
     accept.className = "sotsi-cc__accept";
@@ -88,6 +101,7 @@
     more.href = PRIVACY_HREF;
     more.textContent = "Learn more";
 
+    actions.appendChild(decline);
     actions.appendChild(accept);
     actions.appendChild(more);
     bar.appendChild(text);
@@ -98,15 +112,18 @@
       requestAnimationFrame(function () { bar.classList.add("is-in"); });
     });
 
-    accept.addEventListener("click", function () {
+    var dismiss = function (choice) {
       try {
-        localStorage.setItem(KEY, JSON.stringify({ v: 1, choice: "accepted", ts: Date.now() }));
+        localStorage.setItem(KEY, JSON.stringify({ v: 1, choice: choice, ts: Date.now() }));
       } catch (e) { /* modo privado: el banner igual se cierra esta sesión */ }
       bar.classList.remove("is-in");
       var gone = function () { if (bar.parentNode) bar.parentNode.removeChild(bar); };
       bar.addEventListener("transitionend", gone, { once: true });
       setTimeout(gone, 600);
-    });
+    };
+
+    accept.addEventListener("click", function () { dismiss("accepted"); });
+    decline.addEventListener("click", function () { dismiss("declined"); });
   };
 
   if (document.readyState === "loading") {

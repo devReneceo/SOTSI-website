@@ -1,6 +1,6 @@
 /* SOTSI · app.js — interacciones (extraído de index.html, sin el DEV switcher).
-   ink-drop · nav condense · drawer móvil · hero parallax · cursor lens · slider
-   (.oslider) · swipe · scroll-reveal · stats count-up.
+   ink-drop · nav condense · drawer móvil · hero parallax · slider (.oslider) ·
+   swipe · scroll-reveal · stats count-up.
    Cargar DESPUÉS del DOM (al final de <body>), ANTES de soul-tide.js. */
 (function(){
   /* guard: evita doble-ejecución si el archivo llega dos veces (freeform + registered) */
@@ -215,8 +215,6 @@
   var oslides=[].slice.call(document.querySelectorAll('.oslide'));
   if(oslides.length){
     var osliderEl = document.querySelector('.oslider');
-    var ocursor = document.getElementById('ocursor');
-    var ocursorLabel = ocursor ? ocursor.querySelector('span') : null;
     var odotsWrap=document.getElementById('odots');
     var ocurrent = document.getElementById('ocurrent');
     var ototal = document.getElementById('ototal');
@@ -303,36 +301,6 @@
     if(onextBtn) onextBtn.setAttribute('aria-label', 'Next slide');
     if(onextBtn) onextBtn.addEventListener('click', function(){ onext('82%','50%'); orestart(); });
     if(oprevBtn) oprevBtn.addEventListener('click', function(){ oprevf('18%','50%'); orestart(); });
-    if(osliderEl && ocursor && ocursorLabel && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches){
-      function originalCursorIntent(clientX){
-        var rect = osliderEl.getBoundingClientRect();
-        return ((clientX - rect.left) / rect.width) < 0.5 ? 'prev' : 'next';
-      }
-      osliderEl.addEventListener('pointerenter', function(e){
-        ocursor.classList.add('is-visible');
-        ocursor.style.left = e.clientX + 'px';
-        ocursor.style.top = e.clientY + 'px';
-      });
-      osliderEl.addEventListener('pointermove', function(e){
-        var intent = originalCursorIntent(e.clientX);
-        ocursor.style.left = e.clientX + 'px';
-        ocursor.style.top = e.clientY + 'px';
-        ocursorLabel.textContent = intent === 'prev' ? 'Back' : 'Next';
-      });
-      osliderEl.addEventListener('pointerleave', function(){
-        ocursor.classList.remove('is-visible');
-      });
-      osliderEl.addEventListener('click', function(e){
-        if(e.target.closest('a,button,.vswitch')) return;
-        var intent = originalCursorIntent(e.clientX);
-        var rect = osliderEl.getBoundingClientRect();
-        var ox = (((e.clientX - rect.left) / rect.width) * 100).toFixed(2) + '%';
-        var oy = (((e.clientY - rect.top) / rect.height) * 100).toFixed(2) + '%';
-        if(intent === 'prev') oprevf(ox, oy);
-        else onext(ox, oy);
-        orestart();
-      });
-    }
     attachSwipe(osliderEl, function(){ onext('50%','50%'); orestart(); }, function(){ oprevf('50%','50%'); orestart(); });
     orestart();
     /* feedback 2026-07-06: pausa del autoplay con el cursor sobre el CTA (paridad con el estático) */

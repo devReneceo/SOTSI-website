@@ -1,9 +1,3 @@
-/* ============================================================
-   SOTSI · Stage 1 (Navigation) + Stage 2 (Hero) — concept styles
-   Quiet-luxury editorial · senior-accessible · Webflow-portable.
-   Compositor-friendly motion only. tokens.css holds brand vars.
-   ============================================================ */
-
 *,*::before,*::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -12,13 +6,13 @@ body {
   background: var(--surface); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
 h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: var(--tracking-title); line-height: 1.04; margin: 0; }
-p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
+p { margin: 0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
 .wrap { width: min(100% - 2*var(--gutter), var(--maxw)); margin-inline: auto; }
 .eyebrow { font-size: var(--text-eyebrow); letter-spacing: .22em; text-transform: uppercase; font-weight: 600; color: var(--purple); margin: 0 0 1rem; }
 .eyebrow.on-dark { color: var(--yellow); }
 .script { font-family: var(--font-script); line-height: 1; color: var(--gold); }
-
-/* ---- Buttons (shared) ---- */
 .btn { --btn-bg: var(--purple); --btn-fg:#fff; display:inline-flex; align-items:center; justify-content:center; gap:.6em;
   min-height: var(--tap); padding: 0 1.9rem; border:0; border-radius: var(--radius-pill); background: var(--btn-bg);
   color: var(--btn-fg); font-family: var(--font-body); font-size: 1.05rem; font-weight: 600; text-decoration:none; cursor:pointer;
@@ -34,14 +28,11 @@ p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
 .btn--ghost:hover { border-color: var(--purple); box-shadow: var(--shadow-sm); }
 .on-dark .btn--ghost { --btn-fg:#fff; border-color: var(--hairline-on-dark); }
 .on-dark .btn--ghost:hover { border-color: rgba(255,255,255,.55); }
-
 .link-anim { position:relative; text-decoration:none; font-weight:600; color: var(--purple); padding-bottom:2px; }
 .link-anim::after { content:""; position:absolute; left:0; bottom:0; width:100%; height:2px; background: currentColor; transform: scaleX(0); transform-origin:left; transition: transform var(--dur) var(--ease); }
 .link-anim:hover::after, .link-anim:focus-visible::after { transform: scaleX(1); }
 .link-anim .arrow { display:inline-block; transition: transform var(--dur) var(--ease); }
 .link-anim:hover .arrow { transform: translateX(4px); }
-
-/* ---- Showcase scaffolding ---- */
 .doc-head { width: min(100% - 2*var(--gutter), 60rem); margin: 0 auto; padding-block: clamp(2.5rem,1.5rem + 4vw,4.5rem); }
 .doc-head h1 { font-size: var(--text-h2); }
 .proposal { border-top: 1px solid var(--hairline); padding-block: clamp(2.25rem,1.5rem + 2.5vw,3.5rem); }
@@ -55,18 +46,10 @@ p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
 .frame--mega { overflow: visible; position: relative; }
 .frame--mega .nav1 { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
 .demo-scroll-note { width: min(100% - 2*var(--gutter), 1320px); margin: .6rem auto 0; font-size:.82rem; color: var(--text-on-light-soft); font-style: italic; }
-
-/* ============================================================
-   LOGO LOCKUP (text-based, brand-faithful; replace with SVG in WF)
-   ============================================================ */
 .logo { display:inline-flex; flex-direction:column; line-height:1; text-decoration:none; }
 .logo__mark { font-family: var(--font-script); font-size: 1.5rem; color: inherit; }
 .logo__sub { font-family: var(--font-body); font-size:.62rem; letter-spacing:.34em; text-transform:uppercase; margin-top:.18rem; opacity:.8; }
 .logo--lg .logo__mark { font-size: 1.9rem; }
-
-/* ============================================================
-   NAV CONCEPT 1 — Editorial Persistent Bar (light, recommended)
-   ============================================================ */
 .navbar { position: relative; z-index: 5; }
 .nav1 { background:#fff; border-bottom:1px solid var(--hairline); }
 .nav1__inner { display:flex; align-items:center; gap:2rem; min-height:76px; }
@@ -85,8 +68,6 @@ p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
 .nav1__icon:hover { background: var(--surface-soft); }
 .nav1__icon:focus-visible { outline:none; box-shadow:0 0 0 3px var(--purple); }
 .nav1__icon svg { width:22px; height:22px; }
-
-/* Mega dropdown (hover/focus reveal in concept) */
 .has-mega { position: static; }
 .mega { position:absolute; left:0; right:0; top:100%; background:#fff; border-top:1px solid var(--hairline); box-shadow: var(--shadow-md);
   opacity:0; visibility:hidden; transform: translateY(8px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
@@ -99,10 +80,6 @@ p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
 .mega__col h5 { font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color: var(--text-on-light-soft); margin:0 0 .8rem; font-family: var(--font-body); font-weight:700; }
 .mega__col a { display:block; padding:.5rem 0; color: var(--navy); text-decoration:none; font-weight:500; border-bottom:1px solid transparent; transition: color var(--dur) var(--ease); }
 .mega__col a:hover { color: var(--purple); }
-
-/* ============================================================
-   NAV CONCEPT 2 — Immersive transparent→solid (over dark hero)
-   ============================================================ */
 .nav2 { background: transparent; position:absolute; left:0; right:0; top:0; z-index:10; }
 .nav2.is-solid { position:fixed; background: rgba(14,22,49,.82); backdrop-filter: blur(14px); border-bottom:1px solid var(--hairline-on-dark); }
 .nav2 .logo { color:#fff; }
@@ -111,15 +88,10 @@ p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
 .nav2 .nav-link::after { background: var(--yellow); }
 .nav2 .nav1__icon { color:#fff; }
 .nav2 .nav1__icon:hover { background: rgba(255,255,255,.1); }
-/* demo wrapper to show it over an image */
 .nav2-demo { position:relative; min-height: 240px; color:#fff; display:flex; align-items:flex-end; overflow:hidden; }
 .nav2-demo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; }
 .nav2-demo::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(14,22,49,.6), rgba(60,25,81,.25)); z-index:-1; }
 .nav2-demo__cap { padding: 1.5rem var(--gutter); font-size:.9rem; color: rgba(255,255,255,.8); }
-
-/* ============================================================
-   NAV CONCEPT 3 — Two-tier editorial (utility row + centered)
-   ============================================================ */
 .nav3__utility { background: var(--navy); color: var(--text-on-dark-soft); font-size:.85rem; }
 .nav3__utility .wrap { display:flex; align-items:center; justify-content:space-between; min-height:40px; gap:1rem; }
 .nav3__utility a { color: var(--text-on-dark-soft); text-decoration:none; padding:.2rem .4rem; }
@@ -129,41 +101,18 @@ p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
 .nav3__links { display:flex; gap:.3rem; list-style:none; padding:0; margin:0; }
 .nav3__links.right { justify-content:flex-end; }
 .nav3 .logo { color: var(--navy); align-items:center; text-align:center; }
-
-/* ---- Nav 3 APPROVED: sticky + condense + mobile drawer ---- */
 .nav3.is-sticky { position: sticky; top: 0; z-index: 40; box-shadow: var(--shadow-sm); }
 .nav3 .nav3__utility { transition: max-height var(--dur) var(--ease), opacity var(--dur) var(--ease); max-height: 60px; overflow: hidden; }
-.nav3.is-condensed .nav3__utility { max-height: 0; opacity: 0; }      /* utility row collapses on scroll */
+.nav3.is-condensed .nav3__utility { max-height: 0; opacity: 0; }
 .nav3.is-condensed .nav3__main .wrap { min-height: 68px; }
 .nav3__burger { display:none; width:48px; height:48px; border:0; background:transparent; cursor:pointer; color:var(--navy); border-radius:10px; }
 .nav3__burger:hover { background: var(--surface-soft); }
 .nav3__burger:focus-visible { outline:none; box-shadow:0 0 0 3px var(--purple); }
 .nav3__burger svg { width:26px; height:26px; }
-/* mobile slide-down panel */
 .nav3__mobile { display:none; }
 .nav3__mobile-panel { background:#fff; border-top:1px solid var(--hairline); padding: .5rem var(--gutter) 1.5rem; }
 .nav3__mobile-panel a { display:block; padding: .95rem .25rem; font-size:1.15rem; font-weight:600; color:var(--navy); text-decoration:none; border-bottom:1px solid var(--hairline); }
 .nav3__mobile-panel .btn { margin-top:1.1rem; width:100%; }
-
-/* ============================================================
-   HERO CONCEPT A — Editorial Stillness (recommended)
-   ============================================================ */
-.heroA { background: var(--surface); padding-block: clamp(3rem,2rem + 4vw,6rem); }
-.heroA__grid { display:grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem,1rem + 4vw,5rem); align-items:center; }
-.heroA__title { font-size: var(--text-h1); }
-.heroA__sub { font-size: var(--text-lead); color: var(--text-on-light-soft); margin: 1.4rem 0 0; max-width: 26ch; }
-.heroA__body { margin: 1.6rem 0 2.2rem; max-width: 42ch; }
-.heroA__cta { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; }
-.heroA__media { position:relative; }
-.heroA__img { width:100%; aspect-ratio: 4/5; object-fit:cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
-.heroA__glow { position:absolute; inset:auto -8% -10% auto; width:60%; aspect-ratio:1; background: var(--glow-yellow); z-index:-1; filter: blur(6px); }
-.heroA__chip { position:absolute; left:-1.5rem; bottom:2rem; background:#fff; border-radius: var(--radius); box-shadow: var(--shadow-md); padding:.9rem 1.2rem; display:flex; align-items:center; gap:.75rem; max-width:17rem; }
-.heroA__chip img { width:48px; height:48px; border-radius:50%; object-fit:cover; }
-.heroA__chip span { font-size:.92rem; line-height:1.35; }
-
-/* ============================================================
-   HERO CONCEPT B — Immersive Calm (full-bleed)
-   ============================================================ */
 .heroB { position:relative; min-height: 86vh; display:grid; place-items:center; text-align:center; color:#fff; overflow:hidden; isolation:isolate; }
 .heroB__bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; }
 .heroB__scrim { position:absolute; inset:0; background: linear-gradient(180deg, rgba(14,22,49,.5), rgba(60,25,81,.8)); z-index:-1; }
@@ -174,10 +123,6 @@ p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
 .heroB__cue { position:absolute; left:50%; bottom:1.8rem; transform: translateX(-50%); color: rgba(255,255,255,.7); font-size:.8rem; letter-spacing:.18em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:.4rem; }
 .heroB__cue::after { content:""; width:1px; height:34px; background: rgba(255,255,255,.6); animation: cue 2.2s var(--ease) infinite; }
 @keyframes cue { 0%,100%{opacity:.25; transform: scaleY(.6);} 50%{opacity:1; transform: scaleY(1);} }
-
-/* ============================================================
-   HERO CONCEPT C — Living Story (split + layered photos)
-   ============================================================ */
 .heroC { background: var(--surface-soft); padding-block: clamp(3rem,2rem + 4vw,5.5rem); }
 .heroC__inner { display:grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,1rem + 3vw,3.5rem); align-items:center; }
 .heroC__title { font-size: clamp(2.6rem,1.6rem + 5vw,5.5rem); }
@@ -187,23 +132,5 @@ p { margin: 0; } img { display: block; max-width: 100%; } a { color: inherit; }
 .heroC__img-sub { position:absolute; right:0; bottom:0; width:46%; aspect-ratio:3/4; object-fit:cover; border-radius: var(--radius); box-shadow: var(--shadow-md); border:5px solid #fff; }
 .heroC__badge { position:absolute; left:0; top:1.5rem; background: var(--navy); color:#fff; border-radius: var(--radius-pill); padding:.5rem 1.1rem; font-size:.85rem; font-weight:600; box-shadow: var(--shadow-md); display:flex; align-items:center; gap:.5rem; }
 .heroC__badge b { color: var(--yellow); }
-
-/* ============================================================
-   Responsive
-   ============================================================ */
-@media (max-width: 1000px) {
-  .nav1__links, .nav3__links { display:none; }        /* collapse to trigger */
-  .nav3__burger { display:inline-grid; place-items:center; }
-  .nav3__main .wrap { grid-template-columns: 1fr auto auto; column-gap:.5rem; }
-  .nav3 .logo { justify-self:start; align-items:flex-start; text-align:left; }
-  .nav3__mobile { display:block; }
-  .heroA__grid, .heroC__inner { grid-template-columns: 1fr; }
-  .heroA__media, .heroC__stack { order:-1; }
-  .mega__grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 560px) {
-  .heroA__chip { left:0; }
-  .heroB__script { font-size: 1.8rem; }
-  .nav3__utility { font-size:.78rem; }
-  .nav3__main .nav1__cta .btn span.hide-sm { display:none; }
-}
+@media (max-width: 1000px){.nav1__links, .nav3__links { display:none; }.nav3__burger { display:inline-grid; place-items:center; }.nav3__main .wrap { grid-template-columns: 1fr auto auto; column-gap:.5rem; }.nav3 .logo { justify-self:start; align-items:flex-start; text-align:left; }.nav3__mobile { display:block; }.heroC__inner{ grid-template-columns: 1fr; }.heroC__stack{ order:-1; }.mega__grid { grid-template-columns: 1fr 1fr; }}
+@media (max-width: 560px){.heroB__script { font-size: 1.8rem; }.nav3__utility { font-size:.78rem; }.nav3__main .nav1__cta .btn span.hide-sm { display:none; }}

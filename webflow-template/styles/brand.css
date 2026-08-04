@@ -1,34 +1,17 @@
-/* ============================================================
-   SOTSI · brand.css — fuentes REALES + nav dark glass (brandbook)
-   + hero slider + switcher de variantes. Carga DESPUÉS de
-   tokens.css y concepts.css (reusa .btn, .eyebrow, .heroA, .logo).
-   ============================================================ */
-
-/* ---- Fuentes reales de marca (self-hosted, woff2 — perf 2026-07-21) ---- */
-/* Canela — display. Archivos derivados de *-Trial → licenciar antes del deploy final de producción. */
 @font-face{font-family:"Canela";src:url("../assets/fonts/Canela-Regular.woff2") format("woff2");font-weight:400;font-display:swap;}
 @font-face{font-family:"Canela";src:url("../assets/fonts/Canela-Bold.woff2") format("woff2");font-weight:700;font-display:swap;}
 @font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/Jost-Regular.woff2") format("woff2");font-weight:400;font-display:swap;}
 @font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/Jost-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap;}
 @font-face{font-family:"Jost SOTSI";src:url("../assets/fonts/Jost-Bold.woff2") format("woff2");font-weight:700;font-display:swap;}
-/* Alias "Jost": estas caras (declaradas DESPUÉS del CSS de Webflow) shadowean la project font
-   Jost .ttf de fastly → una sola descarga woff2 para "Jost SOTSI" y "Jost". */
 @font-face{font-family:"Jost";src:url("../assets/fonts/Jost-Regular.woff2") format("woff2");font-weight:400;font-display:swap;}
 @font-face{font-family:"Jost";src:url("../assets/fonts/Jost-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap;}
 @font-face{font-family:"Jost";src:url("../assets/fonts/Jost-Bold.woff2") format("woff2");font-weight:700;font-display:swap;}
 @font-face{font-family:"WorldDiscovery";src:url("../assets/fonts/WorldDiscovery.woff2") format("woff2");font-weight:400;font-display:swap;}
-
 :root{
-  /* --font-display/-body/-script y --grad-brand → consolidados en tokens.css (Phase 2 · single token source).
-     tokens.css carga antes que brand.css en todas las páginas, así que es la fuente única.
-     body.font-brand (más abajo) sigue siendo el estado "default" del dev font-switcher y coincide con tokens. */
+  
   --glass-dark:rgba(14,22,49,.55);
   --glass-border:rgba(255,255,255,.14);
 }
-
-/* ============================================================
-   NAV — Two-tier, centered logo, themable (dark glass / light)
-   ============================================================ */
 .snav{position:sticky;top:0;z-index:40;transition:background-color .4s var(--ease),box-shadow .4s var(--ease);}
 .snav__utility{font-size:.82rem;transition:max-height .4s var(--ease),opacity .3s var(--ease),padding .4s var(--ease);max-height:46px;overflow:hidden;}
 .snav__utility .wrap{display:flex;align-items:center;justify-content:space-between;min-height:46px;gap:1rem;}
@@ -42,14 +25,10 @@
 .snav__side.right{justify-content:flex-start;}
 .snav__logo{justify-self:center;display:block;overflow:visible;}
 .snav__logo img{height:calc(var(--logo-h,60px) * var(--logo-scale,1));width:auto;max-width:none;display:block;transition:height .4s var(--ease);}
-.snav__main .wrap{column-gap:clamp(.6rem,1vw,1.25rem);}  /* dar aire para que el logo natural quepa */
+.snav__main .wrap{column-gap:clamp(.6rem,1vw,1.25rem);}
 .snav.is-condensed .snav__logo img{height:calc(var(--logo-h,60px) * var(--logo-scale,1) * .82);}
 .snav--centered .snav__logo{padding-inline:1.4rem;}
-/* Logo · marco "Opción 2" — margen vertical asimétrico (45/25) en el nav centrado.
-   Da el efecto visual de logo "colgado" sobre el hero. Toggle: body.logoframe-2 */
 body.logoframe-2 .snav--centered .snav__logo{margin-top:45px;margin-bottom:25px;}
-
-/* nav links (themable) */
 .snav .nlink{position:relative;display:inline-flex;align-items:center;gap:.35rem;min-height:44px;padding:0 .85rem;border-radius:12px;
   font-family:var(--font-body);font-weight:600;font-size:var(--nav-fz,1rem);text-decoration:none;white-space:nowrap;
   transition:color .3s var(--ease),background-color .3s var(--ease),font-size .3s var(--ease);}
@@ -59,8 +38,6 @@ body.logoframe-2 .snav--centered .snav__logo{margin-top:45px;margin-bottom:25px;
 .snav .nlink:hover::after,.snav .nlink[aria-current="page"]::after{transform:scaleX(1);}
 .snav__burger{display:none;width:48px;height:48px;border:0;background:transparent;cursor:pointer;border-radius:10px;}
 .snav__burger svg{width:26px;height:26px;}
-
-/* ---- DARK theme (default · brandbook) ---- */
 body.nav-dark .snav{background:var(--glass-dark);backdrop-filter:blur(16px);border-bottom:1px solid var(--glass-border);}
 body.nav-dark .snav.is-condensed{background:rgba(14,22,49,.85);}
 body.nav-dark .snav__utility{background:rgba(0,0,0,.18);color:var(--text-on-dark-soft);}
@@ -71,8 +48,6 @@ body.nav-dark .snav .nlink:hover{background:rgba(255,255,255,.08);}
 body.nav-dark .snav .nlink[aria-current="page"]{color:var(--yellow);}
 body.nav-dark .snav__burger{color:#fff;}
 body.nav-dark .logo--for-light{display:none;}
-
-/* ---- LIGHT theme ---- */
 body.nav-light .snav{background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline);}
 body.nav-light .snav__utility{background:var(--navy);color:var(--text-on-dark-soft);}
 body.nav-light .snav__utility a{color:var(--text-on-dark-soft);}
@@ -82,18 +57,12 @@ body.nav-light .snav .nlink:hover{background:var(--surface-soft);}
 body.nav-light .snav .nlink[aria-current="page"]{color:var(--purple);}
 body.nav-light .snav__burger{color:var(--navy);}
 body.nav-light .logo--for-dark{display:none;}
-
-/* ---- GLOW add-on — calm · warm · elegant gloss (toggled by body.nav-glow) ---- */
 .snav .nlink .glow{position:absolute;inset:-2px;z-index:-1;border-radius:14px;opacity:0;transform:scale(.94);pointer-events:none;
   background:radial-gradient(115% 95% at 50% 28%, rgba(254,212,87,.17) 0%, rgba(120,74,158,.13) 44%, transparent 72%);
   transition:opacity .6s var(--ease),transform .6s var(--ease);}
 body.nav-glow .snav .nlink:hover .glow,body.nav-glow .snav .nlink[aria-current="page"] .glow{opacity:1;transform:scale(1.16);}
-/* soft glossy sheen on the link itself (replaces the hard block highlight) */
 body.nav-glow.nav-dark .snav .nlink:hover{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,0));}
 body.nav-glow.nav-light .snav .nlink:hover{background:linear-gradient(180deg,rgba(60,25,81,.05),transparent);}
-/* underline stays as the clear affordance; glow is the warm halo around it */
-
-/* ---- Dropdown (simple, accessible hover/focus) ---- */
 .has-dd{position:relative;}
 .dd{position:absolute;top:100%;left:50%;transform:translate(-50%,8px);min-width:230px;padding:.6rem;border-radius:16px;
   opacity:0;visibility:hidden;transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s;z-index:30;
@@ -104,34 +73,19 @@ body.nav-light .dd{background:#fff;border-color:var(--hairline);}
 body.nav-light .dd a{color:var(--navy);}
 .dd a:hover{background:rgba(255,255,255,.08);color:var(--yellow);}
 body.nav-light .dd a:hover{background:var(--surface-soft);color:var(--purple);}
-
-/* mobile */
 .snav__mobile{display:none;}
 .snav__mobile-panel{padding:.5rem var(--gutter) 1.5rem;}
 .snav__mobile-panel a{display:block;padding:.9rem .2rem;font-size:1.15rem;font-weight:600;text-decoration:none;border-bottom:1px solid var(--glass-border);}
 .snav__mobile-panel .subnav-link{padding-left:1rem;font-size:1rem;opacity:.88;}
-/* "About" en el panel mobile = label no clickeable (solo dropdown, pedido cliente 2026-07-02) */
 .snav__mobile-panel .snav__mobile-label{display:block;padding:.9rem .2rem;font-size:1.15rem;font-weight:600;border-bottom:1px solid var(--glass-border);opacity:.92;}
 body.nav-dark .snav__mobile-panel .snav__mobile-label{color:#fff;}
 body.nav-light .snav__mobile-panel .snav__mobile-label{color:var(--navy);border-color:var(--hairline);}
-body.nav-dark .snav__mobile-panel{background:rgba(14,22,49,.96);} body.nav-dark .snav__mobile-panel a{color:#fff;}
-body.nav-light .snav__mobile-panel{background:#fff;} body.nav-light .snav__mobile-panel a{color:var(--navy);border-color:var(--hairline);}
+body.nav-dark .snav__mobile-panel{background:rgba(14,22,49,.96);}
+body.nav-dark .snav__mobile-panel a{color:#fff;}
+body.nav-light .snav__mobile-panel{background:#fff;}
+body.nav-light .snav__mobile-panel a{color:var(--navy);border-color:var(--hairline);}
 .snav__mobile-panel .btn{margin-top:1rem;width:100%;}
-
-/* 2026-07-02 → Phase 4: burger ≤1319 (medición Phase 4: el row desktop comprimido sólo cabe
-   desde 1320; entre 1200–1319 el CTA "Soul Store" se salía del viewport). Coordinado con
-   mobile.css / internal.css (mismo corte) y el tier compacto 1320–1679 de abajo. */
-@media (max-width:1319px){
-  .snav__side{display:none;}
-  .snav__main .wrap{grid-template-columns:1fr auto 1fr;}
-  .snav__burger{display:inline-grid;place-items:center;justify-self:start;}
-  .snav__cta-m{justify-self:end;}
-  .snav__mobile{display:block;}
-}
-
-/* ============================================================
-   HERO SLIDER (full-bleed, brandbook immersive)
-   ============================================================ */
+@media (max-width:1319px){.snav__side{display:none;}.snav__main .wrap{grid-template-columns:1fr auto 1fr;}.snav__burger{display:inline-grid;place-items:center;justify-self:start;}.snav__cta-m{justify-self:end;}.snav__mobile{display:block;}}
 body{
   --hero-h-slider:min(100svh, 920px);
   --hero-h-original:min(100svh, 900px);
@@ -142,244 +96,24 @@ body.heroheight-low{
   --hero-h-original:clamp(540px,84vh,840px);
 }
 body.heroborder-off{ --hero-divider-opacity:0; }
-@supports (height: 100dvh){
-  body{
+@supports (height: 100dvh){body{
     --hero-h-slider:min(100dvh, 920px);
     --hero-h-original:min(100dvh, 900px);
-  }
-}
-.hslider{
-  position:relative;height:var(--hero-h-slider);overflow:hidden;background:var(--navy);isolation:isolate;
-  --mouse-x:50%;--mouse-y:50%;--water-origin-x:78%;--water-origin-y:50%;
-}
-.hslider::before,.hslider::after{
-  content:"";position:absolute;inset:-14%;pointer-events:none;opacity:0;z-index:3;
-}
-.hslider::before{
-  background:
-    radial-gradient(circle at var(--water-origin-x) var(--water-origin-y),
-      rgba(255,255,255,.38) 0%,
-      rgba(255,255,255,.18) 8%,
-      rgba(255,255,255,.08) 16%,
-      rgba(255,255,255,0) 32%);
-  mix-blend-mode:screen;
-}
-.hslider::after{
-  background:
-    radial-gradient(circle at var(--water-origin-x) var(--water-origin-y),
-      rgba(210,204,253,.34) 0%,
-      rgba(210,204,253,.16) 14%,
-      rgba(210,204,253,.06) 24%,
-      rgba(210,204,253,0) 38%);
-}
-.hslider__chrome::before,.hslider__chrome::after{
-  content:"";
-  position:absolute;
-  left:var(--water-origin-x);
-  top:var(--water-origin-y);
-  border-radius:999px;
-  pointer-events:none;
-  opacity:0;
-  transform:translate(-50%,-50%) scale(.1);
-}
-.hslider__chrome::before{
-  width:min(22vw,320px);
-  height:min(22vw,320px);
-  border:1px solid rgba(255,255,255,.46);
-  box-shadow:0 0 0 1px rgba(255,255,255,.12) inset;
-}
-.hslider__chrome::after{
-  width:min(42vw,560px);
-  height:min(42vw,560px);
-  background:radial-gradient(circle, rgba(255,255,255,.18), rgba(210,204,253,.08) 24%, transparent 58%);
-  mix-blend-mode:screen;
-}
-.hslider.is-rippling::before{animation:sotsiRippleRing .64s cubic-bezier(.18,.84,.24,1) both;}
-.hslider.is-rippling::after{animation:sotsiRippleWash .74s ease-out both;}
-.hslider.is-rippling .hslider__chrome::before{animation:sotsiRippleOutline .64s cubic-bezier(.18,.84,.24,1) both;}
-.hslider.is-rippling .hslider__chrome::after{animation:sotsiRippleBloom .7s ease-out both;}
-.oslider.is-rippling .hslider__chrome::before{animation:sotsiRippleOutline .64s cubic-bezier(.18,.84,.24,1) both;}
-.oslider.is-rippling .hslider__chrome::after{animation:sotsiRippleBloom .7s ease-out both;}
-.hslide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;}
-.hslide.is-active,.hslide.is-entering,.hslide.is-leaving{opacity:1;visibility:visible;}
-/* FIX 2026-07-06: sin esto los links/CTAs de los slides eran inclickeables (el click
-   atravesaba al slider y el handler global lo tomaba como "cambiar slide"). */
-.hslide.is-active{pointer-events:auto;}
-.hslide.is-active,.hslide.is-entering{z-index:2;}
-.hslide.is-leaving{z-index:1;}
-.hslide__mediafx{
-  position:absolute;inset:0;z-index:-2;overflow:hidden;transition:filter .2s linear;
-  transform-origin:var(--water-origin-x) var(--water-origin-y);
-  will-change:transform,filter,opacity;
-}
-.hslide__mediafx::before{
-  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.55;
-  background:
-    radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,.16), transparent 18%),
-    linear-gradient(135deg, rgba(255,255,255,.06), transparent 34%, transparent 68%, rgba(255,255,255,.04));
-  mix-blend-mode:screen;
-  transition:opacity .28s var(--ease),transform .28s var(--ease);
-}
-.hslide__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
-.hslide__scrim{position:absolute;inset:0;z-index:-1;}
-/* default scrim: navy↔purple immersive, readable */
-.hslide__scrim{background:linear-gradient(110deg,rgba(14,22,49,.86) 0%,rgba(29,19,64,.62) 45%,rgba(60,25,81,.35) 100%);}
-.hslide__inner{position:relative;height:100%;display:flex;align-items:center;}
-.hslide__content{position:relative;max-width:60rem;color:#fff;padding-inline:min(7vw,4rem);}
-/* glass frosted detrás del texto: RETIRADO de todos los slides (PM) — el
-   desenfoque ya no vive detrás del texto; en su lugar el slide del video lleva
-   un blur suave a pantalla completa (ver regla del scrim del video más abajo). */
-.hslide__content::before{ content:none; }
-
-/* Slide del video (data-slide="0"): blur suave que cubre TODO el alto y ancho
-   del video. El scrim es full-bleed y queda por encima del video, así que su
-   backdrop-filter difumina el video entero detrás. Más suave que el panel anterior. */
-/* BLUR full-bleed (más suave) movido al ::before del scrim para poder
-   "perforarlo" con el lente del cursor SIN enmascarar el gradiente de
-   legibilidad (que vive en el background del scrim). */
-.hslide[data-slide="0"] .hslide__scrim::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  -webkit-backdrop-filter:blur(6.5px);backdrop-filter:blur(6.5px);
-  -webkit-mask-image:radial-gradient(circle at var(--mx) var(--my), transparent 0, transparent 74px, #000 172px);
-          mask-image:radial-gradient(circle at var(--mx) var(--my), transparent 0, transparent 74px, #000 172px);
-}
-/* highlight superior tipo cristal — sheen de luz en el borde de arriba (soft-light) */
-.hslide[data-slide="0"] .hslide__scrim::after{
-  content:"";position:absolute;left:0;right:0;top:0;height:34%;pointer-events:none;
-  background:linear-gradient(180deg, rgba(255,255,255,.20) 0%, rgba(255,255,255,.05) 32%, transparent 100%);
-  mix-blend-mode:soft-light;
-}
-.hslide[data-slide="0"] .hslide__content{
-  max-width:min(72rem,84vw);
-}
-.hslide[data-slide="0"] .hslide__title--xl{
-  position:relative;
-  font-size:clamp(3.7rem,2.08rem + 7.7vw,9.3rem);
-  max-width:12.2ch;
-}
-.hslide[data-slide="0"] .hslide__title--xl .gold{
-  white-space:nowrap;
-  text-shadow:0 0 26px rgba(254,212,87,.14), 0 0 54px rgba(254,212,87,.08);
-}
-.hslide__accent-rule{
-  display:block;
-  width:72px;
-  height:1px;
-  margin:1.1rem 0 1.25rem;
-  background:linear-gradient(90deg, rgba(254,212,87,.96), rgba(254,212,87,.18));
-  box-shadow:0 0 18px rgba(254,212,87,.22);
-}
-.hslide__deck{
-  margin:0;
-  max-width:34ch;
-  font-family:var(--font-body);
-  font-size:clamp(1.08rem,.98rem + .36vw,1.28rem);
-  line-height:1.65;
-  color:rgba(255,255,255,.82);
-  font-weight:300;
-  text-wrap:balance;
-  text-shadow:0 1px 12px rgba(0,0,0,.16);
-}
-.hslide[data-slide="0"] .hslide__cta{
-  margin-top:1.45rem !important;
-}
-.hslide[data-slide="0"] .link-anim--hero{
-  display:inline-flex;
-  align-items:center;
-  gap:.45rem;
-  font-size:1.08rem;
-  letter-spacing:.01em;
-  color:rgba(255,255,255,.96);
-}
-.hslide[data-slide="0"] .link-anim--hero::after{
-  height:1px;
-  background:linear-gradient(90deg, rgba(254,212,87,.9), rgba(255,255,255,.42));
-}
-/* kicker editorial (frase corta sobre el titular gigante) — sin cursiva */
-.hslide__eyebrow{font-size:1rem;letter-spacing:.26em;text-transform:uppercase;font-weight:600;color:var(--yellow);margin:0 0 1.2rem;}
-.hslide__kicker{font-family:var(--font-display);font-weight:400;font-size:clamp(1.5rem,1rem + 2.2vw,2.9rem);
-  line-height:1.1;letter-spacing:.005em;color:rgba(255,255,255,.9);margin:0 0 .5rem;text-wrap:balance;}
-/* TITULAR oversized — más grande, más fuerte, más profesional */
-.hslide__title{font-family:var(--font-display);font-weight:400;line-height:.98;letter-spacing:-.024em;
-  font-size:clamp(3rem,1.82rem + 5.7vw,7rem);margin:0;text-shadow:0 2px 34px rgba(0,0,0,.34);text-wrap:balance;}
-.hslide__title--xl{font-size:clamp(3.95rem,2.18rem + 8.5vw,10rem);line-height:.9;}
-.hslide__title .gold{color:var(--gold);}
-.hslide__script{font-family:var(--font-display);color:var(--gold);font-weight:400;font-size:clamp(1.5rem,1rem + 2vw,2.6rem);line-height:1.1;margin:.5rem 0 0;letter-spacing:.005em;text-wrap:balance;}
-.hslide__lead{font-size:clamp(1.12rem,1rem + .55vw,1.4rem);line-height:1.6;color:var(--text-on-dark-soft);margin:1.6rem 0 2.3rem;max-width:46ch;font-weight:300;text-wrap:balance;}
-.hslide__cta{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;}
-.hslide__cta .link-anim{color:#fff;}
-.hslide__glow{position:absolute;right:-6%;top:50%;transform:translateY(-50%);width:46%;aspect-ratio:1;background:var(--glow-yellow);z-index:-1;pointer-events:none;}
-
-/* subtle "Apple-like" media motion: slow cinematic drift + tiny pointer parallax */
-.hslider,.oslider,.heroA{
+  }}
+.oslider{
   --hero-pan-x:0px;
   --hero-pan-y:0px;
 }
-.hslider,.oslider{cursor:none;}
-.hslider{--mx:-9999px;--my:-9999px;}   /* lente del cursor: fuera de pantalla por defecto */
-.hslide,.oslide,.heroA__media{overflow:hidden;}
-.hslide__media,.oslide__media,.heroA__img{
+.oslider{cursor:none;}
+.oslide{overflow:hidden;}
+.oslide__media{
   transform-origin:center center;
   will-change:transform,filter;
   backface-visibility:hidden;
   filter:saturate(1.02) contrast(1.02);
 }
-.hslide.is-active .hslide__media,
-.hslide.is-entering .hslide__media,
-.oslide.is-active .oslide__media,
-.oslide.is-entering .oslide__media,
-.heroA__img{
+.oslide.is-active .oslide__media,.oslide.is-entering .oslide__media{
   animation:sotsiHeroDrift 18s cubic-bezier(.45,.05,.25,1) infinite alternate;
-}
-.hslide.is-fluid .hslide__mediafx{
-  filter:url(#sotsi-water-distort);
-}
-.hslide.is-entering .hslide__mediafx{
-  animation:sotsiMediaLayerIn .76s cubic-bezier(.2,.8,.2,1) both;
-}
-.hslide.is-leaving .hslide__mediafx{
-  animation:sotsiMediaLayerOut .76s cubic-bezier(.4,.02,.22,.98) both;
-}
-.hslide.is-entering.is-fluid .hslide__mediafx{
-  animation:
-    sotsiMediaLayerIn .76s cubic-bezier(.2,.8,.2,1) both,
-    sotsiFluidWarp .72s cubic-bezier(.2,.8,.2,1) both;
-}
-.hslide.is-leaving.is-fluid .hslide__mediafx{
-  animation:
-    sotsiMediaLayerOut .76s cubic-bezier(.4,.02,.22,.98) both,
-    sotsiFluidWarp .72s cubic-bezier(.2,.8,.2,1) both;
-}
-.hslide__mediafx::after{
-  content:"";
-  position:absolute;
-  inset:-12% -8%;
-  opacity:0;
-  background:
-    radial-gradient(circle at var(--water-origin-x) var(--water-origin-y),
-      rgba(255,255,255,.28) 0%,
-      rgba(255,255,255,.12) 8%,
-      rgba(255,255,255,0) 16%),
-    radial-gradient(circle at var(--water-origin-x) var(--water-origin-y),
-      rgba(210,204,253,.18) 0%,
-      rgba(210,204,253,.08) 14%,
-      rgba(210,204,253,0) 28%),
-    radial-gradient(circle at calc(var(--water-origin-x) + 8%) calc(var(--water-origin-y) - 6%), rgba(255,255,255,.12), transparent 18%),
-    radial-gradient(circle at calc(var(--water-origin-x) - 7%) calc(var(--water-origin-y) + 4%), rgba(255,255,255,.08), transparent 16%);
-  mix-blend-mode:screen;
-}
-.hslide.is-fluid .hslide__mediafx::after{
-  animation:sotsiWaterGloss .72s ease-out both;
-}
-.hslide.is-fluid .hslide__mediafx::before{
-  animation:sotsiFluidLight .82s ease-out both;
-}
-.hslide.is-fluid .hslide__scrim{
-  animation:sotsiWaterScrim .72s ease-out both;
-}
-.hslide.is-active:hover .hslide__mediafx::before{
-  opacity:.82;
-  transform:scale(1.03);
 }
 @keyframes sotsiHeroDrift{
   from{
@@ -454,24 +188,22 @@ body.heroborder-off{ --hero-divider-opacity:0; }
   from{transform:none;filter:none;opacity:1;}
   to{transform:scale(1.07) translate3d(0,0,0);filter:blur(6px) saturate(1.08);opacity:.9;}
 }
-
-/* cinematic slide transition inspired by layered parallax sliders */
-.hslide.is-entering.from-right,.oslide.is-entering.from-right{
+.oslide.is-entering.from-right{
   animation:sotsiSlideRevealFromRight .76s cubic-bezier(.22,.61,.16,1) both;
 }
-.hslide.is-entering.from-left,.oslide.is-entering.from-left{
+.oslide.is-entering.from-left{
   animation:sotsiSlideRevealFromLeft .76s cubic-bezier(.22,.61,.16,1) both;
 }
-.hslide.is-leaving.to-left,.oslide.is-leaving.to-left{
+.oslide.is-leaving.to-left{
   animation:sotsiSlideExitToLeft .76s cubic-bezier(.52,.03,.33,.98) both;
 }
-.hslide.is-leaving.to-right,.oslide.is-leaving.to-right{
+.oslide.is-leaving.to-right{
   animation:sotsiSlideExitToRight .76s cubic-bezier(.52,.03,.33,.98) both;
 }
-.hslide.is-entering .hslide__scrim,.oslide.is-entering .oslide__scrim{
+.oslide.is-entering .oslide__scrim{
   animation:sotsiScrimSettle .76s cubic-bezier(.22,.61,.16,1) both;
 }
-.hslide::after,.oslide::after,.heroA__media::after{
+.oslide::after{
   content:"";
   position:absolute;
   inset:0;
@@ -486,25 +218,19 @@ body.heroborder-off{ --hero-divider-opacity:0; }
   mix-blend-mode:screen;
   transform:translate3d(-125%,0,0);
 }
-.hslide.is-active:hover::after,
-.oslide.is-active:hover::after,
-.heroA__media:hover::after{
+.oslide.is-active:hover::after{
   opacity:1;
   animation:sotsiHoverSweep 1.12s cubic-bezier(.22,.61,.16,1) both;
 }
-.hslide.is-active:hover .hslide__scrim,
 .oslide.is-active:hover .oslide__scrim{
   filter:brightness(1.05);
 }
-.hslide.is-entering.from-right .hslide__content,
 .oslide.is-entering.from-right .oslide__content{
   animation:sotsiCopyInFromRight .68s cubic-bezier(.18,.84,.24,1) both;
 }
-.hslide.is-entering.from-left .hslide__content,
 .oslide.is-entering.from-left .oslide__content{
   animation:sotsiCopyInFromLeft .68s cubic-bezier(.18,.84,.24,1) both;
 }
-.hslide.is-leaving .hslide__content,
 .oslide.is-leaving .oslide__content{
   animation:sotsiCopyOut .54s ease both;
 }
@@ -545,42 +271,9 @@ body.heroborder-off{ --hero-divider-opacity:0; }
   from{opacity:1;transform:none;}
   to{opacity:0;transform:translate3d(0,18px,0);}
 }
-
-/* gallery chrome */
-.hslider__chrome{position:absolute;inset:0;pointer-events:none;z-index:6;}
-.hslider__brand{display:none !important;}
-.hslider__brand-name,.hslider__brand-sub{display:none !important;}
-.hslider__count{
-  position:absolute;left:clamp(1rem,2vw,1.8rem);bottom:clamp(1rem,2vw,1.8rem);
-  display:flex;align-items:center;gap:.9rem;
-}
-.hslider__count-current,.hslider__count-total{
-  font-family:var(--font-display);font-size:clamp(1.35rem,1rem + 1vw,2rem);line-height:1;color:#fff;
-}
-.hslider__count-total{color:rgba(255,255,255,.45);}
-.hslider__count-line{
-  position:relative;width:clamp(56px,8vw,110px);height:1px;background:linear-gradient(90deg,rgba(255,255,255,.12),rgba(255,255,255,.22));
-  overflow:hidden;
-}
-.hslider__count-progress{
-  position:absolute;left:0;top:0;height:100%;width:100%;
-  background:linear-gradient(90deg,rgba(254,212,87,.98),rgba(255,255,255,.9));
-  transform-origin:left center;transform:scaleX(0);
-}
-.hslider__count-progress.is-running{
-  animation:sotsiSlideProgress var(--hero-delay,12s) linear forwards;
-}
 @keyframes sotsiSlideProgress{
   from{transform:scaleX(0);}
   to{transform:scaleX(1);}
-}
-.hslider__status{
-  position:absolute;right:clamp(1rem,2vw,1.8rem);bottom:clamp(1rem,2vw,1.9rem);
-  writing-mode:vertical-rl;transform:rotate(180deg);
-  font-family:var(--font-body);font-size:.68rem;text-transform:uppercase;letter-spacing:.34em;color:rgba(255,255,255,.46);
-}
-.hslider__arrows{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none;z-index:7;
 }
 .harrow{
   pointer-events:auto;width:clamp(104px,11.5vw,154px);height:100%;border:0;
@@ -603,86 +296,24 @@ body.heroborder-off{ --hero-divider-opacity:0; }
 .harrow__label small{
   display:block;font-size:clamp(.53rem,.48rem + .12vw,.62rem);letter-spacing:.14em;color:rgba(255,255,255,.46);
 }
-.hslider__dots{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
 .hdot{width:1px;height:1px;padding:0;border:0;}
-.hslider__cursor{
-  position:absolute;left:0;top:0;width:94px;height:94px;border-radius:50%;
-  border:1px solid rgba(254,212,87,.5);
-  background:radial-gradient(circle,rgba(255,236,150,.34),rgba(254,212,87,.12) 46%,rgba(14,22,49,.1) 74%,transparent 100%);
-  box-shadow:0 0 30px rgba(254,212,87,.28);
-  backdrop-filter:blur(10px);display:grid;place-items:center;
-  transform:translate3d(-50%,-50%,0) scale(.82);opacity:0;pointer-events:none;z-index:9;
-  transition:opacity .22s ease,transform .22s var(--ease);
-}
-.hslider__cursor.is-visible{opacity:1;transform:translate3d(-50%,-50%,0) scale(1);}
-.hslider__cursor span{
-  font-family:var(--font-body);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:#fff;
-}
-/* CTAs del hero: cursor real y sin orbe Next/Back — el click es del link, no del slider */
-.hslider .hslide a,.hslider .hslide button,
 .oslider .oslide a,.oslider .oslide button{cursor:pointer;}
-.hslider:has(.hslide a:hover) .hslider__cursor.is-visible,
-.oslider:has(.oslide a:hover) .hslider__cursor.is-visible{
-  opacity:0;transform:translate3d(-50%,-50%,0) scale(.6);
-}
-/* switcher · puntero del hero: color (Plain quita el oro) + tamaño S/M(default)/L */
-body.curs-plain .hslider__cursor{border-color:rgba(255,255,255,.18);
-  background:radial-gradient(circle,rgba(255,255,255,.18),rgba(255,255,255,.04) 45%,rgba(14,22,49,.1) 72%,transparent 100%);box-shadow:none;}
-body.curs-s .hslider__cursor{width:84px;height:84px;}
-body.curs-l .hslider__cursor{width:108px;height:108px;}
-
-/* Slide 2 (Gary) · atenuar los "actions" para que no tapen su cara — cliente 2026-07-02.
-   Gary queda a la IZQUIERDA: el botón BACK y el orbe-cursor dorado le caían encima.
-   Se aclaran en reposo y recuperan nitidez al pasar el mouse (siguen usables). */
 .oslider:has(.oslide[data-oslide="1"].is-active) .harrow--prev{
-  background-image:none;              /* quita la veladura navy sobre el retrato de Gary */
+  background-image:none;              
 }
 .oslider:has(.oslide[data-oslide="1"].is-active) .harrow__label{opacity:.5;}
 .oslider:has(.oslide[data-oslide="1"].is-active) .harrow__line{opacity:.3;}
 .oslider:has(.oslide[data-oslide="1"].is-active) .harrow:hover .harrow__label{opacity:.94;}
 .oslider:has(.oslide[data-oslide="1"].is-active) .harrow:hover .harrow__line{opacity:.66;}
-.oslider:has(.oslide[data-oslide="1"].is-active) .hslider__cursor.is-visible{opacity:.42;}
-.oslider:has(.oslide[data-oslide="1"].is-active) .hslider__cursor{
-  box-shadow:none;
-  background:radial-gradient(circle,rgba(255,236,150,.16),rgba(254,212,87,.05) 46%,transparent 72%);
-}
-
-@media (max-width:1024px){
-  .hslide__glow{display:none;}
-}
-@media (max-width:760px){
-  .hslider,.oslider{cursor:auto;}
-  .hslide__content{padding-inline:0;}
-  .hslider__brand-sub,.hslider__status,.hslider__cursor{display:none;}
-  .hslider__brand-name{font-size:.58rem;letter-spacing:.18em;}
-  .hslider__count{gap:.6rem;}
-  .hslider__count-line{width:44px;}
-  .hslider::before,.hslider::after{display:none;}
-  .harrow{width:66px;font-size:.54rem;letter-spacing:.18em;cursor:pointer;padding:0 .65rem;}
-  .harrow__label{display:none;}
-  .harrow__line{width:22px;}
-}
-@media (prefers-reduced-motion: reduce){
-  .hslider,.oslider{cursor:auto !important;}
-  .harrow{cursor:pointer !important;}
-  .hslide__media,.oslide__media,.heroA__img{
+@media (max-width:760px){.oslider{cursor:auto;}.harrow{width:66px;font-size:.54rem;letter-spacing:.18em;cursor:pointer;padding:0 .65rem;}.harrow__label{display:none;}.harrow__line{width:22px;}}
+@media (prefers-reduced-motion: reduce){.oslider{cursor:auto !important;}.harrow{cursor:pointer !important;}.oslide__media{
     animation:none !important;
     transform:scale(1.02) !important;
     filter:none !important;
-  }
-  .hslider__cursor{display:none !important;}
-  .hslide__mediafx{filter:none !important;}
-  .hslide__mediafx::before{display:none !important;}
-  .hslider__count-progress{animation:none !important;transform:scaleX(0) !important;}
-  .hslide::after,.oslide::after,.heroA__media::after{
+  }.oslide::after{
     animation:none !important;
     opacity:0 !important;
-  }
-}
-
-/* ============================================================
-   VARIANT SWITCHER (manager control — no salir de la propuesta)
-   ============================================================ */
+  }}
 .vswitch{position:fixed;right:18px;bottom:18px;z-index:200;font-family:var(--font-body);}
 .vswitch__toggle{display:inline-flex;align-items:center;gap:.5rem;border:0;cursor:pointer;border-radius:999px;
   padding:.75rem 1.2rem;font-weight:700;font-size:.95rem;color:var(--navy);background:var(--gold);box-shadow:var(--shadow-lg);}
@@ -699,25 +330,16 @@ body.curs-l .hslider__cursor{width:108px;height:108px;}
 .vchip[aria-pressed="true"]{background:var(--gold);color:var(--navy);border-color:var(--gold);}
 .vchip:focus-visible{outline:none;box-shadow:0 0 0 3px var(--yellow);}
 .vswitch__hint{font-size:.78rem;color:var(--text-on-dark-soft);margin-top:1rem;line-height:1.4;}
-/* switcher — encabezados de sección (Navigation · Hero · Text animation · Typography) */
 .vsec{font-family:var(--font-body);font-weight:800;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
   color:#fff;margin:1.5rem 0 .45rem;padding-bottom:.5rem;border-bottom:1px solid var(--glass-border);}
 .vsec:first-child{margin-top:0;}
 .vsec + h4{margin-top:.7rem;}
-/* grupos condicionales: "Logo · frame" solo con nav centrado / centrado inmersivo */
 .vsw-cond{display:none;}
 body.nl-centered .vsw-cond[data-cond="centered"],
 body.nl-centered-immersive .vsw-cond[data-cond="centered"]{display:block;}
-
-/* hide whichever hero variant is not selected (3-way: slider · original · editorial) */
 .hero-original-wrap{display:none;}
-/* cierre del hero con el mismo gesto refinado del footer */
-.hero-slider-wrap,
-.hero-original-wrap,
-.heroA{position:relative;}
-.hero-slider-wrap::after,
-.hero-original-wrap::after,
-.heroA::after{
+.hero-slider-wrap,.hero-original-wrap{position:relative;}
+.hero-slider-wrap::after,.hero-original-wrap::after{
   content:"";
   position:absolute;
   left:0;
@@ -738,15 +360,6 @@ body.hero-static .hero-original-wrap{display:none;}
 body.hero-original .hero-slider-wrap,
 body.hero-original .hero-static{display:none;}
 body.hero-original .hero-original-wrap{display:block;}
-
-/* ============================================================
-   HERO · ORIGINAL — réplica fiel del carousel de seatofthesoul.com
-   (5 slides, imágenes + copy reales). Estilo plano del sitio en vivo:
-   sans Montserrat blanco, script de acento, botones ghost outline.
-   NO usa el glow/gold de marca — sólo para comparar contra el rediseño.
-   ============================================================ */
-/* Montserrat SOTSI @font-face retirado 2026-07-08 (Phase 1): cargado pero sin ningún selector que lo use. */
-
 .oslider{position:relative;height:var(--hero-h-original);overflow:hidden;background:#0e1631;isolation:isolate;
   font-family:var(--font-body);--water-origin-x:78%;--water-origin-y:50%;}
 .oslider::before,.oslider::after{
@@ -773,33 +386,11 @@ body.hero-original .hero-original-wrap{display:block;}
 .oslider.is-rippling::after{animation:sotsiRippleWash .74s ease-out both;}
 .oslide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;}
 .oslide.is-active,.oslide.is-entering,.oslide.is-leaving{opacity:1;visibility:visible;}
-/* FIX 2026-07-06: mismo fix que .hslide.is-active — los CTAs eran inclickeables. */
 .oslide.is-active{pointer-events:auto;}
 .oslide.is-active,.oslide.is-entering{z-index:2;}
 .oslide.is-leaving{z-index:1;}
 .oslide__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
 .oslide__scrim{position:absolute;inset:0;z-index:-1;background:rgba(14,22,49,.32);}
-
-/* Slide 1 (original) · "amanecer" — DESACTIVADO por el PM 2026-06-22 (se veía mal).
-   Dejar solo la imagen original (beach-creating-authentic-power-clean.png).
-   Para reactivar: descomentar este bloque + el markup ".oslide__sunrise" en approved-nav-hero.html.
-.oslide__sunrise{position:absolute;inset:0;z-index:-2;}
-.oslide__media--sun{z-index:0;}
-.oslide__media--sun.sun-2,.oslide__media--sun.sun-3{opacity:0;}
-.oslide[data-oslide="0"].is-active .sun-2{
-  animation:sotsiHeroDrift 18s cubic-bezier(.45,.05,.25,1) infinite alternate,
-            sotsiSunFade2 1.15s cubic-bezier(.16,1,.3,1) both;}
-.oslide[data-oslide="0"].is-active .sun-3{
-  animation:sotsiHeroDrift 18s cubic-bezier(.45,.05,.25,1) infinite alternate,
-            sotsiSunFade3 1.15s cubic-bezier(.16,1,.3,1) both;}
-@keyframes sotsiSunFade2{0%,26%{opacity:0}58%,100%{opacity:1}}
-@keyframes sotsiSunFade3{0%,58%{opacity:0}100%{opacity:1}}
-@media (prefers-reduced-motion:reduce){
-  .oslide[data-oslide="0"].is-active .sun-2{animation:none;}
-  .oslide[data-oslide="0"].is-active .sun-3{animation:none;}
-  .oslide__media--sun.sun-3{opacity:1;}
-}
-*/
 .oslide__inner{position:relative;height:100%;display:flex;align-items:center;}
 .oslide__inner .wrap{width:100%;}
 .oslide__content{max-width:54rem;color:#fff;}
@@ -819,9 +410,9 @@ body.hero-original .hero-original-wrap{display:block;}
 }
 .oslide[data-oslide="0"] .oslide__script{
   max-width:none;
-  white-space:nowrap;                 /* "Supporting You in" en UNA línea */
+  white-space:nowrap;                 
   margin:0 0 1rem;
-  font-size:clamp(1.45rem,1rem + 1.5vw,2.5rem);   /* un poco más chico */
+  font-size:clamp(1.45rem,1rem + 1.5vw,2.5rem);   
   line-height:1.06;
   color:rgba(255,255,255,.94);
 }
@@ -888,14 +479,14 @@ body.hero-original .hero-original-wrap{display:block;}
 .oslide[data-oslide="1"] .oslide__inner{align-items:center;}
 .oslide[data-oslide="1"] .oslide__content{
   max-width:min(52rem,52vw);
-  margin-left:clamp(3rem,15vw,16rem);               /* izquierda, +10% a la derecha */
+  margin-left:clamp(3rem,15vw,16rem);               
   margin-right:auto;
   padding-bottom:clamp(1.6rem,2.8vh,3rem);
   text-align:left;
 }
 .oslide[data-oslide="1"] .oslide__title{
-  max-width:17ch;                                  /* deja "Spend an Evening" / "with Gary Zukav" en 2 líneas */
-  font-size:clamp(2.6rem,1.7rem + 3.6vw,5.2rem);   /* un poco más grande (sin subirse al menú) */
+  max-width:17ch;                                  
+  font-size:clamp(2.6rem,1.7rem + 3.6vw,5.2rem);   
   line-height:.98;
   letter-spacing:-.026em;
 }
@@ -906,18 +497,10 @@ body.hero-original .hero-original-wrap{display:block;}
   line-height:1.62;
 }
 .oslide[data-oslide="1"] .oslide__cta{margin-top:1.85rem;}
-
-/* Gary slide — cliente 2026-07-02: "Why is this image so dark? ... Gary's face too
-   hard to see. We can't even really see his eyes." La cara de Gary está a la IZQUIERDA;
-   el texto al centro-derecha. Se ilumina el media y se retira el scrim navy plano sobre
-   su retrato, dejando solo una veladura suave centro→derecha para legibilidad del copy. */
-.oslide[data-oslide="1"] .oslide__media,
-.hslide[data-slide="1"] .hslide__media{
-  /* !important gana al filtro que anima sotsiHeroDrift; el drift de transform (Ken Burns) sigue.
-     El scrim se aclaró inline en el markup (span.oslide__scrim del slide de Gary). */
+.oslide[data-oslide="1"] .oslide__media{
+  
   filter:brightness(1.18) saturate(1.05) contrast(1.02) !important;
 }
-
 .oslide[data-oslide="2"] .oslide__content{
   max-width:min(62rem,72vw);
   margin-inline:auto;
@@ -939,26 +522,20 @@ body.hero-original .hero-original-wrap{display:block;}
   line-height:1.68;
 }
 .oslide[data-oslide="2"] .oslide__cta{margin-top:1.85rem;}
-/* per-slide text alignment */
 .oslide--center .oslide__content{margin-inline:auto;text-align:center;}
 .oslide--left .oslide__content{margin-right:auto;text-align:left;}
-/* kicker editorial (frase corta sobre el titular) — sin cursiva, serif refinado */
 .oslide__script{font-family:var(--font-display);font-weight:400;
   font-size:clamp(1.5rem,1rem + 2.2vw,2.9rem);line-height:1.1;margin:0 0 .4rem;color:rgba(255,255,255,.9);letter-spacing:.005em;
   text-shadow:0 2px 18px rgba(0,0,0,.35);}
-/* TITULAR oversized */
 .oslide__title{font-family:var(--font-display);font-weight:400;
   font-size:clamp(3.4rem,2rem + 6.6vw,8rem);line-height:.95;letter-spacing:-.024em;margin:0;
   text-shadow:0 2px 30px rgba(0,0,0,.4);}
-/* acento dorado en palabra clave (como el slide de video) */
 .oslide__title .gold{color:var(--gold);}
 .oslide__lead{font-family:var(--font-body);font-weight:400;font-size:clamp(1.18rem,1rem + .75vw,1.5rem);line-height:1.62;
   margin:1.8rem auto 0;max-width:46ch;color:rgba(255,255,255,.92);text-shadow:0 2px 20px rgba(0,0,0,.6);}
 .oslide--left .oslide__lead{margin-left:0;}
 .oslide__note{font-family:var(--font-display);font-size:clamp(1.4rem,1rem + 1.6vw,2.2rem);margin:1rem 0 0;color:var(--gold);line-height:1.1;letter-spacing:.005em;}
-/* CTA = botón de marca de la propuesta (.btn-cta respeta btnstyle/color/iridiscente del switcher) */
 .oslide__cta{margin-top:1.9rem;}
-/* arrows + dots reuse the slider chrome look */
 .oslider__arrows{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 1rem;pointer-events:none;z-index:5;}
 .oarrow{pointer-events:auto;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.4);
   background:rgba(14,22,49,.3);color:#fff;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);
@@ -970,33 +547,17 @@ body.hero-original .hero-original-wrap{display:block;}
 .odot{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.4);cursor:pointer;padding:0;transition:background-color .3s var(--ease),transform .3s var(--ease);}
 .odot.is-active{background:#fff;transform:scale(1.25);}
 .odot:focus-visible{outline:none;box-shadow:0 0 0 3px var(--gold);}
-@media (max-width:680px){
-  .oslide[data-oslide="0"] .oslide__content{
+@media (max-width:680px){.oslide[data-oslide="0"] .oslide__content{
     max-width:min(34rem,90vw);
     margin-inline:auto;
     padding-bottom:clamp(6rem,12vh,8rem);
     text-align:center;
-  }
-  .oslide[data-oslide="0"] .oslide__script,
+  }.oslide[data-oslide="0"] .oslide__script,
   .oslide[data-oslide="0"] .oslide__title,
-  .oslide[data-oslide="0"] .oslide__deck{margin-inline:auto;}
-  .oslide[data-oslide="0"] .oslide__accent-rule{margin-inline:auto;}
-  .oslide--right .oslide__content,
-  .oslide[data-oslide="2"] .oslide__content{text-align:center;margin-inline:auto;}
-  .oslide[data-oslide="1"] .oslide__title,
-  .oslide[data-oslide="2"] .oslide__title{margin-inline:auto;}
-  .oslide[data-oslide="1"] .oslide__lead,
-  .oslide[data-oslide="2"] .oslide__lead{margin-inline:auto;}
-  .oslide__eyebrow{margin-inline:auto;}
-  .oslide__content{max-width:none;}
-  .oslide--left .oslide__content{text-align:center;margin-inline:auto;}
-  .oslide--left .oslide__lead{margin-inline:auto;}
-}
-
-/* ============================================================
-   BRAND CTA BUTTON (Get Started) — variante 1 (gradiente gloss)
-   + variante iridiscente, ambas en colores de marca.
-   ============================================================ */
+  .oslide[data-oslide="0"] .oslide__deck{margin-inline:auto;}.oslide[data-oslide="0"] .oslide__accent-rule{margin-inline:auto;}.oslide--right .oslide__content,
+  .oslide[data-oslide="2"] .oslide__content{text-align:center;margin-inline:auto;}.oslide[data-oslide="1"] .oslide__title,
+  .oslide[data-oslide="2"] .oslide__title{margin-inline:auto;}.oslide[data-oslide="1"] .oslide__lead,
+  .oslide[data-oslide="2"] .oslide__lead{margin-inline:auto;}.oslide__eyebrow{margin-inline:auto;}.oslide__content{max-width:none;}.oslide--left .oslide__content{text-align:center;margin-inline:auto;}.oslide--left .oslide__lead{margin-inline:auto;}}
 .btn-cta{--cta-border:linear-gradient(90deg,#3c1951 0%,#7c4a9e 55%,#fed457 110%);
   --cta-inner:linear-gradient(100deg,#2a1342 0%,#3c1951 55%,#4a2168 100%);--cta-accent:#fed457;
   display:inline-flex;align-items:center;border:0;cursor:pointer;text-decoration:none;border-radius:999px;padding:2px;
@@ -1017,49 +578,33 @@ body.hero-original .hero-original-wrap{display:block;}
   background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);transition:transform .3s var(--ease);}
 .btn-cta:hover .btn-cta__icon{transform:translateX(3px);}
 .btn-cta__icon svg{width:18px;height:18px;}
-/* compact for nav rows */
 .btn-cta--sm .btn-cta__inner{padding:.62rem .8rem .62rem 1.2rem;font-size:.96rem;gap:.65rem;}
 .btn-cta--sm .btn-cta__icon{width:26px;height:26px;}
-
-/* iridescent variant (brand-colored) — toggled by body.cta-irid */
 @keyframes irid{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 body.cta-irid .btn-cta{background:linear-gradient(90deg,#3c1951,#fed457,#d2ccfd,#7c4a9e,#fed457,#3c1951);
   background-size:240%;animation:irid 9s linear infinite;box-shadow:0 0 42px rgba(124,74,158,.5);}
 body.cta-irid .btn-cta__inner{background:linear-gradient(100deg,#1d1340,#2a1342 60%,#3c1951);}
-
-/* ============================================================
-   NAV LAYOUTS — show/hide (3 concepts in brand theme)
-   ============================================================ */
 #navCentered,#navBar,#navImmersive{display:none;}
 body.nl-centered #navCentered{display:block;}
 body.nl-bar #navBar{display:block;}
 body.nl-immersive #navImmersive{display:block;}
-
-/* Layout · Bar (logo left · links center · CTA right) */
 .snav--bar .snav__main .wrap{display:flex;align-items:center;gap:1.5rem;min-height:var(--nav-h,84px);}
 .snav--bar .snav__logo{justify-self:auto;}
 .snav--bar .snav__row{display:flex;align-items:center;gap:.15rem;margin-inline:auto;}
 .snav--bar .snav__end{display:flex;align-items:center;gap:1rem;}
-
-/* Layout · Immersive (transparent overlay → solid on scroll)
-   Fixed positioning keeps the variant sticky while preserving the hero overlay treatment. */
 .snav--immersive{position:fixed;top:0;left:0;right:0;z-index:40;background:transparent !important;border-bottom:1px solid transparent !important;backdrop-filter:none !important;}
 .snav--immersive .snav__main .wrap{display:flex;align-items:center;gap:1.5rem;min-height:calc(var(--nav-h,84px) + 6px);}
 .snav--immersive .snav__row{display:flex;align-items:center;gap:.15rem;margin-inline:auto;}
 .snav--immersive .snav__end{display:flex;align-items:center;gap:1rem;}
 body.nav-dark .snav--immersive.is-condensed{background:rgba(14,22,49,.85) !important;backdrop-filter:blur(16px) !important;border-bottom-color:var(--glass-border) !important;}
 body.nav-light .snav--immersive.is-condensed{background:rgba(255,255,255,.92) !important;backdrop-filter:blur(14px) !important;border-bottom-color:var(--hairline) !important;}
-/* immersive always shows white text over the hero (until solid+light) */
 .snav--immersive .nlink{color:#fff !important;}
-.snav--immersive .logo--for-light{display:none;} .snav--immersive .logo--for-dark{display:block !important;}
+.snav--immersive .logo--for-light{display:none;}
+.snav--immersive .logo--for-dark{display:block !important;}
 body.nav-light .snav--immersive.is-condensed .nlink{color:var(--navy) !important;}
 body.nav-light .snav--immersive.is-condensed .logo--for-dark{display:none;}
 body.nav-light .snav--immersive.is-condensed .logo--for-light{display:block !important;}
 body.nav-light .snav--immersive.is-condensed .snav__burger{color:var(--navy);}
-
-/* light first hero slide uses the same nav contrast swap as the centered immersive variant.
-   SÓLO transparente mientras NO está condensado: al hacer scroll (.is-condensed) el nav
-   recupera su fondo sólido (regla .is-condensed) para no chocar con el contenido de atrás. */
 body.hero-slide-light-nav.nl-immersive #navImmersive:not(.is-condensed){
   background:transparent !important;
   backdrop-filter:none !important;
@@ -1091,59 +636,27 @@ body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .nli
 body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .logo--for-dark{display:none !important;}
 body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .logo--for-light{display:block !important;}
 body.nav-light.hero-slide-light-nav.nl-immersive #navImmersive.is-condensed .snav__burger{color:var(--navy);}
-
-@media (max-width:1319px){
-  .snav--bar .snav__row,.snav--immersive .snav__row{display:none;}
-}
-
-/* Tier compacto 1320–1679 (2026-07-02 · rango corregido en Phase 4): el row completo
-   (About · Courses… · Deepcast · Blog · Resources · In Celebration… + CTA) mide ~1572px a
-   tamaño normal → sólo cabe sin comprimir desde ≥1680. Aquí se comprime tipografía/espaciado
-   (manteniendo min-height 44px touch target) para caber ya desde 1320. Medición Phase 4: el
-   CTA se salía del viewport en 1200–1319 (compacto insuficiente) y en 1460–1619 (el tamaño
-   normal reentraba demasiado pronto); ambos rangos corregidos. Coordinado con el corte del
-   burger (≤1319) en mobile.css / internal.css / arriba. */
-@media (min-width:1320px) and (max-width:1679px){
-  .snav--bar .snav__main .wrap,
-  .snav--immersive .snav__main .wrap{gap:.72rem;}
-  .snav--bar .snav .nlink,
+@media (max-width:1319px){.snav--bar .snav__row,.snav--immersive .snav__row{display:none;}}
+@media (min-width:1320px) and (max-width:1679px){.snav--bar .snav__main .wrap,
+  .snav--immersive .snav__main .wrap{gap:.72rem;}.snav--bar .snav .nlink,
   .snav--immersive .snav .nlink,
   .snav--bar .nlink,
-  .snav--immersive .nlink{font-size:.86rem;padding:0 .42rem;}
-  .snav--bar .nlink::after,
-  .snav--immersive .nlink::after{left:.42rem;right:.42rem;}
-  .snav--bar .snav__end,
-  .snav--immersive .snav__end{gap:.55rem;}
-  .snav--bar .btn-cta--sm .btn-cta__inner,
-  .snav--immersive .btn-cta--sm .btn-cta__inner{padding:.55rem .65rem .55rem .95rem;font-size:.86rem;gap:.5rem;}
-  .snav--bar .btn-cta--sm .btn-cta__icon,
-  .snav--immersive .btn-cta--sm .btn-cta__icon{width:23px;height:23px;}
-}
-
-/* ============================================================
-   SWITCHER — chips wrap nicely for the extra groups
-   ============================================================ */
+  .snav--immersive .nlink{font-size:.86rem;padding:0 .42rem;}.snav--bar .nlink::after,
+  .snav--immersive .nlink::after{left:.42rem;right:.42rem;}.snav--bar .snav__end,
+  .snav--immersive .snav__end{gap:.55rem;}.snav--bar .btn-cta--sm .btn-cta__inner,
+  .snav--immersive .btn-cta--sm .btn-cta__inner{padding:.55rem .65rem .55rem .95rem;font-size:.86rem;gap:.5rem;}.snav--bar .btn-cta--sm .btn-cta__icon,
+  .snav--immersive .btn-cta--sm .btn-cta__icon{width:23px;height:23px;}}
 .vswitch__panel{width:300px;max-height:80vh;overflow:auto;}
-
-/* ============================================================
-   CTA color palettes (saturado → menos saturado) + Original
-   Set via body class (switcher <select>). Drive --cta-* vars.
-   ============================================================ */
 body.btncolor-c1 .btn-cta{--cta-border:linear-gradient(90deg,#7c3aed 0%,#c026d3 50%,#fbbf24 110%);
-  --cta-inner:linear-gradient(100deg,#4c1d95,#6d28d9);--cta-accent:#fbbf24;box-shadow:0 0 46px rgba(124,58,237,.5);} /* 1 · saturado vivo */
+  --cta-inner:linear-gradient(100deg,#4c1d95,#6d28d9);--cta-accent:#fbbf24;box-shadow:0 0 46px rgba(124,58,237,.5);}
 body.btncolor-c2 .btn-cta{--cta-border:linear-gradient(90deg,#3c1951 0%,#7c4a9e 60%,#a87fc4 110%);
-  --cta-inner:linear-gradient(100deg,#2a1342,#3c1951);--cta-accent:#d2ccfd;box-shadow:0 0 40px rgba(60,25,81,.5);} /* 2 · púrpura medio */
+  --cta-inner:linear-gradient(100deg,#2a1342,#3c1951);--cta-accent:#d2ccfd;box-shadow:0 0 40px rgba(60,25,81,.5);}
 body.btncolor-c3 .btn-cta{--cta-border:linear-gradient(90deg,#fed457 0%,#f5b301 60%,#e89c00 110%);
-  --cta-inner:linear-gradient(100deg,#3c1951,#5e2e7c);--cta-accent:#fed457;box-shadow:0 0 40px rgba(254,212,87,.4);} /* 3 · dorado cálido */
+  --cta-inner:linear-gradient(100deg,#3c1951,#5e2e7c);--cta-accent:#fed457;box-shadow:0 0 40px rgba(254,212,87,.4);}
 body.btncolor-c4 .btn-cta{--cta-border:linear-gradient(90deg,#8b7aa8 0%,#b6a6cf 60%,#d9c7e8 110%);
-  --cta-inner:linear-gradient(100deg,#4a3f63,#5b4f78);--cta-accent:#e7d4f1;box-shadow:0 0 34px rgba(139,122,168,.35);} /* 4 · suave / mauve */
+  --cta-inner:linear-gradient(100deg,#4a3f63,#5b4f78);--cta-accent:#e7d4f1;box-shadow:0 0 34px rgba(139,122,168,.35);}
 body.btncolor-c5 .btn-cta{--cta-border:linear-gradient(90deg,#1d2748 0%,#33406e 70%,#475a93 110%);
-  --cta-inner:linear-gradient(100deg,#0e1631,#1d2748);--cta-accent:#aab6dd;box-shadow:0 0 30px rgba(14,22,49,.5);} /* 5 · navy sobrio (menos sat) */
-
-/* ============================================================
-   BOTÓN PROPUESTA 2 — ghost gold ring → fill (quiet luxury)
-   Toggled by body.btnstyle-2. Reads --cta-accent for color.
-   ============================================================ */
+  --cta-inner:linear-gradient(100deg,#0e1631,#1d2748);--cta-accent:#aab6dd;box-shadow:0 0 30px rgba(14,22,49,.5);}
 body.btnstyle-2 .btn-cta{background:transparent;padding:0;border:1.6px solid var(--cta-accent);box-shadow:none;}
 body.btnstyle-2 .btn-cta:hover{transform:translateY(-2px);box-shadow:0 0 34px color-mix(in srgb,var(--cta-accent) 38%,transparent);}
 body.btnstyle-2 .btn-cta__inner{background:transparent;box-shadow:none;color:#fff;padding:.66rem .9rem .66rem 1.35rem;
@@ -1152,22 +665,14 @@ body.btnstyle-2 .btn-cta__sheen{display:none;}
 body.btnstyle-2 .btn-cta:hover .btn-cta__inner{background:var(--cta-accent);color:var(--navy);}
 body.btnstyle-2 .btn-cta__icon{background:color-mix(in srgb,var(--cta-accent) 18%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--cta-accent) 30%,transparent);}
 body.btnstyle-2 .btn-cta:hover .btn-cta__icon{background:rgba(14,22,49,.16);box-shadow:inset 0 0 0 1px rgba(14,22,49,.2);}
-/* light theme: dark text when not filled */
 body.btnstyle-2.nav-light .snav .btn-cta__inner{color:var(--navy);}
-
-/* ============================================================
-   NAV LAYOUT · Centrado Inmersivo (centered, transparent overlay)
-   ============================================================ */
 body.nl-centered #navCentered,
 body.nl-centered-immersive #navCentered{display:block;}
-/* sticky/pineado: overlay transparente sobre el hero y se queda fijo al hacer scroll
-   (position:fixed mantiene el overlay y, a diferencia de absolute, no se va con el scroll) */
 body.nl-centered-immersive #navCentered{position:fixed;top:0;left:0;right:0;z-index:40;background:transparent !important;backdrop-filter:none !important;border-bottom:1px solid transparent !important;}
-body.nl-centered-immersive #navCentered .snav__utility{max-height:0;opacity:0;padding:0;}   /* hide utility row over hero */
+body.nl-centered-immersive #navCentered .snav__utility{max-height:0;opacity:0;padding:0;}
 body.nl-centered-immersive #navCentered .nlink{color:#fff !important;}
-body.nl-centered-immersive #navCentered .logo--for-light{display:none;} 
+body.nl-centered-immersive #navCentered .logo--for-light{display:none;}
 body.nl-centered-immersive #navCentered .logo--for-dark{display:block !important;}
-/* Variante opcional: glass overlay para los navs inmersivos */
 body.nav-glass.nl-centered-immersive #navCentered,
 body.nav-glass.nl-immersive #navImmersive{
   background:var(--glass-dark) !important;
@@ -1196,7 +701,6 @@ body.nav-glass.hero-slide-light-nav.nl-immersive #navImmersive{
   backdrop-filter:blur(12px) saturate(1.05) !important;
   border-bottom-color:rgba(14,22,49,.08) !important;
 }
-/* slide 1 (video claro) usa tratamiento light puntual: navy del brandbook + dark logo */
 body.hero-slide-light-nav.nl-centered-immersive #navCentered:not(.is-condensed){
   background:transparent !important;
   backdrop-filter:none !important;
@@ -1205,8 +709,6 @@ body.hero-slide-light-nav.nl-centered-immersive #navCentered:not(.is-condensed){
 body.hero-slide-light-nav.nl-centered-immersive #navCentered .nlink{color:#fff !important;}
 body.hero-slide-light-nav.nl-centered-immersive #navCentered .nlink:hover{background:rgba(255,255,255,.08);}
 body.hero-slide-light-nav.nl-centered-immersive #navCentered .nlink[aria-current="page"]{color:var(--yellow) !important;}
-/* overlay no-condensado: logo BLANCO (letra blanca), consistente con el texto blanco del nav.
-   El estado condensado (barra blanca al hacer scroll) sí usa el logo navy por contraste. */
 body.hero-slide-light-nav.nl-centered-immersive #navCentered .logo--for-dark{display:block !important;}
 body.hero-slide-light-nav.nl-centered-immersive #navCentered .logo--for-light{display:none !important;}
 body.hero-slide-light-nav.nl-centered-immersive #navCentered .snav__burger{color:#fff;}
@@ -1221,7 +723,6 @@ body.hero-slide-light-nav.nl-centered-immersive #navCentered .dd{
 }
 body.hero-slide-light-nav.nl-centered-immersive #navCentered .dd a{color:var(--navy);}
 body.hero-slide-light-nav.nl-centered-immersive #navCentered .dd a:hover{background:var(--surface-soft);color:var(--purple);}
-/* solidify on scroll */
 body.nav-dark.nl-centered-immersive #navCentered.is-condensed{background:rgba(14,22,49,.85) !important;backdrop-filter:blur(16px) !important;border-bottom-color:var(--glass-border) !important;}
 body.nav-light.nl-centered-immersive #navCentered.is-condensed{background:rgba(255,255,255,.92) !important;backdrop-filter:blur(14px) !important;border-bottom-color:var(--hairline) !important;}
 body.nav-light.nl-centered-immersive #navCentered.is-condensed .nlink{color:var(--navy) !important;}
@@ -1240,74 +741,34 @@ body.nav-glass.hero-slide-light-nav.nl-centered-immersive #navCentered.is-conden
   backdrop-filter:blur(14px) !important;
   border-bottom-color:rgba(14,22,49,.08) !important;
 }
-
-/* ============================================================
-   Switcher <select> styling
-   ============================================================ */
 .vselect{width:100%;margin-top:.2rem;border-radius:10px;border:1px solid var(--glass-border);background:rgba(255,255,255,.06);
   color:#fff;font-family:var(--font-body);font-weight:600;font-size:.9rem;padding:.55rem .7rem;cursor:pointer;}
 .vselect:focus-visible{outline:none;box-shadow:0 0 0 3px var(--yellow);}
 .vselect option{color:#111;}
-
-/* ============================================================
-   NAV SIZE (3) + LOGO SIZE — set on body via switcher, var-driven.
-   No rompe el layout: el alto del nav crece/encoge y el grid
-   se reacomoda; el logo escala con --logo-scale.
-   ============================================================ */
-/* Nav size escala el sistema completo: alto + logo + font de links + utility */
-/* nav usa un contenedor más ancho para acomodar logo + labels largos */
 .snav .wrap{width:min(100% - 2*var(--gutter), 1520px);}
 body.navsize-s{--nav-h:64px;--logo-h:42px;--nav-fz:.9rem;}
-body.navsize-m{--nav-h:84px;--logo-h:58px;--nav-fz:1.1rem;}   /* default */
+body.navsize-m{--nav-h:84px;--logo-h:58px;--nav-fz:1.1rem;}
 body.navsize-l{--nav-h:108px;--logo-h:72px;--nav-fz:1.1rem;}
-/* en tamaños grandes, comprimir gaps/padding para que nada se corte */
-body.navsize-l .snav__side{gap:.05rem;} body.navsize-l .snav .nlink{padding:0 .6rem;}
+body.navsize-l .snav__side{gap:.05rem;}
+body.navsize-l .snav .nlink{padding:0 .6rem;}
 body.navsize-l .snav--centered .snav__logo{padding-inline:.9rem;}
-/* utility row + CTA acompañan la escala */
-body.navsize-s .snav__utility{font-size:.76rem;} body.navsize-s .snav__utility .script{font-size:1.1rem !important;}
-body.navsize-l .snav__utility{font-size:.92rem;} body.navsize-l .snav__utility .script{font-size:1.5rem !important;}
+body.navsize-s .snav__utility{font-size:.76rem;}
+body.navsize-s .snav__utility .script{font-size:1.1rem !important;}
+body.navsize-l .snav__utility{font-size:.92rem;}
+body.navsize-l .snav__utility .script{font-size:1.5rem !important;}
 body.navsize-s .btn-cta__inner{padding:.5rem .7rem .5rem 1.05rem;font-size:.88rem;}
 body.navsize-l .btn-cta__inner{padding:.78rem 1rem .78rem 1.5rem;font-size:1.08rem;}
-
-body.logosize-m{--logo-scale:1;}     /* default */
+body.logosize-m{--logo-scale:1;}
 body.logosize-l{--logo-scale:1.4;}
 body.logosize-xl{--logo-scale:1.8;}
-
-/* En layouts centrados, un logo grande puede pasar el alto del nav:
-   lo dejamos crecer hacia abajo sin empujar los links (queda como
-   "lockup" de marca, ideal en el inmersivo sobre el hero). */
 body.logosize-l .snav--centered .snav__logo,
 body.logosize-xl .snav--centered .snav__logo{align-self:center;}
-
-/* ============================================================
-   HERO SLIDE · posición del texto por slide (no tapar al sujeto)
-   ============================================================ */
-.hslide--right .hslide__inner{justify-content:flex-end;}
-.hslide--right .hslide__content{text-align:left;}
-.hslide--bottom .hslide__inner{align-items:flex-end;}
-.hslide--bottom .hslide__content{padding-bottom:clamp(2rem,5vh,4.5rem);}
-@media (max-width:760px){
-  .hslide--right .hslide__inner{justify-content:flex-start;}  /* en móvil, todo a la izquierda */
-}
-
-/* ============================================================
-   TIPOGRAFÍA · variantes (dropdown). Cambian --font-display/body.
-   Recomendadas para quiet-luxury espiritual (ui-ux-pro-max / premium-library).
-   ============================================================ */
 body.font-brand{--font-display:"Canela",Georgia,serif;--font-body:"Jost SOTSI","Jost",system-ui,sans-serif;}
 body.font-fraunces{--font-display:"Fraunces",Georgia,serif;--font-body:"Inter",system-ui,sans-serif;}
 body.font-cormorant{--font-display:"Cormorant Garamond",Georgia,serif;--font-body:"Mulish",system-ui,sans-serif;}
 body.font-playfair{--font-display:"Playfair Display",Georgia,serif;--font-body:"Source Sans 3",system-ui,sans-serif;}
 body.font-caslon{--font-display:"Libre Caslon Display",Georgia,serif;--font-body:"Work Sans",system-ui,sans-serif;}
-
-/* ============================================================
-   BOTÓN 3 · GLASS (frosted) — estilos tomados del archivo glass
-   del PM: bg-white/10 · border-white/20 · backdrop-blur · hover white/15.
-   Toggled by body.btnstyle-3.
-   ============================================================ */
 body.btnstyle-3 .btn-cta{background:transparent;padding:0;border:0;box-shadow:none;}
-/* el cristal toma el DEGRADADO del color activo (--cta-border): arranca en el
-   Original (morado→dorado) y cambia con el select de color. Mantiene el frosted. */
 body.btnstyle-3 .btn-cta__inner{position:relative;overflow:hidden;
   background:rgba(255,255,255,.07);
   border:1px solid color-mix(in srgb, var(--cta-accent) 42%, rgba(255,255,255,.2));
@@ -1322,74 +783,18 @@ body.btnstyle-3 .btn-cta:hover .btn-cta__inner{border-color:color-mix(in srgb, v
 body.btnstyle-3 .btn-cta__sheen{background:radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,.18), rgba(255,255,255,.04) 38%, transparent 62%);}
 body.btnstyle-3 .btn-cta__icon{background:color-mix(in srgb, var(--cta-accent) 22%, rgba(255,255,255,.1));box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--cta-accent) 40%, rgba(255,255,255,.2));}
 body.btnstyle-3 .btn-cta:focus-visible .btn-cta__inner{box-shadow:0 0 0 3px var(--gold);}
-/* nav claro → glass oscuro para que lea sobre blanco */
 body.btnstyle-3.nav-light .snav .btn-cta__inner{background:rgba(14,22,49,.06);border-color:rgba(14,22,49,.18);color:var(--navy);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.5);}
 body.btnstyle-3.nav-light .snav .btn-cta:hover .btn-cta__inner{background:rgba(14,22,49,.11);}
 body.btnstyle-3.nav-light .snav .btn-cta__icon{background:rgba(14,22,49,.1);box-shadow:inset 0 0 0 1px rgba(14,22,49,.18);}
-
-/* ============================================================
-   ANIMACIÓN DE TÍTULOS Y TEXTOS (hero slider + original + editorial)
-   Conmutable por clase en <body>:
-     · anim-reveal  → Opción A "Reveal suave" (fade + rise + desenfoque) [default]
-     · anim-kinetic → Opción B "Cinética" (wipe clip-path + rise con escala) [preparada]
-   Reentrante: se reproduce cada vez que un slide pasa a .is-active.
-   Respeta prefers-reduced-motion (se desactiva por completo).
-   ============================================================ */
-
-/* elementos animables, agrupados por hero */
-.hslide.is-active .hslide__eyebrow,
-.hslide.is-active .hslide__title,
-.hslide.is-active .hslide__script,
-.hslide.is-active .hslide__lead,
-.hslide.is-active .hslide__cta,
-.oslide.is-active .oslide__title,
-.oslide.is-active .oslide__lead,
-.oslide.is-active .oslide__note,
-.oslide.is-active .oslide__cta{will-change:transform,opacity;}
-
-/* ---- Opción A · REVEAL SUAVE ---- */
+.oslide.is-active .oslide__title,.oslide.is-active .oslide__lead,.oslide.is-active .oslide__note,.oslide.is-active .oslide__cta{will-change:transform,opacity;}
 @keyframes sotsiRevealUp{
   from{opacity:0;transform:translateY(24px);filter:blur(6px);}
   to{opacity:1;transform:none;filter:blur(0);}
 }
-body.anim-reveal .hslide.is-active .hslide__eyebrow,
-body.anim-reveal .hslide.is-active .hslide__title,
-body.anim-reveal .hslide.is-active .hslide__script,
-body.anim-reveal .hslide.is-active .hslide__lead,
-body.anim-reveal .hslide.is-active .hslide__cta,
-body.anim-reveal .hslide.is-entering .hslide__eyebrow,
-body.anim-reveal .hslide.is-entering .hslide__title,
-body.anim-reveal .hslide.is-entering .hslide__script,
-body.anim-reveal .hslide.is-entering .hslide__lead,
-body.anim-reveal .hslide.is-entering .hslide__cta,
-body.anim-reveal .oslide.is-active .oslide__title,
-body.anim-reveal .oslide.is-active .oslide__lead,
-body.anim-reveal .oslide.is-active .oslide__note,
-body.anim-reveal .oslide.is-active .oslide__cta,
-body.anim-reveal .oslide.is-entering .oslide__title,
-body.anim-reveal .oslide.is-entering .oslide__lead,
-body.anim-reveal .oslide.is-entering .oslide__note,
-body.anim-reveal .oslide.is-entering .oslide__cta,
-body.anim-reveal.hero-static .heroA .eyebrow,
-body.anim-reveal.hero-static .heroA__title,
-body.anim-reveal.hero-static .heroA__sub,
-body.anim-reveal.hero-static .heroA__body,
-body.anim-reveal.hero-static .heroA__cta,
-body.anim-reveal.hero-static .heroA__media{
+body.anim-reveal .oslide.is-active .oslide__title,body.anim-reveal .oslide.is-active .oslide__lead,body.anim-reveal .oslide.is-active .oslide__note,body.anim-reveal .oslide.is-active .oslide__cta,body.anim-reveal .oslide.is-entering .oslide__title,body.anim-reveal .oslide.is-entering .oslide__lead,body.anim-reveal .oslide.is-entering .oslide__note,body.anim-reveal .oslide.is-entering .oslide__cta{
   animation:sotsiRevealUp .9s var(--ease) both;
 }
-/* escalonado (stagger) — eyebrow → título → script → lead → nota → cta */
-body.anim-reveal .hslide.is-active .hslide__eyebrow{animation-delay:.05s;}
-body.anim-reveal .hslide.is-active .hslide__title{animation-delay:.16s;}
-body.anim-reveal .hslide.is-active .hslide__script{animation-delay:.30s;}
-body.anim-reveal .hslide.is-active .hslide__lead{animation-delay:.38s;}
-body.anim-reveal .hslide.is-active .hslide__cta{animation-delay:.56s;}
-body.anim-reveal .hslide.is-entering .hslide__eyebrow{animation-delay:.05s;}
-body.anim-reveal .hslide.is-entering .hslide__title{animation-delay:.16s;}
-body.anim-reveal .hslide.is-entering .hslide__script{animation-delay:.30s;}
-body.anim-reveal .hslide.is-entering .hslide__lead{animation-delay:.38s;}
-body.anim-reveal .hslide.is-entering .hslide__cta{animation-delay:.56s;}
 body.anim-reveal .oslide.is-active .oslide__title{animation-delay:.10s;}
 body.anim-reveal .oslide.is-active .oslide__lead{animation-delay:.30s;}
 body.anim-reveal .oslide.is-active .oslide__note{animation-delay:.44s;}
@@ -1398,13 +803,6 @@ body.anim-reveal .oslide.is-entering .oslide__title{animation-delay:.10s;}
 body.anim-reveal .oslide.is-entering .oslide__lead{animation-delay:.30s;}
 body.anim-reveal .oslide.is-entering .oslide__note{animation-delay:.44s;}
 body.anim-reveal .oslide.is-entering .oslide__cta{animation-delay:.56s;}
-body.anim-reveal.hero-static .heroA__title{animation-delay:.12s;}
-body.anim-reveal.hero-static .heroA__sub{animation-delay:.26s;}
-body.anim-reveal.hero-static .heroA__body{animation-delay:.38s;}
-body.anim-reveal.hero-static .heroA__cta{animation-delay:.52s;}
-body.anim-reveal.hero-static .heroA__media{animation-delay:.20s;}
-
-/* ---- Opción B · CINÉTICA (preparada) ---- */
 @keyframes sotsiKinWipe{
   0%{opacity:0;transform:translateY(34px) scale(.965);letter-spacing:.04em;
      clip-path:inset(0 100% 0 0);filter:blur(8px);}
@@ -1415,43 +813,12 @@ body.anim-reveal.hero-static .heroA__media{animation-delay:.20s;}
   from{opacity:0;transform:translateY(26px);}
   to{opacity:1;transform:none;}
 }
-body.anim-kinetic .hslide.is-active .hslide__title,
-body.anim-kinetic .hslide.is-entering .hslide__title,
-body.anim-kinetic .oslide.is-active .oslide__title,
-body.anim-kinetic .oslide.is-entering .oslide__title,
-body.anim-kinetic.hero-static .heroA__title{
+body.anim-kinetic .oslide.is-active .oslide__title,body.anim-kinetic .oslide.is-entering .oslide__title{
   animation:sotsiKinWipe 1.05s cubic-bezier(.2,.8,.2,1) both;
 }
-body.anim-kinetic .hslide.is-active .hslide__eyebrow,
-body.anim-kinetic .hslide.is-active .hslide__script,
-body.anim-kinetic .hslide.is-active .hslide__lead,
-body.anim-kinetic .hslide.is-active .hslide__cta,
-body.anim-kinetic .hslide.is-entering .hslide__eyebrow,
-body.anim-kinetic .hslide.is-entering .hslide__script,
-body.anim-kinetic .hslide.is-entering .hslide__lead,
-body.anim-kinetic .hslide.is-entering .hslide__cta,
-body.anim-kinetic .oslide.is-active .oslide__lead,
-body.anim-kinetic .oslide.is-active .oslide__note,
-body.anim-kinetic .oslide.is-active .oslide__cta,
-body.anim-kinetic .oslide.is-entering .oslide__lead,
-body.anim-kinetic .oslide.is-entering .oslide__note,
-body.anim-kinetic .oslide.is-entering .oslide__cta,
-body.anim-kinetic.hero-static .heroA .eyebrow,
-body.anim-kinetic.hero-static .heroA__sub,
-body.anim-kinetic.hero-static .heroA__body,
-body.anim-kinetic.hero-static .heroA__cta{
+body.anim-kinetic .oslide.is-active .oslide__lead,body.anim-kinetic .oslide.is-active .oslide__note,body.anim-kinetic .oslide.is-active .oslide__cta,body.anim-kinetic .oslide.is-entering .oslide__lead,body.anim-kinetic .oslide.is-entering .oslide__note,body.anim-kinetic .oslide.is-entering .oslide__cta{
   animation:sotsiKinRise .85s var(--ease) both;
 }
-body.anim-kinetic .hslide.is-active .hslide__eyebrow{animation-delay:.10s;}
-body.anim-kinetic .hslide.is-active .hslide__title{animation-delay:.16s;}
-body.anim-kinetic .hslide.is-active .hslide__script{animation-delay:.50s;}
-body.anim-kinetic .hslide.is-active .hslide__lead{animation-delay:.58s;}
-body.anim-kinetic .hslide.is-active .hslide__cta{animation-delay:.74s;}
-body.anim-kinetic .hslide.is-entering .hslide__eyebrow{animation-delay:.10s;}
-body.anim-kinetic .hslide.is-entering .hslide__title{animation-delay:.16s;}
-body.anim-kinetic .hslide.is-entering .hslide__script{animation-delay:.50s;}
-body.anim-kinetic .hslide.is-entering .hslide__lead{animation-delay:.58s;}
-body.anim-kinetic .hslide.is-entering .hslide__cta{animation-delay:.74s;}
 body.anim-kinetic .oslide.is-active .oslide__title{animation-delay:.06s;}
 body.anim-kinetic .oslide.is-active .oslide__lead{animation-delay:.50s;}
 body.anim-kinetic .oslide.is-active .oslide__note{animation-delay:.64s;}
@@ -1460,88 +827,39 @@ body.anim-kinetic .oslide.is-entering .oslide__title{animation-delay:.06s;}
 body.anim-kinetic .oslide.is-entering .oslide__lead{animation-delay:.50s;}
 body.anim-kinetic .oslide.is-entering .oslide__note{animation-delay:.64s;}
 body.anim-kinetic .oslide.is-entering .oslide__cta{animation-delay:.76s;}
-
-/* respeta reduced-motion: nada se mueve */
-@media (prefers-reduced-motion: reduce){
-  body.anim-reveal [class*="__"],
-  body.anim-kinetic [class*="__"]{animation:none !important;}
-}
-
-/* ============================================================
-   ANIM · Ink Drop Spread (DEFAULT) — las palabras irradian desde el centro
-   (split por JS; transition-delay por palabra = distancia al centro · .03s;
-   la clase .in dispara la entrada). Aplica a slider, original y editorial.
-   ============================================================ */
-.hslide .word,.oslide .word,.heroA .word{display:inline-block;}   /* mantener inline-block tras el split */
-body.anim-ink .hslide.is-active .word,
-body.anim-ink .hslide.is-entering .word,
-body.anim-ink .oslide.is-active .word,
-body.anim-ink .oslide.is-entering .word,
-body.anim-ink.hero-static .heroA .word{
+@media (prefers-reduced-motion: reduce){body.anim-reveal [class*="__"],
+  body.anim-kinetic [class*="__"]{animation:none !important;}}
+.oslide .word{display:inline-block;}
+body.anim-ink .oslide.is-active .word,body.anim-ink .oslide.is-entering .word{
   opacity:0;transform:scale(0);filter:blur(4px);will-change:transform,opacity,filter;
   transition:opacity .5s ease-out, transform .5s ease-out, filter .5s ease-out;
 }
-body.anim-ink .hslide.is-active .word.in,
-body.anim-ink .hslide.is-entering .word.in,
-body.anim-ink .oslide.is-active .word.in,
-body.anim-ink .oslide.is-entering .word.in,
-body.anim-ink.hero-static .heroA .word.in{opacity:1;transform:none;filter:blur(0);}
-@media (prefers-reduced-motion: reduce){
-  .hslide,.oslide{animation:none !important;clip-path:none !important;transform:none !important;}
-  .hslide__content,.oslide__content,.hslide__scrim,.oslide__scrim{animation:none !important;transform:none !important;}
-  body.anim-ink .word{opacity:1 !important;transform:none !important;filter:none !important;transition:none !important;}
-}
-
-/* ============================================================
-   BOTÓN PRINCIPAL DEL HERO — "Editorial" (propuesta más pro)
-   Reestiliza el .btn-cta SOLO dentro de los slides del hero cuando
-   body.herocta-2: etiqueta refinada + flecha en círculo que se
-   rellena de dorado al hover. Minimalista pero con presencia.
-   No toca el .btn-cta de nav ni de secciones.
-   ============================================================ */
-body.herocta-2 .hslide__cta .btn-cta,
+body.anim-ink .oslide.is-active .word.in,body.anim-ink .oslide.is-entering .word.in{opacity:1;transform:none;filter:blur(0);}
+@media (prefers-reduced-motion: reduce){.oslide{animation:none !important;clip-path:none !important;transform:none !important;}.oslide__content,.oslide__scrim{animation:none !important;transform:none !important;}body.anim-ink .word{opacity:1 !important;transform:none !important;filter:none !important;transition:none !important;}}
 body.herocta-2 .oslide__cta .btn-cta{
   background:none;padding:0;border:0;border-radius:0;box-shadow:none;
 }
-body.herocta-2 .hslide__cta .btn-cta:hover,
 body.herocta-2 .oslide__cta .btn-cta:hover{transform:none;box-shadow:none;}
-body.herocta-2 .hslide__cta .btn-cta__inner,
 body.herocta-2 .oslide__cta .btn-cta__inner{
   background:none;box-shadow:none;padding:0;gap:1.05rem;
   font-family:var(--font-body);font-weight:500;font-size:1.06rem;letter-spacing:.05em;color:#fff;
 }
-body.herocta-2 .hslide__cta .btn-cta__sheen,
 body.herocta-2 .oslide__cta .btn-cta__sheen{display:none;}
-body.herocta-2 .hslide__cta .btn-cta__label,
 body.herocta-2 .oslide__cta .btn-cta__label{position:relative;text-transform:uppercase;letter-spacing:.16em;font-size:.92rem;font-weight:600;}
-body.herocta-2 .hslide__cta .btn-cta__label::after,
 body.herocta-2 .oslide__cta .btn-cta__label::after{
   content:"";position:absolute;left:0;right:0;bottom:-5px;height:1.5px;background:var(--gold);
   transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease);
 }
-body.herocta-2 .hslide__cta .btn-cta:hover .btn-cta__label::after,
 body.herocta-2 .oslide__cta .btn-cta:hover .btn-cta__label::after{transform:scaleX(1);}
-/* feedback 2026-07-06 (rrrrr4.png): el hover de btnstyle-2 (bg dorado, brand.css:1148)
-   se colaba aquí por especificidad y pintaba un pill — en el hero solo debe crecer la línea */
-body.herocta-2 .hslide__cta .btn-cta:hover .btn-cta__inner,
 body.herocta-2 .oslide__cta .btn-cta:hover .btn-cta__inner{background:none;color:#fff;}
-body.herocta-2 .hslide__cta .btn-cta__icon,
 body.herocta-2 .oslide__cta .btn-cta__icon{
   width:42px;height:42px;border-radius:50%;background:transparent;
   border:1px solid rgba(255,255,255,.5);box-shadow:none;
   transition:background-color .45s var(--ease),border-color .45s var(--ease),transform .45s var(--ease);
 }
-body.herocta-2 .hslide__cta .btn-cta__icon svg,
 body.herocta-2 .oslide__cta .btn-cta__icon svg{width:16px;height:16px;stroke:#fff;transition:stroke .45s var(--ease),transform .45s var(--ease);}
-body.herocta-2 .hslide__cta .btn-cta:hover .btn-cta__icon,
 body.herocta-2 .oslide__cta .btn-cta:hover .btn-cta__icon{background:var(--gold);border-color:var(--gold);transform:scale(1.07);}
-body.herocta-2 .hslide__cta .btn-cta:hover .btn-cta__icon svg,
 body.herocta-2 .oslide__cta .btn-cta:hover .btn-cta__icon svg{stroke:var(--navy);transform:translateX(2px);}
-body.herocta-2 .hslide__cta .btn-cta:focus-visible .btn-cta__icon,
 body.herocta-2 .oslide__cta .btn-cta:focus-visible .btn-cta__icon{box-shadow:0 0 0 3px var(--gold);}
-
-/* Cards de Linda bloqueadas (pedido cliente 2026-07-02): anchor sin href = visible pero no clickeable */
 a.founders__meet:not([href]),a.about-hub__card:not([href]),a.path-card:not([href]){pointer-events:none;opacity:.78;}
-
-/* a11y: texto solo para lectores de pantalla (patrón SplitText aria) */
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}

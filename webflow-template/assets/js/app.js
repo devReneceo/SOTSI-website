@@ -1,6 +1,6 @@
 /* SOTSI · app.js — interacciones (extraído de index.html, sin el DEV switcher).
    ink-drop · nav condense · drawer móvil · hero parallax · cursor lens · slider
-   (.hslider/.oslider) · swipe · scroll-reveal · stats count-up · praise carousel.
+   (.oslider) · swipe · scroll-reveal · stats count-up.
    Cargar DESPUÉS del DOM (al final de <body>), ANTES de soul-tide.js. */
 (function(){
   /* guard: evita doble-ejecución si el archivo llega dos veces (freeform + registered) */
@@ -39,7 +39,7 @@
     el.__words=words; return words;
   }
   function inkPlay(slide){
-    var all=[]; [].slice.call(slide.querySelectorAll('.hslide__eyebrow,.hslide__title,.hslide__script,.hslide__lead,.oslide__title,.oslide__script,.oslide__lead,.oslide__note,.heroA__title,.heroA__sub,.heroA__body,.sec__eyebrow,.sec__title,.sec__lead,.sec__script,.statement__lead'))
+    var all=[]; [].slice.call(slide.querySelectorAll('.oslide__title,.oslide__script,.oslide__lead,.oslide__note,.sec__eyebrow,.sec__title,.sec__lead,.sec__script,.statement__lead'))
       .forEach(function(el){ all=all.concat(splitInto(el, el.classList.contains('sec__eyebrow'))); });
     if(!all.length) return;
     var center=(all.length-1)/2;
@@ -112,7 +112,7 @@
       kick();
     });
   }
-  [].slice.call(document.querySelectorAll('.hslider,.oslider,.heroA')).forEach(bindHeroParallax);
+  [].slice.call(document.querySelectorAll('.oslider')).forEach(bindHeroParallax);
 
   var waterNoise = document.getElementById('sotsiWaterNoise');
   var waterMap = document.getElementById('sotsiWaterMap');
@@ -208,172 +208,6 @@
       x0=null;
       if(dt<800 && Math.abs(dx)>42 && Math.abs(dx)>Math.abs(dy)*1.25){ if(dx<0) onLeft(); else onRight(); }
     }, {passive:true});
-  }
-
-  /* hero slider */
-  var hsliderEl = document.querySelector('.hslider');
-  var hcursor = document.getElementById('hcursor');
-  var hcursorLabel = hcursor ? hcursor.querySelector('span') : null;
-  var slides = [].slice.call(document.querySelectorAll('.hslide'));
-  var dotsWrap = document.getElementById('hdots');
-  var hcurrent = document.getElementById('hcurrent');
-  var htotal = document.getElementById('htotal');
-  var hprogress = document.getElementById('hprogress');
-  var hstatus = document.querySelector('.hslider__status');
-  var hprevLabel = document.getElementById('hprevLabel');
-  var hnextLabel = document.getElementById('hnextLabel');
-  function pad2(n){ return n < 10 ? '0' + n : '' + n; }
-  function slideStatus(index){
-    return slides[(index + slides.length) % slides.length].dataset.status || '';
-  }
-  function setArrowLabels(index){
-    if(hprevLabel) hprevLabel.textContent = 'Back';   /* corto, sin subtítulo de slide */
-    if(hnextLabel) hnextLabel.textContent = 'Next';
-  }
-  function syncHeroNavTheme(index){
-    document.body.classList.toggle('hero-slide-light-nav', index === 0);
-  }
-  function syncHeroChrome(index){
-    if(!slides.length) return;   /* páginas sin hslider (p.ej. build Webflow por rebanadas): .hslider__status del oslider matchea el selector → no derefear slides[] */
-    if(hcurrent) hcurrent.textContent = pad2(index + 1);
-    if(htotal) htotal.textContent = pad2(slides.length);
-    if(hstatus) hstatus.textContent = slides[index].dataset.status || '';
-    setArrowLabels(index);
-    syncHeroNavTheme(index);
-  }
-  function restartHeroProgress(){
-    if(!hprogress || reduce) return;
-    hprogress.classList.remove('is-running');
-    void hprogress.offsetWidth;
-    hprogress.style.setProperty('--hero-delay', DELAY + 'ms');
-    hprogress.classList.add('is-running');
-  }
-  function setHeroOrigin(x, y){
-    if(!hsliderEl) return;
-    hsliderEl.style.setProperty('--water-origin-x', x);
-    hsliderEl.style.setProperty('--water-origin-y', y);
-  }
-  function triggerHeroRipple(){
-    if(!hsliderEl || reduce) return;
-    hsliderEl.classList.remove('is-rippling');
-    void hsliderEl.offsetWidth;
-    hsliderEl.classList.add('is-rippling');
-    setTimeout(function(){ hsliderEl.classList.remove('is-rippling'); }, 1050);
-  }
-  var hstate = {
-    cur: 0,
-    animating: false,
-    fxMs: 1080,
-    onChange: function(nextIndex){ syncHeroChrome(nextIndex); },
-    onTransition: function(current, next){
-      triggerHeroRipple();
-      waterPulse([current, next]);
-    }
-  };
-  var timer=null, DELAY=12000;
-  /* Webflow publica sin el atributo booleano hidden — re-aplica el estado inicial de los slides */
-  slides.forEach(function(s){ if(s.classList.contains('is-active')) s.removeAttribute('hidden'); else s.setAttribute('hidden',''); });
-  slides.forEach(function(s,i){ var b=document.createElement('button');
-    b.className='hdot'+(i===0?' is-active':''); b.setAttribute('role','tab'); b.setAttribute('aria-label','Go to slide '+(i+1));
-    b.addEventListener('click', function(){
-      setHeroOrigin(i > hstate.cur ? '78%' : '22%', '50%');
-      go(i, i > hstate.cur ? 1 : -1);
-      restart();
-    }); dotsWrap.appendChild(b); });
-  var dots=dotsWrap?[].slice.call(dotsWrap.children):[];
-  syncHeroChrome(0);
-  function go(n, dir){ animateSlideSwap(slides, dots, hstate, (n + slides.length) % slides.length, dir || 1); }
-  function next(originX, originY){ setHeroOrigin(originX || '78%', originY || '50%'); go(hstate.cur + 1, 1); }
-  function prev(originX, originY){ setHeroOrigin(originX || '22%', originY || '50%'); go(hstate.cur - 1, -1); }
-  function restart(){
-    if(timer)clearInterval(timer);
-    restartHeroProgress();
-    if(!reduce) timer=setInterval(next,DELAY);
-  }
-  resetHeroSlider = function(){
-    if(!slides.length) return;
-    if(timer) clearInterval(timer);
-    slides.forEach(function(s,i){
-      s.classList.remove('is-active','is-leaving','is-entering','to-left','to-right','from-left','from-right');
-      resetSlideFx(s);
-      if(i===0){ s.removeAttribute('hidden'); s.classList.add('is-active'); }
-      else { s.setAttribute('hidden',''); }
-    });
-    dots.forEach(function(d,i){ d.classList.toggle('is-active', i===0); });
-    hstate.cur=0; hstate.animating=false;
-    syncHeroChrome(0); restart(); maybeInk(slides[0]);
-  };
-  var hnextBtn = document.getElementById('hnext'), hprevBtn = document.getElementById('hprev');
-  if(hnextBtn) hnextBtn.addEventListener('click', function(){ next('82%','50%'); restart(); });
-  if(hprevBtn) hprevBtn.addEventListener('click', function(){ prev('18%','50%'); restart(); });
-  if(hsliderEl && hcursor && hcursorLabel && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches){
-    function cursorIntent(clientX){
-      var rect = hsliderEl.getBoundingClientRect();
-      return ((clientX - rect.left) / rect.width) < 0.5 ? 'prev' : 'next';
-    }
-    /* lente de cristal: círculo que des-difumina el video bajo el cursor.
-       Throttle con rAF: re-rasterizar el backdrop-filter es caro, lo coalescemos a 1/frame. */
-    var lensRaf = false, lensE = null;
-    function setLens(e){
-      lensE = e;
-      if(lensRaf) return;
-      lensRaf = true;
-      requestAnimationFrame(function(){
-        lensRaf = false;
-        var r = hsliderEl.getBoundingClientRect();
-        hsliderEl.style.setProperty('--mx', (lensE.clientX - r.left) + 'px');
-        hsliderEl.style.setProperty('--my', (lensE.clientY - r.top) + 'px');
-      });
-    }
-    function clearLens(){
-      hsliderEl.style.setProperty('--mx', '-9999px');
-      hsliderEl.style.setProperty('--my', '-9999px');
-    }
-    hsliderEl.addEventListener('pointerenter', function(e){
-      hcursor.classList.add('is-visible');
-      hcursor.style.left = e.clientX + 'px';
-      hcursor.style.top = e.clientY + 'px';
-      setLens(e);
-    });
-    hsliderEl.addEventListener('pointermove', function(e){
-      var intent = cursorIntent(e.clientX);
-      hcursor.style.left = e.clientX + 'px';
-      hcursor.style.top = e.clientY + 'px';
-      hcursorLabel.textContent = intent === 'prev' ? 'Back' : 'Next';
-      setLens(e);
-    });
-    hsliderEl.addEventListener('pointerleave', function(){
-      hcursor.classList.remove('is-visible');
-      clearLens();
-    });
-    hsliderEl.addEventListener('click', function(e){
-      if(e.target.closest('a,button,.vswitch')) return;
-      var intent = cursorIntent(e.clientX);
-      var rect = hsliderEl.getBoundingClientRect();
-      var ox = (((e.clientX - rect.left) / rect.width) * 100).toFixed(2) + '%';
-      var oy = (((e.clientY - rect.top) / rect.height) * 100).toFixed(2) + '%';
-      if(intent === 'prev') prev(ox, oy);
-      else next(ox, oy);
-      restart();
-    });
-  }
-  attachSwipe(hsliderEl, function(){ next('50%','50%'); restart(); }, function(){ prev('50%','50%'); restart(); });
-  if(slides.length) restart();
-  /* feedback 2026-07-06: con el cursor sobre el CTA el autoplay se pausa (y la barra de progreso se detiene);
-     al salir, restart() rearma los 12s completos */
-  [].forEach.call(document.querySelectorAll('.hslide__cta .btn-cta'), function(cta){
-    cta.addEventListener('pointerenter', function(){
-      if(timer){ clearInterval(timer); timer=null; }
-      if(hprogress) hprogress.classList.remove('is-running');
-    });
-    cta.addEventListener('pointerleave', function(){ restart(); });
-  });
-  /* QA 2026-07-09: autoplay pausado con tab oculto o hero fuera del viewport (patrón del carrusel Praise) */
-  var heroOn = true;
-  function heroPause(){ if(timer){ clearInterval(timer); timer=null; } if(hprogress) hprogress.classList.remove('is-running'); }
-  document.addEventListener('visibilitychange', function(){ if(document.hidden) heroPause(); else if(heroOn) restart(); });
-  if('IntersectionObserver' in window && hsliderEl){
-    new IntersectionObserver(function(es){ heroOn = es[0].isIntersecting; if(heroOn && !document.hidden) restart(); else heroPause(); },{threshold:.15}).observe(hsliderEl);
   }
 
   /* hero ORIGINAL slider (réplica fiel · 5 slides, self-contained) */
@@ -519,8 +353,6 @@
 
   /* Ink al cargar: anima la entrada del hero visible (default = original) */
   if(document.body.classList.contains('hero-original')) maybeInk(document.querySelector('.oslide.is-active'));
-  else if(document.body.classList.contains('hero-static')) maybeInk(document.querySelector('.heroA'));
-  else maybeInk(document.querySelector('.hero-slider-wrap .hslide.is-active'));
 
   /* ---- Secciones del Home: scroll-reveal que respeta el switcher de Animación ---- */
   var secs=[].slice.call(document.querySelectorAll('.sec'));
@@ -564,43 +396,6 @@
     var io2=new IntersectionObserver(function(ents){ ents.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); io2.unobserve(e.target); } }); },{threshold:.5});
     nums.forEach(function(n){ io2.observe(n); });
   } else { nums.forEach(countUp); }
-
-  /* ---- Praise · testimonios: carrusel de una cita (crossfade, autoplay pausable, swipe, reduced-motion safe) ---- */
-  (function(){
-    var car=document.getElementById('praiseCarousel'); if(!car) return;
-    var slides=[].slice.call(car.querySelectorAll('.praise__slide'));
-    var dotsWrap=document.getElementById('praiseDots');
-    if(!slides.length || !dotsWrap) return;
-    var cur=0, timer=null, DELAY=9000;
-    slides.forEach(function(s,i){
-      var b=document.createElement('button');
-      b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Testimonial '+(i+1));
-      b.addEventListener('click', function(){ go(i); restart(); });
-      dotsWrap.appendChild(b);
-    });
-    var dots=[].slice.call(dotsWrap.children);
-    function paint(){
-      slides.forEach(function(s,i){ var on=i===cur; s.classList.toggle('is-active',on); s.setAttribute('aria-hidden', on?'false':'true'); });
-      dots.forEach(function(d,i){ var on=i===cur; d.classList.toggle('is-active',on); d.setAttribute('aria-selected', on?'true':'false'); });
-    }
-    function go(n){ cur=(n+slides.length)%slides.length; paint(); }
-    function next(){ go(cur+1); }
-    function prev(){ go(cur-1); }
-    function stop(){ if(timer){ clearInterval(timer); timer=null; } }
-    function restart(){ stop(); if(!reduce) timer=setInterval(next,DELAY); }
-    var pb=document.getElementById('prAprev'), nb=document.getElementById('prAnext');
-    if(pb) pb.addEventListener('click', function(){ prev(); restart(); });
-    if(nb) nb.addEventListener('click', function(){ next(); restart(); });
-    car.addEventListener('mouseenter', stop);
-    car.addEventListener('mouseleave', restart);
-    car.addEventListener('focusin', stop);
-    car.addEventListener('focusout', restart);
-    if(typeof attachSwipe==='function') attachSwipe(car, function(){ next(); restart(); }, function(){ prev(); restart(); });
-    paint();
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting ? restart() : stop(); }); },{threshold:.2}).observe(car);
-    } else { restart(); }
-  })();
 
   /* ---- Greeting: play → expand inmersivo + controles nativos (pausa/volumen). Backdrop o Esc = cerrar ---- */
   var gp=document.getElementById('greetPlay');

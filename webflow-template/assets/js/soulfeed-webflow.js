@@ -1,6 +1,31 @@
-/* SOTSI · Soul Feed (blog listing) — Webflow runtime v1.3.0
+/* SOTSI · Soul Feed (blog listing) — Webflow runtime v1.4.0
    Paridad con el prototipo sotsi landing/blog/blog.js (2026-07-16).
    Página: /blog (proposal-03.webflow.io).
+
+   v1.4.0 (2026-08-04) — el muro 3D (.is-wall) solo se arma cuando
+   matchMedia("(min-width:1025px) and (hover:hover) and (pointer:fine)") —
+   igual criterio que mountSpline() — en vez de solo por ancho. Motivo:
+   confirmado con Playwright contra el sitio publicado que tablets landscape
+   reales (iPad Air 1180, iPad Pro 11" 1194, iPad Pro 12.9" 1366 — todos
+   ≥1025px) recibían el wall completo sin cambios (hover-tooltip, rotateX 3D,
+   drift rAF, full-bleed) idéntico a desktop 1440px, con las fotos cortadas
+   en seco al borde del viewport y el copy comprimido — eso es lo que se
+   descompone en tablet, no la zona ≤1024 (que ya era un display:none limpio
+   y uniforme, sin ningún camino de código que la rompiera visualmente).
+   Cualquier caso que no cumpla el matchMedia (≤1024px, o ≥1025px sin puntero
+   fino: tablet táctil en landscape) recibe buildShelf(): una tira compacta
+   con scroll-snap nativo (.bl-wall__shelf, adaptado de .bl-shelf__scroller
+   del prototipo — huérfano, nunca usado, blog/blog.css líneas ~679-697),
+   sin rotateX/perspective/drift rAF/tooltip hover — conserva el fade de
+   entrada blWallIn y el hover/tap-scale gratis, reusando las mismas clases
+   .bl-wall__tile/.bl-wall__tile-in del wall. initHeroVisual() decide el modo
+   y reconstruye en resize/orientationchange (debounce 180ms) + on "change"
+   del propio matchMedia (cubre conectar/desconectar un trackpad en un iPad
+   sin que dispare resize). makeWallTile() factoriza el tile compartido
+   entre wall y shelf — ningún tile nuevo puede salir sin aria-label.
+   animateWall() ahora devuelve {destroy} para desmontar limpio (rAF +
+   ResizeObserver + IntersectionObserver + listeners) al cruzar de modo —
+   evita fugas si alguien redimensiona/rota la pantalla repetidas veces.
 
    v1.3.0 (2026-07-27) — regla del cliente (1.png): los posts cuyo badge dice
    "Exclude" (categories[0] — show notes de Ginni Media, serie Miracle, Soul
@@ -52,6 +77,8 @@
   var WALL_COLS = 6;
   var WALL_SPEED = 18;
   var WALL_GAP = 14;
+  var SHELF_COUNT = 14;
+  var HERO_DESKTOP_MQ = "(min-width: 1025px) and (hover: hover) and (pointer: fine)"; // igual criterio que mountSpline()
   var SPLINE_SCENE = "https://prod.spline.design/us3ALejTXl6usHZ7/scene.splinecode";
   var SPLINE_VIEWER_SRC = "https://unpkg.com/@splinetool/viewer@1.9.48/build/spline-viewer.js"; // pinned
 
@@ -322,9 +349,36 @@
     return { gridView: gridView, grid: grid, empty: empty, clearBtn: clearBtn, moreBtn: moreBtn, moreNote: moreNote };
   }
 
-  /* ---------- hero cover wall (blog.js · buildWall/animateWall) ---------- */
+  /* ---------- shared tile factory (blog.js · buildWall, reusado por el shelf) ---------- */
+  function makeWallTile(post, i, opts) {
+    opts = opts || {};
+    var tile = document.createElement("a");
+    tile.className = "bl-wall__tile";
+    linkTo(tile, post.slug);
+    tile.setAttribute("aria-label", post.title || "Read post");
+    if (opts.withTooltip) {
+      var clean = titleParts(post).clean;
+      tile.setAttribute("data-title", clean.length > 60 ? clean.slice(0, 57).replace(/\s+$/, "") + "…" : clean);
+    }
+    tile.style.setProperty("--ti", i);
+    if (opts.duplicate) tile.tabIndex = -1;
+    var inner = el("span", "bl-wall__tile-in");
+    var img = document.createElement("img");
+    img.src = artSrc(post);
+    img.alt = "";
+    img.loading = opts.eager ? "eager" : "lazy";
+    img.decoding = "async";
+    img.width = 160;
+    img.height = 160;
+    inner.appendChild(img);
+    tile.appendChild(inner);
+    return tile;
+  }
+
+  /* ---------- hero cover wall (blog.js · buildWall/animateWall) — solo
+     desktop con puntero fino, ver HERO_DESKTOP_MQ / initHeroVisual ---------- */
   function buildWall(stackHost, posts) {
-    if (!stackHost) return;
+    if (!stackHost) return null;
     stackHost.classList.add("is-wall");
     stackHost.removeAttribute("aria-hidden"); // interactivo: cada tile enlaza a su post
 
@@ -338,25 +392,11 @@
       var gridEl = el("div", "bl-wall__grid");
       if (copy > 0) gridEl.setAttribute("aria-hidden", "true");
       picks.forEach(function (post, i) {
-        var tile = document.createElement("a");
-        tile.className = "bl-wall__tile";
-        linkTo(tile, post.slug);
-        tile.setAttribute("aria-label", post.title || "Read post");
-        var clean = titleParts(post).clean;
-        tile.setAttribute("data-title", clean.length > 60 ? clean.slice(0, 57).replace(/\s+$/, "") + "…" : clean);
-        tile.style.setProperty("--ti", i);
-        if (copy > 0) tile.tabIndex = -1;
-        var inner = el("span", "bl-wall__tile-in");
-        var img = document.createElement("img");
-        img.src = artSrc(post);
-        img.alt = "";
-        img.loading = copy === 0 && i < 12 ? "eager" : "lazy";
-        img.decoding = "async";
-        img.width = 160;
-        img.height = 160;
-        inner.appendChild(img);
-        tile.appendChild(inner);
-        gridEl.appendChild(tile);
+        gridEl.appendChild(makeWallTile(post, i, {
+          withTooltip: true,
+          duplicate: copy > 0,
+          eager: copy === 0 && i < 12
+        }));
       });
       return gridEl;
     };
@@ -365,7 +405,7 @@
     if (REDUCE) {
       win.appendChild(makeGrid(0));
       stackHost.appendChild(win);
-      return;
+      return null; // sin listeners/observers/rAF en esta rama — nada que destruir
     }
 
     var plane = el("div", "bl-wall__plane");
@@ -381,7 +421,7 @@
 
     stackHost.appendChild(win);
     stackHost.appendChild(tip);
-    animateWall(stackHost, track, first, tip);
+    return animateWall(stackHost, track, first, tip);
   }
 
   function animateWall(host, track, firstGrid, tip) {
@@ -391,6 +431,8 @@
     var last = 0;
     var hovered = false;
     var onscreen = true;
+    var ro = null;
+    var io = null;
 
     var canRun = function () { return wrap > 0 && !hovered && onscreen && !document.hidden; };
 
@@ -415,15 +457,16 @@
     };
 
     if (typeof ResizeObserver !== "undefined") {
-      new ResizeObserver(function () {
+      ro = new ResizeObserver(function () {
         wrap = firstGrid.offsetHeight + WALL_GAP;
         play();
-      }).observe(firstGrid);
+      });
+      ro.observe(firstGrid);
     } else {
       wrap = firstGrid.offsetHeight + WALL_GAP;
     }
 
-    host.addEventListener("pointerover", function (event) {
+    var onPointerOver = function (event) {
       var tile = event.target.closest(".bl-wall__tile");
       if (!tile || !host.contains(tile)) return;
       hovered = true;
@@ -434,25 +477,88 @@
       tip.hidden = !tip.textContent;
       tip.style.left = tileBox.left - hostBox.left + tileBox.width / 2 + "px";
       tip.style.top = tileBox.top - hostBox.top + "px";
-    });
-    host.addEventListener("pointerleave", function () {
+    };
+    var onPointerLeave = function () {
       hovered = false;
       tip.hidden = true;
       play();
-    });
-
-    document.addEventListener("visibilitychange", function () {
+    };
+    var onVisibility = function () {
       if (document.hidden) pause(); else play();
-    });
+    };
+
+    host.addEventListener("pointerover", onPointerOver);
+    host.addEventListener("pointerleave", onPointerLeave);
+    document.addEventListener("visibilitychange", onVisibility);
 
     if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
+      io = new IntersectionObserver(function (entries) {
         onscreen = entries[0].isIntersecting;
         if (onscreen) play(); else pause();
-      }, { rootMargin: "80px" }).observe(host);
+      }, { rootMargin: "80px" });
+      io.observe(host);
     }
 
     play();
+
+    return {
+      destroy: function () {
+        pause();
+        if (ro) ro.disconnect();
+        if (io) io.disconnect();
+        host.removeEventListener("pointerover", onPointerOver);
+        host.removeEventListener("pointerleave", onPointerLeave);
+        document.removeEventListener("visibilitychange", onVisibility);
+      }
+    };
+  }
+
+  /* ---------- compact touch shelf — ≤1024px, o ≥1025px sin puntero fino
+     (tablet táctil en landscape). Scroll-snap nativo, sin JS de animación;
+     adaptado de .bl-shelf__scroller (huérfano en el prototipo). ---------- */
+  function buildShelf(stackHost, posts) {
+    if (!stackHost) return null; // sin listeners/observers — nada que destruir
+    stackHost.classList.add("is-shelf");
+    stackHost.removeAttribute("aria-hidden");
+
+    var picks = posts.slice(0, SHELF_COUNT);
+    var shelf = el("div", "bl-wall__shelf");
+    shelf.setAttribute("tabindex", "0");
+    shelf.setAttribute("aria-label", "Recent posts");
+    picks.forEach(function (post, i) {
+      shelf.appendChild(makeWallTile(post, i, { eager: i < 4 }));
+    });
+    stackHost.appendChild(shelf);
+    return null;
+  }
+
+  /* ---------- dispatcher: wall (desktop + puntero fino) vs shelf (todo lo
+     demás) — reconstruye SOLO al cruzar HERO_DESKTOP_MQ, nunca en cada
+     tick de resize dentro del mismo modo. ---------- */
+  function initHeroVisual(stackHost, posts) {
+    if (!stackHost) return;
+    var mql = matchMedia(HERO_DESKTOP_MQ);
+    var mode = null;
+    var teardown = null;
+
+    function apply() {
+      var next = mql.matches ? "wall" : "shelf";
+      if (next === mode) return;
+      if (teardown) teardown();
+      stackHost.textContent = "";
+      stackHost.classList.remove("is-wall", "is-shelf");
+      var handle = next === "wall" ? buildWall(stackHost, posts) : buildShelf(stackHost, posts);
+      teardown = handle ? handle.destroy : null;
+      mode = next;
+    }
+
+    apply();
+
+    var t = 0;
+    function onResize() { clearTimeout(t); t = setTimeout(apply, 180); }
+    window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
+    if (mql.addEventListener) mql.addEventListener("change", onResize);
   }
 
   /* ---------- Editor's Picks (top 3 por rank editorial) ---------- */
@@ -620,7 +726,7 @@
         });
         if (totalEl) totalEl.textContent = String(posts.length);
         if (skel) skel.parentNode.removeChild(skel);
-        buildWall(stackHost, posts);
+        initHeroVisual(stackHost, posts);
         buildPicks(picksHost, posts, navPersist);
         initResizeSync(picksHost);
         render();

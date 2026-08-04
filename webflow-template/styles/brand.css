@@ -104,7 +104,6 @@ body.heroborder-off{ --hero-divider-opacity:0; }
   --hero-pan-x:0px;
   --hero-pan-y:0px;
 }
-.oslider{cursor:none;}
 .oslide{overflow:hidden;}
 .oslide__media{
   transform-origin:center center;
@@ -277,7 +276,7 @@ body.heroborder-off{ --hero-divider-opacity:0; }
 }
 .harrow{
   pointer-events:auto;width:clamp(104px,11.5vw,154px);height:100%;border:0;
-  background:linear-gradient(90deg,rgba(14,22,49,.18),transparent 54%);color:#fff;cursor:none;
+  background:linear-gradient(90deg,rgba(14,22,49,.18),transparent 54%);color:#fff;cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:.72rem;padding:0 .85rem;
   text-transform:uppercase;letter-spacing:.16em;font-size:.68rem;font-weight:600;
   transition:background-color .3s var(--ease),opacity .3s var(--ease);

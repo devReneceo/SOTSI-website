@@ -582,4 +582,37 @@
     },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
     io.observe(wrap);
   })();
+
+  /* ---- Art-directed fill images (no-hero): sirve foto+encuadre distinto por breakpoint para
+     secciones simples de una sola imagen (Home membership/bigcta, Linda hero, etc.) via
+     data-art-mobile/-tablet + data-art-crop-mobile/-tablet en el elemento. Atributos propios
+     (no data-src-*) para no pisar el mecanismo del hero slider, que vive en su propio embed de
+     Home con su propia tabla de crop por slide y no se toca. Site-wide via app.js en vez de un
+     embed por página, para no duplicar esta lógica cada vez que se agregue otra sección. ---- */
+  (function(){
+    var els=[].slice.call(document.querySelectorAll('[data-art-mobile],[data-art-tablet]'));
+    if(!els.length) return;
+    var saved=els.map(function(el){ return {src:el.getAttribute('src'), srcset:el.getAttribute('srcset'), sizes:el.getAttribute('sizes'), pos:el.style.objectPosition}; });
+    function bucket(){ var w=window.innerWidth||document.documentElement.clientWidth||1280; return w<=767?'mobile':(w<=1279?'tablet':'desktop'); }
+    var cur='';
+    function apply(){
+      var b=bucket(); if(b===cur) return; cur=b;
+      els.forEach(function(el,i){
+        var alt=(b==='desktop')?null:el.getAttribute('data-art-'+b);
+        if(alt){ if(el.getAttribute('src')!==alt){ el.removeAttribute('srcset'); el.removeAttribute('sizes'); el.src=alt; } }
+        else{ var sv=saved[i];
+          if(sv.srcset && !el.getAttribute('srcset')) el.setAttribute('srcset', sv.srcset);
+          if(sv.sizes && !el.getAttribute('sizes')) el.setAttribute('sizes', sv.sizes);
+          if(sv.src && el.getAttribute('src')!==sv.src) el.src=sv.src;
+        }
+        var crop=(b==='desktop')?null:el.getAttribute('data-art-crop-'+b);
+        el.style.objectPosition = crop || saved[i].pos || '';
+      });
+    }
+    apply();
+    var t;
+    function onResize(){ clearTimeout(t); t=setTimeout(apply,180); }
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', onResize);
+  })();
 })();

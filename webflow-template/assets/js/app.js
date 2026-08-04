@@ -153,6 +153,7 @@
   function resetSlideFx(slide){
     slide.classList.remove('is-entering','is-leaving','from-right','from-left','to-right','to-left');
   }
+  function pad2(n){ return n < 10 ? '0' + n : '' + n; }
   function animateSlideSwap(slides, dots, state, nextIndex, dir){
     if(state.animating || nextIndex === state.cur) return;
     var current = slides[state.cur];

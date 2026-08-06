@@ -6,7 +6,6 @@
 @font-face{font-family:"Jost";src:url("../assets/fonts/Jost-Regular.woff2") format("woff2");font-weight:400;font-display:swap;}
 @font-face{font-family:"Jost";src:url("../assets/fonts/Jost-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap;}
 @font-face{font-family:"Jost";src:url("../assets/fonts/Jost-Bold.woff2") format("woff2");font-weight:700;font-display:swap;}
-@font-face{font-family:"WorldDiscovery";src:url("../assets/fonts/WorldDiscovery.woff2") format("woff2");font-weight:400;font-display:swap;}
 :root{
   
   --glass-dark:rgba(14,22,49,.55);

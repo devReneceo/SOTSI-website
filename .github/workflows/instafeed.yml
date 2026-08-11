@@ -25,9 +25,28 @@ jobs:
       - name: Install webp tools
         run: sudo apt-get update -q && sudo apt-get install -y -q webp
 
+      # El token IG vive cifrado en el vault de 22d-trello (/vault) — rotarlo ahí
+      # es el ÚNICO paso al renovarlo (~60 días). Si el vault no responde, cae al
+      # Secret INSTAGRAM_ACCESSTOKEN clásico para no tumbar el refresh.
+      - name: Get Instagram token from 22d vault
+        env:
+          VAULT_TOKEN: ${{ secrets.VAULT_API_TOKEN }}
+        run: |
+          TOKEN=$(curl -fsS --max-time 30 \
+            -H "Authorization: Bearer $VAULT_TOKEN" \
+            https://trello-22d-778459417925.us-central1.run.app/api/vault/instagram-access-token \
+            | jq -r '.value // empty') || TOKEN=""
+          if [ -n "$TOKEN" ]; then
+            echo "::add-mask::$TOKEN"
+            echo "IG_TOKEN_FROM_VAULT=$TOKEN" >> "$GITHUB_ENV"
+            echo "Token obtenido del vault."
+          else
+            echo "::warning::Vault sin respuesta — usando el Secret INSTAGRAM_ACCESSTOKEN de respaldo."
+          fi
+
       - name: Refresh feed
         env:
-          INSTAGRAM_ACCESSTOKEN: ${{ secrets.INSTAGRAM_ACCESSTOKEN }}
+          INSTAGRAM_ACCESSTOKEN: ${{ env.IG_TOKEN_FROM_VAULT || secrets.INSTAGRAM_ACCESSTOKEN }}
         run: python3 .github/scripts/refresh_instafeed.py
 
       - name: Commit & push if changed

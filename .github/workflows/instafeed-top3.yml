@@ -26,9 +26,27 @@ jobs:
       - name: Install webp tools
         run: sudo apt-get update -q && sudo apt-get install -y -q webp
 
+      # Mismo circuito que instafeed.yml: token IG desde el vault de 22d-trello,
+      # con fallback al Secret INSTAGRAM_ACCESSTOKEN si el vault no responde.
+      - name: Get Instagram token from 22d vault
+        env:
+          VAULT_TOKEN: ${{ secrets.VAULT_API_TOKEN }}
+        run: |
+          TOKEN=$(curl -fsS --max-time 30 \
+            -H "Authorization: Bearer $VAULT_TOKEN" \
+            https://trello-22d-778459417925.us-central1.run.app/api/vault/instagram-access-token \
+            | jq -r '.value // empty') || TOKEN=""
+          if [ -n "$TOKEN" ]; then
+            echo "::add-mask::$TOKEN"
+            echo "IG_TOKEN_FROM_VAULT=$TOKEN" >> "$GITHUB_ENV"
+            echo "Token obtenido del vault."
+          else
+            echo "::warning::Vault sin respuesta — usando el Secret INSTAGRAM_ACCESSTOKEN de respaldo."
+          fi
+
       - name: Refresh top 3
         env:
-          INSTAGRAM_ACCESSTOKEN: ${{ secrets.INSTAGRAM_ACCESSTOKEN }}
+          INSTAGRAM_ACCESSTOKEN: ${{ env.IG_TOKEN_FROM_VAULT || secrets.INSTAGRAM_ACCESSTOKEN }}
         run: python3 .github/scripts/refresh_top3.py
 
       - name: Commit & push if changed

@@ -1,6 +1,12 @@
-/* SOTSI · Soul Feed (blog listing) — Webflow runtime v1.4.0
+/* SOTSI · Soul Feed (blog listing) — Webflow runtime v1.5.0
    Paridad con el prototipo sotsi landing/blog/blog.js (2026-07-16).
    Página: /blog (proposal-03.webflow.io).
+
+   v1.5.0 (2026-08-11) — QA C47: el restore de scroll (blw:list:v2) corría en
+   CUALQUIER llegada a /blog (el scrollY se refrescaba incluso en pagehide y en
+   cada update de filtros) => el visitante aterrizaba a media página o al footer.
+   Ahora scrollY solo se guarda al navegar a una reflexión (flag one-shot blw:go)
+   y el restore se re-aplica tras load para no clampearse pre-settle.
 
    v1.4.0 (2026-08-04) — el muro 3D (.is-wall) solo se arma cuando
    matchMedia("(min-width:1025px) and (hover:hover) and (pointer:fine)") —
@@ -71,6 +77,7 @@
   var READER_URL = "/post?slug=";
   var BATCH = 24;
   var STORE_KEY = "blw:list:v2"; // v2: sin `series` (estado viejo invalidado)
+  var GO_KEY = "blw:go"; // one-shot: restaurar scroll SOLO al volver de una reflexión
   var REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var WALL_COUNT = 42;
@@ -635,6 +642,13 @@
     // v1.2.0: sin `series` — el directorio es solo Blogs.
     var state = { q: "", sort: "new", shown: BATCH };
     var saved = store.get();
+    /* C47: el flag se consume aquí — sin click previo en una reflexión, la
+       llegada (nav, link directo, refresh) SIEMPRE arranca arriba. */
+    var wantScroll = false;
+    try {
+      wantScroll = sessionStorage.getItem(GO_KEY) === "1";
+      if (wantScroll) sessionStorage.removeItem(GO_KEY);
+    } catch (err) {}
     if (saved && typeof saved === "object") {
       state.q = typeof saved.q === "string" ? saved.q : "";
       state.sort = ["new", "old", "rank", "az"].indexOf(saved.sort) !== -1 ? saved.sort : "new";
@@ -654,10 +668,16 @@
     var moreNote = scaffold.moreNote;
 
     var posts = [];
+    /* persist = filtros (updates/pagehide); conserva el scrollY previo sin refrescarlo.
+       navPersist = filtros + scrollY + flag GO — solo al navegar a una reflexión. */
     var persist = function () {
-      store.set({ q: state.q, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
+      var prev = store.get();
+      store.set({ q: state.q, sort: state.sort, shown: state.shown, scrollY: prev && prev.scrollY > 0 ? prev.scrollY : 0 });
     };
-    var navPersist = function () { persist(); };
+    var navPersist = function () {
+      store.set({ q: state.q, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
+      try { sessionStorage.setItem(GO_KEY, "1"); } catch (err) {}
+    };
 
     var filtered = function () {
       var query = state.q.trim().toLowerCase();
@@ -730,8 +750,15 @@
         buildPicks(picksHost, posts, navPersist);
         initResizeSync(picksHost);
         render();
-        if (saved && saved.scrollY > 0) {
-          requestAnimationFrame(function () { window.scrollTo(0, saved.scrollY); });
+        if (wantScroll && saved && saved.scrollY > 0) {
+          var goY = saved.scrollY;
+          var reScroll = function () { window.scrollTo(0, goY); };
+          requestAnimationFrame(reScroll);
+          /* re-aplicar tras load: el primer scroll puede clampearse antes de que
+             las imágenes lazy asienten la altura del documento */
+          if (document.readyState !== "complete") {
+            window.addEventListener("load", function () { requestAnimationFrame(reScroll); }, { once: true });
+          }
         }
         document.body.setAttribute("data-blw-ready", "1");
       })

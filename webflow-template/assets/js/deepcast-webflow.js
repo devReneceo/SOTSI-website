@@ -1,4 +1,10 @@
-/* SOTSI · deepcast-webflow.js v1.6.0 — /deepcast parity with the static prototype.
+/* SOTSI · deepcast-webflow.js v1.7.0 — /deepcast parity with the static prototype.
+   v1.7.0 (2026-08-11): QA C47 — el restore de scroll (dc:list:v1) corría en CUALQUIER
+   llegada a /deepcast, clampeado al fondo pre-settle => el visitante caía al footer.
+   Ahora scrollY solo se guarda al navegar a un episodio en la MISMA tab (flag one-shot
+   dc:go) y el restore re-aplica tras load; pagehide solo persiste filtros. Además el
+   número de fila lleva prefijo de serie (F#/S#) en la vista All: Feast y Snack numeran
+   1..N cada una y el "#88,#88,#87,#87" pelado se leía como orden roto.
    v1.6.0 (2026-07-27): rename /podcast→/deepcast (ruta nativa + texto noscript). v1.5.0 (2026-07-25): filtro por serie en el toolbar — chips All · Soul Feast ·
    Soul Snack (los Soul Feast/Snack se movieron del blog a Deepcast). El resto
    del filtrado ya existía; solo faltaban los botones (antes solo "All").
@@ -30,6 +36,7 @@
   var SERIES_LABEL = { feast: "Soul Feast", snack: "Soul Snack", special: "Special" };
   var BATCH = 30;
   var STORE_KEY = "dc:list:v1";
+  var GO_KEY = "dc:go"; // one-shot: restaurar scroll SOLO al volver de un episodio
 
   /* CMS-aware episode links. LIVE_SLUGS = items already imported; once the
      hidden legacy Collection List renders >= 20 cards (post-import) every
@@ -547,6 +554,13 @@
 
     var state = { q: "", series: "all", sort: "new", shown: BATCH };
     var saved = store.get();
+    /* C47: el flag se consume aquí — si no venimos de un click de episodio, la
+       llegada (nav, link directo, refresh) SIEMPRE arranca arriba. */
+    var wantScroll = false;
+    try {
+      wantScroll = sessionStorage.getItem(GO_KEY) === "1";
+      if (wantScroll) sessionStorage.removeItem(GO_KEY);
+    } catch (e) {}
     if (saved && typeof saved === "object") {
       state.q = typeof saved.q === "string" ? saved.q : "";
       state.series = ["all", "feast", "snack", "special"].indexOf(saved.series) > -1 ? saved.series : "all";
@@ -558,8 +572,17 @@
     if (sortSel) sortSel.value = state.sort;
 
     var episodes = [];
+    /* persist = filtros (pagehide/updates); conserva el scrollY previo sin refrescarlo.
+       persistScroll = filtros + scrollY + flag GO — solo al navegar a un episodio
+       en la misma tab. Los links externos (YouTube, _blank) no tocan el flag: la
+       tab original nunca abandona la página. */
     var persist = function () {
+      var prev = store.get();
+      store.set({ q: state.q, series: state.series, sort: state.sort, shown: state.shown, scrollY: prev && prev.scrollY > 0 ? prev.scrollY : 0 });
+    };
+    var persistScroll = function () {
       store.set({ q: state.q, series: state.series, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
+      try { sessionStorage.setItem(GO_KEY, "1"); } catch (e) {}
     };
 
     var filtered = function () {
@@ -575,7 +598,14 @@
       var li = el("li", "dc-row dc-row--enter");
       li.style.animationDelay = Math.min(position, 10) * 28 + "ms";
 
-      var num = el("span", "dc-row__num", ep.number ? "#" + ep.number : "·");
+      /* En la vista All conviven las numeraciones de Feast y Snack (1..N cada una):
+         el prefijo de serie desambigua los pares #88/#88. Con filtro activo, #N basta. */
+      var numLabel = "·";
+      if (ep.number) {
+        var pfx = state.series === "all" ? (ep.series === "feast" ? "F" : ep.series === "snack" ? "S" : "") : "";
+        numLabel = pfx + "#" + ep.number;
+      }
+      var num = el("span", "dc-row__num", numLabel);
 
       var art = el("span", "dc-row__art");
       var img = document.createElement("img");
@@ -592,7 +622,7 @@
       if (href) {
         link.href = href;
         if (isExt(href)) { link.target = "_blank"; link.rel = "noopener"; }
-        link.addEventListener("click", persist);
+        link.addEventListener("click", isExt(href) ? persist : persistScroll);
       }
       var sub = el("span", "dc-row__sub");
       var badge = el("span", "dc-badge dc-badge--" + ep.series, SERIES_LABEL[ep.series] || "Episode");
@@ -697,8 +727,15 @@
         render();
         buildMarquee(episodes);
         document.body.setAttribute("data-dcw-ready", "1");
-        if (saved && saved.scrollY > 0) {
-          requestAnimationFrame(function () { window.scrollTo(0, saved.scrollY); });
+        if (wantScroll && saved && saved.scrollY > 0) {
+          var goY = saved.scrollY;
+          var reScroll = function () { window.scrollTo(0, goY); };
+          requestAnimationFrame(reScroll);
+          /* el primer scroll puede clampearse si las imágenes lazy aún no asientan
+             la altura del documento; se re-aplica cuando la página termina de cargar */
+          if (document.readyState !== "complete") {
+            window.addEventListener("load", function () { requestAnimationFrame(reScroll); }, { once: true });
+          }
         }
       })
       .catch(function () {

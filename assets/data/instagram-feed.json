@@ -1,32 +1,32 @@
 {
-  "updated": "2026-08-11T20:22:58+00:00",
+  "updated": "2026-08-12T10:29:04+00:00",
   "items": [
+    {
+      "permalink": "https://www.instagram.com/reel/Db6xgdphS_j/",
+      "media_type": "VIDEO",
+      "quote": "What if your greatest trial was actually your greatest invitation to awaken?",
+      "likes": 54,
+      "comments": 2,
+      "image": "assets/images/instagram/latest-1.webp",
+      "timestamp": "2026-08-11T23:30:07+0000"
+    },
     {
       "permalink": "https://www.instagram.com/reel/Db4MsdHAUB5/",
       "media_type": "VIDEO",
       "quote": "Numbness is not peace.",
-      "likes": 285,
+      "likes": 335,
       "comments": 8,
-      "image": "assets/images/instagram/latest-1.webp",
+      "image": "assets/images/instagram/latest-2.webp",
       "timestamp": "2026-08-10T23:31:15+0000"
     },
     {
       "permalink": "https://www.instagram.com/reel/DbweRjBnIS8/",
       "media_type": "VIDEO",
       "quote": "That moment is the moment when you can create power or lose power. It's your choice.",
-      "likes": 425,
+      "likes": 445,
       "comments": 18,
-      "image": "assets/images/instagram/latest-2.webp",
-      "timestamp": "2026-08-07T23:30:56+0000"
-    },
-    {
-      "permalink": "https://www.instagram.com/reel/DbtMQOSBKMF/",
-      "media_type": "VIDEO",
-      "quote": "You were born to do this.",
-      "likes": 186,
-      "comments": 14,
       "image": "assets/images/instagram/latest-3.webp",
-      "timestamp": "2026-08-06T16:55:05+0000"
+      "timestamp": "2026-08-07T23:30:56+0000"
     }
   ]
 }

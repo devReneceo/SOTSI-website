@@ -29,7 +29,7 @@
 <link rel="preload" as="image" href="assets/images/slides/beach-creating-authentic-power-clean.webp" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <!-- Phase 1 2026-07-08: recortado a las 4 familias de producción (Fraunces display + Cormorant fallback, Pinyon accent, Dancing script). Las 7 restantes servían al switcher dev de tipografía. -->
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Pinyon+Script&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Pinyon+Script&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
 <link rel="preload" href="assets/fonts/Fraunces-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/Jost-Regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="styles/tokens.css" />
@@ -500,7 +500,6 @@
       <button class="harrow harrow--next" id="hnext" aria-label="Next slide"><span class="harrow__label" id="hnextLabel">Next</span><span class="harrow__line"></span></button>
     </div>
     <div class="hslider__dots" id="hdots" role="tablist" aria-label="Slides"></div>
-    <div class="hslider__cursor" id="hcursor" aria-hidden="true"><span>Next</span></div>
   </section>
 </div>
 
@@ -592,7 +591,6 @@
       <button class="harrow harrow--next" id="onext" aria-label="Next slide"><span class="harrow__label" id="onextLabel">Next</span><span class="harrow__line"></span></button>
     </div>
     <div class="hslider__dots" id="odots" role="tablist" aria-label="Slides"></div>
-    <div class="hslider__cursor" id="ocursor" aria-hidden="true"><span>Next</span></div>
   </section>
 </div>
 
@@ -754,7 +752,7 @@
       <div class="event__act reveal">
         <span class="event__connector" aria-hidden="true"></span>
         <!-- <p class="event__kicker">Journey to the Soul</p> -->
-        <p class="event__ready">If you want a life of connection, meaning, and fulfillment?</p>
+        <p class="event__ready">Do you want a life full of connection, meaning, and fulfillment?</p>
         <div class="event__cta-row">
           <a class="btn-cta" href="./event-waitlist-journey-to-the-soul/"><span class="btn-cta__inner"><span class="btn-cta__sheen" aria-hidden="true"></span><span class="btn-cta__label">Learn How</span><span class="btn-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span></a>
         </div>
@@ -808,7 +806,7 @@
           <span class="post__cta">Explore<span class="post__cta-ico" aria-hidden="true">→</span></span>
         </span>
       </a>
-       <a class="post post--glow reveal" href="#">
+       <a class="post post--glow reveal" href="https://seatofthesoul.com/responsible-choice/" target="_blank" rel="noopener">
         <span class="post__media">
           <img src="assets/images/6a3342a6143842a74816646c_millions-of-people-reached-via-gary-zukav-teachings.webp" width="1200" height="800" decoding="async" alt="" loading="lazy" />
           <span class="post__chip">Tool 02</span>
@@ -832,7 +830,7 @@
         </span>
       </a>
      
-      <a class="post post--glow reveal" href="#">
+      <a class="post post--glow reveal" href="https://experience.seatofthesoul.com/spiritual-partnership" target="_blank" rel="noopener">
         <span class="post__media">
           <img src="assets/images/6a3342a6143842a748166472_spiritual-partnership-card-image.webp" width="1200" height="800" decoding="async" alt="" loading="lazy" />
           <span class="post__chip">Tool 04</span>
@@ -864,7 +862,10 @@
 </section>
 
 <!-- ========== 6b · IMPACT STATS (count-up) ========== -->
-<!-- Cifras verificadas vs seatofthesoul.com/about-gary-zukav (2026-06-25): "Six million copies of his books have been published in 32 languages" · 4 #1 NYT bestsellers · 36× Oprah. Años de enseñanza: desde 1989 (The Seat of the Soul). Episodios 100+: el deepcast va por Soul Feast #90 + Soul Snacks → confirmar total exacto con cliente. -->
+<!-- Cifras verificadas vs seatofthesoul.com/about-gary-zukav (2026-06-25): "Six million copies of his books have been published in 32 languages" · 4 #1 NYT bestsellers · 36× Oprah. Años de enseñanza: desde 1989 (The Seat of the Soul). Episodios 100+: el deepcast va por Soul Feast #90 + Soul Snacks → confirmar total exacto con cliente.
+     2026-08-04: Oprah 36→40 en todo el sitio (Webflow+proto), a pedido explícito del cliente — pisa
+     la verificación de arriba a propósito, no es un error. Si vuelve a surgir la duda, confirmar con
+     el cliente cuál es el número vigente antes de tocar. -->
 <section class="sec stats" aria-label="Impact">
   <span class="sec__glow" style="top:-12%;right:-6%;"></span>
   <div class="sec__inner">
@@ -875,7 +876,7 @@
       <div class="stat"><div class="stat__num" data-count="6" data-suffix="M+">0</div><div class="stat__label">books sold</div></div>
       <div class="stat"><div class="stat__num" data-count="32" data-suffix="">0</div><div class="stat__label">languages</div></div>
       <div class="stat"><div class="stat__num" data-count="30" data-suffix="+">0</div><div class="stat__label">years of teaching</div></div>
-      <div class="stat"><div class="stat__num" data-count="36" data-suffix="">0</div><div class="stat__label">Featured on Oprah</div></div>
+      <div class="stat"><div class="stat__num" data-count="40" data-suffix="">0</div><div class="stat__label">Featured on Oprah</div></div>
     </div>
   </div>
 </section>
@@ -1284,17 +1285,6 @@
       <button class="vchip" data-set="herocta-2" aria-pressed="true">Editorial · arrow (default)</button>
       <button class="vchip" aria-pressed="false">Pill (same as nav)</button>
     </div>
-    <h4>Hero · cursor color</h4>
-    <div class="vgroup" data-exclusive>
-      <button class="vchip" aria-pressed="true">Sun (gold)</button>
-      <button class="vchip" data-set="curs-plain" aria-pressed="false">Plain</button>
-    </div>
-    <h4>Hero · cursor size</h4>
-    <div class="vgroup" data-exclusive>
-      <button class="vchip" data-set="curs-s" aria-pressed="false">S</button>
-      <button class="vchip" aria-pressed="true">M</button>
-      <button class="vchip" data-set="curs-l" aria-pressed="false">L</button>
-    </div>
     <h4>Button · style</h4>
     <div class="vgroup" data-exclusive>
       <button class="vchip" aria-pressed="false">Button 1</button>
@@ -1543,8 +1533,6 @@
 
   /* hero slider */
   var hsliderEl = document.querySelector('.hslider');
-  var hcursor = document.getElementById('hcursor');
-  var hcursorLabel = hcursor ? hcursor.querySelector('span') : null;
   var slides = [].slice.call(document.querySelectorAll('.hslide'));
   var dotsWrap = document.getElementById('hdots');
   var hcurrent = document.getElementById('hcurrent');
@@ -1642,57 +1630,6 @@
     });
     cta.addEventListener('pointerleave', function(){ restart(); });
   });
-  if(hsliderEl && hcursor && hcursorLabel && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches){
-    function cursorIntent(clientX){
-      var rect = hsliderEl.getBoundingClientRect();
-      return ((clientX - rect.left) / rect.width) < 0.5 ? 'prev' : 'next';
-    }
-    /* lente de cristal: círculo que des-difumina el video bajo el cursor.
-       Throttle con rAF: re-rasterizar el backdrop-filter es caro, lo coalescemos a 1/frame. */
-    var lensRaf = false, lensE = null;
-    function setLens(e){
-      lensE = e;
-      if(lensRaf) return;
-      lensRaf = true;
-      requestAnimationFrame(function(){
-        lensRaf = false;
-        var r = hsliderEl.getBoundingClientRect();
-        hsliderEl.style.setProperty('--mx', (lensE.clientX - r.left) + 'px');
-        hsliderEl.style.setProperty('--my', (lensE.clientY - r.top) + 'px');
-      });
-    }
-    function clearLens(){
-      hsliderEl.style.setProperty('--mx', '-9999px');
-      hsliderEl.style.setProperty('--my', '-9999px');
-    }
-    hsliderEl.addEventListener('pointerenter', function(e){
-      hcursor.classList.add('is-visible');
-      hcursor.style.left = e.clientX + 'px';
-      hcursor.style.top = e.clientY + 'px';
-      setLens(e);
-    });
-    hsliderEl.addEventListener('pointermove', function(e){
-      var intent = cursorIntent(e.clientX);
-      hcursor.style.left = e.clientX + 'px';
-      hcursor.style.top = e.clientY + 'px';
-      hcursorLabel.textContent = intent === 'prev' ? 'Back' : 'Next';
-      setLens(e);
-    });
-    hsliderEl.addEventListener('pointerleave', function(){
-      hcursor.classList.remove('is-visible');
-      clearLens();
-    });
-    hsliderEl.addEventListener('click', function(e){
-      if(e.target.closest('a,button,.vswitch')) return;
-      var intent = cursorIntent(e.clientX);
-      var rect = hsliderEl.getBoundingClientRect();
-      var ox = (((e.clientX - rect.left) / rect.width) * 100).toFixed(2) + '%';
-      var oy = (((e.clientY - rect.top) / rect.height) * 100).toFixed(2) + '%';
-      if(intent === 'prev') prev(ox, oy);
-      else next(ox, oy);
-      restart();
-    });
-  }
   attachSwipe(hsliderEl, function(){ next('50%','50%'); restart(); }, function(){ prev('50%','50%'); restart(); });
   restart();
   /* QA 2026-07-09: autoplay pausado con tab oculto o hero fuera del viewport (patrón del carrusel Praise) */
@@ -1707,8 +1644,6 @@
   var oslides=[].slice.call(document.querySelectorAll('.oslide'));
   if(oslides.length){
     var osliderEl = document.querySelector('.oslider');
-    var ocursor = document.getElementById('ocursor');
-    var ocursorLabel = ocursor ? ocursor.querySelector('span') : null;
     var odotsWrap=document.getElementById('odots');
     var ocurrent = document.getElementById('ocurrent');
     var ototal = document.getElementById('ototal');
@@ -1797,36 +1732,6 @@
       });
       cta.addEventListener('pointerleave', function(){ orestart(); });
     });
-    if(osliderEl && ocursor && ocursorLabel && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches){
-      function originalCursorIntent(clientX){
-        var rect = osliderEl.getBoundingClientRect();
-        return ((clientX - rect.left) / rect.width) < 0.5 ? 'prev' : 'next';
-      }
-      osliderEl.addEventListener('pointerenter', function(e){
-        ocursor.classList.add('is-visible');
-        ocursor.style.left = e.clientX + 'px';
-        ocursor.style.top = e.clientY + 'px';
-      });
-      osliderEl.addEventListener('pointermove', function(e){
-        var intent = originalCursorIntent(e.clientX);
-        ocursor.style.left = e.clientX + 'px';
-        ocursor.style.top = e.clientY + 'px';
-        ocursorLabel.textContent = intent === 'prev' ? 'Back' : 'Next';
-      });
-      osliderEl.addEventListener('pointerleave', function(){
-        ocursor.classList.remove('is-visible');
-      });
-      osliderEl.addEventListener('click', function(e){
-        if(e.target.closest('a,button,.vswitch')) return;
-        var intent = originalCursorIntent(e.clientX);
-        var rect = osliderEl.getBoundingClientRect();
-        var ox = (((e.clientX - rect.left) / rect.width) * 100).toFixed(2) + '%';
-        var oy = (((e.clientY - rect.top) / rect.height) * 100).toFixed(2) + '%';
-        if(intent === 'prev') oprevf(ox, oy);
-        else onext(ox, oy);
-        orestart();
-      });
-    }
     attachSwipe(osliderEl, function(){ onext('50%','50%'); orestart(); }, function(){ oprevf('50%','50%'); orestart(); });
     orestart();
     /* QA 2026-07-09: autoplay pausado con tab oculto o slider fuera del viewport (patrón del carrusel Praise) */

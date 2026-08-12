@@ -23,6 +23,7 @@
   const SERIES_LABEL = { feast: "Soul Feast", snack: "Soul Snack", special: "Special" };
   const BATCH = 30;
   const STORE_KEY = "dc:list:v1";
+  const GO_KEY = "dc:go"; // one-shot: restaurar scroll SOLO al volver de un episodio
 
   const fmtDur = (sec) => {
     if (!sec) return "";
@@ -436,6 +437,13 @@
 
     const state = { q: "", series: "all", sort: "new", shown: BATCH };
     const saved = store.get();
+    /* C47: el flag se consume aquí — sin click previo en un episodio, la llegada
+       (nav, link directo, refresh) SIEMPRE arranca arriba. */
+    let wantScroll = false;
+    try {
+      wantScroll = sessionStorage.getItem(GO_KEY) === "1";
+      if (wantScroll) sessionStorage.removeItem(GO_KEY);
+    } catch (err) { /* private mode */ }
     if (saved && typeof saved === "object") {
       state.q = typeof saved.q === "string" ? saved.q : "";
       state.series = ["all", "feast", "snack", "special"].includes(saved.series) ? saved.series : "all";
@@ -447,8 +455,16 @@
     if (sortSel) sortSel.value = state.sort;
 
     let episodes = [];
-    const persist = () =>
+    /* persist = filtros (pagehide/updates); conserva el scrollY previo sin refrescarlo.
+       persistScroll = filtros + scrollY + flag GO — solo al navegar a un episodio. */
+    const persist = () => {
+      const prev = store.get();
+      store.set({ q: state.q, series: state.series, sort: state.sort, shown: state.shown, scrollY: prev && prev.scrollY > 0 ? prev.scrollY : 0 });
+    };
+    const persistScroll = () => {
       store.set({ q: state.q, series: state.series, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
+      try { sessionStorage.setItem(GO_KEY, "1"); } catch (err) { /* private mode */ }
+    };
 
     const filtered = () => {
       const query = state.q.trim().toLowerCase();
@@ -486,7 +502,7 @@
       link.className = "dc-row__link";
       link.href = `episode/?ep=${encodeURIComponent(ep.slug)}`;
       link.textContent = ep.title;
-      link.addEventListener("click", persist);
+      link.addEventListener("click", persistScroll);
       const sub = document.createElement("span");
       sub.className = "dc-row__sub";
       const badge = document.createElement("span");
@@ -591,8 +607,15 @@
         if (skel) skel.remove();
         render();
         buildMarquee(episodes);
-        if (saved && saved.scrollY > 0) {
-          requestAnimationFrame(() => window.scrollTo(0, saved.scrollY));
+        if (wantScroll && saved && saved.scrollY > 0) {
+          const goY = saved.scrollY;
+          const reScroll = () => window.scrollTo(0, goY);
+          requestAnimationFrame(reScroll);
+          /* re-aplicar tras load: el primer scroll puede clampearse antes de que
+             las imágenes lazy asienten la altura del documento */
+          if (document.readyState !== "complete") {
+            window.addEventListener("load", () => requestAnimationFrame(reScroll), { once: true });
+          }
         }
       })
       .catch(() => {

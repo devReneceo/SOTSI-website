@@ -20,6 +20,7 @@
   const BATCH = 24;
   const TOPIC_CHIPS = 6;                 // how many topic filters to surface in the toolbar
   const STORE_KEY = "bl:list:v5";        // v5 — Exclude posts hidden; v4 — Soul Feast/Snack moved to Deepcast
+  const GO_KEY = "bl:go"; // one-shot: restaurar scroll SOLO al volver de una reflexión
   // Regla del cliente (2026-07-27): estos posts son Deepcast Show Notes (Ginni
   // Media) / serie Miracle / Soul Thoughts — NO blogs. En el board 22d-trello
   // llevan categories[0]="Exclude" y el sitio Webflow los filtra por ese dato
@@ -174,6 +175,13 @@
     // Soul Feast/Snack moved to Deepcast — the blog index is now Blog-only, so series is always "all".
     const state = { q: "", topic: "all", series: "all", sort: "new", shown: BATCH };
     const saved = store.get();
+    /* C47: el flag se consume aquí — sin click previo en una reflexión, la llegada
+       (nav, link directo, refresh) SIEMPRE arranca arriba. */
+    let wantScroll = false;
+    try {
+      wantScroll = sessionStorage.getItem(GO_KEY) === "1";
+      if (wantScroll) sessionStorage.removeItem(GO_KEY);
+    } catch (err) { /* private mode */ }
     if (saved && typeof saved === "object") {
       state.q = typeof saved.q === "string" ? saved.q : "";
       state.topic = typeof saved.topic === "string" ? saved.topic : "all"; // re-validated after load
@@ -187,9 +195,16 @@
 
     let posts = [];
     let chips = [];
-    const persist = () =>
+    /* persist = filtros (pagehide/updates); conserva el scrollY previo sin refrescarlo.
+       navPersist = filtros + scrollY + flag GO — solo al navegar a una reflexión. */
+    const persist = () => {
+      const prev = store.get();
+      store.set({ q: state.q, topic: state.topic, series: state.series, sort: state.sort, shown: state.shown, scrollY: prev && prev.scrollY > 0 ? prev.scrollY : 0 });
+    };
+    const navPersist = () => {
       store.set({ q: state.q, topic: state.topic, series: state.series, sort: state.sort, shown: state.shown, scrollY: window.scrollY });
-    const navPersist = () => persist();
+      try { sessionStorage.setItem(GO_KEY, "1"); } catch (err) { /* private mode */ }
+    };
 
     const syncChips = () =>
       chips.forEach((chip) => chip.classList.toggle("is-active", chip.dataset.blFilter === state.topic));
@@ -539,8 +554,15 @@
         buildPicks();
         initResizeSync();
         render();
-        if (saved && saved.scrollY > 0) {
-          requestAnimationFrame(() => window.scrollTo(0, saved.scrollY));
+        if (wantScroll && saved && saved.scrollY > 0) {
+          const goY = saved.scrollY;
+          const reScroll = () => window.scrollTo(0, goY);
+          requestAnimationFrame(reScroll);
+          /* re-aplicar tras load: el primer scroll puede clampearse antes de que
+             las imágenes lazy asienten la altura del documento */
+          if (document.readyState !== "complete") {
+            window.addEventListener("load", () => requestAnimationFrame(reScroll), { once: true });
+          }
         }
       })
       .catch(() => {

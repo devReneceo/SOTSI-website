@@ -1,0 +1,27 @@
+# Mantiene despierta la instancia de Cloud Run del board feed (trello-22d,
+# max-instances 1): fría responde en ~11 s, caliente en ~1 s, y /blog del sitio
+# Webflow la lee como fuente primaria. El cron cada 10 min queda dentro de la
+# ventana de idle-scaledown (~15 min). Repo público => minutos de Actions gratis.
+# Retirar este workflow si el servicio pasa a min-instances=1 pagado.
+name: Keep board feed warm
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: feedwarm
+  cancel-in-progress: true
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Ping feed index
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 60 \
+            "https://trello-22d-juyszotmca-uc.a.run.app/feed/blog-index.json")
+          echo "feed status: $code"
+          test "$code" = "200"

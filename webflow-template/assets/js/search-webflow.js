@@ -1,14 +1,18 @@
-/* SOTSI · Whole-site search — Webflow runtime
+/* SOTSI · Whole-site search — Webflow runtime v1.1.0
    Paridad con el prototipo sotsi landing/search/search.js (2026-07-16).
-   Página: /search (proposal-03.webflow.io). Fuse.js (script registrado aparte,
-   inyectado ANTES que este) sobre search-index.json servido client-side desde
-   GitHub Pages (477 records: 20 pages + 276 blog + 181 episodes).
+   Página: /sotsi-search (proposal-03.webflow.io). Fuse.js (script registrado
+   aparte, inyectado ANTES que este) sobre search-index.json servido client-side
+   desde GitHub Pages (297 records: 20 pages + 90 blog + 187 episodes).
 
-   Links (criterio interino pre-import CMS, mismo que soulfeed):
+   v1.1.0 (2026-08-12) — post-import CMS (runbook §2d): blog y episode van a las
+   páginas NATIVAS /blog/<slug> y /deepcast/<slug> en la MISMA tab (el _blank
+   existía solo porque salían al dominio GH). El slug se parsea del ?post=/?ep=
+   del index; si no parsea, fallback al reader GH en _blank (como antes).
+
+   Links:
    - page    → ruta nativa Webflow ("/"+url sin trailing slash; home → "/").
-   - blog    → reader del prototipo GH Pages (blog/post/?post=<slug>) en _blank.
-   - episode → reader del prototipo GH Pages (podcast/episode/?ep=<slug>) en _blank.
-   Post-import: v1.1.0 con lógica LIVE tipo soulfeed (runbook §2d).
+   - blog    → /blog/<slug> nativo (CMS 96 items live).
+   - episode → /deepcast/<slug> nativo (CMS 187 items live).
 
    ES2017-safe (sin ?., ??, ||=). Guard: window.__sotsiSearch. */
 (function () {
@@ -153,11 +157,26 @@
     return '<div class="srch-card__tags">' + out + "</div>";
   }
 
-  /* page → Webflow nativo; blog/episode → readers GH Pages (interino). */
+  /* page → Webflow nativo; blog/episode → detail nativa /blog/<slug> ·
+     /deepcast/<slug> (slug parseado del ?post=/?ep= del index). Fallback:
+     reader GH si el slug no parsea (index viejo/registro raro). */
+  function slugFrom(url, key) {
+    var m = String(url || "").match(new RegExp("[?&]" + key + "=([A-Za-z0-9\\-]+)"));
+    return m ? m[1] : "";
+  }
+
   function hrefFor(rec) {
     if (rec.type === "page") {
       var u = String(rec.url || "").replace(/\/+$/, "");
       return u ? BASE + u : BASE;
+    }
+    if (rec.type === "blog") {
+      var ps = slugFrom(rec.url, "post");
+      if (ps) return "/blog/" + ps;
+    }
+    if (rec.type === "episode") {
+      var es2 = slugFrom(rec.url, "ep");
+      if (es2) return "/deepcast/" + es2;
     }
     return GH + rec.url;
   }
@@ -172,7 +191,8 @@
 
   function cardHtml(rec, re, i) {
     var href = hrefFor(rec);
-    var ext = rec.type === "page" ? "" : ' target="_blank" rel="noopener"';
+    /* _blank solo para el fallback externo (GH); todo lo nativo, misma tab. */
+    var ext = href.indexOf("http") === 0 ? ' target="_blank" rel="noopener"' : "";
     var titleHtml = highlight(rec.title, re);
     var meta = metaLine(rec);
     var metaHtml = meta

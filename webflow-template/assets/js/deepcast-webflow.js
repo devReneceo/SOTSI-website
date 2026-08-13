@@ -1,4 +1,8 @@
-/* SOTSI · deepcast-webflow.js v1.7.0 — /deepcast parity with the static prototype.
+/* SOTSI · deepcast-webflow.js v1.7.1 — /deepcast parity with the static prototype.
+   v1.7.1 (2026-08-12): post-import CMS completo (187 eps live) — retirado el
+   hardcode LIVE_SLUGS (runbook §2c); el flip queda 100% en manos del sensor
+   ALL_LIVE (pod_shell ≥ 20 cards), con el reader GH como fail-safe si el CMS
+   dejara de renderizar.
    v1.7.0 (2026-08-11): QA C47 — el restore de scroll (dc:list:v1) corría en CUALQUIER
    llegada a /deepcast, clampeado al fondo pre-settle => el visitante caía al footer.
    Ahora scrollY solo se guarda al navegar a un episodio en la MISMA tab (flag one-shot
@@ -38,13 +42,13 @@
   var STORE_KEY = "dc:list:v1";
   var GO_KEY = "dc:go"; // one-shot: restaurar scroll SOLO al volver de un episodio
 
-  /* CMS-aware episode links. LIVE_SLUGS = items already imported; once the
-     hidden legacy Collection List renders >= 20 cards (post-import) every
-     slug resolves to its native /deepcast/<slug> template page. */
-  var LIVE_SLUGS = { "soul-snack-74-every-moment-is-big": 1 };
+  /* CMS-aware episode links: once the hidden legacy Collection List renders
+     >= 20 cards (import completo 187/187 el 2026-08-12) every slug resolves
+     to its native /deepcast/<slug> template page. Fail-safe: sin sensor,
+     YouTube directo (como pre-import). */
   var ALL_LIVE = $all(".pod_card").length >= 20;
   var epHref = function (ep) {
-    if (ALL_LIVE || LIVE_SLUGS[ep.slug]) return "/deepcast/" + encodeURIComponent(ep.slug);
+    if (ALL_LIVE) return "/deepcast/" + encodeURIComponent(ep.slug);
     if (ep.youtubeId) return "https://www.youtube.com/watch?v=" + encodeURIComponent(ep.youtubeId);
     return "";
   };

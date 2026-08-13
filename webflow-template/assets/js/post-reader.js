@@ -1,4 +1,6 @@
-/* SOTSI · Post reader — Webflow runtime v2.0.5
+/* SOTSI · Post reader — Webflow runtime v2.1.0
+   v2.1.0 (2026-08-12) — redirect a la detail nativa /blog/<slug> cuando el shard
+   es serie Blog (import CMS completo); Feast/Snack legacy siguen rendereando.
    v2.0.5 (2026-07-27) — retirado el link "Read on seatofthesoul.com" del pie
    del artículo (pedido Joel: sin escape al WP viejo; muere al cutover).
    v2.0.4 (2026-07-27) — los posts con categories[0]==="Exclude" (show notes)
@@ -80,6 +82,17 @@
   var loadShard = function () {
     return fetchJson(BOARD_FEED + "blog/" + slug + ".json").catch(function () {
       return fetchJson(GH + "assets/data/blog/" + slug + ".json");
+    }).then(function (post) {
+      /* v2.1.0 — post-import CMS (2026-08-12): los posts serie Blog ya tienen
+         página nativa /blog/<slug> (96 items live) → redirect permanente del
+         reader interino. Los shards legacy que NO son Blog (Feast/Snack viejos
+         llegando por links guardados) siguen rendereando aquí — no existen en
+         la colección Blog y un redirect ciego los mandaría a 404. */
+      if (post && post.series === "Blog") {
+        window.location.replace("/blog/" + encodeURIComponent(slug));
+        return new Promise(function () {}); // corta la cadena; navegación en curso
+      }
+      return post;
     });
   };
   /* índice (mismo contrato que soulfeed: board-first, filtrado a series Blog) —

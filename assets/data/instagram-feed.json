@@ -1,32 +1,32 @@
 {
-  "updated": "2026-08-14T10:19:30+00:00",
+  "updated": "2026-08-15T09:43:38+00:00",
   "items": [
+    {
+      "permalink": "https://www.instagram.com/reel/DcCf1YkDKgM/",
+      "media_type": "VIDEO",
+      "quote": "Is it poetic? No. Is it new age? No. It's real.",
+      "likes": 251,
+      "comments": 64,
+      "image": "assets/images/instagram/latest-1.webp",
+      "timestamp": "2026-08-14T23:30:55+0000"
+    },
     {
       "permalink": "https://www.instagram.com/p/Db_PSxYDLnz/",
       "media_type": "CAROUSEL_ALBUM",
       "quote": "Animals love without agenda.",
-      "likes": 246,
-      "comments": 29,
-      "image": "assets/images/instagram/latest-1.webp",
+      "likes": 335,
+      "comments": 39,
+      "image": "assets/images/instagram/latest-2.webp",
       "timestamp": "2026-08-13T17:08:07+0000"
     },
     {
       "permalink": "https://www.instagram.com/reel/Db6xgdphS_j/",
       "media_type": "VIDEO",
       "quote": "What if your greatest trial was actually your greatest invitation to awaken?",
-      "likes": 100,
+      "likes": 102,
       "comments": 4,
-      "image": "assets/images/instagram/latest-2.webp",
-      "timestamp": "2026-08-11T23:30:07+0000"
-    },
-    {
-      "permalink": "https://www.instagram.com/reel/Db4MsdHAUB5/",
-      "media_type": "VIDEO",
-      "quote": "Numbness is not peace.",
-      "likes": 408,
-      "comments": 8,
       "image": "assets/images/instagram/latest-3.webp",
-      "timestamp": "2026-08-10T23:31:15+0000"
+      "timestamp": "2026-08-11T23:30:07+0000"
     }
   ]
 }

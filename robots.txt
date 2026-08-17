@@ -8,6 +8,7 @@ Allow: /
 # Internal / non-public artifacts — never crawl.
 Disallow: /reports/
 Disallow: /report-9f3a2c/
+Disallow: /guide-1fbfa5/
 Disallow: /prototype/
 Disallow: /webflow-template/
 

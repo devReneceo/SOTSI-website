@@ -1,875 +1,564 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
-<title>SOTSI — Website Editing Guide</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
+<title>SOTSI Website Editing Guide</title>
+<style>/* guide.css — SOTSI Website Editing Guide v2. Single-theme brand doc (ivory/navy/gold).
+   Built for readers who are new to computers: big type, one step at a time, color + word labels. */
+:root{
+  --navy:#1c2333; --navy2:#0e1631; --ivory:#faf7f1; --paper:#ffffff;
+  --gold:#b8924a; --goldpale:#E7B75A; --ink:#2b2b2f; --muted:#6f6a63; --line:#e4ddd0;
+  --easy:#2e6e42; --easy-bg:#e9f3ec; --careful:#8a5a00; --careful-bg:#fdf2d9; --locked:#a33b3b; --locked-bg:#f9e8e6;
+  --step:24px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:#faf7f1;color:#2b2b2f;font:17px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif}
-a{color:#1c2333;text-decoration-color:#b8924a}
-kbd{background:#1c2333;color:#faf7f1;border-radius:4px;padding:1px 6px;font-size:.85em}
-code{background:#efe9dd;border-radius:4px;padding:1px 6px}
-.layout{display:grid;grid-template-columns:270px 1fr;min-height:100vh}
-.sidebar{background:#0e1631;color:#faf7f1;padding:26px 20px;position:sticky;top:0;height:100vh;overflow:auto}
-.sidebar h4{font:700 11px/1 "Helvetica Neue",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin:20px 0 8px}
-.sidebar a{display:block;color:#e8e4da;text-decoration:none;font-size:14px;padding:5px 8px;border-radius:6px}
-.sidebar a:hover{background:#ffffff14;color:#fff}
-main{max-width:940px;padding:0 40px 90px;width:100%}
-.cover{padding:70px 0 30px;border-bottom:3px solid #b8924a}
-.kicker{font:700 12px/1 "Helvetica Neue",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#b8924a}
-h1{font:400 46px/1.12 Georgia,"Times New Roman",serif;color:#1c2333;margin:10px 0 8px}
-h2{font:400 30px/1.2 Georgia,serif;color:#1c2333;margin:0 0 16px}
-h3{font:400 22px/1.3 Georgia,serif;color:#1c2333;margin:26px 0 10px}
-h4{font:700 15px/1.3 "Helvetica Neue",sans-serif;color:#1c2333;margin:0 0 6px}
-h5{font:700 11px/1 "Helvetica Neue",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6f6a63;margin:16px 0 8px}
-.sub{font-size:19px;color:#6f6a63}
-.meta{font-size:13.5px;color:#6f6a63;margin-top:12px}
-.band{padding:44px 0 10px;border-bottom:1px solid #e4ddd0}
-.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}
-.leg{display:flex;gap:12px;background:#ffffff;border:1px solid #e4ddd0;border-radius:12px;padding:14px}
-.leg-mark{font-size:22px;line-height:1}
-.leg p{font-size:13.5px;color:#6f6a63;margin-top:2px}
-.layers li,.rules li{margin:10px 0 10px 22px}
-.tablewrap{overflow-x:auto;margin:14px 0}
-table{border-collapse:collapse;width:100%;background:#ffffff;font-size:14.5px}
-th,td{border:1px solid #e4ddd0;padding:9px 12px;text-align:left;vertical-align:top}
-th{background:#1c2333;color:#faf7f1;font-weight:600}
-.src-webflow{color:#3c7a4e;font-weight:600}.src-board{color:#a33b3b;font-weight:600}.src-ask22d{color:#b8924a;font-weight:600}
-.pair{margin:22px 0}
-.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.pair-grid figure,.shot,.pageshot{background:#ffffff;border:1px solid #e4ddd0;border-radius:12px;padding:10px;margin:12px 0}
-.pair-grid img,.shot img,.pageshot img{width:100%;display:block;border-radius:8px;cursor:zoom-in;max-height:420px;object-fit:cover;object-position:top}
-figcaption{font-size:12.5px;color:#6f6a63;margin-top:7px;text-align:center}
-.basics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
-.basics-grid>div{background:#ffffff;border:1px solid #e4ddd0;border-radius:12px;padding:16px}
-.toolbar{position:sticky;top:0;z-index:5;background:#faf7f1f2;backdrop-filter:blur(6px);padding:14px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #e4ddd0}
-.toolbar input{flex:1;min-width:220px;font:15px "Helvetica Neue",sans-serif;padding:10px 14px;border:1px solid #e4ddd0;border-radius:999px;background:#ffffff}
-.fbtn{font:600 12.5px "Helvetica Neue",sans-serif;border:1px solid #e4ddd0;background:#ffffff;border-radius:999px;padding:7px 13px;cursor:pointer}
-.fbtn[aria-pressed="true"]{background:#1c2333;color:#faf7f1;border-color:#1c2333}
-#count{font-size:12.5px;color:#6f6a63}
-.card{background:#ffffff;border:1px solid #e4ddd0;border-radius:12px;margin:10px 0;overflow:hidden}
-.card[open]{box-shadow:0 8px 26px #1c23330f}
-summary{list-style:none;display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer}
-summary::-webkit-details-marker{display:none}
-summary::before{content:"▸";color:#b8924a;font-size:13px;transition:transform .15s}
-.card[open] summary::before{transform:rotate(90deg)}
-.navname{font:600 15px/1.35 "Helvetica Neue",sans-serif;color:#1c2333;flex:1}
-.chip{font:700 10.5px/1 "Helvetica Neue",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--c);border-radius:999px;padding:5px 10px}
-.copy{font:600 11px "Helvetica Neue",sans-serif;border:1px solid #e4ddd0;background:#faf7f1;border-radius:6px;padding:5px 8px;cursor:pointer;color:#6f6a63}
-.copy:hover{border-color:#b8924a;color:#1c2333}
-.card-body{padding:2px 18px 18px;border-top:1px solid #e4ddd0}
-.what{color:#2b2b2f;margin:12px 0 4px}
-.differs{background:#fdf6e7;border:1px solid #ecd9ac;border-radius:8px;padding:10px 12px;font-size:14px;margin:10px 0}
-.edit-row{margin:8px 0 14px}
-.edit-field{font-weight:600;font-size:14.5px;color:#1c2333}
-.edit-field .where{font:600 10.5px/1 "Helvetica Neue",sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#b8924a;margin-left:8px}
-.edit-row ol{margin:6px 0 0 20px;font-size:14.5px;color:#2b2b2f}
-.edit-row li{margin:3px 0}
-.donot{background:#faf0ee;border:1px solid #e7c8c2;border-radius:8px;padding:4px 14px 12px;margin-top:12px}
-.donot h5{color:#a33b3b}
-.donot li{font-size:14px;margin:4px 0 4px 16px}
-.none{color:#6f6a63;font-size:14.5px}
-.page{padding:8px 0 26px}
-.page-head{display:flex;align-items:baseline;gap:14px;margin-top:20px}
-.live{font:600 13px "Helvetica Neue",sans-serif}
-.page-summary{color:#6f6a63;margin:6px 0}
-.editmode{font-size:14px;background:#ffffff;border:1px solid #e4ddd0;border-left:4px solid #b8924a;border-radius:8px;padding:9px 12px;margin:10px 0}
-.group-title{padding-top:8px}
-.recipe ol{margin:12px 0 4px 22px}
-.recipe li{margin:6px 0}
-.faq .card-body p{margin:12px 0 4px}
-.issues li{margin:6px 0 6px 20px}
-.glossary{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:6px 26px}
-.glossary dt{font-weight:700;color:#1c2333;margin-top:10px}
-.glossary dd{font-size:14.5px;color:#6f6a63}
-dialog{border:0;border-radius:14px;padding:0;max-width:min(1200px,94vw);background:#ffffff}
-dialog img{display:block;max-width:100%;max-height:88vh;object-fit:contain}
-dialog::backdrop{background:#0e1631d9}
-.menu-btn{display:none}
-@media(max-width:940px){
- .layout{grid-template-columns:1fr}
- .sidebar{position:fixed;inset:0 30% 0 0;transform:translateX(-100%);transition:transform .2s;z-index:20}
- .sidebar.open{transform:none}
- .menu-btn{display:inline-block;position:fixed;top:12px;left:12px;z-index:21;background:#1c2333;color:#faf7f1;border:0;border-radius:8px;padding:9px 12px;font:600 13px "Helvetica Neue",sans-serif}
- main{padding:0 18px 70px} h1{font-size:34px}
- .pair-grid{grid-template-columns:1fr}
-}
+body{background:var(--ivory);color:var(--ink);font:19px/1.65 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+img{max-width:100%;display:block}
+a{color:var(--gold)}
+h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif;color:var(--navy)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+/* ---------- top nav ---------- */
+.topnav{position:sticky;top:0;z-index:50;background:var(--navy);color:var(--ivory);box-shadow:0 2px 14px rgba(28,35,51,.25)}
+.topnav .wrap{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.topnav .brand{font:700 17px/1 Georgia,serif;color:var(--ivory);margin-right:10px;text-decoration:none}
+.topnav .brand span{color:var(--goldpale)}
+.topnav a.nl{color:#d8d3c8;text-decoration:none;font-size:15.5px;font-weight:600;padding:9px 12px;border-radius:8px}
+.topnav a.nl:hover,.topnav a.nl:focus-visible{background:rgba(255,255,255,.12);color:#fff}
+.topnav .sp{flex:1}
+.search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border-radius:10px;padding:8px 12px}
+.search input{background:none;border:none;outline:none;color:#fff;font:16px/1 inherit;width:170px}
+.search input::placeholder{color:#b9b2a4}
+.search .cnt{font-size:12.5px;color:#cfc9bc;white-space:nowrap}
+
+/* ---------- cover ---------- */
+.cover{background:linear-gradient(180deg,var(--navy2),var(--navy));color:var(--ivory);padding:64px 0 46px;text-align:center}
+.cover .k{font-size:13.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--goldpale);font-weight:700}
+.cover h1{font-size:clamp(40px,6vw,58px);color:var(--ivory);margin:16px 0 10px;text-wrap:balance}
+.cover .sub{font-size:21px;color:#cfc9bc;font-family:Georgia,serif;font-style:italic}
+.cover .meta{margin-top:22px;font-size:14.5px;color:#a9a294}
+.cover .meta a{color:var(--goldpale)}
+
+/* ---------- quick start ---------- */
+.quick{background:var(--navy);padding:0 0 54px}
+.quick .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.qbtn{display:block;background:var(--ivory);border-radius:14px;padding:22px 20px;text-decoration:none;border:2px solid transparent;box-shadow:0 10px 26px rgba(0,0,0,.25);transition:transform .15s ease}
+.qbtn:hover,.qbtn:focus-visible{transform:translateY(-3px);border-color:var(--goldpale)}
+.qbtn b{display:block;font:700 20px/1.25 Georgia,serif;color:var(--navy);margin-bottom:6px}
+.qbtn small{font-size:14.5px;color:var(--muted);line-height:1.45;display:block}
+.qbtn .go{display:inline-block;margin-top:10px;font-weight:700;color:var(--gold);font-size:15px}
+@media(max-width:900px){.quick .wrap{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.quick .wrap{grid-template-columns:1fr}}
+
+/* ---------- sections ---------- */
+section.band{padding:54px 0}
+section.band.alt{background:var(--paper)}
+.band h2{font-size:clamp(29px,4vw,38px);margin-bottom:8px;text-wrap:balance}
+.band .lead{font-size:19.5px;color:var(--muted);max-width:760px;margin-bottom:26px}
+.small{font-size:15px;color:var(--muted)}
+
+/* ---------- rules ---------- */
+.rules{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.rule{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 18px;box-shadow:0 4px 16px rgba(28,35,51,.05)}
+.rule .n{width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--goldpale);font:700 19px/40px Georgia,serif;text-align:center;margin-bottom:12px}
+.rule b{display:block;font:700 17.5px/1.3 Georgia,serif;color:var(--navy);margin-bottom:8px}
+.rule p{font-size:15px;line-height:1.55;color:var(--ink)}
+@media(max-width:1000px){.rules{grid-template-columns:repeat(2,1fr)}.rule:last-child{grid-column:1/-1}}
+@media(max-width:560px){.rules{grid-template-columns:1fr}}
+
+/* ---------- two doors ---------- */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:30px}
+.door{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 8px 26px rgba(28,35,51,.07)}
+.door img{border-bottom:1px solid var(--line)}
+.door .pad{padding:18px 20px}
+.door .tag{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--easy);background:var(--easy-bg);border-radius:8px;padding:5px 10px;margin-bottom:10px}
+.door.d2 .tag{color:var(--careful);background:var(--careful-bg)}
+.door b{display:block;font:700 22px/1.25 Georgia,serif;color:var(--navy);margin-bottom:8px}
+.door p{font-size:16.5px;line-height:1.6}
+.door .pad a{font-weight:700}
+@media(max-width:820px){.doors{grid-template-columns:1fr}}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pair{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px}
+.pair .duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pair figure{margin:0}
+.pair figcaption{font-size:13px;color:var(--muted);margin-top:6px;font-weight:600}
+.pair .duo img{border:1px solid var(--line);border-radius:8px;cursor:zoom-in;width:100%;height:220px;object-fit:cover;object-position:top}
+.pair h4{font:700 17px/1.3 Georgia,serif;color:var(--navy);margin:0 0 10px}
+.pair p{font-size:14.5px;color:var(--ink);margin-top:10px;line-height:1.55}
+@media(max-width:820px){.pairs{grid-template-columns:1fr}}
+
+/* ---------- lessons ---------- */
+.lesson{background:var(--paper);border:1px solid var(--line);border-radius:18px;margin:26px 0;box-shadow:0 10px 30px rgba(28,35,51,.06);overflow:hidden}
+.lesson header{display:flex;align-items:center;gap:16px;padding:22px 26px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.lesson .lnum{width:52px;height:52px;border-radius:50%;background:var(--navy);color:var(--goldpale);font:700 24px/52px Georgia,serif;text-align:center;flex:none}
+.lesson h3{font-size:26px;margin:0}
+.lesson .door-chip{margin-left:auto;font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--navy);background:var(--ivory);border:1px solid var(--line);border-radius:9px;padding:6px 12px}
+.lesson .goal{padding:16px 26px 0;font-size:17.5px;color:var(--muted);max-width:820px}
+.lesson .diagram{padding:18px 26px 0}
+.lesson .diagram img{border:1px solid var(--line);border-radius:12px;cursor:zoom-in}
+.steps{list-style:none;padding:20px 26px 26px}
+.step figure{margin:0}
+.step img{border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 22px rgba(28,35,51,.10);cursor:zoom-in}
+.step figcaption{padding:16px 4px 0;font-size:19px;line-height:1.6;max-width:860px}
+.step .stepno{display:inline-block;background:var(--gold);color:#fff;font:700 14px/1 -apple-system,Arial,sans-serif;border-radius:9px;padding:6px 11px;margin-right:10px;vertical-align:2px}
+.step .tip{display:block;margin-top:10px;font-size:16px;color:var(--careful);background:var(--careful-bg);border-radius:10px;padding:12px 14px;max-width:820px}
+/* player (JS on) */
+.js-on .steps.player .step{display:none}
+.js-on .steps.player .step.on{display:block}
+.pctrl{display:flex;align-items:center;gap:14px;padding:0 26px 24px;flex-wrap:wrap}
+.pbtn{font:700 18px/1 inherit;background:var(--navy);color:var(--ivory);border:none;border-radius:12px;padding:16px 24px;cursor:pointer;min-width:130px}
+.pbtn:hover:not(:disabled){background:var(--navy2)}
+.pbtn:disabled{opacity:.35;cursor:default}
+.pcount{font:700 17px/1 Georgia,serif;color:var(--navy);min-width:110px;text-align:center}
+.pdots{display:flex;gap:8px;flex-wrap:wrap}
+.pdot{width:14px;height:14px;border-radius:50%;background:var(--line);border:none;cursor:pointer;padding:0}
+.pdot.on{background:var(--gold)}
+.pall{margin-left:auto;font-size:15px;font-weight:700;color:var(--gold);background:none;border:none;cursor:pointer;text-decoration:underline}
+.js-off-note{display:none}
+
+/* ---------- recipes ---------- */
+.recipes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.recipe{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(28,35,51,.05)}
+.recipe img{border-bottom:1px solid var(--line);cursor:zoom-in}
+.recipe .pad{padding:18px 20px}
+.recipe h4{font:700 19px/1.3 Georgia,serif;color:var(--navy);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.recipe .why{font-size:15.5px;color:var(--muted);margin:8px 0 12px;line-height:1.55}
+.recipe ol{padding-left:22px;font-size:16px}
+.recipe li{margin:7px 0;line-height:1.55}
+@media(max-width:820px){.recipes{grid-template-columns:1fr}}
+
+/* ---------- chips ---------- */
+.chip{display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;padding:5px 10px;white-space:nowrap}
+.chip.easy{color:var(--easy);background:var(--easy-bg)}
+.chip.careful{color:var(--careful);background:var(--careful-bg)}
+.chip.locked{color:var(--locked);background:var(--locked-bg)}
+
+/* ---------- site map ---------- */
+.smnote{font-size:16.5px;color:var(--muted);margin-bottom:22px;max-width:760px}
+.smgroup{margin-bottom:26px}
+.smgroup h4{font:700 15px/1 -apple-system,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.smrows{border-left:3px solid var(--line);margin-left:6px}
+.smrow{display:flex;align-items:center;gap:12px;padding:11px 14px;margin-left:14px;border-radius:10px;text-decoration:none;color:var(--ink);position:relative}
+.smrow::before{content:"";position:absolute;left:-17px;top:50%;width:14px;height:3px;background:var(--line)}
+a.smrow:hover,a.smrow:focus-visible{background:var(--paper);box-shadow:0 3px 12px rgba(28,35,51,.08)}
+.smrow .nm{font-weight:700;font-size:17px;color:var(--navy)}
+a.smrow .nm::after{content:" ↓";color:var(--gold);font-weight:400}
+.smrow .sl{font-size:13.5px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+.smrow .chip{margin-left:auto}
+@media(max-width:640px){.smrow{flex-wrap:wrap}.smrow .chip{margin-left:0}}
+
+/* ---------- page cards ---------- */
+.pcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;margin:14px 0;overflow:hidden}
+.pcard summary{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;list-style:none}
+.pcard summary::-webkit-details-marker{display:none}
+.pcard summary .tw{font:700 20px/1.3 Georgia,serif;color:var(--navy)}
+.pcard summary .arr{margin-left:auto;color:var(--gold);font-size:20px;transition:transform .2s}
+.pcard[open] summary .arr{transform:rotate(180deg)}
+.pcard .pbody{padding:0 22px 22px}
+.pcard .prow2{display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
+.pcard .thumb img{border:1px solid var(--line);border-radius:10px;cursor:zoom-in}
+.pcard .thumb figcaption{font-size:12.5px;color:var(--muted);margin-top:5px}
+.pcard .psum{font-size:16px;color:var(--muted);margin-bottom:10px;line-height:1.55}
+.pcard .live{font-weight:700;font-size:15px}
+@media(max-width:760px){.pcard .prow2{grid-template-columns:1fr}}
+.sectable{width:100%;border-collapse:collapse;margin-top:14px;font-size:15.5px}
+.sectable th{text-align:left;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--line)}
+.sectable td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.sectable td.nn{font-weight:700;color:var(--navy);max-width:340px}
+.sectable td.nn .in2{display:flex;align-items:center;gap:8px}
+.sectable td.nn .tx{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.sectable td.nn .cp{flex:none;border:none;background:var(--ivory);color:var(--gold);font-size:12px;font-weight:700;border-radius:6px;padding:3px 8px;cursor:pointer}
+.sectable .hint{color:var(--ink)}
+.sectable .hint .warn2{color:var(--locked);font-weight:600}
+.sectable a{font-weight:700}
+@media(max-width:640px){.sectable td.nn{white-space:normal}}
+
+/* ---------- cms table ---------- */
+.cmst{width:100%;border-collapse:collapse;font-size:16.5px;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cmst th{background:var(--navy);color:var(--ivory);text-align:left;padding:13px 16px;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.cmst td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.cmst td:first-child{font-weight:700;color:var(--navy);white-space:nowrap}
+
+/* ---------- help ---------- */
+.qa{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:12px 0}
+.qa b{display:block;font:700 18px/1.4 Georgia,serif;color:var(--navy);margin-bottom:6px}
+.qa p{font-size:16.5px}
+.contact{background:var(--navy);color:var(--ivory);border-radius:18px;padding:38px;text-align:center;margin-top:30px}
+.contact .k{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--goldpale);font-weight:700}
+.contact h3{color:var(--ivory);font-size:26px;margin:10px 0 4px}
+.contact a{font:700 26px/1.3 Georgia,serif;color:var(--goldpale);text-decoration:none}
+.contact p{color:#c9c4ba;font-size:15.5px;margin-top:10px}
+
+/* ---------- glossary ---------- */
+.gloss{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gitem{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:16px}
+.gitem b{font-family:Georgia,serif;color:var(--navy)}
+@media(max-width:700px){.gloss{grid-template-columns:1fr}}
+
+/* ---------- footer ---------- */
+.gfoot{padding:34px 0 60px;text-align:center;font-size:14.5px;color:var(--muted)}
+
+/* ---------- lightbox ---------- */
+dialog.lb{border:none;background:rgba(14,22,49,.93);width:100vw;height:100vh;max-width:100vw;max-height:100vh;padding:30px;display:none}
+dialog.lb[open]{display:flex;align-items:center;justify-content:center}
+dialog.lb img{max-width:94vw;max-height:90vh;width:auto;border-radius:8px;box-shadow:0 30px 90px rgba(0,0,0,.5)}
+dialog.lb .x{position:fixed;top:18px;right:22px;background:none;border:none;color:#fff;font-size:34px;cursor:pointer}
+
+/* ---------- search hiding ---------- */
+.hid{display:none!important}
+mark{background:var(--goldpale);border-radius:3px;padding:0 2px}
+
+/* ---------- print / PDF ---------- */
 @media print{
- .sidebar,.toolbar,.menu-btn,.copy,.live{display:none!important}
- .layout{display:block} main{max-width:none;padding:0}
- body{font-size:12px;background:#fff}
- .band{page-break-before:always;padding:14px 0} .band:first-of-type,.cover{page-break-before:avoid}
- .card{page-break-inside:avoid;box-shadow:none}
- details:not([open])>.card-body{display:block}
- summary::before{display:none}
- .shot img,.pageshot img,.pair-grid img{max-height:300px}
- a{text-decoration:none;color:#2b2b2f}
+  .topnav,.pctrl,.pall,.search{display:none!important}
+  body{background:#fff;font-size:13px}
+  .steps.player .step{display:block!important}
+  .pcard{page-break-inside:avoid}
+  .step{page-break-inside:avoid;margin-bottom:14px}
+  .lesson,.recipe,.rule,.pair{box-shadow:none}
+  section.band{padding:22px 0}
+  .cover{padding:40px 0}
 }
-body.print details>.card-body{display:block}
-body.print .sidebar,body.print .toolbar,body.print .menu-btn,body.print .copy{display:none}
-</style></head>
-<body>
-<button class="menu-btn">Menu</button>
-<div class="layout">
-<nav class="sidebar" id="sidebar">
-<div class="sg"><h4>Start here</h4>
-<a href="#read-first">Read this first</a><a href="#how">How this site works</a>
-<a href="#designer-vs-live">Designer vs live</a><a href="#basics">Webflow basics</a>
-<a href="#rules">Golden rules</a><a href="#tasks">Common tasks</a></div>
-<div class="sg"><h4>Home</h4><a href="#home">Home</a></div><div class="sg"><h4>Get Started &amp; About</h4><a href="#get-started">Get Started</a><a href="#about-sotsi">About SOTSI</a><a href="#about-gary">About Gary Zukav</a><a href="#about-linda">About Linda Francis</a><a href="#remember-linda">In Celebration of Linda Francis</a><a href="#lf-series">Celebration Series — Messages</a></div><div class="sg"><h4>Programs &amp; Shop</h4><a href="#evening">Evening with Gary (landing)</a><a href="#shop">Soul Store (/shop)</a><a href="#books">Books (/books)</a><a href="#universal-human">Universal Human</a></div><div class="sg"><h4>Blog &amp; Deepcast (automatic)</h4><a href="#blog">Blog — Soul Feed (/blog)</a><a href="#deepcast">Deepcast (/deepcast)</a><a href="#sotsi-search">Search (/sotsi-search)</a></div><div class="sg"><h4>Forms &amp; Opt-ins</h4><a href="#waitlist">Event Waitlist</a><a href="#newsletter">Soul Connections Newsletter</a><a href="#apg">Authentic Power Guidelines (opt-in)</a><a href="#love-fear">Love &amp; Fear (opt-in)</a></div><div class="sg"><h4>Legal &amp; Misc</h4><a href="#essay-ai">Essay — AI &amp; Human Evolution</a><a href="#essay-gov">Essay — Failing Governments</a><a href="#careers">Career Opportunities</a><a href="#legal">Privacy · Terms · Refund</a></div><div class="sg"><h4>Detail page templates</h4><a href="#templates">Detail templates (blog post · episode · book · course)</a></div>
-<div class="sg"><h4>Reference</h4>
-<a href="#cms">The CMS</a><a href="#trouble">Troubleshooting</a><a href="#glossary">Glossary</a><a href="#legend-print">Legend card</a></div>
-</nav>
-<main>
-<header class="cover" id="top">
-<p class="kicker">SOTSI (Seat of the Soul Institute)</p>
-<h1>SOTSI Website Editing Guide</h1>
-<p class="sub">How to edit seatofthesoul.com in Webflow — safely</p>
-<p class="meta">Prepared by 22D Marketing · Version 1.0 · 2026-08-17 · Questions: <a href="mailto:dev@o2s1.com">dev@o2s1.com</a></p>
-</header>
-<section class="band" id="read-first"><h2>Read this first</h2>
-<p>This guide shows you how to edit <strong>every section of every page</strong> of the SOTSI website yourself — and exactly which parts to leave alone. You don’t need any Webflow experience: every element in the site has been labelled for you.</p>
-<div class="legend"><div class="leg"><span class="leg-mark">✎</span><div><strong>Editable</strong><p>Yours to edit — text, photos, links. Double-click text on the canvas to edit it.</p></div></div><div class="leg"><span class="leg-mark">⚙</span><div><strong>Automatic</strong><p>Filled automatically on the live site (by code or by the CMS). It may look empty or grey in the Designer — that is normal. ⚙ CMS items are edited in the CMS panel, not on the page.</p></div></div><div class="leg"><span class="leg-mark">🔒</span><div><strong>Locked</strong><p>Never edit, delete, or un-hide. 🔒 CODE = the site’s wiring. 🔒 BOARD = blog content that lives in the 22D board. 🔒 SENSOR = hidden blocks other parts of the site depend on.</p></div></div></div>
-<p>The fastest safe edit: open any live page, add <code>?update</code> to the address, change the text, hit <strong>Publish</strong>. That’s it — recipe #1 below walks you through it.</p>
-</section>
-<div class="toolbar"><input id="q" type="search" placeholder="Search the guide — try “hero”, “button”, “blog”, “photo”…  ( / to focus)">
-<button class="fbtn" data-diff="easy" aria-pressed="false">Easy</button>
-<button class="fbtn" data-diff="careful" aria-pressed="false">Careful</button>
-<button class="fbtn" data-diff="locked" aria-pressed="false">Locked</button>
-<button class="fbtn" id="expand">Expand all</button><button class="fbtn" id="collapse">Collapse all</button>
-<span id="count"></span></div>
-<section class="band" id="how"><h2>How this site works</h2>
-<p>The site has three layers. Knowing which layer something belongs to tells you where to edit it:</p>
-<ol class="layers">
-<li><strong>Page content in Webflow</strong> — headlines, paragraphs, photos, buttons. Edit on the canvas or in Edit mode. Labelled ✎.</li>
-<li><strong>Content that lives elsewhere</strong> — blog posts (22D board), Deepcast episodes (YouTube sync), the search index, Instagram reels. These flow into the site automatically. Labelled ⚙ or 🔒 BOARD.</li>
-<li><strong>The wiring</strong> — grey code blocks and hidden sensors that power animations, directories and forms. Labelled 🔒 CODE / 🔒 SENSOR. Never touch.</li>
-</ol>
-<h3>Where does each piece of content come from?</h3>
-<div class="tablewrap"><table><thead><tr><th>Content</th><th>Edit where</th><th>Notes</th></tr></thead><tbody><tr><td>Books (12)</td><td class="src-webflow">Webflow CMS panel — yours to edit</td><td>Fully yours: title, description, cover, publisher, ISBN, Buy Now link. Edit in the CMS panel and publish the item.</td></tr><tr><td>Courses (8)</td><td class="src-webflow">Webflow CMS panel — yours to edit</td><td>Card text, summary, button label and enroll link. The Home “tools” grid and the Shop page read from here.</td></tr><tr><td>Blog Posts (≈96)</td><td class="src-board">22D board — never edit in Webflow</td><td>Managed in the 22D board — write, edit, choose the cover and publish from there. Direct Webflow edits get overwritten by the next sync. Field notes inside the CMS repeat this warning.</td></tr><tr><td>Deepcast Episodes (187)</td><td class="src-ask22d">Automatic (22D pipeline) — ask us</td><td>Synced automatically from YouTube by 22D’s pipeline. If a title or description looks wrong, tell 22D — a manual edit here is overwritten on the next import.</td></tr><tr><td>Blog Categories (37)</td><td class="src-ask22d">Automatic (22D pipeline) — ask us</td><td>Internal taxonomy used by the blog. Leave as is.</td></tr></tbody></table></div>
-</section>
-<section class="band" id="designer-vs-live"><h2>Why the Designer looks different from the live site</h2>
-<p><strong>Nothing is broken.</strong> This site’s animations, videos and directories are powered by code that only runs on the published site. The Designer canvas (and its Preview mode) can’t run that code — so those areas appear stacked, grey or empty, with dashed “AUTO” notes we added to explain each one. The published site is always the source of truth: after any edit, Publish and check it live.</p>
-<div class="pair"><h4>Home hero</h4>
-<div class="pair-grid">
-<figure><img loading="lazy" src="img/designer/hero-stacked.jpg" data-full="img/designer/hero-stacked.jpg" alt="Home hero in the Designer"><figcaption>In the Designer</figcaption></figure>
-<figure><img loading="lazy" src="img/home--hero.jpg" data-full="img/home--hero.jpg" alt="Home hero on the live site"><figcaption>On the live site</figcaption></figure>
-</div><p>Designer shows the 4 slides STACKED with orange labels so you can edit each one. On the live site they rotate one at a time, every 12 seconds.</p></div><div class="pair"><h4>Blog page</h4>
-<div class="pair-grid">
-<figure><img loading="lazy" src="img/designer/blog-canvas.jpg" data-full="img/designer/blog-canvas.jpg" alt="Blog page in the Designer"><figcaption>In the Designer</figcaption></figure>
-<figure><img loading="lazy" src="img/blog--full.jpg" data-full="img/blog--full.jpg" alt="Blog page on the live site"><figcaption>On the live site</figcaption></figure>
-</div><p>Designer shows dashed “AUTO” boxes where the post directory loads. On the live site those boxes are the full searchable archive.</p></div>
-</section>
-<section class="band" id="basics"><h2>Webflow basics for this site</h2>
-<div class="basics-grid">
-<div><h4>Edit mode — the safe door</h4><p>Add <code>?update</code> to any live page address. You get the real page with content-only editing: text, images, links, CMS items — no way to break layout. <strong>Recommended for everyday text changes.</strong></p></div>
-<div><h4>The Designer</h4><p>The full app. Left side: <strong>Pages</strong> panel (choose a page) and <strong>Navigator</strong> (press <kbd>Z</kbd> — the labelled tree of everything). Right side: <strong>Settings</strong> (<kbd>D</kbd>) for links, images and attributes. Double-click text to edit it.</p></div>
-<div><h4>Shared buttons</h4><p>Buttons marked “(edit in Properties)” are one component reused everywhere. Click once → a small Properties panel appears with <em>Label</em> and <em>Link</em>. Edit there — don’t dig inside.</p></div>
-<div><h4>The CMS</h4><p>Database icon (<kbd>F</kbd>). Books and Courses are edited here as simple forms. Blog and Deepcast collections carry ⚠ warnings — their content is managed outside Webflow.</p></div>
-<div><h4>Publish</h4><p>Top-right button. Nothing is live until you publish. Then verify on the live site in a normal tab (hard-refresh: <kbd>Cmd/Ctrl+Shift+R</kbd>).</p></div>
-<div><h4>Undo &amp; Backups</h4><p><kbd>Cmd/Ctrl+Z</kbd> for slips. Site settings → <strong>Backups</strong> to preview &amp; restore whole-site snapshots. Make a manual restore point before a big session: <kbd>Cmd/Ctrl+Shift+S</kbd>.</p></div>
-</div></section>
-<section class="band" id="rules"><h2>The golden rules</h2><ol class="rules"><li><strong>The Designer is not the live site.</strong> Animations, videos, the blog directory, episodes, search and Instagram only run on the PUBLISHED site. In the Designer (and in Preview mode) those areas look empty, grey, or stacked — nothing is broken. Always judge the result on the live site.</li><li><strong>Follow the labels.</strong> Every element in the Navigator is labelled: ✎ = edit freely · ⚙ = automatic (don’t fight it) · 🔒 = never touch. If it has no label or you’re unsure, ask 22D first.</li><li><strong>Blog posts live in the 22D board.</strong> Write and edit posts in the 22D board, then click “Publish to Website” / “Update on Website”. Editing a post directly in Webflow gets OVERWRITTEN by the next board sync — and a post created only in Webflow never appears in the blog directory.</li><li><strong>Never change a published slug.</strong> The slug is the last part of the URL. Changing it on a published blog post or episode breaks links and creates duplicates.</li><li><strong>Don’t delete or un-hide locked things.</strong> Grey 🔒 CODE blocks and hidden 🔒 SENSOR elements are the site’s wiring. Deleting one can silently break a whole page. The eye icon in the Navigator must stay as it is.</li><li><strong>Navbar and Footer are shared.</strong> They are one component used on every page. Change a link or a button there once — it changes everywhere. That’s usually what you want, but be aware.</li><li><strong>Edit content, not structure.</strong> Change text, swap photos, update links, edit CMS items. Don’t move sections, don’t rename the small orange class names, don’t restyle. If you want a layout change, ask 22D.</li><li><strong>Publish, then verify live.</strong> Changes are invisible until you click Publish (top right). After publishing, open the live site in a new tab and check your change. If publishing seems to do nothing, wait a minute and publish again.</li><li><strong>Mistake? Undo or restore.</strong> Cmd/Ctrl+Z undoes your last steps. For bigger accidents: Site settings → Backups lets you preview and restore an earlier version of the whole site. Nothing is ever truly lost.</li><li><strong>When in doubt, ask.</strong> A two-minute question to 22D beats a broken page. Email dev@o2s1.com with the page name and what you want to change.</li></ol></section>
-<section class="band" id="tasks"><h2>Common tasks — step by step</h2><details class="card recipe" data-diff="easy" data-search="change any text (the safe way)"><summary><span class="navname">#1 · Change any text (the safe way)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span></summary><div class="card-body"><ol><li>Open the live page in your browser and add ?update to the end of the address (e.g. …webflow.io/get-started?update). Sign in if asked.</li><li>This opens Edit mode — the page looks exactly like the live site, and you can only touch content (no layouts, no styles).</li><li>Click the text, type your change.</li><li>Click Publish (top right). Open the live page in a normal tab to verify.</li></ol></div></details><details class="card recipe" data-diff="careful" data-search="edit a hero slide (home)"><summary><span class="navname">#2 · Edit a hero slide (Home)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span></summary><div class="card-body"><ol><li>Open the Designer → Home page. The hero shows all 4 slides stacked, each with an orange “SLIDE N of 4” label.</li><li>Double-click the title or text you want to change and type. Keep the gold word inside its gold span (select just the letters, not past the edges).</li><li>To change a slide’s photo: click the photo, then in the Settings panel choose Replace Image. Use a large landscape photo (about 1600×900 or bigger).</li><li>Publish, then check the live site — let the hero rotate through all 4 slides.</li><li>Note: phones and tablets can use a different crop of the same slide photo. If the new photo looks badly framed on a phone, ask 22D to set the mobile crop.</li></ol></div></details><details class="card recipe" data-diff="easy" data-search="replace a photo"><summary><span class="navname">#3 · Replace a photo</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span></summary><div class="card-body"><ol><li>Click the photo (it is labelled “✎ … photo/image” in the Navigator).</li><li>In the right-hand Settings panel (gear icon, shortcut D), click the image thumbnail → Replace Image → Upload.</li><li>Pick a photo with a similar shape (portrait/landscape) and good resolution.</li><li>Update the Alt text (a one-line description — it matters for accessibility and Google).</li><li>Publish and verify live.</li></ol></div></details><details class="card recipe" data-diff="easy" data-search="change a button’s label or destination"><summary><span class="navname">#4 · Change a button’s label or destination</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span></summary><div class="card-body"><ol><li>Click the button once. Buttons labelled “(edit in Properties)” are shared components — a panel appears on the right with a Label field and a Link field.</li><li>Edit the Label text and/or the Link, then click out.</li><li>Buttons WITHOUT that note are plain links: double-click to edit the text; use the link icon in Settings to change the destination.</li><li>Publish and verify live. If the button opens an external site, keep “Open in new tab” checked.</li></ol></div></details><details class="card recipe" data-diff="easy" data-search="edit a book or course"><summary><span class="navname">#5 · Edit a book or course</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span></summary><div class="card-body"><ol><li>Open the CMS panel (database icon on the left, shortcut F).</li><li>Open the Books or Courses collection and click the item.</li><li>Edit the fields (title, description, Buy link…). Field notes tell you what each one does.</li><li>Click Save, then Publish the item (green button) — CMS items publish on their own, no full-site publish needed.</li><li>Verify on the live /books or /shop page.</li></ol></div></details><details class="card recipe" data-diff="easy" data-search="publish a blog post (22d board)"><summary><span class="navname">#6 · Publish a blog post (22D board)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span></summary><div class="card-body"><ol><li>Blog posts are NOT written in Webflow. Open the 22D board and open (or create) the post in the composer.</li><li>Write and Save. Optionally click “Choose cover…” to pick the photo shown on the blog directory.</li><li>When the post is approved, click “Publish to Website” (or “Update on Website” for an already-published post) and confirm.</li><li>The post appears on the live /blog within a minute. Never change the slug of a post that is already on the site.</li></ol></div></details><details class="card recipe" data-diff="easy" data-search="publish your changes"><summary><span class="navname">#7 · Publish your changes</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span></summary><div class="card-body"><ol><li>Click Publish in the Designer’s top-right corner.</li><li>Keep the webflow.io domain selected and click Publish to selected domains.</li><li>Open the live site in a normal browser tab and verify the change.</li><li>If nothing changed, wait a minute and publish again (it occasionally needs a second try).</li></ol></div></details><details class="card recipe" data-diff="easy" data-search="undo a mistake / restore a backup"><summary><span class="navname">#8 · Undo a mistake / restore a backup</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span></summary><div class="card-body"><ol><li>Small slip: press Cmd+Z (Mac) / Ctrl+Z (Windows) until it’s gone.</li><li>Bigger accident: click the Webflow menu (top-left W) → Site settings → Backups.</li><li>Hover a backup and use the eye icon to PREVIEW it before restoring.</li><li>Click Restore. The site returns to that moment (your newer edits are set aside as another backup). Ask 22D if unsure which backup to pick.</li></ol></div></details></section>
-<section class="band group-band"><h2 class="group-title">Home</h2><article class="page" id="home" data-group="Home">
-<header class="page-head"><h3>Home</h3>
-<a class="live" href="https://proposal-03.webflow.io/" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">The most animated page of the site. Every section is listed below exactly as it is named in the Navigator. In the Designer the hero shows its 4 slides stacked with orange labels — that is the editing view.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Partly — texts yes; anything ⚙/🔒 no.</p>
-<figure class="pageshot"><img loading="lazy" src="img/home--top.jpg" data-full="img/home--full.jpg" alt="Home — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="home--navbar" data-diff="careful" data-search="navbar — shared, edits affect all pages top navigation. one shared component on every page.">
-<summary><span class="navname">NAVBAR — shared, edits affect ALL pages</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="NAVBAR — shared, edits affect ALL pages" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--navbar.jpg" alt="NAVBAR — shared, edits affect ALL pages — live screenshot" data-full="img/home--navbar.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Top navigation. One shared component on every page.</p>
+body.print .topnav,body.print .pctrl,body.print .pall{display:none!important}
+body.print .steps.player .step{display:block!important}
+body.print .qbtn .go{display:none}
+</style></head><body>
+<nav class="topnav"><div class="wrap">
+<a class="brand" href="#top">SOTSI<span> · Editing Guide</span></a>
+<a class="nl" href="#rules">Rules</a><a class="nl" href="#doors">Two doors</a><a class="nl" href="#lessons">Lessons</a>
+<a class="nl" href="#recipes">Special parts</a><a class="nl" href="#sitemap">Pages</a><a class="nl" href="#cms">CMS</a><a class="nl" href="#help">Help</a>
+<span class="sp"></span>
+<label class="search"><input id="q" type="search" placeholder="Find a page… ( / )" aria-label="Search pages"><span class="cnt" id="qcnt"></span></label>
+</div></nav><header class="cover" id="top"><div class="wrap">
+<p class="k">SOTSI (Seat of the Soul Institute)</p><h1>SOTSI Website Editing Guide</h1>
+<p class="sub">The simple picture guide to editing seatofthesoul.com</p>
+<p class="meta">Version 2.0 · 2026-08-17 · by 22D Marketing · Questions: <a href="mailto:dev@o2s1.com">dev@o2s1.com</a></p>
+</div></header>
+<div class="quick"><div class="wrap">
+<a class="qbtn" href="#lesson-text"><b>Change a text</b><small>the easiest edit — no Designer needed</small><span class="go">Show me how →</span></a><a class="qbtn" href="#lesson-photo"><b>Change a photo</b><small>replace any picture on any page</small><span class="go">Show me how →</span></a><a class="qbtn" href="#lesson-cms"><b>Edit a book or course</b><small>the CMS — the site’s filing room</small><span class="go">Show me how →</span></a><a class="qbtn" href="#lesson-blog"><b>Publish a blog post</b><small>in the 22D board, not in Webflow</small><span class="go">Show me how →</span></a>
+</div></div><section class="band" id="rules"><div class="wrap"><h2>The five rules</h2>
+<p class="lead">Follow these and you cannot go badly wrong.</p><div class="rules"><div class="rule"><div class="n">1</div><b>The Designer is not the live site</b><p>Videos, the blog, episodes, search and animations only run on the PUBLISHED site. In the Designer those areas look empty, grey or stacked — nothing is broken. Always judge on the live site.</p></div><div class="rule"><div class="n">2</div><b>Follow the labels</b><p>Everything is labelled for you: GREEN ✎ = yours to edit · AMBER ⚙ = automatic, don’t fight it · RED 🔒 = never touch. No label or unsure? Ask 22D first.</p></div><div class="rule"><div class="n">3</div><b>Blog posts live in the 22D board</b><p>Write and publish posts in the board. Editing a post inside Webflow gets overwritten by the next sync. And never change the slug (the last part of a URL) of anything published.</p></div><div class="rule"><div class="n">4</div><b>Publish, then check the live page</b><p>No change is visible until you click the blue Publish button (top right). After publishing, open the live page in a normal tab and refresh.</p></div><div class="rule"><div class="n">5</div><b>Every mistake is fixable</b><p>Cmd+Z (Mac) / Ctrl+Z (Windows) undoes your steps. Bigger accident? Site backups restore everything. Worst case: email 22D — nothing is ever truly lost.</p></div></div></div></section><section class="band alt" id="doors"><div class="wrap"><h2>Two doors into the site</h2>
+<p class="lead">There are two ways into the site. Start with Door 1 — it is enough for most edits.</p><div class="doors"><div class="door d1"><figure class="zoomwrap"><img loading="lazy" src="img/ui/door-edit.jpg" alt="Door 1 · Edit mode"></figure><div class="pad">
+<span class="tag">easy — start here</span><b>Door 1 · Edit mode</b><p>Add ?update to the end of any page address. The page looks exactly like the live site and you can only touch content — text, photos, links. You cannot break the layout from here.</p>
+<p style="margin-top:10px"><a href="#lesson-text">Start with this door →</a></p></div></div><div class="door d2"><figure class="zoomwrap"><img loading="lazy" src="img/ui/door-designer.jpg" alt="Door 2 · The Designer"></figure><div class="pad">
+<span class="tag">more power — labels guide you</span><b>Door 2 · The Designer</b><p>Webflow’s full editing app: pages list on the left, the page in the middle, panels on the right. Some sections look different here — the pictures below show why.</p>
+<p style="margin-top:10px"><a href="#lesson-photo">Start with this door →</a></p></div></div></div>
+<h2 style="font-size:26px;margin:34px 0 6px">Why the Designer looks different from the live site</h2>
+<p class="lead">Videos, the blog directory, search and animations only run on the published site. The editing views show labels and placeholders instead — nothing is broken. (The Preview eye behaves the same way.)</p>
+<div class="pairs"><div class="pair"><h4>Home hero — why it looks “broken” (it isn’t)</h4>
+<div class="duo"><figure><img loading="lazy" src="img/designer/hero-stacked.jpg" alt="Home hero in the Designer"><figcaption>In the Designer</figcaption></figure>
+<figure><img loading="lazy" src="img/home--hero.jpg" alt="Home hero on the live site"><figcaption>On the live site</figcaption></figure></div>
+<p>Designer shows the 4 slides STACKED with orange labels so you can edit each one. On the live site they rotate one at a time, every 12 seconds.</p></div><div class="pair"><h4>Blog page — why it looks “broken” (it isn’t)</h4>
+<div class="duo"><figure><img loading="lazy" src="img/designer/blog-canvas.jpg" alt="Blog page in the Designer"><figcaption>In the Designer</figcaption></figure>
+<figure><img loading="lazy" src="img/blog--full.jpg" alt="Blog page on the live site"><figcaption>On the live site</figcaption></figure></div>
+<p>Designer shows dashed “AUTO” boxes where the post directory loads. On the live site those boxes are the full searchable archive.</p></div></div></div></section><section class="band" id="lessons"><div class="wrap"><h2>The five lessons</h2>
+<p class="lead">Each lesson is a slideshow: one picture, one action. Use the big Back / Next buttons — or “See all steps at once”. Everything repeats these same moves.</p>
+<article class="lesson" id="lesson-text">
+<header><div class="lnum">1</div><h3>Change a text and publish it</h3><span class="door-chip">Edit mode</span></header>
+<p class="goal">The complete round trip: open a page, change one sentence, publish, and see it live. Once you can do this, you can edit most of the site.</p>
+<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l1-s1.jpg" alt="Lesson 1, step 1">
+<figcaption><span class="stepno">Step 1</span>Open the page you want to change in your normal browser. In this example: the Get Started page.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s2.jpg" alt="Lesson 1, step 2">
+<figcaption><span class="stepno">Step 2</span>Click the address bar and type ?update at the very end of the address. Press Enter.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s3.jpg" alt="Lesson 1, step 3">
+<figcaption><span class="stepno">Step 3</span>Sign in with your Webflow email and password. Webflow remembers you, so this only appears now and then.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s4.jpg" alt="Lesson 1, step 4">
+<figcaption><span class="stepno">Step 4</span>The same page opens in Edit mode. It looks identical — but now the content can be clicked.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s5.jpg" alt="Lesson 1, step 5">
+<figcaption><span class="stepno">Step 5</span>Click the sentence you want to change. A blue frame appears around it. Type your new text.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s6.jpg" alt="Lesson 1, step 6">
+<figcaption><span class="stepno">Step 6</span>Click the blue Publish button in the top-right corner, then confirm. This sends your change to the live site.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s7.jpg" alt="Lesson 1, step 7">
+<figcaption><span class="stepno">Step 7</span>Open the normal page address in a new tab and refresh. Your new text is live. That’s the whole job.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s8.jpg" alt="Lesson 1, step 8">
+<figcaption><span class="stepno">Step 8</span>Typed something wrong? Go back, click the text, fix it, Publish again. Nothing is ever stuck.<span class="tip">💡 Edit mode can’t move sections or break layouts — it is the safe door.</span></figcaption></figure></li></ol></article><article class="lesson" id="lesson-photo">
+<header><div class="lnum">2</div><h3>Change a photo</h3><span class="door-chip">Designer</span></header>
+<p class="goal">Replace any picture on any page from the Designer, in eight clicks.</p>
+<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l2-s1.jpg" alt="Lesson 2, step 1">
+<figcaption><span class="stepno">Step 1</span>Open webflow.com, sign in, and click the site called SOTSI NEW PRODUCTION.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s2.jpg" alt="Lesson 2, step 2">
+<figcaption><span class="stepno">Step 2</span>You are in the Designer. Click the Pages icon near the top of the left edge.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s3.jpg" alt="Lesson 2, step 3">
+<figcaption><span class="stepno">Step 3</span>Click the page where the photo lives — the list uses plain names, like a table of contents.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s4.jpg" alt="Lesson 2, step 4">
+<figcaption><span class="stepno">Step 4</span>Scroll the middle area (the canvas) and click the photo once. A blue frame appears with its name — photos you may change are labelled ✎.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s5.jpg" alt="Lesson 2, step 5">
+<figcaption><span class="stepno">Step 5</span>Press the letter D to open the Settings panel on the right. Click the small picture, then Replace Image.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s6.jpg" alt="Lesson 2, step 6">
+<figcaption><span class="stepno">Step 6</span>Click Upload, choose the photo from your computer, and select it. Use a photo with a similar shape (wide stays wide).</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s7.jpg" alt="Lesson 2, step 7">
+<figcaption><span class="stepno">Step 7</span>In the same panel, update the Alt text: one line that describes the photo. Google and screen readers use it.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s8.jpg" alt="Lesson 2, step 8">
+<figcaption><span class="stepno">Step 8</span>Publish (top right) and check the live page.<span class="tip">💡 The Home hero photos are special — each slide has phone and tablet crops. Change the text yourself; for hero photos, send the picture to 22D.</span></figcaption></figure></li></ol></article><article class="lesson" id="lesson-cms">
+<header><div class="lnum">3</div><h3>The CMS — edit or add a book or course</h3><span class="door-chip">Designer</span></header>
+<p class="goal">The CMS is the site’s filing room: a cabinet (Collection) full of cards (Items). The site lays every card out for you — you only fill in the card.</p><div class="diagram"><figure class=""><img loading="lazy" src="img/ui/l3-s0.jpg" alt="CMS diagram"></figure><p class="goal" style="padding:10px 0 0">Collection = a filing cabinet (Books). Item = one card in it (one book). The page shows every card automatically — add a card and the shelf grows by itself.</p></div>
+<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l3-s1.jpg" alt="Lesson 3, step 1">
+<figcaption><span class="stepno">Step 1</span>In the Designer, click the CMS icon on the left edge (a stack of discs).</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s2.jpg" alt="Lesson 3, step 2">
+<figcaption><span class="stepno">Step 2</span>This lists the site’s cabinets. Books and Courses are YOURS. The ones marked ⚠ (Blog Posts, Deepcast Episodes, Categories) are managed elsewhere — leave them.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s3.jpg" alt="Lesson 3, step 3">
+<figcaption><span class="stepno">Step 3</span>Click Books. Every book is one row. Click a row to edit it — or the blue + New Item button to add a new book.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s4.jpg" alt="Lesson 3, step 4">
+<figcaption><span class="stepno">Step 4</span>The card opens as a simple form: Name, Description, Cover, Buy Now link… The grey notes under the fields tell you what each one does.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s5.jpg" alt="Lesson 3, step 5">
+<figcaption><span class="stepno">Step 5</span>This is what the Blog Posts cabinet shows you instead — a warning on every field. Posts belong to the 22D board; do not edit them here.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s6.jpg" alt="Lesson 3, step 6">
+<figcaption><span class="stepno">Step 6</span>Click the green Save (or Create) button, then Publish (top right) so the change reaches the live site.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s7.jpg" alt="Lesson 3, step 7">
+<figcaption><span class="stepno">Step 7</span>Open the live Books page — your book is on the shelf, styled like all the others.</figcaption></figure></li></ol></article><article class="lesson" id="lesson-blog">
+<header><div class="lnum">4</div><h3>A blog post — written in the 22D board</h3><span class="door-chip">22D board</span></header>
+<p class="goal">Blog posts are never written in Webflow. The 22D board is the blog’s home: write there, press one button, and the website updates itself.</p>
+<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l4-s1.jpg" alt="Lesson 4, step 1">
+<figcaption><span class="stepno">Step 1</span>Open the 22D board link and sign in (22D gave you the address and your login).</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s2.jpg" alt="Lesson 4, step 2">
+<figcaption><span class="stepno">Step 2</span>Open Blog posts. Every card is one post, with its status.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s3.jpg" alt="Lesson 4, step 3">
+<figcaption><span class="stepno">Step 3</span>Click a post to open the editor. Write like in a document — headings, photos, quotes. Save.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s4.jpg" alt="Lesson 4, step 4">
+<figcaption><span class="stepno">Step 4</span>Use “Choose cover…” to pick the photo shown on the blog directory.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s5.jpg" alt="Lesson 4, step 5">
+<figcaption><span class="stepno">Step 5</span>When the post is approved, click Publish to Website (or Update on Website for a post that is already live) and confirm.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s6.jpg" alt="Lesson 4, step 6">
+<figcaption><span class="stepno">Step 6</span>The post appears on the live blog within a minute — directory, search and cards update themselves.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s7.jpg" alt="Lesson 4, step 7">
+<figcaption><span class="stepno">Step 7</span>Remember: never edit a post inside Webflow (the board overwrites it on the next sync) and never change the slug of a published post.<span class="tip">💡 Webflow itself reminds you — every blog field there carries a ⚠ warning note.</span></figcaption></figure></li></ol></article><article class="lesson" id="lesson-publish">
+<header><div class="lnum">5</div><h3>Publish, undo &amp; backups</h3><span class="door-chip">Everywhere</span></header>
+<p class="goal">The three safety habits: publish to make changes real, undo to step back, backups when something bigger goes wrong.</p>
+<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l5-s1.jpg" alt="Lesson 5, step 1">
+<figcaption><span class="stepno">Step 1</span>Publish (top right, in the Designer and in Edit mode) sends your saved edits to the live site. Until then, visitors see nothing new.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l5-s2.jpg" alt="Lesson 5, step 2">
+<figcaption><span class="stepno">Step 2</span>Small mistake? Press Cmd+Z (Mac) or Ctrl+Z (Windows), repeatedly if needed. It steps backwards through your edits.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l5-s3.jpg" alt="Lesson 5, step 3">
+<figcaption><span class="stepno">Step 3</span>Bigger accident? Click the W menu (top left) → Site settings → Backups. Preview a backup with the eye icon, then Restore. The whole site returns to that moment.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l5-s4.jpg" alt="Lesson 5, step 4">
+<figcaption><span class="stepno">Step 4</span>Not sure what happened? Stop and email 22D at dev@o2s1.com with the page name. A two-minute question beats a broken page.</figcaption></figure></li></ol></article></div></section><section class="band alt" id="recipes"><div class="wrap"><h2>The special parts, one example each</h2>
+<p class="lead">Most of the site repeats the lessons above. These are the only parts that work differently.</p>
+<div class="recipes"><div class="recipe" id="r-button" data-search="a button’s label or destination">
+<figure class=""><img loading="lazy" src="img/ui/r-button.jpg" alt="A button’s label or destination"></figure><div class="pad"><h4>A button’s label or destination <span class="chip easy">Easy</span></h4>
+<p class="why">Most buttons on the site are shared components — they open a small Properties panel instead of direct editing.</p><ol><li>Click the button ONCE. If a panel appears on the right with Label and Link fields — edit them there. Done.</li><li>No panel? It’s a plain link: double-click to edit the text; change the destination with the link (chain) icon in Settings.</li><li>For links to other websites, keep “Open in new tab” on. Publish and test the button live.</li></ol></div></div><div class="recipe" id="r-shared" data-search="navbar &amp; footer — one change, every page">
+<figure class=""><img loading="lazy" src="img/home--navbar.jpg" alt="Navbar &amp; Footer — one change, every page"></figure><div class="pad"><h4>Navbar &amp; Footer — one change, every page <span class="chip careful">Careful</span></h4>
+<p class="why">The top navigation and the footer are ONE component reused on every page. Edit once — it changes site-wide. Usually that’s exactly what you want.</p><ol><li>Double-click the navbar (or footer) to step inside the component.</li><li>Menu links and footer buttons work like any text/button (Lesson 1, recipe above).</li><li>Don’t add or remove menu items and don’t touch the grey 🔒 blocks inside (menu behaviour, search box) — ask 22D.</li><li>Publish once; every page updates.</li></ol></div></div><div class="recipe" id="r-hero" data-search="the home hero slideshow (4 slides)">
+<figure class=""><img loading="lazy" src="img/designer/hero-stacked.jpg" alt="The Home hero slideshow (4 slides)"></figure><div class="pad"><h4>The Home hero slideshow (4 slides) <span class="chip careful">Careful</span></h4>
+<p class="why">On the live site the 4 slides rotate every 12 seconds. In the Designer they are stacked on purpose, each with an orange “SLIDE N of 4” label, so you can edit each one.</p><ol><li>Texts: double-click any title, kicker or line inside a slide and type. Keep gold words inside their gold highlight.</li><li>Buttons: click once → Properties (Label + Link). Slide 1’s buttons are hidden by design — leave them hidden.</li><li>Photos: each slide’s photo has separate phone/tablet crops. Send new hero photos to 22D — we set all sizes so faces stay framed.</li><li>Publish, then watch the live hero rotate through all four slides.</li></ol></div></div><div class="recipe" id="r-stats" data-search="the impact numbers (they count up)">
+<figure class=""><img loading="lazy" src="img/ui/r-stats.jpg" alt="The impact numbers (they count up)"></figure><div class="pad"><h4>The impact numbers (they count up) <span class="chip careful">Careful</span></h4>
+<p class="why">Each stat animates from 0 up to a value stored in a hidden attribute called data-count. The visible number AND the attribute must match.</p><ol><li>Double-click the number on the canvas and type the new value.</li><li>With the number still selected, press D → scroll to Custom attributes → set data-count to the same value (data-suffix holds things like “M+”).</li><li>Publish and watch the live count-up.</li><li>Feels fiddly? Email 22D the new number — it’s a 10-second fix on our side.</li></ol></div></div><div class="recipe" id="r-curated" data-search="hand-picked rows (home practices &amp; soul feed)">
+<figure class=""><img loading="lazy" src="img/home--soulfeed.jpg" alt="Hand-picked rows (Home practices &amp; Soul Feed)"></figure><div class="pad"><h4>Hand-picked rows (Home practices &amp; Soul Feed) <span class="chip careful">Careful</span></h4>
+<p class="why">The 4 practice cards and the 3 Soul Feed posts on Home are pinned selections — they do not update by themselves, on purpose.</p><ol><li>The row’s heading and intro text are yours — edit like any text.</li><li>The cards’ content lives in the CMS (practices) or the 22D board (posts). Edit the item, not the card.</li><li>Want DIFFERENT items featured? Tell 22D which ones — swapping the pinned set is our job.</li></ol></div></div><div class="recipe" id="r-forms" data-search="forms (newsletter, downloads, waitlist)">
+<figure class=""><img loading="lazy" src="img/newsletter--full.jpg" alt="Forms (newsletter, downloads, waitlist)"></figure><div class="pad"><h4>Forms (newsletter, downloads, waitlist) <span class="chip locked">Leave alone</span></h4>
+<p class="why">Every form feeds the email system (ActiveCampaign). The texts around a form are yours; the form itself is wired.</p><ol><li>Headings, paragraphs, button labels near a form: edit freely (Lesson 1).</li><li>Never rename, add or delete form FIELDS, and never delete a form — sign-ups would silently stop arriving.</li><li>Need a new field or a new form? That’s a 22D task — email us.</li></ol></div></div></div></div></section>
+<section class="band" id="sitemap"><div class="wrap"><h2>The site, page by page</h2>
+<p class="smnote">This list mirrors the Pages panel in the Designer — same names, same order. Click a page to see what’s special about it. Colours: <span class="chip easy">Easy</span> mostly texts and photos · <span class="chip careful">Careful</span> has special parts · <span class="chip locked">Leave alone</span> automatic.</p>
+<div class="smgroup"><h4>Main pages</h4><div class="smrows"><a class="smrow" href="#home" data-search="home /"><span class="nm">Home</span><span class="sl">/</span><span class="chip careful">Careful</span></a><a class="smrow" href="#get-started" data-search="get started /get-started"><span class="nm">Get Started</span><span class="sl">/get-started</span><span class="chip easy">Easy</span></a><a class="smrow" href="#about-sotsi" data-search="about sotsi  (in the “about” folder) /about/seat-of-the-soul-institute"><span class="nm">About SOTSI  (in the “about” folder)</span><span class="sl">/about/seat-of-the-soul-institute</span><span class="chip easy">Easy</span></a><a class="smrow" href="#about-gary" data-search="about gary /about-gary-zukav"><span class="nm">About Gary</span><span class="sl">/about-gary-zukav</span><span class="chip easy">Easy</span></a><a class="smrow" href="#about-linda" data-search="about linda /about-linda-francis"><span class="nm">About Linda</span><span class="sl">/about-linda-francis</span><span class="chip easy">Easy</span></a><a class="smrow" href="#remember-linda" data-search="in celebration of linda francis /remember-linda-homepage"><span class="nm">In Celebration of Linda Francis</span><span class="sl">/remember-linda-homepage</span><span class="chip careful">Careful</span></a><a class="smrow" href="#lf-series" data-search="linda francis celebration series /linda-francis-celebration-series-messages"><span class="nm">Linda Francis Celebration Series</span><span class="sl">/linda-francis-celebration-series-messages</span><span class="chip easy">Easy</span></a></div></div><div class="smgroup"><h4>Programs &amp; shop</h4><div class="smrows"><a class="smrow" href="#shop" data-search="learning opportunities /shop"><span class="nm">Learning Opportunities</span><span class="sl">/shop</span><span class="chip careful">Careful</span></a><a class="smrow" href="#books" data-search="books /books"><span class="nm">Books</span><span class="sl">/books</span><span class="chip careful">Careful</span></a><a class="smrow" href="#evening" data-search="an evening with gary zukav /evening-with-gary"><span class="nm">An Evening With Gary Zukav</span><span class="sl">/evening-with-gary</span><span class="chip easy">Easy</span></a><a class="smrow" href="#waitlist" data-search="journey to the soul retreat — waitlist /event-waitlist-journey-to-the-soul"><span class="nm">Journey to the Soul Retreat — Waitlist</span><span class="sl">/event-waitlist-journey-to-the-soul</span><span class="chip careful">Careful</span></a><a class="smrow" href="#universal-human" data-search="universal human /universalhuman"><span class="nm">Universal Human</span><span class="sl">/universalhuman</span><span class="chip easy">Easy</span></a></div></div><div class="smgroup"><h4>Blog, Deepcast &amp; search  (automatic)</h4><div class="smrows"><a class="smrow" href="#blog" data-search="blog /blog"><span class="nm">Blog</span><span class="sl">/blog</span><span class="chip locked">Leave alone</span></a><a class="smrow" href="#deepcast" data-search="the gary zukav deepcast /deepcast"><span class="nm">The Gary Zukav Deepcast</span><span class="sl">/deepcast</span><span class="chip careful">Careful</span></a><a class="smrow" href="#sotsi-search" data-search="search (automatic — nothing to edit) /sotsi-search"><span class="nm">Search (automatic — nothing to edit)</span><span class="sl">/sotsi-search</span><span class="chip locked">Leave alone</span></a><div class="smrow" data-search="blog post reader (automatic — do not edit) /post"><span class="nm">Blog Post Reader (automatic — do not edit)</span><span class="sl">/post</span><span class="chip locked">Leave alone</span></div></div></div><div class="smgroup"><h4>Free downloads &amp; newsletter</h4><div class="smrows"><a class="smrow" href="#newsletter" data-search="soul connections newsletter /soul-connections-newsletter"><span class="nm">Soul Connections Newsletter</span><span class="sl">/soul-connections-newsletter</span><span class="chip careful">Careful</span></a><a class="smrow" href="#apg" data-search="authentic power guidelines — free download /apg-optin"><span class="nm">Authentic Power Guidelines — Free Download</span><span class="sl">/apg-optin</span><span class="chip careful">Careful</span></a><a class="smrow" href="#love-fear" data-search="love &amp; fear handout — free download /love-fear"><span class="nm">Love &amp; Fear Handout — Free Download</span><span class="sl">/love-fear</span><span class="chip careful">Careful</span></a></div></div><div class="smgroup"><h4>Essays, careers &amp; legal</h4><div class="smrows"><a class="smrow" href="#essay-ai" data-search="ai and human evolution /ai-and-human-evolution"><span class="nm">AI and Human Evolution</span><span class="sl">/ai-and-human-evolution</span><span class="chip easy">Easy</span></a><a class="smrow" href="#essay-gov" data-search="what to do about failing governments /failing-government"><span class="nm">What to Do About Failing Governments</span><span class="sl">/failing-government</span><span class="chip easy">Easy</span></a><a class="smrow" href="#careers" data-search="explore career opportunities /seat-of-the-soul-career-opportunities"><span class="nm">Explore Career Opportunities</span><span class="sl">/seat-of-the-soul-career-opportunities</span><span class="chip easy">Easy</span></a><a class="smrow" href="#legal" data-search="privacy policy · terms of use · refund policy /privacy-policy"><span class="nm">Privacy Policy · Terms of Use · Refund Policy</span><span class="sl">/privacy-policy</span><span class="chip careful">Careful</span></a></div></div><div class="smgroup"><h4>CMS Collection Pages  (shared layouts — 22D territory)</h4><div class="smrows"><a class="smrow" href="#templates" data-search="blog posts template · deepcast template · books template · courses template /blog/…  /deepcast/…"><span class="nm">Blog Posts Template · Deepcast Template · Books Template · Courses Template</span><span class="sl">/blog/…  /deepcast/…</span><span class="chip locked">Leave alone</span></a></div></div><div class="smgroup"><h4>Utility  (nothing to edit)</h4><div class="smrows"><div class="smrow" data-search="404 · password · style guide (internal) —"><span class="nm">404 · Password · Style Guide (internal)</span><span class="sl">—</span><span class="chip locked">Leave alone</span></div></div></div>
+<h2 id="pages" style="margin-top:40px">Page cards — what’s on each page</h2>
+<p class="lead">Open a card, find the section by its Webflow name, and follow the lesson it points to.</p>
+<h3 style="font:700 22px Georgia,serif;color:var(--navy);margin:34px 0 4px">Home</h3><details class="pcard" id="home" data-search="home / navbar — shared, edits affect all pages 01 · hero — slideshow (4 slides, auto-rotates) 02 · aspiration — animated headline 03 · statement — authentic power 04 · greeting — video from gary &amp; linda 05 · consciousness — video statement 06 · tools — explore powerful tools 07 · event — join gary live 08 · books — gary’s books 09 · courses — tools grid (cms, curated ×4) 10 · membership — soul to soul community 11 · stats — impact numbers (animated) 12 · instagram — most viewed reels 13 · founders — gary &amp; linda 14 · soul feed — latest blog posts (cms, curated ×3) 15 · big cta — ready to create authentic power? footer — shared, edits affect all pages">
+<summary><span class="tw">Home</span> <span class="chip careful">Partly editable</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/home--top.jpg" alt="Home — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">The most animated page of the site. Every section is listed below exactly as it is named in the Navigator. In the Designer the hero shows its 4 slides stacked with orange labels — that is the editing view.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="NAVBAR — shared, edits affect ALL pages"><span class="in2"><span class="tx">NAVBAR — shared, edits affect ALL pages</span><button class="cp" data-copy="NAVBAR — shared, edits affect ALL pages" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-shared">Shared recipe</a><br><span class="warn2">⚠ Don’t touch the grey CODE blocks inside it (menu behaviour, mobile menu)</span></td></tr><tr><td class="nn" title="01 · HERO — Slideshow (4 slides, auto-rotates)"><span class="in2"><span class="tx">01 · HERO — Slideshow (4 slides, auto-rotates)</span><button class="cp" data-copy="01 · HERO — Slideshow (4 slides, auto-rotates)" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Photos → <a href="#lesson-photo">Lesson 2</a> · Special → <a href="#r-hero">Hero recipe</a><br><span class="warn2">⚠ Slide 1’s buttons are hidden by design — leave them hidden</span></td></tr><tr><td class="nn" title="02 · ASPIRATION — Animated headline"><span class="in2"><span class="tx">02 · ASPIRATION — Animated headline</span><button class="cp" data-copy="02 · ASPIRATION — Animated headline" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Leave the AUTO wave canvas and veil alone</span></td></tr><tr><td class="nn" title="03 · STATEMENT — Authentic Power"><span class="in2"><span class="tx">03 · STATEMENT — Authentic Power</span><button class="cp" data-copy="03 · STATEMENT — Authentic Power" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a></td></tr><tr><td class="nn" title="04 · GREETING — Video from Gary &amp; Linda"><span class="in2"><span class="tx">04 · GREETING — Video from Gary &amp; Linda</span><button class="cp" data-copy="04 · GREETING — Video from Gary &amp; Linda" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ The video file is managed by 22D — ask us to swap it</span></td></tr><tr><td class="nn" title="05 · CONSCIOUSNESS — Video statement"><span class="in2"><span class="tx">05 · CONSCIOUSNESS — Video statement</span><button class="cp" data-copy="05 · CONSCIOUSNESS — Video statement" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Background video = ask 22D</span></td></tr><tr><td class="nn" title="06 · TOOLS — Explore powerful tools"><span class="in2"><span class="tx">06 · TOOLS — Explore powerful tools</span><button class="cp" data-copy="06 · TOOLS — Explore powerful tools" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-curated">Hand-picked recipe</a><br><span class="warn2">⚠ The headline animates word-by-word live — keep it one line</span></td></tr><tr><td class="nn" title="07 · EVENT — Join Gary live"><span class="in2"><span class="tx">07 · EVENT — Join Gary live</span><button class="cp" data-copy="07 · EVENT — Join Gary live" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ AUTO wave canvas stays</span></td></tr><tr><td class="nn" title="08 · BOOKS — Gary’s books"><span class="in2"><span class="tx">08 · BOOKS — Gary’s books</span><button class="cp" data-copy="08 · BOOKS — Gary’s books" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a></td></tr><tr><td class="nn" title="09 · COURSES — Tools grid (CMS, curated ×4)"><span class="in2"><span class="tx">09 · COURSES — Tools grid (CMS, curated ×4)</span><button class="cp" data-copy="09 · COURSES — Tools grid (CMS, curated ×4)" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · CMS items → <a href="#lesson-cms">Lesson 3</a> · Special → <a href="#r-curated">Hand-picked recipe</a><br><span class="warn2">⚠ The grid is pinned to these 4 items on purpose — new courses don’t appear here automatically (ask 22D to ch…</span></td></tr><tr><td class="nn" title="10 · MEMBERSHIP — Soul to Soul Community"><span class="in2"><span class="tx">10 · MEMBERSHIP — Soul to Soul Community</span><button class="cp" data-copy="10 · MEMBERSHIP — Soul to Soul Community" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a></td></tr><tr><td class="nn" title="11 · STATS — Impact numbers (animated)"><span class="in2"><span class="tx">11 · STATS — Impact numbers (animated)</span><button class="cp" data-copy="11 · STATS — Impact numbers (animated)" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-stats">Numbers recipe</a></td></tr><tr><td class="nn" title="12 · INSTAGRAM — Most viewed reels"><span class="in2"><span class="tx">12 · INSTAGRAM — Most viewed reels</span><button class="cp" data-copy="12 · INSTAGRAM — Most viewed reels" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a><br><span class="warn2">⚠ Leave the hidden “latest reels” row hidden — it fills itself</span></td></tr><tr><td class="nn" title="13 · FOUNDERS — Gary &amp; Linda"><span class="in2"><span class="tx">13 · FOUNDERS — Gary &amp; Linda</span><button class="cp" data-copy="13 · FOUNDERS — Gary &amp; Linda" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a></td></tr><tr><td class="nn" title="14 · SOUL FEED — Latest blog posts (CMS, curated ×3)"><span class="in2"><span class="tx">14 · SOUL FEED — Latest blog posts (CMS, curated ×3)</span><button class="cp" data-copy="14 · SOUL FEED — Latest blog posts (CMS, curated ×3)" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip locked">Leave alone</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-curated">Hand-picked recipe</a><br><span class="warn2">⚠ Don’t edit the post cards or the posts behind them here — posts belong to the 22D board (the next sync over…</span></td></tr><tr><td class="nn" title="15 · BIG CTA — Ready to create authentic power?"><span class="in2"><span class="tx">15 · BIG CTA — Ready to create authentic power?</span><button class="cp" data-copy="15 · BIG CTA — Ready to create authentic power?" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a></td></tr><tr><td class="nn" title="FOOTER — shared, edits affect ALL pages"><span class="in2"><span class="tx">FOOTER — shared, edits affect ALL pages</span><button class="cp" data-copy="FOOTER — shared, edits affect ALL pages" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-shared">Shared recipe</a><br><span class="warn2">⚠ Leave the search box and the grey CODE block alone (search + validation wiring)</span></td></tr></table>
+</div></details><h3 style="font:700 22px Georgia,serif;color:var(--navy);margin:34px 0 4px">Get Started &amp; About</h3><details class="pcard" id="get-started" data-search="get started /get-started 01 · hero — get started 02 · kinetic — animated word wave 03 · statement — “to help guide you…” 04 · founders — gary &amp; linda band 05 · ready — “ready to move forward?” 06 · offer — soul connections newsletter 07 · offer — authentic power guidelines 08 · offer — love &amp; fear basics 09 · offer — read: gary’s books 10 · offer — journey to the soul (event) 11 · offer — beyond the five senses (course)">
+<summary><span class="tw">Get Started</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/get-started--top.jpg" alt="Get Started — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">The guided path page: hero, animated word wave, statement, founders band, then six “offer” rows (newsletter, guidelines, handout, books, event, course). All numbered in the Navigator.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/get-started" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="01 · HERO — Get Started"><span class="in2"><span class="tx">01 · HERO — Get Started</span><button class="cp" data-copy="01 · HERO — Get Started" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-hero">Hero recipe</a></td></tr><tr><td class="nn" title="02 · KINETIC — Animated word wave"><span class="in2"><span class="tx">02 · KINETIC — Animated word wave</span><button class="cp" data-copy="02 · KINETIC — Animated word wave" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Don’t touch the two CODE embeds that drive this animation</span></td></tr><tr><td class="nn" title="03 · STATEMENT — “To help guide you…”"><span class="in2"><span class="tx">03 · STATEMENT — “To help guide you…”</span><button class="cp" data-copy="03 · STATEMENT — “To help guide you…”" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a></td></tr><tr><td class="nn" title="04 · FOUNDERS — Gary &amp; Linda band"><span class="in2"><span class="tx">04 · FOUNDERS — Gary &amp; Linda band</span><button class="cp" data-copy="04 · FOUNDERS — Gary &amp; Linda band" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a></td></tr><tr><td class="nn" title="05 · READY — “Ready to move forward?”"><span class="in2"><span class="tx">05 · READY — “Ready to move forward?”</span><button class="cp" data-copy="05 · READY — “Ready to move forward?”" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a></td></tr><tr><td class="nn" title="06 · OFFER — Soul Connections Newsletter"><span class="in2"><span class="tx">06 · OFFER — Soul Connections Newsletter</span><button class="cp" data-copy="06 · OFFER — Soul Connections Newsletter" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a></td></tr><tr><td class="nn" title="07 · OFFER — Authentic Power Guidelines"><span class="in2"><span class="tx">07 · OFFER — Authentic Power Guidelines</span><button class="cp" data-copy="07 · OFFER — Authentic Power Guidelines" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a></td></tr><tr><td class="nn" title="08 · OFFER — Love &amp; Fear Basics"><span class="in2"><span class="tx">08 · OFFER — Love &amp; Fear Basics</span><button class="cp" data-copy="08 · OFFER — Love &amp; Fear Basics" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a></td></tr><tr><td class="nn" title="09 · OFFER — Read: Gary’s books"><span class="in2"><span class="tx">09 · OFFER — Read: Gary’s books</span><button class="cp" data-copy="09 · OFFER — Read: Gary’s books" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a></td></tr><tr><td class="nn" title="10 · OFFER — Journey to the Soul (event)"><span class="in2"><span class="tx">10 · OFFER — Journey to the Soul (event)</span><button class="cp" data-copy="10 · OFFER — Journey to the Soul (event)" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a></td></tr><tr><td class="nn" title="11 · OFFER — Beyond the Five Senses (course)"><span class="in2"><span class="tx">11 · OFFER — Beyond the Five Senses (course)</span><button class="cp" data-copy="11 · OFFER — Beyond the Five Senses (course)" title="Copy the exact Navigator name">Copy</button></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ The 6 grey CODE embeds on this page (reveals, kinetic, glow, media) stay untouched</span></td></tr></table>
+</div></details><details class="pcard" id="about-sotsi" data-search="about sotsi /about/seat-of-the-soul-institute (page)">
+<summary><span class="tw">About SOTSI</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/about-sotsi--top.jpg" alt="About SOTSI — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Story of the Institute: hero, mission copy, video band, closing button.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/about/seat-of-the-soul-institute" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Video/wave areas are AUTO (managed by 22D)</span></td></tr></table>
+</div></details><details class="pcard" id="about-gary" data-search="about gary zukav /about-gary-zukav (page)">
+<summary><span class="tw">About Gary Zukav</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/about-gary--top.jpg" alt="About Gary Zukav — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Gary’s biography page.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/about-gary-zukav" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a><br><span class="warn2">⚠ Hidden FAQ block stays hidden</span></td></tr></table>
+</div></details><details class="pcard" id="about-linda" data-search="about linda francis /about-linda-francis (page)">
+<summary><span class="tw">About Linda Francis</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/about-linda--top.jpg" alt="About Linda Francis — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Linda’s biography page.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/about-linda-francis" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a><br><span class="warn2">⚠ Video areas are AUTO</span></td></tr></table>
+</div></details><details class="pcard" id="remember-linda" data-search="in celebration of linda francis /remember-linda-homepage (page)">
+<summary><span class="tw">In Celebration of Linda Francis</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/remember-linda--top.jpg" alt="In Celebration of Linda Francis — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Memorial page with a Vimeo video and a photo masonry.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/remember-linda-homepage" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a><br><span class="warn2">⚠ The video is embedded from Vimeo — it won’t play on this staging address (known issue); it works on the fin…</span></td></tr></table>
+</div></details><details class="pcard" id="lf-series" data-search="celebration series — messages /linda-francis-celebration-series-messages (page)">
+<summary><span class="tw">Celebration Series — Messages</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/lf-series--top.jpg" alt="Celebration Series — Messages — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Eleven letters with a side navigation rail.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/linda-francis-celebration-series-messages" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ The scroll-spy rail is AUTO</span></td></tr></table>
+</div></details><h3 style="font:700 22px Georgia,serif;color:var(--navy);margin:34px 0 4px">Programs &amp; Shop</h3><details class="pcard" id="evening" data-search="evening with gary (landing) /evening-with-gary (page)">
+<summary><span class="tw">Evening with Gary (landing)</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/evening--top.jpg" alt="Evening with Gary (landing) — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Standalone event landing (no navbar/footer) with a starfield background.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/evening-with-gary" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Starfield background is AUTO</span></td></tr></table>
+</div></details><details class="pcard" id="shop" data-search="soul store (/shop) /shop (page)">
+<summary><span class="tw">Soul Store (/shop)</span> <span class="chip careful">Partly editable</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/shop--top.jpg" alt="Soul Store (/shop) — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">One static “Evening with Gary” card + course cards fed by the Courses collection.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/shop" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · CMS items → <a href="#lesson-cms">Lesson 3</a><br><span class="warn2">⚠ Card ‘Monthly/Self-paced’ tags are finished by code — edit the base text in the CMS only</span></td></tr></table>
+</div></details><details class="pcard" id="books" data-search="books (/books) /books (page)">
+<summary><span class="tw">Books (/books)</span> <span class="chip careful">Partly editable</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/books--top.jpg" alt="Books (/books) — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Hero with a wave video + “The Vault”: 12 3-D book cards from the Books collection.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/books" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · CMS items → <a href="#lesson-cms">Lesson 3</a><br><span class="warn2">⚠ Hero video is AUTO</span></td></tr></table>
+</div></details><details class="pcard" id="universal-human" data-search="universal human /universalhuman (page)">
+<summary><span class="tw">Universal Human</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/universal-human--top.jpg" alt="Universal Human — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Book/program page with warm styling and Oprah panel.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/universalhuman" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Photos → <a href="#lesson-photo">Lesson 2</a><br><span class="warn2">⚠ One legacy embed contains script — untouchable (grey)</span></td></tr></table>
+</div></details><h3 style="font:700 22px Georgia,serif;color:var(--navy);margin:34px 0 4px">Blog &amp; Deepcast (automatic)</h3><details class="pcard" id="blog" data-search="blog — soul feed (/blog) /blog (page)">
+<summary><span class="tw">Blog — Soul Feed (/blog)</span> <span class="chip locked">Automatic</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/blog--top.jpg" alt="Blog — Soul Feed (/blog) — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Hero + Editor’s Picks + the full post directory. Everything below the hero is loaded by code from the 22D board.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/blog" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip locked">Leave alone</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Posts are written and published in the 22D board — never here</span></td></tr></table>
+</div></details><details class="pcard" id="deepcast" data-search="deepcast (/deepcast) /deepcast (page)">
+<summary><span class="tw">Deepcast (/deepcast)</span> <span class="chip careful">Partly editable</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/deepcast--top.jpg" alt="Deepcast (/deepcast) — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Show page: hero, trailer, about copy, platform badges, the 187-episode directory (automatic), newsletter form.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/deepcast" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Episode list, marquee and toolbar are AUTO (synced from YouTube by 22D)</span></td></tr></table>
+</div></details><details class="pcard" id="sotsi-search" data-search="search (/sotsi-search) /sotsi-search (page)">
+<summary><span class="tw">Search (/sotsi-search)</span> <span class="chip locked">Automatic</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/sotsi-search--top.jpg" alt="Search (/sotsi-search) — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">The site search page — fully automatic.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/sotsi-search" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip locked">Leave alone</span></td><td class="hint">Nothing to edit here — it runs itself.<br><span class="warn2">⚠ Nothing to edit here — it’s labelled in the Designer too</span></td></tr></table>
+</div></details><h3 style="font:700 22px Georgia,serif;color:var(--navy);margin:34px 0 4px">Forms &amp; Opt-ins</h3><details class="pcard" id="waitlist" data-search="event waitlist /event-waitlist-journey-to-the-soul (page)">
+<summary><span class="tw">Event Waitlist</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/waitlist--top.jpg" alt="Event Waitlist — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Waitlist form page (connected to the email system).</p>
+<p class="live"><a href="https://proposal-03.webflow.io/event-waitlist-journey-to-the-soul" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-forms">Forms recipe</a><br><span class="warn2">⚠ Don’t change the form fields’ names or delete the form — it feeds ActiveCampaign</span></td></tr></table>
+</div></details><details class="pcard" id="newsletter" data-search="soul connections newsletter /soul-connections-newsletter (page)">
+<summary><span class="tw">Soul Connections Newsletter</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/newsletter--top.jpg" alt="Soul Connections Newsletter — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Newsletter opt-in with video hero.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/soul-connections-newsletter" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-forms">Forms recipe</a><br><span class="warn2">⚠ Form wiring (ActiveCampaign) — don’t rename fields</span></td></tr></table>
+</div></details><details class="pcard" id="apg" data-search="authentic power guidelines (opt-in) /apg-optin (page)">
+<summary><span class="tw">Authentic Power Guidelines (opt-in)</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/apg--top.jpg" alt="Authentic Power Guidelines (opt-in) — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">APG download opt-in.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/apg-optin" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-forms">Forms recipe</a><br><span class="warn2">⚠ Form wiring — don’t rename fields</span></td></tr></table>
+</div></details><details class="pcard" id="love-fear" data-search="love &amp; fear (opt-in) /love-fear (page)">
+<summary><span class="tw">Love &amp; Fear (opt-in)</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/love-fear--top.jpg" alt="Love &amp; Fear (opt-in) — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Handout opt-in.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/love-fear" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a> · Special → <a href="#r-forms">Forms recipe</a><br><span class="warn2">⚠ Form wiring — don’t rename fields</span></td></tr></table>
+</div></details><h3 style="font:700 22px Georgia,serif;color:var(--navy);margin:34px 0 4px">Legal &amp; Misc</h3><details class="pcard" id="essay-ai" data-search="essay — ai &amp; human evolution /ai-and-human-evolution (page)">
+<summary><span class="tw">Essay — AI &amp; Human Evolution</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/essay-ai--top.jpg" alt="Essay — AI &amp; Human Evolution — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Long-form essay.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/ai-and-human-evolution" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Aurora background + share-row wiring are CODE</span></td></tr></table>
+</div></details><details class="pcard" id="essay-gov" data-search="essay — failing governments /failing-government (page)">
+<summary><span class="tw">Essay — Failing Governments</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/essay-gov--top.jpg" alt="Essay — Failing Governments — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Long-form essay.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/failing-government" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Same as the AI essay</span></td></tr></table>
+</div></details><details class="pcard" id="careers" data-search="career opportunities /seat-of-the-soul-career-opportunities (page)">
+<summary><span class="tw">Career Opportunities</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><figure class="thumb"><img loading="lazy" src="img/careers--top.jpg" alt="Career Opportunities — live page"><figcaption>The live page — click to zoom</figcaption></figure><div>
+<p class="psum">Careers page (currently mirrors the original WordPress banner styling).</p>
+<p class="live"><a href="https://proposal-03.webflow.io/seat-of-the-soul-career-opportunities" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip easy">Easy</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ The banner restyle lives in one reversible CODE embed — leave it</span></td></tr></table>
+</div></details><details class="pcard" id="legal" data-search="privacy · terms · refund /privacy-policy (page)">
+<summary><span class="tw">Privacy · Terms · Refund</span> <span class="chip easy">Mostly easy</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><div>
+<p class="psum">Three legal pages with the full WordPress prose.</p>
+<p class="live"><a href="https://proposal-03.webflow.io/privacy-policy" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(page)"><span class="in2"><span class="tx">(page)</span></span></td><td><span class="chip careful">Careful</span></td><td class="hint">Texts → <a href="#lesson-text">Lesson 1</a><br><span class="warn2">⚠ Keep the section anchors intact — the cookie banner links straight to Privacy section 5</span></td></tr></table>
+</div></details><h3 style="font:700 22px Georgia,serif;color:var(--navy);margin:34px 0 4px">Detail page templates</h3><details class="pcard" id="templates" data-search="detail templates (blog post · episode · book · course) /blog/kindness (template)">
+<summary><span class="tw">Detail templates (blog post · episode · book · course)</span> <span class="chip locked">Automatic</span><span class="arr">▾</span></summary>
+<div class="pbody"><div class="prow2"><div>
+<p class="psum">One shared layout per collection renders every item page (e.g. every /blog/… post uses the Blog Post Template).</p>
+<p class="live"><a href="https://proposal-03.webflow.io/blog/kindness" target="_blank" rel="noreferrer noopener">Open the live page ↗</a></p></div></div>
+<table class="sectable"><tr><th>Section — its name in Webflow</th><th>Level</th><th>What you can do</th></tr><tr><td class="nn" title="(template)"><span class="in2"><span class="tx">(template)</span></span></td><td><span class="chip locked">Leave alone</span></td><td class="hint">CMS items → <a href="#lesson-cms">Lesson 3</a> · Blog content → <a href="#lesson-blog">Lesson 4</a><br><span class="warn2">⚠ Never edit template layouts without 22D</span></td></tr></table>
+</div></details></div></section><section class="band alt" id="cms"><div class="wrap"><h2>The CMS at a glance</h2>
+<p class="lead">Who edits what. Books &amp; Courses are yours (<a href="#lesson-cms">Lesson 3</a>); the blog lives in the 22D board (<a href="#lesson-blog">Lesson 4</a>).</p>
+<table class="cmst"><tr><th>Collection</th><th>Who edits it</th><th>Notes</th></tr><tr><td>Books (12)</td><td><span class="chip easy">Yours — edit in Webflow</span></td><td>Fully yours: title, description, cover, publisher, ISBN, Buy Now link. Edit in the CMS panel and publish the item.</td></tr><tr><td>Courses (8)</td><td><span class="chip easy">Yours — edit in Webflow</span></td><td>Card text, summary, button label and enroll link. The Home “tools” grid and the Shop page read from here.</td></tr><tr><td>Blog Posts (≈96)</td><td><span class="chip locked">22D board only</span></td><td>Managed in the 22D board — write, edit, choose the cover and publish from there. Direct Webflow edits get overwritten by the next sync. Field notes inside the CMS repeat this warning.</td></tr><tr><td>Deepcast Episodes (187)</td><td><span class="chip careful">Ask 22D</span></td><td>Synced automatically from YouTube by 22D’s pipeline. If a title or description looks wrong, tell 22D — a manual edit here is overwritten on the next import.</td></tr><tr><td>Blog Categories (37)</td><td><span class="chip careful">Ask 22D</span></td><td>Internal taxonomy used by the blog. Leave as is.</td></tr></table></div></section><section class="band" id="help"><div class="wrap"><h2>When something looks wrong</h2><div class="qa"><b>A page looks empty, grey, or ‘broken’ in the Designer.</b><p>Expected. The dashed AUTO boxes (blog directory, episodes, search, videos, waves) are filled by code on the live site only. See “Why the Designer looks different”.</p></div><div class="qa"><b>I edited a blog post in Webflow and it reverted.</b><p>Blog posts are managed in the 22D board; the next sync overwrites Webflow edits. Make the change in the board and click “Update on Website”.</p></div><div class="qa"><b>My change doesn’t show on the live site.</b><p>Did you click Publish? If yes, hard-refresh the live page (Cmd/Ctrl+Shift+R). If still missing, publish once more — it occasionally needs a second try.</p></div><div class="qa"><b>I deleted something by accident.</b><p>Cmd/Ctrl+Z immediately. If it’s too late, Site settings → Backups → preview → Restore.</p></div><div class="qa"><b>A form, video or feed stopped working after my edit.</b><p>You may have touched a 🔒 element. Undo your change and tell 22D what happened — restoring is quick.</p></div>
+<div class="qa"><b>Known quirks (not your fault)</b><ul style="padding-left:22px;font-size:16px"><li>On phones and tablets, the cookie banner covers the hero slide dots until the visitor accepts or declines it.</li><li>The video on “In Celebration of Linda Francis” is blocked on the staging domain (Vimeo whitelist) — it will work on the final domain.</li><li>The Designer’s Preview (eye icon) does not load this site’s effects either — the hero looks stacked/overlapping there. That’s expected; judge on the published site.</li></ul></div>
+<div class="contact"><p class="k">When in doubt</p><h3>Stop and ask 22D</h3>
+<a href="mailto:dev@o2s1.com">dev@o2s1.com</a>
+<p>Tell us the page name and what you want to change. A two-minute question beats a broken page.</p></div>
+</div></section><section class="band alt" id="glossary"><div class="wrap"><h2>Eight words, plainly</h2><div class="gloss"><div class="gitem"><b>Designer</b> — Webflow’s full editing app — canvas in the middle, panels on the sides.</div><div class="gitem"><b>Navigator</b> — The tree of every element on the page (press Z). All elements are labelled ✎ / ⚙ / 🔒 for you.</div><div class="gitem"><b>Edit mode (?update)</b> — A safe, content-only editing view of the live site. Add ?update to any page address.</div><div class="gitem"><b>Component</b> — A reusable block (Navbar, Footer, Buttons). Editing the component changes every copy of it.</div><div class="gitem"><b>CMS / Collection</b> — The site’s content database (Books, Courses, Blog Posts…). Items are edited as forms in the CMS panel.</div><div class="gitem"><b>Slug</b> — The last part of a URL (…/blog/kindness → “kindness”). Never change it on published content.</div><div class="gitem"><b>Publish</b> — The button that pushes your saved changes to the live site.</div><div class="gitem"><b>Alt text</b> — A one-line description of an image, read by screen readers and Google.</div></div></div></section>
+<footer class="gfoot"><div class="wrap">SOTSI Website Editing Guide · v2.0 · 2026-08-17 — prepared by 22D Marketing for the Seat of the Soul Institute.<br>
+This page is private (not indexed). Print it or save it as PDF any time.</div></footer>
+<dialog class="lb" id="lightbox"><button class="x" aria-label="Close">✕</button><img alt=""></dialog>
+<script>/* guide.js — progressive enhancement for the SOTSI Editing Guide.
+   No JS (or print/PDF) = every step visible, stacked. With JS = one step at a time. */
+(function () {
+  'use strict';
+  document.documentElement.classList.add('js-on');
 
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Menu link text/destination<span class="where">on the canvas</span></div><ol><li>Open the Navbar in the Designer (double-click it)</li><li>Double-click a link to edit its text; use Settings → link icon to change the destination</li><li>Remember: this changes ALL pages</li><li>Publish</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Don’t touch the grey CODE blocks inside it (menu behaviour, mobile menu)</li><li>Don’t add/remove menu items without 22D — the mobile menu is wired separately</li></ul></div>
-</div></details><details class="card" id="home--hero" data-diff="careful" data-search="01 · hero — slideshow (4 slides, auto-rotates) four full-screen slides that rotate every 12 s on the live site. each slide: photo + kicker + title + text + button.">
-<summary><span class="navname">01 · HERO — Slideshow (4 slides, auto-rotates)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="01 · HERO — Slideshow (4 slides, auto-rotates)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--hero.jpg" alt="01 · HERO — Slideshow (4 slides, auto-rotates) — live screenshot" data-full="img/home--hero.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Four full-screen slides that rotate every 12 s on the live site. Each slide: photo + kicker + title + text + button.</p>
-<p class="differs"><strong>Designer shows this differently:</strong> Shows all 4 slides stacked with orange “SLIDE N of 4” labels — the counter, arrows and dots appear as grey AUTO boxes.</p>
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Slide titles, kickers, texts<span class="where">on the canvas</span></div><ol><li>Double-click the text inside the slide you want</li><li>Keep the gold words inside their gold highlight</li><li>Publish and watch the live hero rotate</li></ol></div><div class="edit-row"><div class="edit-field">✎ Slide photos<span class="where">Settings panel</span></div><ol><li>Click the photo → Settings → Replace Image (large landscape photo)</li><li>Ask 22D to adjust the phone/tablet crop if needed</li></ol></div><div class="edit-row"><div class="edit-field">✎ Slide buttons (text + link)<span class="where">on the canvas</span></div><ol><li>Double-click the button text to edit it; link icon in Settings for the destination</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Slide 1’s buttons are hidden by design — leave them hidden</li><li>Don’t delete the AUTO overlay tints or the grey CODE embeds at the bottom of the section</li></ul></div>
-</div></details><details class="card" id="home--aspiration" data-diff="careful" data-search="02 · aspiration — animated headline “do you want a life of… meaning · creativity · joy” — three big animated rows over a wave animation.">
-<summary><span class="navname">02 · ASPIRATION — Animated headline</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="02 · ASPIRATION — Animated headline" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--aspiration.jpg" alt="02 · ASPIRATION — Animated headline — live screenshot" data-full="img/home--aspiration.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">“Do you want a life of… meaning · creativity · joy” — three big animated rows over a wave animation.</p>
-<p class="differs"><strong>Designer shows this differently:</strong> The wave canvas is empty in the Designer; the words don’t animate.</p>
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Intro line, 3 big words, 3 small tags<span class="where">on the canvas</span></div><ol><li>Double-click each ✎ row word/tag and type</li><li>Keep words short — they animate letter by letter on the live site</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Leave the AUTO wave canvas and veil alone</li></ul></div>
-</div></details><details class="card" id="home--statement" data-diff="easy" data-search="03 · statement — authentic power kicker + big headline + paragraph on the tide background.">
-<summary><span class="navname">03 · STATEMENT — Authentic Power</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="03 · STATEMENT — Authentic Power" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--statement.jpg" alt="03 · STATEMENT — Authentic Power — live screenshot" data-full="img/home--statement.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Kicker + big headline + paragraph on the tide background.</p>
+  /* ---------- step players ---------- */
+  document.querySelectorAll('.steps').forEach(function (list) {
+    var steps = Array.prototype.slice.call(list.querySelectorAll('.step'));
+    if (steps.length < 2) return;
+    list.classList.add('player');
+    var i = 0, all = false;
 
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ All three texts<span class="where">on the canvas</span></div><ol><li>Double-click and type</li><li>Publish</li></ol></div>
+    var ctrl = document.createElement('div'); ctrl.className = 'pctrl';
+    var prev = btn('‹ Back'), next = btn('Next ›');
+    var count = el('div', 'pcount');
+    var dots = el('div', 'pdots');
+    steps.forEach(function (_, n) {
+      var d = document.createElement('button'); d.className = 'pdot'; d.type = 'button';
+      d.setAttribute('aria-label', 'Go to step ' + (n + 1));
+      d.addEventListener('click', function () { i = n; render(); });
+      dots.appendChild(d);
+    });
+    var allBtn = document.createElement('button'); allBtn.type = 'button'; allBtn.className = 'pall';
+    allBtn.textContent = 'See all steps at once';
+    allBtn.addEventListener('click', function () {
+      all = !all; list.classList.toggle('player', !all);
+      allBtn.textContent = all ? 'Back to one step at a time' : 'See all steps at once';
+      ctrl.querySelectorAll('.pbtn,.pcount,.pdots').forEach(function (x) { x.style.visibility = all ? 'hidden' : 'visible'; });
+    });
+    prev.addEventListener('click', function () { if (i > 0) { i--; render(); } });
+    next.addEventListener('click', function () { if (i < steps.length - 1) { i++; render(); } });
+    ctrl.append(prev, count, next, dots, allBtn);
+    list.parentNode.insertBefore(ctrl, list.nextSibling);
 
-</div></details><details class="card" id="home--greeting" data-diff="careful" data-search="04 · greeting — video from gary &amp; linda the welcome video card. the video itself is loaded by code.">
-<summary><span class="navname">04 · GREETING — Video from Gary &amp; Linda</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="04 · GREETING — Video from Gary &amp; Linda" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--greeting.jpg" alt="04 · GREETING — Video from Gary &amp; Linda — live screenshot" data-full="img/home--greeting.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">The welcome video card. The video itself is loaded by code.</p>
-<p class="differs"><strong>Designer shows this differently:</strong> The video area shows an AUTO note in the Designer.</p>
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ “A greeting from” kicker and the names line<span class="where">on the canvas</span></div><ol><li>Double-click the text on the card overlay</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>The video file is managed by 22D — ask us to swap it</li><li>Don’t touch the play button or the AUTO stage</li></ul></div>
-</div></details><details class="card" id="home--consciousness" data-diff="careful" data-search="05 · consciousness — video statement full-width background video with headline, subheadline, text and a button.">
-<summary><span class="navname">05 · CONSCIOUSNESS — Video statement</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="05 · CONSCIOUSNESS — Video statement" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--consciousness.jpg" alt="05 · CONSCIOUSNESS — Video statement — live screenshot" data-full="img/home--consciousness.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Full-width background video with headline, subheadline, text and a button.</p>
-<p class="differs"><strong>Designer shows this differently:</strong> Background video loads live only (AUTO note in Designer).</p>
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Headline, subheadline, text, button<span class="where">on the canvas</span></div><ol><li>Double-click each ✎ text</li><li>Button: double-click text / Settings for link</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Background video = ask 22D</li></ul></div>
-</div></details><details class="card" id="home--tools" data-diff="careful" data-search="06 · tools — explore powerful tools kicker + wave-animated headline + script line + gold button.">
-<summary><span class="navname">06 · TOOLS — Explore powerful tools</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="06 · TOOLS — Explore powerful tools" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--tools.jpg" alt="06 · TOOLS — Explore powerful tools — live screenshot" data-full="img/home--tools.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Kicker + wave-animated headline + script line + gold button.</p>
+    function render() {
+      steps.forEach(function (s, n) { s.classList.toggle('on', n === i); });
+      Array.prototype.forEach.call(dots.children, function (d, n) { d.classList.toggle('on', n === i); });
+      count.textContent = 'Step ' + (i + 1) + ' of ' + steps.length;
+      prev.disabled = i === 0; next.disabled = i === steps.length - 1;
+    }
+    render();
+    function btn(t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'pbtn'; b.textContent = t; return b; }
+    function el(t, c) { var e = document.createElement(t); e.className = c; return e; }
+  });
 
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ All texts + the “Get the Tools” button<span class="where">Properties panel</span></div><ol><li>Texts: double-click</li><li>Button label/link: click the button once → Properties panel on the right</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>The headline animates word-by-word live — keep it one line</li></ul></div>
-</div></details><details class="card" id="home--event" data-diff="easy" data-search="07 · event — join gary live kicker, headline, statement, question line and the “learn how” button over animated waves.">
-<summary><span class="navname">07 · EVENT — Join Gary live</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="07 · EVENT — Join Gary live" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--event.jpg" alt="07 · EVENT — Join Gary live — live screenshot" data-full="img/home--event.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Kicker, headline, statement, question line and the “Learn How” button over animated waves.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ All texts + button<span class="where">Properties panel</span></div><ol><li>Texts: double-click</li><li>“Learn How” button: click once → Properties panel (Label + Link)</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>AUTO wave canvas stays</li></ul></div>
-</div></details><details class="card" id="home--books" data-diff="easy" data-search="08 · books — gary’s books headline, statement, script line, the covers image and the “get the books” button (goes to amazon).">
-<summary><span class="navname">08 · BOOKS — Gary’s books</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="08 · BOOKS — Gary’s books" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--books.jpg" alt="08 · BOOKS — Gary’s books — live screenshot" data-full="img/home--books.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Headline, statement, script line, the covers image and the “GET THE BOOKS” button (goes to Amazon).</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts, covers image, button<span class="where">Properties panel</span></div><ol><li>Texts: double-click</li><li>Covers image: click → Replace Image</li><li>Button: click once → Properties (Label + Link)</li></ol></div>
-
-</div></details><details class="card" id="home--courses" data-diff="careful" data-search="09 · courses — tools grid (cms, curated ×4) the four practice cards. card text and images come from the courses collection — the page only holds the kicker and headline.">
-<summary><span class="navname">09 · COURSES — Tools grid (CMS, curated ×4)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="09 · COURSES — Tools grid (CMS, curated ×4)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--courses.jpg" alt="09 · COURSES — Tools grid (CMS, curated ×4) — live screenshot" data-full="img/home--courses.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">The four practice cards. Card text and images come from the Courses collection — the page only holds the kicker and headline.</p>
-<p class="differs"><strong>Designer shows this differently:</strong> Cards show CMS placeholders in the Designer.</p>
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Kicker + headline<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div><div class="edit-row"><div class="edit-field">✎ Card titles/images<span class="where">CMS panel</span></div><ol><li>CMS panel → Courses → open the practice item → edit → Save → Publish item</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>The grid is pinned to these 4 items on purpose — new courses don’t appear here automatically (ask 22D to change the set)</li></ul></div>
-</div></details><details class="card" id="home--membership" data-diff="easy" data-search="10 · membership — soul to soul community photo band with kicker, headline, text and the “join the community” button.">
-<summary><span class="navname">10 · MEMBERSHIP — Soul to Soul Community</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="10 · MEMBERSHIP — Soul to Soul Community" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--membership.jpg" alt="10 · MEMBERSHIP — Soul to Soul Community — live screenshot" data-full="img/home--membership.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Photo band with kicker, headline, text and the “Join the Community” button.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts, background photo, button<span class="where">Properties panel</span></div><ol><li>Texts: double-click</li><li>Photo: click → Replace Image (wide landscape)</li><li>Button: click once → Properties</li></ol></div>
-
-</div></details><details class="card" id="home--stats" data-diff="careful" data-search="11 · stats — impact numbers (animated) four tiles: number + label. numbers count up from zero on the live site.">
-<summary><span class="navname">11 · STATS — Impact numbers (animated)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="11 · STATS — Impact numbers (animated)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--stats.jpg" alt="11 · STATS — Impact numbers (animated) — live screenshot" data-full="img/home--stats.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Four tiles: number + label. Numbers count up from zero on the live site.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Labels<span class="where">on the canvas</span></div><ol><li>Double-click and type</li></ol></div><div class="edit-row"><div class="edit-field">✎ Numbers<span class="where">Settings panel</span></div><ol><li>Double-click the number and type the new value</li><li>IMPORTANT: with the number selected, open Settings (D) → Custom attributes → set data-count to the same value (and data-suffix for things like “M+”)</li><li>If this feels fiddly, tell 22D the new number — 10-second fix</li></ol></div>
-
-</div></details><details class="card" id="home--instagram" data-diff="careful" data-search="12 · instagram — most viewed reels header + three reel cards (poster, title, link to instagram). a second “latest reels” row exists but is hidden and auto-fed.">
-<summary><span class="navname">12 · INSTAGRAM — Most viewed reels</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="12 · INSTAGRAM — Most viewed reels" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--instagram.jpg" alt="12 · INSTAGRAM — Most viewed reels — live screenshot" data-full="img/home--instagram.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Header + three reel cards (poster, title, link to Instagram). A second “latest reels” row exists but is hidden and auto-fed.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Header texts, the 3 posters/titles/links<span class="where">on the canvas</span></div><ol><li>Texts: double-click</li><li>Posters: click → Replace Image</li><li>Card links: click the card once → Settings → link</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Leave the hidden “latest reels” row hidden — it fills itself</li></ul></div>
-</div></details><details class="card" id="home--founders" data-diff="easy" data-search="13 · founders — gary &amp; linda kicker, names, paragraph, photo, avatars, and the meet gary / meet linda links.">
-<summary><span class="navname">13 · FOUNDERS — Gary &amp; Linda</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="13 · FOUNDERS — Gary &amp; Linda" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--founders.jpg" alt="13 · FOUNDERS — Gary &amp; Linda — live screenshot" data-full="img/home--founders.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Kicker, names, paragraph, photo, avatars, and the Meet Gary / Meet Linda links.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ All texts, photos, both links<span class="where">on the canvas</span></div><ol><li>Texts: double-click</li><li>Photos/avatars: click → Replace Image</li><li>Links: click once → Settings → link</li></ol></div>
-
-</div></details><details class="card" id="home--soulfeed" data-diff="locked" data-search="14 · soul feed — latest blog posts (cms, curated ×3) the three latest-post cards. they are pinned to posts that are managed in the 22d board.">
-<summary><span class="navname">14 · SOUL FEED — Latest blog posts (CMS, curated ×3)</span><span class="chip chip-locked" style="--c:#a33b3b">Locked</span>
-<button class="copy" data-copy="14 · SOUL FEED — Latest blog posts (CMS, curated ×3)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--soulfeed.jpg" alt="14 · SOUL FEED — Latest blog posts (CMS, curated ×3) — live screenshot" data-full="img/home--soulfeed.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">The three latest-post cards. They are pinned to posts that are managed in the 22D board.</p>
-<p class="differs"><strong>Designer shows this differently:</strong> Cards show CMS placeholders.</p>
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Kicker, headline, deck, “All posts” link<span class="where">on the canvas</span></div><ol><li>Only the section header texts are yours — double-click</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Don’t edit the post cards or the posts behind them here — posts belong to the 22D board (the next sync overwrites Webflow edits)</li><li>Want different featured posts? Ask 22D</li></ul></div>
-</div></details><details class="card" id="home--bigcta" data-diff="easy" data-search="15 · big cta — ready to create authentic power? closing photo band with headline and the “start your journey” button.">
-<summary><span class="navname">15 · BIG CTA — Ready to create authentic power?</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="15 · BIG CTA — Ready to create authentic power?" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--bigcta.jpg" alt="15 · BIG CTA — Ready to create authentic power? — live screenshot" data-full="img/home--bigcta.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Closing photo band with headline and the “Start Your Journey” button.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Headline, photo, button<span class="where">Properties panel</span></div><ol><li>Headline: double-click</li><li>Photo: click → Replace Image</li><li>Button: click once → Properties</li></ol></div>
-
-</div></details><details class="card" id="home--footer" data-diff="careful" data-search="footer — shared, edits affect all pages site footer: 4 action buttons (sign up, book gary zukav, view opportunities…), link columns, social icons, search box.">
-<summary><span class="navname">FOOTER — shared, edits affect ALL pages</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="FOOTER — shared, edits affect ALL pages" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/home--footer.jpg" alt="FOOTER — shared, edits affect ALL pages — live screenshot" data-full="img/home--footer.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Site footer: 4 action buttons (Sign Up, Book Gary Zukav, View Opportunities…), link columns, social icons, search box.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Button labels/links<span class="where">Properties panel</span></div><ol><li>Click a footer button once → Properties (Label + Link)</li><li>Changes apply on every page</li></ol></div><div class="edit-row"><div class="edit-field">✎ Column links, social links<span class="where">on the canvas</span></div><ol><li>Double-click text; Settings → link for destinations</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Leave the search box and the grey CODE block alone (search + validation wiring)</li></ul></div>
-</div></details>
-</article></section><section class="band group-band"><h2 class="group-title">Get Started &amp; About</h2><article class="page" id="get-started" data-group="Get Started &amp; About">
-<header class="page-head"><h3>Get Started</h3>
-<a class="live" href="https://proposal-03.webflow.io/get-started" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">The guided path page: hero, animated word wave, statement, founders band, then six “offer” rows (newsletter, guidelines, handout, books, event, course). All numbered in the Navigator.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/get-started--top.jpg" data-full="img/get-started--full.jpg" alt="Get Started — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="get-started--hero" data-diff="easy" data-search="01 · hero — get started title + intro copy.">
-<summary><span class="navname">01 · HERO — Get Started</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="01 · HERO — Get Started" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--hero.jpg" alt="01 · HERO — Get Started — live screenshot" data-full="img/get-started--hero.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Title + intro copy.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts<span class="where">on the canvas</span></div><ol><li>Double-click and type</li></ol></div>
-
-</div></details><details class="card" id="get-started--kinetic" data-diff="careful" data-search="02 · kinetic — animated word wave the big “resources &amp; courses / events &amp; community” word animation.">
-<summary><span class="navname">02 · KINETIC — Animated word wave</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="02 · KINETIC — Animated word wave" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--kinetic.jpg" alt="02 · KINETIC — Animated word wave — live screenshot" data-full="img/get-started--kinetic.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">The big “resources &amp; courses / events &amp; community” word animation.</p>
-<p class="differs"><strong>Designer shows this differently:</strong> Words sit static in the Designer; they slide in live.</p>
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ The words<span class="where">on the canvas</span></div><ol><li>Double-click a word; keep them short</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Don’t touch the two CODE embeds that drive this animation</li></ul></div>
-</div></details><details class="card" id="get-started--statement" data-diff="easy" data-search="03 · statement — “to help guide you…” big statement text.">
-<summary><span class="navname">03 · STATEMENT — “To help guide you…”</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="03 · STATEMENT — “To help guide you…”" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--statement.jpg" alt="03 · STATEMENT — “To help guide you…” — live screenshot" data-full="img/get-started--statement.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Big statement text.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Text<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div>
-
-</div></details><details class="card" id="get-started--founders" data-diff="easy" data-search="04 · founders — gary &amp; linda band photo + short copy.">
-<summary><span class="navname">04 · FOUNDERS — Gary &amp; Linda band</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="04 · FOUNDERS — Gary &amp; Linda band" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--founders.jpg" alt="04 · FOUNDERS — Gary &amp; Linda band — live screenshot" data-full="img/get-started--founders.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Photo + short copy.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts + photo<span class="where">on the canvas</span></div><ol><li>Double-click texts; click photo → Replace Image</li></ol></div>
-
-</div></details><details class="card" id="get-started--ready" data-diff="easy" data-search="05 · ready — “ready to move forward?” bridge row introducing the offers.">
-<summary><span class="navname">05 · READY — “Ready to move forward?”</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="05 · READY — “Ready to move forward?”" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--ready.jpg" alt="05 · READY — “Ready to move forward?” — live screenshot" data-full="img/get-started--ready.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Bridge row introducing the offers.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div>
-
-</div></details><details class="card" id="get-started--offer-newsletter" data-diff="easy" data-search="06 · offer — soul connections newsletter newsletter offer row with the “get the newsletter” button.">
-<summary><span class="navname">06 · OFFER — Soul Connections Newsletter</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="06 · OFFER — Soul Connections Newsletter" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--offer-newsletter.jpg" alt="06 · OFFER — Soul Connections Newsletter — live screenshot" data-full="img/get-started--offer-newsletter.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Newsletter offer row with the “Get the Newsletter” button.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts + button (Properties)<span class="where">Properties panel</span></div><ol><li>Texts: double-click · Button: click once → Properties</li></ol></div>
-
-</div></details><details class="card" id="get-started--offer-apg" data-diff="easy" data-search="07 · offer — authentic power guidelines apg offer row with the “start your journey” button.">
-<summary><span class="navname">07 · OFFER — Authentic Power Guidelines</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="07 · OFFER — Authentic Power Guidelines" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--offer-apg.jpg" alt="07 · OFFER — Authentic Power Guidelines — live screenshot" data-full="img/get-started--offer-apg.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">APG offer row with the “Start Your Journey” button.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts + button (Properties)<span class="where">Properties panel</span></div><ol><li>Same pattern as above</li></ol></div>
-
-</div></details><details class="card" id="get-started--offer-lovefear" data-diff="easy" data-search="08 · offer — love &amp; fear basics handout offer row with the “get the handout” button.">
-<summary><span class="navname">08 · OFFER — Love &amp; Fear Basics</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="08 · OFFER — Love &amp; Fear Basics" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--offer-lovefear.jpg" alt="08 · OFFER — Love &amp; Fear Basics — live screenshot" data-full="img/get-started--offer-lovefear.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Handout offer row with the “Get the Handout” button.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts + button (Properties)<span class="where">Properties panel</span></div><ol><li>Same pattern</li></ol></div>
-
-</div></details><details class="card" id="get-started--offer-books" data-diff="easy" data-search="09 · offer — read: gary’s books two book cards with “buy now” buttons (amazon).">
-<summary><span class="navname">09 · OFFER — Read: Gary’s books</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="09 · OFFER — Read: Gary’s books" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--offer-books.jpg" alt="09 · OFFER — Read: Gary’s books — live screenshot" data-full="img/get-started--offer-books.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Two book cards with “Buy Now” buttons (Amazon).</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts + both Buy Now buttons (Properties)<span class="where">Properties panel</span></div><ol><li>Same pattern — the Amazon links live in the button Properties</li></ol></div>
-
-</div></details><details class="card" id="get-started--offer-event" data-diff="easy" data-search="10 · offer — journey to the soul (event) event offer row with the “learn more” button.">
-<summary><span class="navname">10 · OFFER — Journey to the Soul (event)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="10 · OFFER — Journey to the Soul (event)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--offer-event.jpg" alt="10 · OFFER — Journey to the Soul (event) — live screenshot" data-full="img/get-started--offer-event.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Event offer row with the “Learn More” button.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts + button (Properties)<span class="where">Properties panel</span></div><ol><li>Same pattern</li></ol></div>
-
-</div></details><details class="card" id="get-started--offer-course" data-diff="easy" data-search="11 · offer — beyond the five senses (course) course offer row with a “buy now” button.">
-<summary><span class="navname">11 · OFFER — Beyond the Five Senses (course)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="11 · OFFER — Beyond the Five Senses (course)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/get-started--offer-course.jpg" alt="11 · OFFER — Beyond the Five Senses (course) — live screenshot" data-full="img/get-started--offer-course.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Course offer row with a “Buy Now” button.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts + button (Properties)<span class="where">Properties panel</span></div><ol><li>Same pattern</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>The 6 grey CODE embeds on this page (reveals, kinetic, glow, media) stay untouched</li></ul></div>
-</div></details>
-</article><article class="page" id="about-sotsi" data-group="Get Started &amp; About">
-<header class="page-head"><h3>About SOTSI</h3>
-<a class="live" href="https://proposal-03.webflow.io/about/seat-of-the-soul-institute" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Story of the Institute: hero, mission copy, video band, closing button.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/about-sotsi--top.jpg" data-full="img/about-sotsi--full.jpg" alt="About SOTSI — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="about-sotsi--page" data-diff="easy" data-search="(page) text page with video accents.">
-<summary><span class="navname">(page)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/about-sotsi--full.jpg" alt="(page) — live screenshot" data-full="img/about-sotsi--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Text page with video accents.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ All headings and paragraphs<span class="where">on the canvas</span></div><ol><li>Double-click any text</li><li>Closing button: click once → Properties</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Video/wave areas are AUTO (managed by 22D)</li><li>A FAQ block exists but is intentionally hidden — leave it hidden</li></ul></div>
-</div></details>
-</article><article class="page" id="about-gary" data-group="Get Started &amp; About">
-<header class="page-head"><h3>About Gary Zukav</h3>
-<a class="live" href="https://proposal-03.webflow.io/about-gary-zukav" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Gary’s biography page.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/about-gary--top.jpg" data-full="img/about-gary--full.jpg" alt="About Gary Zukav — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="about-gary--page" data-diff="easy" data-search="(page) bio text, photos, video band.">
-<summary><span class="navname">(page)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/about-gary--full.jpg" alt="(page) — live screenshot" data-full="img/about-gary--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Bio text, photos, video band.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts and photos<span class="where">on the canvas</span></div><ol><li>Double-click texts; click photos → Replace Image</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Hidden FAQ block stays hidden</li><li>Video areas are AUTO</li></ul></div>
-</div></details>
-</article><article class="page" id="about-linda" data-group="Get Started &amp; About">
-<header class="page-head"><h3>About Linda Francis</h3>
-<a class="live" href="https://proposal-03.webflow.io/about-linda-francis" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Linda’s biography page.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/about-linda--top.jpg" data-full="img/about-linda--full.jpg" alt="About Linda Francis — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="about-linda--page" data-diff="easy" data-search="(page) bio text and photos.">
-<summary><span class="navname">(page)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/about-linda--full.jpg" alt="(page) — live screenshot" data-full="img/about-linda--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Bio text and photos.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts and photos<span class="where">on the canvas</span></div><ol><li>Double-click texts; click photos → Replace Image</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Video areas are AUTO</li></ul></div>
-</div></details>
-</article><article class="page" id="remember-linda" data-group="Get Started &amp; About">
-<header class="page-head"><h3>In Celebration of Linda Francis</h3>
-<a class="live" href="https://proposal-03.webflow.io/remember-linda-homepage" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Memorial page with a Vimeo video and a photo masonry.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/remember-linda--top.jpg" data-full="img/remember-linda--full.jpg" alt="In Celebration of Linda Francis — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="remember-linda--page" data-diff="careful" data-search="(page) texts, photo grid, video.">
-<summary><span class="navname">(page)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/remember-linda--full.jpg" alt="(page) — live screenshot" data-full="img/remember-linda--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Texts, photo grid, video.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts and masonry photos<span class="where">on the canvas</span></div><ol><li>Double-click texts; click a photo → Replace Image</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>The video is embedded from Vimeo — it won’t play on this staging address (known issue); it works on the final domain</li></ul></div>
-</div></details>
-</article><article class="page" id="lf-series" data-group="Get Started &amp; About">
-<header class="page-head"><h3>Celebration Series — Messages</h3>
-<a class="live" href="https://proposal-03.webflow.io/linda-francis-celebration-series-messages" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Eleven letters with a side navigation rail.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/lf-series--top.jpg" data-full="img/lf-series--full.jpg" alt="Celebration Series — Messages — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="lf-series--page" data-diff="easy" data-search="(page) long-form letters.">
-<summary><span class="navname">(page)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/lf-series--full.jpg" alt="(page) — live screenshot" data-full="img/lf-series--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Long-form letters.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Letter texts<span class="where">on the canvas</span></div><ol><li>Double-click and edit — the side rail updates itself</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>The scroll-spy rail is AUTO</li></ul></div>
-</div></details>
-</article></section><section class="band group-band"><h2 class="group-title">Programs &amp; Shop</h2><article class="page" id="evening" data-group="Programs &amp; Shop">
-<header class="page-head"><h3>Evening with Gary (landing)</h3>
-<a class="live" href="https://proposal-03.webflow.io/evening-with-gary" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Standalone event landing (no navbar/footer) with a starfield background.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/evening--top.jpg" data-full="img/evening--full.jpg" alt="Evening with Gary (landing) — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="evening--page" data-diff="easy" data-search="(page) event copy, dates, cta.">
-<summary><span class="navname">(page)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/evening--full.jpg" alt="(page) — live screenshot" data-full="img/evening--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Event copy, dates, CTA.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ All texts + CTA<span class="where">on the canvas</span></div><ol><li>Double-click texts; CTA link via Settings</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Starfield background is AUTO</li><li>This page intentionally has NO navbar/footer — don’t add them</li></ul></div>
-</div></details>
-</article><article class="page" id="shop" data-group="Programs &amp; Shop">
-<header class="page-head"><h3>Soul Store (/shop)</h3>
-<a class="live" href="https://proposal-03.webflow.io/shop" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">One static “Evening with Gary” card + course cards fed by the Courses collection.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Partly — texts yes; anything ⚙/🔒 no.</p>
-<figure class="pageshot"><img loading="lazy" src="img/shop--top.jpg" data-full="img/shop--full.jpg" alt="Soul Store (/shop) — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="shop--page" data-diff="careful" data-search="(page) banner, intro, offer cards.">
-<summary><span class="navname">(page)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/shop--full.jpg" alt="(page) — live screenshot" data-full="img/shop--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Banner, intro, offer cards.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Banner texts + the static Evening card<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div><div class="edit-row"><div class="edit-field">✎ Course cards (text, button label, enroll link)<span class="where">CMS panel</span></div><ol><li>CMS panel → Courses → edit the item → Save → Publish item</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Card ‘Monthly/Self-paced’ tags are finished by code — edit the base text in the CMS only</li></ul></div>
-</div></details>
-</article><article class="page" id="books" data-group="Programs &amp; Shop">
-<header class="page-head"><h3>Books (/books)</h3>
-<a class="live" href="https://proposal-03.webflow.io/books" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Hero with a wave video + “The Vault”: 12 3-D book cards from the Books collection.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Partly — texts yes; anything ⚙/🔒 no.</p>
-<figure class="pageshot"><img loading="lazy" src="img/books--top.jpg" data-full="img/books--full.jpg" alt="Books (/books) — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="books--page" data-diff="careful" data-search="(page) hero texts + cms-fed shelf.">
-<summary><span class="navname">(page)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/books--full.jpg" alt="(page) — live screenshot" data-full="img/books--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Hero texts + CMS-fed shelf.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Hero texts<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div><div class="edit-row"><div class="edit-field">✎ Each book (title, description, cover, Buy Now link)<span class="where">CMS panel</span></div><ol><li>CMS panel → Books → edit → Save → Publish item</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Hero video is AUTO</li><li>The hidden slug blocks inside each card are SENSORS — never delete</li></ul></div>
-</div></details>
-</article><article class="page" id="universal-human" data-group="Programs &amp; Shop">
-<header class="page-head"><h3>Universal Human</h3>
-<a class="live" href="https://proposal-03.webflow.io/universalhuman" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Book/program page with warm styling and Oprah panel.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/universal-human--top.jpg" data-full="img/universal-human--full.jpg" alt="Universal Human — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="universal-human--page" data-diff="easy" data-search="(page) editorial page.">
-<summary><span class="navname">(page)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/universal-human--full.jpg" alt="(page) — live screenshot" data-full="img/universal-human--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Editorial page.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts, photos, buttons<span class="where">on the canvas</span></div><ol><li>Double-click texts; buttons via Properties</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>One legacy embed contains script — untouchable (grey)</li></ul></div>
-</div></details>
-</article></section><section class="band group-band"><h2 class="group-title">Blog &amp; Deepcast (automatic)</h2><article class="page" id="blog" data-group="Blog &amp; Deepcast (automatic)">
-<header class="page-head"><h3>Blog — Soul Feed (/blog)</h3>
-<a class="live" href="https://proposal-03.webflow.io/blog" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Hero + Editor’s Picks + the full post directory. Everything below the hero is loaded by code from the 22D board.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> No — this page is automatic; there is nothing to edit in Edit mode.</p>
-<figure class="pageshot"><img loading="lazy" src="img/blog--top.jpg" data-full="img/blog--full.jpg" alt="Blog — Soul Feed (/blog) — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="blog--page" data-diff="locked" data-search="(page) automatic page.">
-<summary><span class="navname">(page)</span><span class="chip chip-locked" style="--c:#a33b3b">Locked</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/blog--full.jpg" alt="(page) — live screenshot" data-full="img/blog--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Automatic page.</p>
-<p class="differs"><strong>Designer shows this differently:</strong> The directory shows dashed AUTO boxes in the Designer.</p>
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Hero headline &amp; intro only<span class="where">on the canvas</span></div><ol><li>Double-click the hero texts</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Posts are written and published in the 22D board — never here</li><li>Never touch the hidden ‘LEGACY/sensor’ block or the grey CODE embeds</li></ul></div>
-</div></details>
-</article><article class="page" id="deepcast" data-group="Blog &amp; Deepcast (automatic)">
-<header class="page-head"><h3>Deepcast (/deepcast)</h3>
-<a class="live" href="https://proposal-03.webflow.io/deepcast" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Show page: hero, trailer, about copy, platform badges, the 187-episode directory (automatic), newsletter form.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Partly — texts yes; anything ⚙/🔒 no.</p>
-<figure class="pageshot"><img loading="lazy" src="img/deepcast--top.jpg" data-full="img/deepcast--full.jpg" alt="Deepcast (/deepcast) — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="deepcast--page" data-diff="careful" data-search="(page) editorial copy is yours; the directory is automatic.">
-<summary><span class="navname">(page)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/deepcast--full.jpg" alt="(page) — live screenshot" data-full="img/deepcast--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Editorial copy is yours; the directory is automatic.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ About/Welcome texts, badges’ links<span class="where">on the canvas</span></div><ol><li>Double-click texts</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Episode list, marquee and toolbar are AUTO (synced from YouTube by 22D)</li><li>The hidden sensor block stays</li><li>Trailer video loads live only</li></ul></div>
-</div></details>
-</article><article class="page" id="sotsi-search" data-group="Blog &amp; Deepcast (automatic)">
-<header class="page-head"><h3>Search (/sotsi-search)</h3>
-<a class="live" href="https://proposal-03.webflow.io/sotsi-search" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">The site search page — fully automatic.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> No — this page is automatic; there is nothing to edit in Edit mode.</p>
-<figure class="pageshot"><img loading="lazy" src="img/sotsi-search--top.jpg" data-full="img/sotsi-search--full.jpg" alt="Search (/sotsi-search) — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="sotsi-search--page" data-diff="locked" data-search="(page) search ui + results, all code.">
-<summary><span class="navname">(page)</span><span class="chip chip-locked" style="--c:#a33b3b">Locked</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/sotsi-search--full.jpg" alt="(page) — live screenshot" data-full="img/sotsi-search--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Search UI + results, all code.</p>
-
-<h5>You can edit</h5>
-<p class="none">Nothing on this page is meant to be edited.</p>
-<div class="donot"><h5>Do not touch</h5><ul><li>Nothing to edit here — it’s labelled in the Designer too</li></ul></div>
-</div></details>
-</article></section><section class="band group-band"><h2 class="group-title">Forms &amp; Opt-ins</h2><article class="page" id="waitlist" data-group="Forms &amp; Opt-ins">
-<header class="page-head"><h3>Event Waitlist</h3>
-<a class="live" href="https://proposal-03.webflow.io/event-waitlist-journey-to-the-soul" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Waitlist form page (connected to the email system).</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/waitlist--top.jpg" data-full="img/waitlist--full.jpg" alt="Event Waitlist — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="waitlist--page" data-diff="careful" data-search="(page) copy + a live form.">
-<summary><span class="navname">(page)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/waitlist--full.jpg" alt="(page) — live screenshot" data-full="img/waitlist--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Copy + a live form.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Headings and copy<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Don’t change the form fields’ names or delete the form — it feeds ActiveCampaign</li><li>Grey CODE embeds stay</li></ul></div>
-</div></details>
-</article><article class="page" id="newsletter" data-group="Forms &amp; Opt-ins">
-<header class="page-head"><h3>Soul Connections Newsletter</h3>
-<a class="live" href="https://proposal-03.webflow.io/soul-connections-newsletter" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Newsletter opt-in with video hero.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/newsletter--top.jpg" data-full="img/newsletter--full.jpg" alt="Soul Connections Newsletter — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="newsletter--page" data-diff="careful" data-search="(page) copy + form.">
-<summary><span class="navname">(page)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/newsletter--full.jpg" alt="(page) — live screenshot" data-full="img/newsletter--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Copy + form.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Form wiring (ActiveCampaign) — don’t rename fields</li></ul></div>
-</div></details>
-</article><article class="page" id="apg" data-group="Forms &amp; Opt-ins">
-<header class="page-head"><h3>Authentic Power Guidelines (opt-in)</h3>
-<a class="live" href="https://proposal-03.webflow.io/apg-optin" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">APG download opt-in.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/apg--top.jpg" data-full="img/apg--full.jpg" alt="Authentic Power Guidelines (opt-in) — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="apg--page" data-diff="careful" data-search="(page) copy + form.">
-<summary><span class="navname">(page)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/apg--full.jpg" alt="(page) — live screenshot" data-full="img/apg--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Copy + form.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Form wiring — don’t rename fields</li></ul></div>
-</div></details>
-</article><article class="page" id="love-fear" data-group="Forms &amp; Opt-ins">
-<header class="page-head"><h3>Love &amp; Fear (opt-in)</h3>
-<a class="live" href="https://proposal-03.webflow.io/love-fear" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Handout opt-in.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/love-fear--top.jpg" data-full="img/love-fear--full.jpg" alt="Love &amp; Fear (opt-in) — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="love-fear--page" data-diff="careful" data-search="(page) copy + form.">
-<summary><span class="navname">(page)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/love-fear--full.jpg" alt="(page) — live screenshot" data-full="img/love-fear--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Copy + form.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Form wiring — don’t rename fields</li></ul></div>
-</div></details>
-</article></section><section class="band group-band"><h2 class="group-title">Legal &amp; Misc</h2><article class="page" id="essay-ai" data-group="Legal &amp; Misc">
-<header class="page-head"><h3>Essay — AI &amp; Human Evolution</h3>
-<a class="live" href="https://proposal-03.webflow.io/ai-and-human-evolution" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Long-form essay.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/essay-ai--top.jpg" data-full="img/essay-ai--full.jpg" alt="Essay — AI &amp; Human Evolution — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="essay-ai--page" data-diff="easy" data-search="(page) prose + share row.">
-<summary><span class="navname">(page)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/essay-ai--full.jpg" alt="(page) — live screenshot" data-full="img/essay-ai--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Prose + share row.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Essay text<span class="where">on the canvas</span></div><ol><li>Double-click paragraphs</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Aurora background + share-row wiring are CODE</li></ul></div>
-</div></details>
-</article><article class="page" id="essay-gov" data-group="Legal &amp; Misc">
-<header class="page-head"><h3>Essay — Failing Governments</h3>
-<a class="live" href="https://proposal-03.webflow.io/failing-government" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Long-form essay.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/essay-gov--top.jpg" data-full="img/essay-gov--full.jpg" alt="Essay — Failing Governments — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="essay-gov--page" data-diff="easy" data-search="(page) prose + share row.">
-<summary><span class="navname">(page)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/essay-gov--full.jpg" alt="(page) — live screenshot" data-full="img/essay-gov--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Prose + share row.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Essay text<span class="where">on the canvas</span></div><ol><li>Double-click paragraphs</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Same as the AI essay</li></ul></div>
-</div></details>
-</article><article class="page" id="careers" data-group="Legal &amp; Misc">
-<header class="page-head"><h3>Career Opportunities</h3>
-<a class="live" href="https://proposal-03.webflow.io/seat-of-the-soul-career-opportunities" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Careers page (currently mirrors the original WordPress banner styling).</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-<figure class="pageshot"><img loading="lazy" src="img/careers--top.jpg" data-full="img/careers--full.jpg" alt="Career Opportunities — top of page"><figcaption>Top of the live page — click to see the whole page</figcaption></figure>
-<details class="card" id="careers--page" data-diff="easy" data-search="(page) copy page.">
-<summary><span class="navname">(page)</span><span class="chip chip-easy" style="--c:#3c7a4e">Easy</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/careers--full.jpg" alt="(page) — live screenshot" data-full="img/careers--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Copy page.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Texts<span class="where">on the canvas</span></div><ol><li>Double-click</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>The banner restyle lives in one reversible CODE embed — leave it</li></ul></div>
-</div></details>
-</article><article class="page" id="legal" data-group="Legal &amp; Misc">
-<header class="page-head"><h3>Privacy · Terms · Refund</h3>
-<a class="live" href="https://proposal-03.webflow.io/privacy-policy" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">Three legal pages with the full WordPress prose.</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> Yes — most of this page is safe in Edit mode (?update).</p>
-
-<details class="card" id="legal--page" data-diff="careful" data-search="(page) legal text.">
-<summary><span class="navname">(page)</span><span class="chip chip-careful" style="--c:#b8924a">Careful</span>
-<button class="copy" data-copy="(page)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/privacy--full.jpg" alt="(page) — live screenshot" data-full="img/privacy--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">Legal text.</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ The prose<span class="where">on the canvas</span></div><ol><li>Double-click and edit</li><li>Update the “last updated” date when you change anything</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Keep the section anchors intact — the cookie banner links straight to Privacy section 5</li></ul></div>
-</div></details>
-</article></section><section class="band group-band"><h2 class="group-title">Detail page templates</h2><article class="page" id="templates" data-group="Detail page templates">
-<header class="page-head"><h3>Detail templates (blog post · episode · book · course)</h3>
-<a class="live" href="https://proposal-03.webflow.io/blog/kindness" target="_blank" rel="noreferrer noopener">Open live ↗</a></header>
-<p class="page-summary">One shared layout per collection renders every item page (e.g. every /blog/… post uses the Blog Post Template).</p>
-<p class="editmode"><strong>Safe in Edit mode?</strong> No — this page is automatic; there is nothing to edit in Edit mode.</p>
-
-<details class="card" id="templates--page" data-diff="locked" data-search="(template) the layout is shared: an edit here changes hundreds of pages at once. the content comes from the cms item (or the 22d board for posts).">
-<summary><span class="navname">(template)</span><span class="chip chip-locked" style="--c:#a33b3b">Locked</span>
-<button class="copy" data-copy="(template)" title="Copy the exact Navigator name">Copy name</button></summary>
-<div class="card-body">
-<figure class="shot"><img loading="lazy" src="img/blog-post--full.jpg" alt="(template) — live screenshot" data-full="img/blog-post--full.jpg"><figcaption>Live site</figcaption></figure>
-<p class="what">The LAYOUT is shared: an edit here changes hundreds of pages at once. The CONTENT comes from the CMS item (or the 22D board for posts).</p>
-
-<h5>You can edit</h5>
-<div class="edit-row"><div class="edit-field">✎ Book/Course content<span class="where">CMS panel</span></div><ol><li>Edit the item in the CMS panel, not the template</li></ol></div><div class="edit-row"><div class="edit-field">✎ Blog post content<span class="where">22D board</span></div><ol><li>Edit in the 22D board → Update on Website</li></ol></div>
-<div class="donot"><h5>Do not touch</h5><ul><li>Never edit template layouts without 22D</li><li>The hidden data blocks (bp_data/ep_data/…) are SENSORS — the page scripts read them in order</li></ul></div>
-</div></details>
-</article></section>
-<section class="band" id="cms"><h2>The CMS — what belongs where</h2>
-<div class="tablewrap"><table><thead><tr><th>Collection</th><th>Edit where</th><th>Notes</th></tr></thead><tbody><tr><td>Books (12)</td><td class="src-webflow">Webflow CMS panel — yours to edit</td><td>Fully yours: title, description, cover, publisher, ISBN, Buy Now link. Edit in the CMS panel and publish the item.</td></tr><tr><td>Courses (8)</td><td class="src-webflow">Webflow CMS panel — yours to edit</td><td>Card text, summary, button label and enroll link. The Home “tools” grid and the Shop page read from here.</td></tr><tr><td>Blog Posts (≈96)</td><td class="src-board">22D board — never edit in Webflow</td><td>Managed in the 22D board — write, edit, choose the cover and publish from there. Direct Webflow edits get overwritten by the next sync. Field notes inside the CMS repeat this warning.</td></tr><tr><td>Deepcast Episodes (187)</td><td class="src-ask22d">Automatic (22D pipeline) — ask us</td><td>Synced automatically from YouTube by 22D’s pipeline. If a title or description looks wrong, tell 22D — a manual edit here is overwritten on the next import.</td></tr><tr><td>Blog Categories (37)</td><td class="src-ask22d">Automatic (22D pipeline) — ask us</td><td>Internal taxonomy used by the blog. Leave as is.</td></tr></tbody></table></div>
-<p>Open the CMS with the database icon (<kbd>F</kbd>). Every field shows a helper note; the ⚠ ones repeat the warnings above right where you’d be typing.</p></section>
-<section class="band" id="trouble"><h2>Troubleshooting</h2><details class="card faq"><summary><span class="navname">A page looks empty, grey, or ‘broken’ in the Designer.</span></summary><div class="card-body"><p>Expected. The dashed AUTO boxes (blog directory, episodes, search, videos, waves) are filled by code on the live site only. See “Why the Designer looks different”.</p></div></details><details class="card faq"><summary><span class="navname">The Home hero shows all four slides at once.</span></summary><div class="card-body"><p>Only in the Designer — on purpose, so you can edit each slide. The live site rotates them one at a time.</p></div></details><details class="card faq"><summary><span class="navname">I edited a blog post in Webflow and it reverted.</span></summary><div class="card-body"><p>Blog posts are managed in the 22D board; the next sync overwrites Webflow edits. Make the change in the board and click “Update on Website”.</p></div></details><details class="card faq"><summary><span class="navname">I changed a stat number and the live site still shows the old one.</span></summary><div class="card-body"><p>Stat numbers animate up to a value stored in a custom attribute (data-count). Edit the visible number AND update data-count in the Settings panel — or ask 22D.</p></div></details><details class="card faq"><summary><span class="navname">My change doesn’t show on the live site.</span></summary><div class="card-body"><p>Did you click Publish? If yes, hard-refresh the live page (Cmd/Ctrl+Shift+R). If still missing, publish once more — it occasionally needs a second try.</p></div></details><details class="card faq"><summary><span class="navname">I deleted something by accident.</span></summary><div class="card-body"><p>Cmd/Ctrl+Z immediately. If it’s too late, Site settings → Backups → preview → Restore.</p></div></details><details class="card faq"><summary><span class="navname">A form, video or feed stopped working after my edit.</span></summary><div class="card-body"><p>You may have touched a 🔒 element. Undo your change and tell 22D what happened — restoring is quick.</p></div></details>
-<h3>Known quirks (not bugs you caused)</h3><ul class="issues"><li>On phones and tablets, the cookie banner covers the hero slide dots until the visitor accepts or declines it.</li><li>The video on “In Celebration of Linda Francis” is blocked on the staging domain (Vimeo whitelist) — it will work on the final domain.</li><li>The Designer’s Preview (eye icon) does not load this site’s effects either — the hero looks stacked/overlapping there. That’s expected; judge on the published site.</li></ul></section>
-<section class="band" id="glossary"><h2>Glossary</h2><dl class="glossary"><div class="g"><dt>Designer</dt><dd>Webflow’s full editing app — canvas in the middle, panels on the sides.</dd></div><div class="g"><dt>Canvas</dt><dd>The page preview you click and edit in the Designer.</dd></div><div class="g"><dt>Navigator</dt><dd>The tree of every element on the page (press Z). All elements are labelled ✎ / ⚙ / 🔒 for you.</dd></div><div class="g"><dt>Edit mode (?update)</dt><dd>A safe, content-only editing view of the live site. Add ?update to any page address.</dd></div><div class="g"><dt>Component</dt><dd>A reusable block (Navbar, Footer, Buttons). Editing the component changes every copy of it.</dd></div><div class="g"><dt>Properties panel</dt><dd>The small panel that appears when you select a shared Button — edit its Label and Link there.</dd></div><div class="g"><dt>CMS / Collection</dt><dd>The site’s content database (Books, Courses, Blog Posts…). Items are edited as forms in the CMS panel.</dd></div><div class="g"><dt>Slug</dt><dd>The last part of a URL (…/blog/kindness → “kindness”). Never change it on published content.</dd></div><div class="g"><dt>Publish</dt><dd>The button that pushes your saved changes to the live site.</dd></div><div class="g"><dt>Alt text</dt><dd>A one-line description of an image, read by screen readers and Google.</dd></div></dl>
-<p class="meta">Need anything not covered here — a layout change, a new section, a stubborn edit? Email <a href="mailto:dev@o2s1.com">dev@o2s1.com</a> with the page name and a screenshot. We’ll take it from there.</p></section>
-<section class="band" id="legend-print"><h2>Legend card (print me)</h2><div class="legend"><div class="leg"><span class="leg-mark">✎</span><div><strong>Editable</strong><p>Yours to edit — text, photos, links. Double-click text on the canvas to edit it.</p></div></div><div class="leg"><span class="leg-mark">⚙</span><div><strong>Automatic</strong><p>Filled automatically on the live site (by code or by the CMS). It may look empty or grey in the Designer — that is normal. ⚙ CMS items are edited in the CMS panel, not on the page.</p></div></div><div class="leg"><span class="leg-mark">🔒</span><div><strong>Locked</strong><p>Never edit, delete, or un-hide. 🔒 CODE = the site’s wiring. 🔒 BOARD = blog content that lives in the 22D board. 🔒 SENSOR = hidden blocks other parts of the site depend on.</p></div></div></div></section>
-<p class="meta" style="margin-top:30px">SOTSI Website Editing Guide · v1.0 · generated 2026-08-17 · 22D Marketing · this page is private (noindex)</p>
-</main></div>
-<dialog id="lightbox"><img alt="Enlarged screenshot"></dialog>
-<script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ");
-const cards=$$("details.card");
-function applyFilter(){
-  const q=norm($("#q").value||"");
-  const active=$$(".fbtn[data-diff]").filter(b=>b.getAttribute("aria-pressed")==="true").map(b=>b.dataset.diff);
-  let shown=0;
-  for(const c of cards){
-    const txt=norm((c.getAttribute("data-search")||"")+" "+c.textContent);
-    const okQ=!q||q.split(" ").filter(Boolean).every(w=>txt.includes(w));
-    const okD=!active.length||!c.dataset.diff||active.includes(c.dataset.diff);
-    const on=okQ&&okD; c.style.display=on?"":"none"; if(on)shown++;
-    if(q&&on)c.open=true;
+  /* ---------- lightbox ---------- */
+  var lb = document.getElementById('lightbox');
+  if (lb) {
+    var lbImg = lb.querySelector('img');
+    document.addEventListener('click', function (e) {
+      var img = e.target.closest('.step img, .zoom, .pair .duo img, .recipe > img, .pcard .thumb img, .door > img, .diagram img');
+      if (!img) return;
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt || '';
+      lb.showModal();
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('x')) lb.close(); });
   }
-  $("#count").textContent=shown+" of "+cards.length+" cards";
-  for(const art of $$("article.page")){
-    const any=[...art.querySelectorAll("details.card")].some(c=>c.style.display!=="none");
-    art.style.display=any?"":"none";
+
+  /* ---------- copy Navigator names ---------- */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.cp'); if (!b) return;
+    var txt = b.getAttribute('data-copy') || '';
+    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () {
+      var old = b.textContent; b.textContent = '✓'; setTimeout(function () { b.textContent = old; }, 1200);
+    }).catch(function () {});
+  });
+
+  /* ---------- search (site map + page cards) ---------- */
+  var inp = document.getElementById('q'), cnt = document.getElementById('qcnt');
+  if (inp) {
+    var items = Array.prototype.slice.call(document.querySelectorAll('[data-search]'));
+    inp.addEventListener('input', function () {
+      var q = inp.value.trim().toLowerCase();
+      if (!q) { items.forEach(function (x) { x.classList.remove('hid'); if (x.tagName === 'DETAILS') x.removeAttribute('data-qopen'); }); cnt.textContent = ''; return; }
+      var n = 0;
+      items.forEach(function (x) {
+        var hit = x.getAttribute('data-search').indexOf(q) !== -1;
+        x.classList.toggle('hid', !hit);
+        if (hit) { n++; if (x.tagName === 'DETAILS') x.open = true; }
+      });
+      cnt.textContent = n + ' match' + (n === 1 ? '' : 'es');
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== inp) { e.preventDefault(); inp.focus(); }
+    });
   }
-}
-$("#q").addEventListener("input",applyFilter);
-$$(".fbtn[data-diff]").forEach(b=>b.addEventListener("click",()=>{b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true");applyFilter();}));
-$("#expand").addEventListener("click",()=>cards.forEach(c=>c.open=true));
-$("#collapse").addEventListener("click",()=>cards.forEach(c=>c.open=false));
-document.addEventListener("click",e=>{
-  const cp=e.target.closest(".copy");
-  if(cp){e.preventDefault();e.stopPropagation();const t=cp.dataset.copy;
-    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{cp.textContent="Copied!";setTimeout(()=>cp.textContent="Copy name",1200);}).catch(()=>{prompt("Copy the Navigator name:",t);});return;}
-  const im=e.target.closest("img[data-full]");
-  if(im){const d=$("#lightbox");d.querySelector("img").src=im.dataset.full;d.showModal();}
-});
-$("#lightbox").addEventListener("click",()=>$("#lightbox").close());
-document.addEventListener("keydown",e=>{if(e.key==="/"&&document.activeElement!==$("#q")){e.preventDefault();$("#q").focus();}});
-const mb=$(".menu-btn");if(mb)mb.addEventListener("click",()=>$("#sidebar").classList.toggle("open"));
-if(location.search.includes("print=1"))document.body.classList.add("print"),cards.forEach(c=>c.open=true);
-applyFilter();
-</script>
-</body></html>
+})();
+</script></body></html>

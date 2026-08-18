@@ -103,19 +103,56 @@ section.band.alt{background:var(--paper)}
 .step figcaption{padding:16px 4px 0;font-size:19px;line-height:1.6;max-width:860px}
 .step .stepno{display:inline-block;background:var(--gold);color:#fff;font:700 14px/1 -apple-system,Arial,sans-serif;border-radius:9px;padding:6px 11px;margin-right:10px;vertical-align:2px}
 .step .tip{display:block;margin-top:10px;font-size:16px;color:var(--careful);background:var(--careful-bg);border-radius:10px;padding:12px 14px;max-width:820px}
-/* player (JS on) */
-.js-on .steps.player .step{display:none}
-.js-on .steps.player .step.on{display:block}
-.pctrl{display:flex;align-items:center;gap:14px;padding:0 26px 24px;flex-wrap:wrap}
-.pbtn{font:700 18px/1 inherit;background:var(--navy);color:var(--ivory);border:none;border-radius:12px;padding:16px 24px;cursor:pointer;min-width:130px}
-.pbtn:hover:not(:disabled){background:var(--navy2)}
-.pbtn:disabled{opacity:.35;cursor:default}
-.pcount{font:700 17px/1 Georgia,serif;color:var(--navy);min-width:110px;text-align:center}
-.pdots{display:flex;gap:8px;flex-wrap:wrap}
-.pdot{width:14px;height:14px;border-radius:50%;background:var(--line);border:none;cursor:pointer;padding:0}
-.pdot.on{background:var(--gold)}
-.pall{margin-left:auto;font-size:15px;font-weight:700;color:var(--gold);background:none;border:none;cursor:pointer;text-decoration:underline}
-.js-off-note{display:none}
+/* ---------- launch block (JS on): big button + numbered filmstrip + "show all" ---------- */
+.launch{padding:18px 26px 6px}
+.launch-btn{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;text-align:left;background:var(--navy);color:var(--ivory);border:none;border-radius:14px;padding:20px 24px;cursor:pointer;box-shadow:0 10px 26px rgba(28,35,51,.25);transition:transform .15s}
+.launch-btn:hover,.launch-btn:focus-visible{background:var(--navy2);transform:translateY(-2px);outline:3px solid var(--goldpale);outline-offset:2px}
+.launch-btn .lb-main{font:700 24px/1.2 Georgia,serif;color:var(--goldpale)}
+.launch-btn .lb-sub{font:400 15.5px/1.4 inherit;color:#cfc9bc}
+.filmstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;margin:14px 0 6px}
+.fs-thumb{position:relative;border:2px solid var(--line);border-radius:10px;overflow:hidden;padding:0;background:#fff;cursor:pointer;aspect-ratio:16/10}
+.fs-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.fs-thumb span{position:absolute;left:6px;top:6px;background:var(--gold);color:#fff;font:800 13px/1 -apple-system,Arial,sans-serif;border-radius:8px;padding:5px 8px}
+.fs-thumb:hover,.fs-thumb:focus-visible{border-color:var(--goldpale);box-shadow:0 6px 16px rgba(28,35,51,.18)}
+.showall{background:none;border:none;color:var(--gold);font:700 15px/1.3 inherit;text-decoration:underline;cursor:pointer;padding:8px 0}
+.js-on .steps.stacked-hidden{display:none}
+
+/* ---------- full-screen lesson player ---------- */
+dialog.player{border:none;padding:0;margin:0;width:100vw;height:100vh;max-width:100vw;max-height:100vh;background:var(--navy2);color:var(--ivory);display:none;overflow:hidden}
+dialog.player[open]{display:grid;grid-template-rows:auto 7px minmax(0,1fr) auto auto}
+dialog.player::backdrop{background:#0e1631}
+.pl-top{display:flex;align-items:center;gap:16px;padding:12px 22px;background:var(--navy)}
+.pl-title{flex:1;min-width:0;font:700 20px/1.2 Georgia,serif;color:var(--ivory);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pl-count{font:700 17px/1 -apple-system,Arial,sans-serif;color:var(--goldpale);letter-spacing:.04em;white-space:nowrap}
+.pl-close{font:700 17px/1 inherit;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:10px;padding:12px 18px;cursor:pointer}
+.pl-close:hover,.pl-close:focus-visible{background:rgba(255,255,255,.22)}
+.pl-progress{background:rgba(255,255,255,.14)}
+.pl-bar{height:100%;background:var(--goldpale);width:0;transition:width .25s ease}
+.pl-stage{display:flex;align-items:center;justify-content:center;padding:16px 24px 4px;min-height:0}
+.pl-stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.55);background:#fff}
+.pl-cap{padding:10px 24px 4px;max-width:1100px;margin:0 auto;width:100%;text-align:center}
+.pl-num{display:inline-block;font:700 15px/1 -apple-system,Arial,sans-serif;letter-spacing:.08em;color:var(--navy2);background:var(--goldpale);border-radius:9px;padding:8px 14px;margin-bottom:10px}
+.pl-text{font-size:clamp(19px,2.1vw,25px);line-height:1.5;color:var(--ivory);text-wrap:balance}
+.pl-tip{font-size:16.5px;color:#f1d99a;margin-top:8px}
+.pl-tip:empty,.pl-nextlesson:empty{display:none}
+.pl-nextlesson{margin-top:10px;font-size:16px;color:#cfc9bc}
+.pl-jump{background:none;border:none;color:var(--goldpale);font:700 16px/1.3 inherit;text-decoration:underline;cursor:pointer}
+.pl-nav{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:10px 24px 20px}
+.pl-prev,.pl-next{font:700 21px/1 inherit;border-radius:14px;padding:20px 30px;cursor:pointer;min-width:170px}
+.pl-prev{background:transparent;color:var(--ivory);border:2px solid rgba(255,255,255,.55)}
+.pl-prev:hover:not(:disabled),.pl-prev:focus-visible{background:rgba(255,255,255,.12)}
+.pl-prev:disabled{opacity:.3;cursor:default}
+.pl-next{background:var(--goldpale);color:var(--navy2);border:2px solid var(--goldpale)}
+.pl-next:hover,.pl-next:focus-visible{background:#f2c76a;outline:3px solid #fff;outline-offset:2px}
+.pl-next.finish{background:#3c7a4e;border-color:#3c7a4e;color:#fff}
+.pl-strip{display:flex;gap:8px;justify-content:center;overflow-x:auto;padding:4px 2px;scrollbar-width:thin}
+.pl-th{position:relative;flex:none;width:88px;height:56px;border-radius:7px;overflow:hidden;border:3px solid transparent;background:#000;padding:0;cursor:pointer;opacity:.5}
+.pl-th img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.pl-th.done{opacity:.8}
+.pl-th.on{border-color:var(--goldpale);opacity:1}
+.pl-th span{position:absolute;left:4px;top:3px;font:800 12px/1 -apple-system,Arial,sans-serif;color:#fff;background:rgba(14,22,49,.85);border-radius:6px;padding:3px 6px}
+@media(max-width:760px){.pl-strip{display:none}.pl-nav{grid-template-columns:1fr 1fr}.pl-prev,.pl-next{min-width:0;padding:18px 12px;font-size:19px}.pl-title{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.pl-bar,.launch-btn,.qbtn{transition:none}}
 
 /* ---------- recipes ---------- */
 .recipes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
@@ -213,15 +250,16 @@ mark{background:var(--goldpale);border-radius:3px;padding:0 2px}
 @media print{
   .topnav,.pctrl,.pall,.search{display:none!important}
   body{background:#fff;font-size:13px}
-  .steps.player .step{display:block!important}
+  .js-on .steps.stacked-hidden{display:block!important}
+  .launch,dialog.player{display:none!important}
   .pcard{page-break-inside:avoid}
   .step{page-break-inside:avoid;margin-bottom:14px}
   .lesson,.recipe,.rule,.pair{box-shadow:none}
   section.band{padding:22px 0}
   .cover{padding:40px 0}
 }
-body.print .topnav,body.print .pctrl,body.print .pall{display:none!important}
-body.print .steps.player .step{display:block!important}
+body.print .topnav,body.print .launch,body.print dialog.player{display:none!important}
+body.print .js-on .steps.stacked-hidden,.js-on body.print .steps.stacked-hidden{display:block!important}
 body.print .qbtn .go{display:none}
 </style></head><body>
 <nav class="topnav"><div class="wrap">
@@ -233,12 +271,12 @@ body.print .qbtn .go{display:none}
 </div></nav><header class="cover" id="top"><div class="wrap">
 <p class="k">SOTSI (Seat of the Soul Institute)</p><h1>SOTSI Website Editing Guide</h1>
 <p class="sub">The simple picture guide to editing seatofthesoul.com</p>
-<p class="meta">Version 2.0 · 2026-08-17 · by 22D Marketing · Questions: <a href="mailto:dev@o2s1.com">dev@o2s1.com</a></p>
+<p class="meta">Version 2.1 · 2026-08-18 · prepared by 22D Marketing</p>
 </div></header>
 <div class="quick"><div class="wrap">
 <a class="qbtn" href="#lesson-text"><b>Change a text</b><small>the easiest edit — no Designer needed</small><span class="go">Show me how →</span></a><a class="qbtn" href="#lesson-photo"><b>Change a photo</b><small>replace any picture on any page</small><span class="go">Show me how →</span></a><a class="qbtn" href="#lesson-cms"><b>Edit a book or course</b><small>the CMS — the site’s filing room</small><span class="go">Show me how →</span></a><a class="qbtn" href="#lesson-blog"><b>Publish a blog post</b><small>in the 22D board, not in Webflow</small><span class="go">Show me how →</span></a>
 </div></div><section class="band" id="rules"><div class="wrap"><h2>The five rules</h2>
-<p class="lead">Follow these and you cannot go badly wrong.</p><div class="rules"><div class="rule"><div class="n">1</div><b>The Designer is not the live site</b><p>Videos, the blog, episodes, search and animations only run on the PUBLISHED site. In the Designer those areas look empty, grey or stacked — nothing is broken. Always judge on the live site.</p></div><div class="rule"><div class="n">2</div><b>Follow the labels</b><p>Everything is labelled for you: GREEN ✎ = yours to edit · AMBER ⚙ = automatic, don’t fight it · RED 🔒 = never touch. No label or unsure? Ask 22D first.</p></div><div class="rule"><div class="n">3</div><b>Blog posts live in the 22D board</b><p>Write and publish posts in the board. Editing a post inside Webflow gets overwritten by the next sync. And never change the slug (the last part of a URL) of anything published.</p></div><div class="rule"><div class="n">4</div><b>Publish, then check the live page</b><p>No change is visible until you click the blue Publish button (top right). After publishing, open the live page in a normal tab and refresh.</p></div><div class="rule"><div class="n">5</div><b>Every mistake is fixable</b><p>Cmd+Z (Mac) / Ctrl+Z (Windows) undoes your steps. Bigger accident? Site backups restore everything. Worst case: email 22D — nothing is ever truly lost.</p></div></div></div></section><section class="band alt" id="doors"><div class="wrap"><h2>Two doors into the site</h2>
+<p class="lead">Follow these and you cannot go badly wrong.</p><div class="rules"><div class="rule"><div class="n">1</div><b>The Designer is not the live site</b><p>Videos, the blog, episodes, search and animations only run on the PUBLISHED site. In the Designer those areas look empty, grey or stacked — nothing is broken. Always judge on the live site.</p></div><div class="rule"><div class="n">2</div><b>Follow the labels</b><p>Everything is labelled for you: GREEN ✎ = yours to edit · AMBER ⚙ = automatic, don’t fight it · RED 🔒 = never touch. No label or unsure? Ask 22D first.</p></div><div class="rule"><div class="n">3</div><b>Blog posts live in the 22D board</b><p>Write and publish posts in the board. Editing a post inside Webflow gets overwritten by the next sync. And never change the slug (the last part of a URL) of anything published.</p></div><div class="rule"><div class="n">4</div><b>Publish, then check the live page</b><p>No change is visible until you click the blue Publish button (top right). After publishing, open the live page in a normal tab and refresh.</p></div><div class="rule"><div class="n">5</div><b>Every mistake is fixable</b><p>Cmd+Z (Mac) / Ctrl+Z (Windows) undoes your steps. Bigger accident? Site backups restore everything. Worst case: ask 22D — nothing is ever truly lost.</p></div></div></div></section><section class="band alt" id="doors"><div class="wrap"><h2>Two doors into the site</h2>
 <p class="lead">There are two ways into the site. Start with Door 1 — it is enough for most edits.</p><div class="doors"><div class="door d1"><figure class="zoomwrap"><img loading="lazy" src="img/ui/door-edit.jpg" alt="Door 1 · Edit mode"></figure><div class="pad">
 <span class="tag">easy — start here</span><b>Door 1 · Edit mode</b><p>Add ?update to the end of any page address. The page looks exactly like the live site and you can only touch content — text, photos, links. You cannot break the layout from here.</p>
 <p style="margin-top:10px"><a href="#lesson-text">Start with this door →</a></p></div></div><div class="door d2"><figure class="zoomwrap"><img loading="lazy" src="img/ui/door-designer.jpg" alt="Door 2 · The Designer"></figure><div class="pad">
@@ -253,57 +291,57 @@ body.print .qbtn .go{display:none}
 <div class="duo"><figure><img loading="lazy" src="img/designer/blog-canvas.jpg" alt="Blog page in the Designer"><figcaption>In the Designer</figcaption></figure>
 <figure><img loading="lazy" src="img/blog--full.jpg" alt="Blog page on the live site"><figcaption>On the live site</figcaption></figure></div>
 <p>Designer shows dashed “AUTO” boxes where the post directory loads. On the live site those boxes are the full searchable archive.</p></div></div></div></section><section class="band" id="lessons"><div class="wrap"><h2>The five lessons</h2>
-<p class="lead">Each lesson is a slideshow: one picture, one action. Use the big Back / Next buttons — or “See all steps at once”. Everything repeats these same moves.</p>
+<p class="lead">Each lesson opens as a <strong>full-screen slideshow</strong>: one picture, one action, big Back / Next buttons and a progress bar so you always know where you are. Press <strong>▶ Start this lesson</strong> (or any numbered picture to jump to that step). Prefer to scroll? Every lesson also has “Show all steps on this page”.</p>
 <article class="lesson" id="lesson-text">
 <header><div class="lnum">1</div><h3>Change a text and publish it</h3><span class="door-chip">Edit mode</span></header>
 <p class="goal">The complete round trip: open a page, change one sentence, publish, and see it live. Once you can do this, you can edit most of the site.</p>
-<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l1-s1.jpg" alt="Lesson 1, step 1">
-<figcaption><span class="stepno">Step 1</span>Open the page you want to change in your normal browser. In this example: the Get Started page.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s2.jpg" alt="Lesson 1, step 2">
-<figcaption><span class="stepno">Step 2</span>Click the address bar and type ?update at the very end of the address. Press Enter.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s3.jpg" alt="Lesson 1, step 3">
-<figcaption><span class="stepno">Step 3</span>Sign in with your Webflow email and password. Webflow remembers you, so this only appears now and then.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s4.jpg" alt="Lesson 1, step 4">
-<figcaption><span class="stepno">Step 4</span>The same page opens in Edit mode. It looks identical — but now the content can be clicked.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s5.jpg" alt="Lesson 1, step 5">
-<figcaption><span class="stepno">Step 5</span>Click the sentence you want to change. A blue frame appears around it. Type your new text.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s6.jpg" alt="Lesson 1, step 6">
-<figcaption><span class="stepno">Step 6</span>Click the blue Publish button in the top-right corner, then confirm. This sends your change to the live site.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s7.jpg" alt="Lesson 1, step 7">
-<figcaption><span class="stepno">Step 7</span>Open the normal page address in a new tab and refresh. Your new text is live. That’s the whole job.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l1-s8.jpg" alt="Lesson 1, step 8">
+<ol class="steps"><li class="step" data-img="img/ui/l1-s1.jpg" data-text="Open the page you want to change in your normal browser. In this example: the Get Started page." data-tip=""><figure><img loading="lazy" src="img/ui/l1-s1.jpg" alt="Lesson 1, step 1">
+<figcaption><span class="stepno">Step 1</span>Open the page you want to change in your normal browser. In this example: the Get Started page.</figcaption></figure></li><li class="step" data-img="img/ui/l1-s2.jpg" data-text="Click the address bar and type ?update at the very end of the address. Press Enter." data-tip=""><figure><img loading="lazy" src="img/ui/l1-s2.jpg" alt="Lesson 1, step 2">
+<figcaption><span class="stepno">Step 2</span>Click the address bar and type ?update at the very end of the address. Press Enter.</figcaption></figure></li><li class="step" data-img="img/ui/l1-s3.jpg" data-text="Sign in with your Webflow email and password. Webflow remembers you, so this only appears now and then." data-tip=""><figure><img loading="lazy" src="img/ui/l1-s3.jpg" alt="Lesson 1, step 3">
+<figcaption><span class="stepno">Step 3</span>Sign in with your Webflow email and password. Webflow remembers you, so this only appears now and then.</figcaption></figure></li><li class="step" data-img="img/ui/l1-s4.jpg" data-text="The same page opens in Edit mode. It looks identical — but now the content can be clicked." data-tip=""><figure><img loading="lazy" src="img/ui/l1-s4.jpg" alt="Lesson 1, step 4">
+<figcaption><span class="stepno">Step 4</span>The same page opens in Edit mode. It looks identical — but now the content can be clicked.</figcaption></figure></li><li class="step" data-img="img/ui/l1-s5.jpg" data-text="Click the sentence you want to change. A blue frame appears around it. Type your new text." data-tip=""><figure><img loading="lazy" src="img/ui/l1-s5.jpg" alt="Lesson 1, step 5">
+<figcaption><span class="stepno">Step 5</span>Click the sentence you want to change. A blue frame appears around it. Type your new text.</figcaption></figure></li><li class="step" data-img="img/ui/l1-s6.jpg" data-text="Click the blue Publish button in the top-right corner, then confirm. This sends your change to the live site." data-tip=""><figure><img loading="lazy" src="img/ui/l1-s6.jpg" alt="Lesson 1, step 6">
+<figcaption><span class="stepno">Step 6</span>Click the blue Publish button in the top-right corner, then confirm. This sends your change to the live site.</figcaption></figure></li><li class="step" data-img="img/ui/l1-s7.jpg" data-text="Open the normal page address in a new tab and refresh. Your new text is live. That’s the whole job." data-tip=""><figure><img loading="lazy" src="img/ui/l1-s7.jpg" alt="Lesson 1, step 7">
+<figcaption><span class="stepno">Step 7</span>Open the normal page address in a new tab and refresh. Your new text is live. That’s the whole job.</figcaption></figure></li><li class="step" data-img="img/ui/l1-s8.jpg" data-text="Typed something wrong? Go back, click the text, fix it, Publish again. Nothing is ever stuck." data-tip="Edit mode can’t move sections or break layouts — it is the safe door."><figure><img loading="lazy" src="img/ui/l1-s8.jpg" alt="Lesson 1, step 8">
 <figcaption><span class="stepno">Step 8</span>Typed something wrong? Go back, click the text, fix it, Publish again. Nothing is ever stuck.<span class="tip">💡 Edit mode can’t move sections or break layouts — it is the safe door.</span></figcaption></figure></li></ol></article><article class="lesson" id="lesson-photo">
 <header><div class="lnum">2</div><h3>Change a photo</h3><span class="door-chip">Designer</span></header>
 <p class="goal">Replace any picture on any page from the Designer, in eight clicks.</p>
-<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l2-s1.jpg" alt="Lesson 2, step 1">
-<figcaption><span class="stepno">Step 1</span>Open webflow.com, sign in, and click the site called SOTSI NEW PRODUCTION.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s2.jpg" alt="Lesson 2, step 2">
-<figcaption><span class="stepno">Step 2</span>You are in the Designer. Click the Pages icon near the top of the left edge.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s3.jpg" alt="Lesson 2, step 3">
-<figcaption><span class="stepno">Step 3</span>Click the page where the photo lives — the list uses plain names, like a table of contents.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s4.jpg" alt="Lesson 2, step 4">
-<figcaption><span class="stepno">Step 4</span>Scroll the middle area (the canvas) and click the photo once. A blue frame appears with its name — photos you may change are labelled ✎.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s5.jpg" alt="Lesson 2, step 5">
-<figcaption><span class="stepno">Step 5</span>Press the letter D to open the Settings panel on the right. Click the small picture, then Replace Image.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s6.jpg" alt="Lesson 2, step 6">
-<figcaption><span class="stepno">Step 6</span>Click Upload, choose the photo from your computer, and select it. Use a photo with a similar shape (wide stays wide).</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s7.jpg" alt="Lesson 2, step 7">
-<figcaption><span class="stepno">Step 7</span>In the same panel, update the Alt text: one line that describes the photo. Google and screen readers use it.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l2-s8.jpg" alt="Lesson 2, step 8">
+<ol class="steps"><li class="step" data-img="img/ui/l2-s1.jpg" data-text="Open webflow.com, sign in, and click the site called SOTSI NEW PRODUCTION." data-tip=""><figure><img loading="lazy" src="img/ui/l2-s1.jpg" alt="Lesson 2, step 1">
+<figcaption><span class="stepno">Step 1</span>Open webflow.com, sign in, and click the site called SOTSI NEW PRODUCTION.</figcaption></figure></li><li class="step" data-img="img/ui/l2-s2.jpg" data-text="You are in the Designer. Click the Pages icon near the top of the left edge." data-tip=""><figure><img loading="lazy" src="img/ui/l2-s2.jpg" alt="Lesson 2, step 2">
+<figcaption><span class="stepno">Step 2</span>You are in the Designer. Click the Pages icon near the top of the left edge.</figcaption></figure></li><li class="step" data-img="img/ui/l2-s3.jpg" data-text="Click the page where the photo lives — the list uses plain names, like a table of contents." data-tip=""><figure><img loading="lazy" src="img/ui/l2-s3.jpg" alt="Lesson 2, step 3">
+<figcaption><span class="stepno">Step 3</span>Click the page where the photo lives — the list uses plain names, like a table of contents.</figcaption></figure></li><li class="step" data-img="img/ui/l2-s4.jpg" data-text="Scroll the middle area (the canvas) and click the photo once. A blue frame appears with its name — photos you may change are labelled ✎." data-tip=""><figure><img loading="lazy" src="img/ui/l2-s4.jpg" alt="Lesson 2, step 4">
+<figcaption><span class="stepno">Step 4</span>Scroll the middle area (the canvas) and click the photo once. A blue frame appears with its name — photos you may change are labelled ✎.</figcaption></figure></li><li class="step" data-img="img/ui/l2-s5.jpg" data-text="Press the letter D to open the Settings panel on the right. Click the small picture, then Replace Image." data-tip=""><figure><img loading="lazy" src="img/ui/l2-s5.jpg" alt="Lesson 2, step 5">
+<figcaption><span class="stepno">Step 5</span>Press the letter D to open the Settings panel on the right. Click the small picture, then Replace Image.</figcaption></figure></li><li class="step" data-img="img/ui/l2-s6.jpg" data-text="Click Upload, choose the photo from your computer, and select it. Use a photo with a similar shape (wide stays wide)." data-tip=""><figure><img loading="lazy" src="img/ui/l2-s6.jpg" alt="Lesson 2, step 6">
+<figcaption><span class="stepno">Step 6</span>Click Upload, choose the photo from your computer, and select it. Use a photo with a similar shape (wide stays wide).</figcaption></figure></li><li class="step" data-img="img/ui/l2-s7.jpg" data-text="In the same panel, update the Alt text: one line that describes the photo. Google and screen readers use it." data-tip=""><figure><img loading="lazy" src="img/ui/l2-s7.jpg" alt="Lesson 2, step 7">
+<figcaption><span class="stepno">Step 7</span>In the same panel, update the Alt text: one line that describes the photo. Google and screen readers use it.</figcaption></figure></li><li class="step" data-img="img/ui/l2-s8.jpg" data-text="Publish (top right) and check the live page." data-tip="The Home hero photos are special — each slide has phone and tablet crops. Change the text yourself; for hero photos, send the picture to 22D."><figure><img loading="lazy" src="img/ui/l2-s8.jpg" alt="Lesson 2, step 8">
 <figcaption><span class="stepno">Step 8</span>Publish (top right) and check the live page.<span class="tip">💡 The Home hero photos are special — each slide has phone and tablet crops. Change the text yourself; for hero photos, send the picture to 22D.</span></figcaption></figure></li></ol></article><article class="lesson" id="lesson-cms">
 <header><div class="lnum">3</div><h3>The CMS — edit or add a book or course</h3><span class="door-chip">Designer</span></header>
 <p class="goal">The CMS is the site’s filing room: a cabinet (Collection) full of cards (Items). The site lays every card out for you — you only fill in the card.</p><div class="diagram"><figure class=""><img loading="lazy" src="img/ui/l3-s0.jpg" alt="CMS diagram"></figure><p class="goal" style="padding:10px 0 0">Collection = a filing cabinet (Books). Item = one card in it (one book). The page shows every card automatically — add a card and the shelf grows by itself.</p></div>
-<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l3-s1.jpg" alt="Lesson 3, step 1">
-<figcaption><span class="stepno">Step 1</span>In the Designer, click the CMS icon on the left edge (a stack of discs).</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s2.jpg" alt="Lesson 3, step 2">
-<figcaption><span class="stepno">Step 2</span>This lists the site’s cabinets. Books and Courses are YOURS. The ones marked ⚠ (Blog Posts, Deepcast Episodes, Categories) are managed elsewhere — leave them.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s3.jpg" alt="Lesson 3, step 3">
-<figcaption><span class="stepno">Step 3</span>Click Books. Every book is one row. Click a row to edit it — or the blue + New Item button to add a new book.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s4.jpg" alt="Lesson 3, step 4">
-<figcaption><span class="stepno">Step 4</span>The card opens as a simple form: Name, Description, Cover, Buy Now link… The grey notes under the fields tell you what each one does.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s5.jpg" alt="Lesson 3, step 5">
-<figcaption><span class="stepno">Step 5</span>This is what the Blog Posts cabinet shows you instead — a warning on every field. Posts belong to the 22D board; do not edit them here.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s6.jpg" alt="Lesson 3, step 6">
-<figcaption><span class="stepno">Step 6</span>Click the green Save (or Create) button, then Publish (top right) so the change reaches the live site.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l3-s7.jpg" alt="Lesson 3, step 7">
+<ol class="steps"><li class="step" data-img="img/ui/l3-s1.jpg" data-text="In the Designer, click the CMS icon on the left edge (a stack of discs)." data-tip=""><figure><img loading="lazy" src="img/ui/l3-s1.jpg" alt="Lesson 3, step 1">
+<figcaption><span class="stepno">Step 1</span>In the Designer, click the CMS icon on the left edge (a stack of discs).</figcaption></figure></li><li class="step" data-img="img/ui/l3-s2.jpg" data-text="This lists the site’s cabinets. Books and Courses are YOURS. The ones marked ⚠ (Blog Posts, Deepcast Episodes, Categories) are managed elsewhere — leave them." data-tip=""><figure><img loading="lazy" src="img/ui/l3-s2.jpg" alt="Lesson 3, step 2">
+<figcaption><span class="stepno">Step 2</span>This lists the site’s cabinets. Books and Courses are YOURS. The ones marked ⚠ (Blog Posts, Deepcast Episodes, Categories) are managed elsewhere — leave them.</figcaption></figure></li><li class="step" data-img="img/ui/l3-s3.jpg" data-text="Click Books. Every book is one row. Click a row to edit it — or the blue + New Item button to add a new book." data-tip=""><figure><img loading="lazy" src="img/ui/l3-s3.jpg" alt="Lesson 3, step 3">
+<figcaption><span class="stepno">Step 3</span>Click Books. Every book is one row. Click a row to edit it — or the blue + New Item button to add a new book.</figcaption></figure></li><li class="step" data-img="img/ui/l3-s4.jpg" data-text="The card opens as a simple form: Name, Description, Cover, Buy Now link… The grey notes under the fields tell you what each one does." data-tip=""><figure><img loading="lazy" src="img/ui/l3-s4.jpg" alt="Lesson 3, step 4">
+<figcaption><span class="stepno">Step 4</span>The card opens as a simple form: Name, Description, Cover, Buy Now link… The grey notes under the fields tell you what each one does.</figcaption></figure></li><li class="step" data-img="img/ui/l3-s5.jpg" data-text="This is what the Blog Posts cabinet shows you instead — a warning on every field. Posts belong to the 22D board; do not edit them here." data-tip=""><figure><img loading="lazy" src="img/ui/l3-s5.jpg" alt="Lesson 3, step 5">
+<figcaption><span class="stepno">Step 5</span>This is what the Blog Posts cabinet shows you instead — a warning on every field. Posts belong to the 22D board; do not edit them here.</figcaption></figure></li><li class="step" data-img="img/ui/l3-s6.jpg" data-text="Click the green Save (or Create) button, then Publish (top right) so the change reaches the live site." data-tip=""><figure><img loading="lazy" src="img/ui/l3-s6.jpg" alt="Lesson 3, step 6">
+<figcaption><span class="stepno">Step 6</span>Click the green Save (or Create) button, then Publish (top right) so the change reaches the live site.</figcaption></figure></li><li class="step" data-img="img/ui/l3-s7.jpg" data-text="Open the live Books page — your book is on the shelf, styled like all the others." data-tip=""><figure><img loading="lazy" src="img/ui/l3-s7.jpg" alt="Lesson 3, step 7">
 <figcaption><span class="stepno">Step 7</span>Open the live Books page — your book is on the shelf, styled like all the others.</figcaption></figure></li></ol></article><article class="lesson" id="lesson-blog">
 <header><div class="lnum">4</div><h3>A blog post — written in the 22D board</h3><span class="door-chip">22D board</span></header>
 <p class="goal">Blog posts are never written in Webflow. The 22D board is the blog’s home: write there, press one button, and the website updates itself.</p>
-<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l4-s1.jpg" alt="Lesson 4, step 1">
-<figcaption><span class="stepno">Step 1</span>Open the 22D board link and sign in (22D gave you the address and your login).</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s2.jpg" alt="Lesson 4, step 2">
-<figcaption><span class="stepno">Step 2</span>Open Blog posts. Every card is one post, with its status.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s3.jpg" alt="Lesson 4, step 3">
-<figcaption><span class="stepno">Step 3</span>Click a post to open the editor. Write like in a document — headings, photos, quotes. Save.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s4.jpg" alt="Lesson 4, step 4">
-<figcaption><span class="stepno">Step 4</span>Use “Choose cover…” to pick the photo shown on the blog directory.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s5.jpg" alt="Lesson 4, step 5">
-<figcaption><span class="stepno">Step 5</span>When the post is approved, click Publish to Website (or Update on Website for a post that is already live) and confirm.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s6.jpg" alt="Lesson 4, step 6">
-<figcaption><span class="stepno">Step 6</span>The post appears on the live blog within a minute — directory, search and cards update themselves.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l4-s7.jpg" alt="Lesson 4, step 7">
+<ol class="steps"><li class="step" data-img="img/ui/l4-s1.jpg" data-text="Open the 22D board link and sign in (22D gave you the address and your login)." data-tip=""><figure><img loading="lazy" src="img/ui/l4-s1.jpg" alt="Lesson 4, step 1">
+<figcaption><span class="stepno">Step 1</span>Open the 22D board link and sign in (22D gave you the address and your login).</figcaption></figure></li><li class="step" data-img="img/ui/l4-s2.jpg" data-text="Open Blog posts. Every card is one post, with its status." data-tip=""><figure><img loading="lazy" src="img/ui/l4-s2.jpg" alt="Lesson 4, step 2">
+<figcaption><span class="stepno">Step 2</span>Open Blog posts. Every card is one post, with its status.</figcaption></figure></li><li class="step" data-img="img/ui/l4-s3.jpg" data-text="Click a post to open the editor. Write like in a document — headings, photos, quotes. Save." data-tip=""><figure><img loading="lazy" src="img/ui/l4-s3.jpg" alt="Lesson 4, step 3">
+<figcaption><span class="stepno">Step 3</span>Click a post to open the editor. Write like in a document — headings, photos, quotes. Save.</figcaption></figure></li><li class="step" data-img="img/ui/l4-s4.jpg" data-text="Use “Choose cover…” to pick the photo shown on the blog directory." data-tip=""><figure><img loading="lazy" src="img/ui/l4-s4.jpg" alt="Lesson 4, step 4">
+<figcaption><span class="stepno">Step 4</span>Use “Choose cover…” to pick the photo shown on the blog directory.</figcaption></figure></li><li class="step" data-img="img/ui/l4-s5.jpg" data-text="When the post is approved, click Publish to Website (or Update on Website for a post that is already live) and confirm." data-tip=""><figure><img loading="lazy" src="img/ui/l4-s5.jpg" alt="Lesson 4, step 5">
+<figcaption><span class="stepno">Step 5</span>When the post is approved, click Publish to Website (or Update on Website for a post that is already live) and confirm.</figcaption></figure></li><li class="step" data-img="img/ui/l4-s6.jpg" data-text="The post appears on the live blog within a minute — directory, search and cards update themselves." data-tip=""><figure><img loading="lazy" src="img/ui/l4-s6.jpg" alt="Lesson 4, step 6">
+<figcaption><span class="stepno">Step 6</span>The post appears on the live blog within a minute — directory, search and cards update themselves.</figcaption></figure></li><li class="step" data-img="img/ui/l4-s7.jpg" data-text="Remember: never edit a post inside Webflow (the board overwrites it on the next sync) and never change the slug of a published post." data-tip="Webflow itself reminds you — every blog field there carries a ⚠ warning note."><figure><img loading="lazy" src="img/ui/l4-s7.jpg" alt="Lesson 4, step 7">
 <figcaption><span class="stepno">Step 7</span>Remember: never edit a post inside Webflow (the board overwrites it on the next sync) and never change the slug of a published post.<span class="tip">💡 Webflow itself reminds you — every blog field there carries a ⚠ warning note.</span></figcaption></figure></li></ol></article><article class="lesson" id="lesson-publish">
 <header><div class="lnum">5</div><h3>Publish, undo &amp; backups</h3><span class="door-chip">Everywhere</span></header>
 <p class="goal">The three safety habits: publish to make changes real, undo to step back, backups when something bigger goes wrong.</p>
-<ol class="steps"><li class="step"><figure><img loading="lazy" src="img/ui/l5-s1.jpg" alt="Lesson 5, step 1">
-<figcaption><span class="stepno">Step 1</span>Publish (top right, in the Designer and in Edit mode) sends your saved edits to the live site. Until then, visitors see nothing new.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l5-s2.jpg" alt="Lesson 5, step 2">
-<figcaption><span class="stepno">Step 2</span>Small mistake? Press Cmd+Z (Mac) or Ctrl+Z (Windows), repeatedly if needed. It steps backwards through your edits.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l5-s3.jpg" alt="Lesson 5, step 3">
-<figcaption><span class="stepno">Step 3</span>Bigger accident? Click the W menu (top left) → Site settings → Backups. Preview a backup with the eye icon, then Restore. The whole site returns to that moment.</figcaption></figure></li><li class="step"><figure><img loading="lazy" src="img/ui/l5-s4.jpg" alt="Lesson 5, step 4">
-<figcaption><span class="stepno">Step 4</span>Not sure what happened? Stop and email 22D at dev@o2s1.com with the page name. A two-minute question beats a broken page.</figcaption></figure></li></ol></article></div></section><section class="band alt" id="recipes"><div class="wrap"><h2>The special parts, one example each</h2>
+<ol class="steps"><li class="step" data-img="img/ui/l5-s1.jpg" data-text="Publish (top right, in the Designer and in Edit mode) sends your saved edits to the live site. Until then, visitors see nothing new." data-tip=""><figure><img loading="lazy" src="img/ui/l5-s1.jpg" alt="Lesson 5, step 1">
+<figcaption><span class="stepno">Step 1</span>Publish (top right, in the Designer and in Edit mode) sends your saved edits to the live site. Until then, visitors see nothing new.</figcaption></figure></li><li class="step" data-img="img/ui/l5-s2.jpg" data-text="Small mistake? Press Cmd+Z (Mac) or Ctrl+Z (Windows), repeatedly if needed. It steps backwards through your edits." data-tip=""><figure><img loading="lazy" src="img/ui/l5-s2.jpg" alt="Lesson 5, step 2">
+<figcaption><span class="stepno">Step 2</span>Small mistake? Press Cmd+Z (Mac) or Ctrl+Z (Windows), repeatedly if needed. It steps backwards through your edits.</figcaption></figure></li><li class="step" data-img="img/ui/l5-s3.jpg" data-text="Bigger accident? Click the W menu (top left) → Site settings → Backups. Preview a backup with the eye icon, then Restore. The whole site returns to that moment." data-tip=""><figure><img loading="lazy" src="img/ui/l5-s3.jpg" alt="Lesson 5, step 3">
+<figcaption><span class="stepno">Step 3</span>Bigger accident? Click the W menu (top left) → Site settings → Backups. Preview a backup with the eye icon, then Restore. The whole site returns to that moment.</figcaption></figure></li><li class="step" data-img="img/ui/l5-s4.jpg" data-text="Not sure what happened? Stop and ask 22D — say which page and what you wanted to change. A two-minute question beats a broken page." data-tip=""><figure><img loading="lazy" src="img/ui/l5-s4.jpg" alt="Lesson 5, step 4">
+<figcaption><span class="stepno">Step 4</span>Not sure what happened? Stop and ask 22D — say which page and what you wanted to change. A two-minute question beats a broken page.</figcaption></figure></li></ol></article></div></section><section class="band alt" id="recipes"><div class="wrap"><h2>The special parts, one example each</h2>
 <p class="lead">Most of the site repeats the lessons above. These are the only parts that work differently.</p>
 <div class="recipes"><div class="recipe" id="r-button" data-search="a button’s label or destination">
 <figure class=""><img loading="lazy" src="img/ui/r-button.jpg" alt="A button’s label or destination"></figure><div class="pad"><h4>A button’s label or destination <span class="chip easy">Easy</span></h4>
@@ -313,11 +351,11 @@ body.print .qbtn .go{display:none}
 <figure class=""><img loading="lazy" src="img/designer/hero-stacked.jpg" alt="The Home hero slideshow (4 slides)"></figure><div class="pad"><h4>The Home hero slideshow (4 slides) <span class="chip careful">Careful</span></h4>
 <p class="why">On the live site the 4 slides rotate every 12 seconds. In the Designer they are stacked on purpose, each with an orange “SLIDE N of 4” label, so you can edit each one.</p><ol><li>Texts: double-click any title, kicker or line inside a slide and type. Keep gold words inside their gold highlight.</li><li>Buttons: click once → Properties (Label + Link). Slide 1’s buttons are hidden by design — leave them hidden.</li><li>Photos: each slide’s photo has separate phone/tablet crops. Send new hero photos to 22D — we set all sizes so faces stay framed.</li><li>Publish, then watch the live hero rotate through all four slides.</li></ol></div></div><div class="recipe" id="r-stats" data-search="the impact numbers (they count up)">
 <figure class=""><img loading="lazy" src="img/ui/r-stats.jpg" alt="The impact numbers (they count up)"></figure><div class="pad"><h4>The impact numbers (they count up) <span class="chip careful">Careful</span></h4>
-<p class="why">Each stat animates from 0 up to a value stored in a hidden attribute called data-count. The visible number AND the attribute must match.</p><ol><li>Double-click the number on the canvas and type the new value.</li><li>With the number still selected, press D → scroll to Custom attributes → set data-count to the same value (data-suffix holds things like “M+”).</li><li>Publish and watch the live count-up.</li><li>Feels fiddly? Email 22D the new number — it’s a 10-second fix on our side.</li></ol></div></div><div class="recipe" id="r-curated" data-search="hand-picked rows (home practices &amp; soul feed)">
+<p class="why">Each stat animates from 0 up to a value stored in a hidden attribute called data-count. The visible number AND the attribute must match.</p><ol><li>Double-click the number on the canvas and type the new value.</li><li>With the number still selected, press D → scroll to Custom attributes → set data-count to the same value (data-suffix holds things like “M+”).</li><li>Publish and watch the live count-up.</li><li>Feels fiddly? Tell 22D the new number — it’s a 10-second fix on our side.</li></ol></div></div><div class="recipe" id="r-curated" data-search="hand-picked rows (home practices &amp; soul feed)">
 <figure class=""><img loading="lazy" src="img/home--soulfeed.jpg" alt="Hand-picked rows (Home practices &amp; Soul Feed)"></figure><div class="pad"><h4>Hand-picked rows (Home practices &amp; Soul Feed) <span class="chip careful">Careful</span></h4>
 <p class="why">The 4 practice cards and the 3 Soul Feed posts on Home are pinned selections — they do not update by themselves, on purpose.</p><ol><li>The row’s heading and intro text are yours — edit like any text.</li><li>The cards’ content lives in the CMS (practices) or the 22D board (posts). Edit the item, not the card.</li><li>Want DIFFERENT items featured? Tell 22D which ones — swapping the pinned set is our job.</li></ol></div></div><div class="recipe" id="r-forms" data-search="forms (newsletter, downloads, waitlist)">
 <figure class=""><img loading="lazy" src="img/newsletter--full.jpg" alt="Forms (newsletter, downloads, waitlist)"></figure><div class="pad"><h4>Forms (newsletter, downloads, waitlist) <span class="chip locked">Leave alone</span></h4>
-<p class="why">Every form feeds the email system (ActiveCampaign). The texts around a form are yours; the form itself is wired.</p><ol><li>Headings, paragraphs, button labels near a form: edit freely (Lesson 1).</li><li>Never rename, add or delete form FIELDS, and never delete a form — sign-ups would silently stop arriving.</li><li>Need a new field or a new form? That’s a 22D task — email us.</li></ol></div></div></div></div></section>
+<p class="why">Every form feeds the email system (ActiveCampaign). The texts around a form are yours; the form itself is wired.</p><ol><li>Headings, paragraphs, button labels near a form: edit freely (Lesson 1).</li><li>Never rename, add or delete form FIELDS, and never delete a form — sign-ups would silently stop arriving.</li><li>Need a new field or a new form? That’s a 22D task — just ask.</li></ol></div></div></div></div></section>
 <section class="band" id="sitemap"><div class="wrap"><h2>The site, page by page</h2>
 <p class="smnote">This list mirrors the Pages panel in the Designer — same names, same order. Click a page to see what’s special about it. Colours: <span class="chip easy">Easy</span> mostly texts and photos · <span class="chip careful">Careful</span> has special parts · <span class="chip locked">Leave alone</span> automatic.</p>
 <div class="smgroup"><h4>Main pages</h4><div class="smrows"><a class="smrow" href="#home" data-search="home /"><span class="nm">Home</span><span class="sl">/</span><span class="chip careful">Careful</span></a><a class="smrow" href="#get-started" data-search="get started /get-started"><span class="nm">Get Started</span><span class="sl">/get-started</span><span class="chip easy">Easy</span></a><a class="smrow" href="#about-sotsi" data-search="about sotsi  (in the “about” folder) /about/seat-of-the-soul-institute"><span class="nm">About SOTSI  (in the “about” folder)</span><span class="sl">/about/seat-of-the-soul-institute</span><span class="chip easy">Easy</span></a><a class="smrow" href="#about-gary" data-search="about gary /about-gary-zukav"><span class="nm">About Gary</span><span class="sl">/about-gary-zukav</span><span class="chip easy">Easy</span></a><a class="smrow" href="#about-linda" data-search="about linda /about-linda-francis"><span class="nm">About Linda</span><span class="sl">/about-linda-francis</span><span class="chip easy">Easy</span></a><a class="smrow" href="#remember-linda" data-search="in celebration of linda francis /remember-linda-homepage"><span class="nm">In Celebration of Linda Francis</span><span class="sl">/remember-linda-homepage</span><span class="chip careful">Careful</span></a><a class="smrow" href="#lf-series" data-search="linda francis celebration series /linda-francis-celebration-series-messages"><span class="nm">Linda Francis Celebration Series</span><span class="sl">/linda-francis-celebration-series-messages</span><span class="chip easy">Easy</span></a></div></div><div class="smgroup"><h4>Programs &amp; shop</h4><div class="smrows"><a class="smrow" href="#shop" data-search="learning opportunities /shop"><span class="nm">Learning Opportunities</span><span class="sl">/shop</span><span class="chip careful">Careful</span></a><a class="smrow" href="#books" data-search="books /books"><span class="nm">Books</span><span class="sl">/books</span><span class="chip careful">Careful</span></a><a class="smrow" href="#evening" data-search="an evening with gary zukav /evening-with-gary"><span class="nm">An Evening With Gary Zukav</span><span class="sl">/evening-with-gary</span><span class="chip easy">Easy</span></a><a class="smrow" href="#waitlist" data-search="journey to the soul retreat — waitlist /event-waitlist-journey-to-the-soul"><span class="nm">Journey to the Soul Retreat — Waitlist</span><span class="sl">/event-waitlist-journey-to-the-soul</span><span class="chip careful">Careful</span></a><a class="smrow" href="#universal-human" data-search="universal human /universalhuman"><span class="nm">Universal Human</span><span class="sl">/universalhuman</span><span class="chip easy">Easy</span></a></div></div><div class="smgroup"><h4>Blog, Deepcast &amp; search  (automatic)</h4><div class="smrows"><a class="smrow" href="#blog" data-search="blog /blog"><span class="nm">Blog</span><span class="sl">/blog</span><span class="chip locked">Leave alone</span></a><a class="smrow" href="#deepcast" data-search="the gary zukav deepcast /deepcast"><span class="nm">The Gary Zukav Deepcast</span><span class="sl">/deepcast</span><span class="chip careful">Careful</span></a><a class="smrow" href="#sotsi-search" data-search="search (automatic — nothing to edit) /sotsi-search"><span class="nm">Search (automatic — nothing to edit)</span><span class="sl">/sotsi-search</span><span class="chip locked">Leave alone</span></a><div class="smrow" data-search="blog post reader (automatic — do not edit) /post"><span class="nm">Blog Post Reader (automatic — do not edit)</span><span class="sl">/post</span><span class="chip locked">Leave alone</span></div></div></div><div class="smgroup"><h4>Free downloads &amp; newsletter</h4><div class="smrows"><a class="smrow" href="#newsletter" data-search="soul connections newsletter /soul-connections-newsletter"><span class="nm">Soul Connections Newsletter</span><span class="sl">/soul-connections-newsletter</span><span class="chip careful">Careful</span></a><a class="smrow" href="#apg" data-search="authentic power guidelines — free download /apg-optin"><span class="nm">Authentic Power Guidelines — Free Download</span><span class="sl">/apg-optin</span><span class="chip careful">Careful</span></a><a class="smrow" href="#love-fear" data-search="love &amp; fear handout — free download /love-fear"><span class="nm">Love &amp; Fear Handout — Free Download</span><span class="sl">/love-fear</span><span class="chip careful">Careful</span></a></div></div><div class="smgroup"><h4>Essays, careers &amp; legal</h4><div class="smrows"><a class="smrow" href="#essay-ai" data-search="ai and human evolution /ai-and-human-evolution"><span class="nm">AI and Human Evolution</span><span class="sl">/ai-and-human-evolution</span><span class="chip easy">Easy</span></a><a class="smrow" href="#essay-gov" data-search="what to do about failing governments /failing-government"><span class="nm">What to Do About Failing Governments</span><span class="sl">/failing-government</span><span class="chip easy">Easy</span></a><a class="smrow" href="#careers" data-search="explore career opportunities /seat-of-the-soul-career-opportunities"><span class="nm">Explore Career Opportunities</span><span class="sl">/seat-of-the-soul-career-opportunities</span><span class="chip easy">Easy</span></a><a class="smrow" href="#legal" data-search="privacy policy · terms of use · refund policy /privacy-policy"><span class="nm">Privacy Policy · Terms of Use · Refund Policy</span><span class="sl">/privacy-policy</span><span class="chip careful">Careful</span></a></div></div><div class="smgroup"><h4>CMS Collection Pages  (shared layouts — 22D territory)</h4><div class="smrows"><a class="smrow" href="#templates" data-search="blog posts template · deepcast template · books template · courses template /blog/…  /deepcast/…"><span class="nm">Blog Posts Template · Deepcast Template · Books Template · Courses Template</span><span class="sl">/blog/…  /deepcast/…</span><span class="chip locked">Leave alone</span></a></div></div><div class="smgroup"><h4>Utility  (nothing to edit)</h4><div class="smrows"><div class="smrow" data-search="404 · password · style guide (internal) —"><span class="nm">404 · Password · Style Guide (internal)</span><span class="sl">—</span><span class="chip locked">Leave alone</span></div></div></div>
@@ -466,67 +504,168 @@ body.print .qbtn .go{display:none}
 <table class="cmst"><tr><th>Collection</th><th>Who edits it</th><th>Notes</th></tr><tr><td>Books (12)</td><td><span class="chip easy">Yours — edit in Webflow</span></td><td>Fully yours: title, description, cover, publisher, ISBN, Buy Now link. Edit in the CMS panel and publish the item.</td></tr><tr><td>Courses (8)</td><td><span class="chip easy">Yours — edit in Webflow</span></td><td>Card text, summary, button label and enroll link. The Home “tools” grid and the Shop page read from here.</td></tr><tr><td>Blog Posts (≈96)</td><td><span class="chip locked">22D board only</span></td><td>Managed in the 22D board — write, edit, choose the cover and publish from there. Direct Webflow edits get overwritten by the next sync. Field notes inside the CMS repeat this warning.</td></tr><tr><td>Deepcast Episodes (187)</td><td><span class="chip careful">Ask 22D</span></td><td>Synced automatically from YouTube by 22D’s pipeline. If a title or description looks wrong, tell 22D — a manual edit here is overwritten on the next import.</td></tr><tr><td>Blog Categories (37)</td><td><span class="chip careful">Ask 22D</span></td><td>Internal taxonomy used by the blog. Leave as is.</td></tr></table></div></section><section class="band" id="help"><div class="wrap"><h2>When something looks wrong</h2><div class="qa"><b>A page looks empty, grey, or ‘broken’ in the Designer.</b><p>Expected. The dashed AUTO boxes (blog directory, episodes, search, videos, waves) are filled by code on the live site only. See “Why the Designer looks different”.</p></div><div class="qa"><b>I edited a blog post in Webflow and it reverted.</b><p>Blog posts are managed in the 22D board; the next sync overwrites Webflow edits. Make the change in the board and click “Update on Website”.</p></div><div class="qa"><b>My change doesn’t show on the live site.</b><p>Did you click Publish? If yes, hard-refresh the live page (Cmd/Ctrl+Shift+R). If still missing, publish once more — it occasionally needs a second try.</p></div><div class="qa"><b>I deleted something by accident.</b><p>Cmd/Ctrl+Z immediately. If it’s too late, Site settings → Backups → preview → Restore.</p></div><div class="qa"><b>A form, video or feed stopped working after my edit.</b><p>You may have touched a 🔒 element. Undo your change and tell 22D what happened — restoring is quick.</p></div>
 <div class="qa"><b>Known quirks (not your fault)</b><ul style="padding-left:22px;font-size:16px"><li>On phones and tablets, the cookie banner covers the hero slide dots until the visitor accepts or declines it.</li><li>The video on “In Celebration of Linda Francis” is blocked on the staging domain (Vimeo whitelist) — it will work on the final domain.</li><li>The Designer’s Preview (eye icon) does not load this site’s effects either — the hero looks stacked/overlapping there. That’s expected; judge on the published site.</li></ul></div>
 <div class="contact"><p class="k">When in doubt</p><h3>Stop and ask 22D</h3>
-<a href="mailto:dev@o2s1.com">dev@o2s1.com</a>
-<p>Tell us the page name and what you want to change. A two-minute question beats a broken page.</p></div>
+<p>Say which page — and what you wanted to change. A two-minute question beats a broken page. Nothing is ever truly lost.</p></div>
 </div></section><section class="band alt" id="glossary"><div class="wrap"><h2>Eight words, plainly</h2><div class="gloss"><div class="gitem"><b>Designer</b> — Webflow’s full editing app — canvas in the middle, panels on the sides.</div><div class="gitem"><b>Navigator</b> — The tree of every element on the page (press Z). All elements are labelled ✎ / ⚙ / 🔒 for you.</div><div class="gitem"><b>Edit mode (?update)</b> — A safe, content-only editing view of the live site. Add ?update to any page address.</div><div class="gitem"><b>Component</b> — A reusable block (Navbar, Footer, Buttons). Editing the component changes every copy of it.</div><div class="gitem"><b>CMS / Collection</b> — The site’s content database (Books, Courses, Blog Posts…). Items are edited as forms in the CMS panel.</div><div class="gitem"><b>Slug</b> — The last part of a URL (…/blog/kindness → “kindness”). Never change it on published content.</div><div class="gitem"><b>Publish</b> — The button that pushes your saved changes to the live site.</div><div class="gitem"><b>Alt text</b> — A one-line description of an image, read by screen readers and Google.</div></div></div></section>
-<footer class="gfoot"><div class="wrap">SOTSI Website Editing Guide · v2.0 · 2026-08-17 — prepared by 22D Marketing for the Seat of the Soul Institute.<br>
+<footer class="gfoot"><div class="wrap">SOTSI Website Editing Guide · v2.1 · 2026-08-18 — prepared by 22D Marketing for the Seat of the Soul Institute.<br>
 This page is private (not indexed). Print it or save it as PDF any time.</div></footer>
 <dialog class="lb" id="lightbox"><button class="x" aria-label="Close">✕</button><img alt=""></dialog>
 <script>/* guide.js — progressive enhancement for the SOTSI Editing Guide.
-   No JS (or print/PDF) = every step visible, stacked. With JS = one step at a time. */
+   No JS (or print/PDF) = every step visible, stacked on the page.
+   With JS = each lesson gets a "Start this lesson" button + numbered filmstrip that opens a
+   full-screen player (one picture, one sentence, big Back/Next, progress bar, keyboard, swipe). */
 (function () {
   'use strict';
   document.documentElement.classList.add('js-on');
 
-  /* ---------- step players ---------- */
-  document.querySelectorAll('.steps').forEach(function (list) {
-    var steps = Array.prototype.slice.call(list.querySelectorAll('.step'));
-    if (steps.length < 2) return;
-    list.classList.add('player');
-    var i = 0, all = false;
-
-    var ctrl = document.createElement('div'); ctrl.className = 'pctrl';
-    var prev = btn('‹ Back'), next = btn('Next ›');
-    var count = el('div', 'pcount');
-    var dots = el('div', 'pdots');
-    steps.forEach(function (_, n) {
-      var d = document.createElement('button'); d.className = 'pdot'; d.type = 'button';
-      d.setAttribute('aria-label', 'Go to step ' + (n + 1));
-      d.addEventListener('click', function () { i = n; render(); });
-      dots.appendChild(d);
+  /* ---------- collect lessons ---------- */
+  var lessons = [];
+  Array.prototype.forEach.call(document.querySelectorAll('.lesson'), function (el) {
+    var list = el.querySelector('.steps'); if (!list) return;
+    var steps = Array.prototype.map.call(list.querySelectorAll('.step'), function (s) {
+      return { img: s.getAttribute('data-img') || '', text: s.getAttribute('data-text') || '', tip: s.getAttribute('data-tip') || '' };
     });
-    var allBtn = document.createElement('button'); allBtn.type = 'button'; allBtn.className = 'pall';
-    allBtn.textContent = 'See all steps at once';
-    allBtn.addEventListener('click', function () {
-      all = !all; list.classList.toggle('player', !all);
-      allBtn.textContent = all ? 'Back to one step at a time' : 'See all steps at once';
-      ctrl.querySelectorAll('.pbtn,.pcount,.pdots').forEach(function (x) { x.style.visibility = all ? 'hidden' : 'visible'; });
-    });
-    prev.addEventListener('click', function () { if (i > 0) { i--; render(); } });
-    next.addEventListener('click', function () { if (i < steps.length - 1) { i++; render(); } });
-    ctrl.append(prev, count, next, dots, allBtn);
-    list.parentNode.insertBefore(ctrl, list.nextSibling);
-
-    function render() {
-      steps.forEach(function (s, n) { s.classList.toggle('on', n === i); });
-      Array.prototype.forEach.call(dots.children, function (d, n) { d.classList.toggle('on', n === i); });
-      count.textContent = 'Step ' + (i + 1) + ' of ' + steps.length;
-      prev.disabled = i === 0; next.disabled = i === steps.length - 1;
-    }
-    render();
-    function btn(t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'pbtn'; b.textContent = t; return b; }
-    function el(t, c) { var e = document.createElement(t); e.className = c; return e; }
+    if (!steps.length) return;
+    var h = el.querySelector('h3');
+    lessons.push({ el: el, list: list, id: el.id, num: lessons.length + 1,
+      title: h ? h.textContent.trim() : ('Lesson ' + (lessons.length + 1)), steps: steps });
   });
 
-  /* ---------- lightbox ---------- */
+  var store = {
+    get: function (id) { try { return parseInt(sessionStorage.getItem('sotsi-guide-' + id) || '', 10); } catch (e) { return NaN; } },
+    set: function (id, v) { try { sessionStorage.setItem('sotsi-guide-' + id, String(v)); } catch (e) {} },
+    del: function (id) { try { sessionStorage.removeItem('sotsi-guide-' + id); } catch (e) {} }
+  };
+
+  /* ---------- the one shared full-screen player ---------- */
+  var pl = document.createElement('dialog');
+  pl.className = 'player'; pl.id = 'player';
+  pl.setAttribute('aria-label', 'Lesson player');
+  pl.innerHTML =
+    '<div class="pl-top"><span class="pl-title"></span><span class="pl-count"></span>' +
+    '<button class="pl-close" type="button" aria-label="Close the lesson">✕ Close</button></div>' +
+    '<div class="pl-progress" aria-hidden="true"><div class="pl-bar"></div></div>' +
+    '<div class="pl-stage"><img alt=""></div>' +
+    '<div class="pl-cap"><span class="pl-num"></span><p class="pl-text"></p><p class="pl-tip"></p><p class="pl-nextlesson"></p></div>' +
+    '<div class="pl-nav"><button class="pl-prev" type="button">‹ Back</button><div class="pl-strip"></div>' +
+    '<button class="pl-next" type="button">Next ›</button></div>';
+  document.body.appendChild(pl);
+  var $ = function (sel) { return pl.querySelector(sel); };
+  var img = $('.pl-stage img'), bar = $('.pl-bar'), title = $('.pl-title'), count = $('.pl-count'),
+      num = $('.pl-num'), text = $('.pl-text'), tip = $('.pl-tip'), nextLesson = $('.pl-nextlesson'),
+      prev = $('.pl-prev'), next = $('.pl-next'), strip = $('.pl-strip');
+  var cur = null, idx = 0;
+
+  function open(li, start) {
+    cur = lessons[li]; idx = Math.min(Math.max(start || 0, 0), cur.steps.length - 1);
+    title.textContent = 'Lesson ' + cur.num + ' · ' + cur.title;
+    strip.innerHTML = '';
+    cur.steps.forEach(function (s, n) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'pl-th';
+      b.setAttribute('aria-label', 'Go to step ' + (n + 1));
+      b.innerHTML = '<img src="' + s.img + '" alt=""><span>' + (n + 1) + '</span>';
+      b.addEventListener('click', function () { idx = n; render(); });
+      strip.appendChild(b);
+    });
+    if (!pl.open) pl.showModal();
+    render();
+    next.focus();
+  }
+  function render() {
+    var s = cur.steps[idx], n = cur.steps.length, last = idx === n - 1;
+    img.src = s.img; img.alt = 'Lesson ' + cur.num + ', step ' + (idx + 1);
+    num.textContent = 'Step ' + (idx + 1) + ' of ' + n;
+    count.textContent = (idx + 1) + ' / ' + n;
+    text.textContent = s.text;
+    tip.textContent = s.tip ? '💡 ' + s.tip : '';
+    bar.style.width = Math.round(((idx + 1) / n) * 100) + '%';
+    prev.disabled = idx === 0;
+    next.textContent = last ? 'Finish ✓' : 'Next ›';
+    next.classList.toggle('finish', last);
+    var nl = lessons[cur.num]; // next lesson (num is 1-based)
+    nextLesson.innerHTML = (last && nl) ? 'Ready for more? <button type="button" class="pl-jump" data-li="' + (cur.num) + '">Next: Lesson ' + nl.num + ' · ' + nl.title + ' →</button>' : '';
+    Array.prototype.forEach.call(strip.children, function (b, k) {
+      b.classList.toggle('on', k === idx); b.classList.toggle('done', k < idx);
+      if (k === idx && b.scrollIntoView) b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'auto' });
+    });
+    store.set(cur.id, last ? 0 : idx);
+    if (cur.steps[idx + 1]) { var pre = new Image(); pre.src = cur.steps[idx + 1].img; }
+    updateLaunch(cur);
+  }
+  prev.addEventListener('click', function () { if (idx > 0) { idx--; render(); } });
+  next.addEventListener('click', function () {
+    if (idx < cur.steps.length - 1) { idx++; render(); } else { store.del(cur.id); pl.close(); }
+  });
+  $('.pl-close').addEventListener('click', function () { pl.close(); });
+  nextLesson.addEventListener('click', function (e) {
+    var b = e.target.closest('.pl-jump'); if (!b) return;
+    store.del(cur.id); open(parseInt(b.getAttribute('data-li'), 10), 0);
+  });
+  pl.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); next.click(); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev.click(); }
+    if (e.key === 'Home') { idx = 0; render(); }
+    if (e.key === 'End') { idx = cur.steps.length - 1; render(); }
+  });
+  var tx = null;
+  pl.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; }, { passive: true });
+  pl.addEventListener('touchend', function (e) {
+    if (tx === null) return; var dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (dx < -60) next.click(); else if (dx > 60) prev.click();
+  }, { passive: true });
+  pl.addEventListener('close', function () { if (cur) updateLaunch(cur); cur = null; });
+
+  /* ---------- per-lesson launch block (button + filmstrip + "show all" toggle) ---------- */
+  function updateLaunch(L) {
+    var b = L.el.querySelector('.launch-btn'); if (!b) return;
+    var saved = store.get(L.id);
+    var resume = saved > 0 && saved < L.steps.length;
+    b.querySelector('.lb-main').textContent = resume ? ('▶ Continue at step ' + (saved + 1)) : '▶ Start this lesson';
+    b.querySelector('.lb-sub').textContent = resume
+      ? ('You were on step ' + (saved + 1) + ' of ' + L.steps.length + ' — pick up where you left off, or use a picture below to start over.')
+      : ('Full screen · ' + L.steps.length + ' steps · one picture, one action · big Back / Next buttons');
+  }
+  lessons.forEach(function (L, li) {
+    var wrap = document.createElement('div'); wrap.className = 'launch';
+    var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'launch-btn';
+    btn.innerHTML = '<span class="lb-main"></span><span class="lb-sub"></span>';
+    btn.addEventListener('click', function () { var s = store.get(L.id); open(li, s > 0 ? s : 0); });
+    var fs = document.createElement('div'); fs.className = 'filmstrip'; fs.setAttribute('aria-label', 'Steps of this lesson');
+    L.steps.forEach(function (s, n) {
+      var t = document.createElement('button'); t.type = 'button'; t.className = 'fs-thumb';
+      t.setAttribute('aria-label', 'Open step ' + (n + 1));
+      t.innerHTML = '<img loading="lazy" src="' + s.img + '" alt=""><span>' + (n + 1) + '</span>';
+      t.addEventListener('click', function () { open(li, n); });
+      fs.appendChild(t);
+    });
+    var all = document.createElement('button'); all.type = 'button'; all.className = 'showall';
+    all.textContent = 'Prefer to scroll? Show all steps on this page';
+    all.addEventListener('click', function () {
+      var hidden = L.list.classList.toggle('stacked-hidden');
+      all.textContent = hidden ? 'Prefer to scroll? Show all steps on this page' : 'Hide the steps again';
+      if (!hidden) L.list.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+    wrap.append(btn, fs, all);
+    L.list.classList.add('stacked-hidden');
+    L.list.parentNode.insertBefore(wrap, L.list);
+    updateLaunch(L);
+  });
+  // "Show me how →" quick-start buttons open the player directly
+  document.addEventListener('click', function (e) {
+    var q = e.target.closest('a.qbtn'); if (!q) return;
+    var id = (q.getAttribute('href') || '').slice(1);
+    var li = lessons.findIndex(function (L) { return L.id === id; });
+    if (li >= 0) { e.preventDefault(); location.hash = id; open(li, 0); }
+  });
+
+  /* ---------- lightbox (other pictures) ---------- */
   var lb = document.getElementById('lightbox');
   if (lb) {
     var lbImg = lb.querySelector('img');
     document.addEventListener('click', function (e) {
-      var img = e.target.closest('.step img, .zoom, .pair .duo img, .recipe > img, .pcard .thumb img, .door > img, .diagram img');
-      if (!img) return;
-      lbImg.src = img.currentSrc || img.src;
-      lbImg.alt = img.alt || '';
+      if (e.target.closest('dialog.player')) return;
+      var im = e.target.closest('.step img, .zoom, .pair .duo img, .recipe > img, .pcard .thumb img, .door > img, .diagram img');
+      if (!im) return;
+      lbImg.src = im.currentSrc || im.src; lbImg.alt = im.alt || '';
       lb.showModal();
     });
     lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('x')) lb.close(); });
@@ -535,8 +674,8 @@ This page is private (not indexed). Print it or save it as PDF any time.</div></
   /* ---------- copy Navigator names ---------- */
   document.addEventListener('click', function (e) {
     var b = e.target.closest('.cp'); if (!b) return;
-    var txt = b.getAttribute('data-copy') || '';
-    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () {
+    var t = b.getAttribute('data-copy') || '';
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () {
       var old = b.textContent; b.textContent = '✓'; setTimeout(function () { b.textContent = old; }, 1200);
     }).catch(function () {});
   });
@@ -547,7 +686,7 @@ This page is private (not indexed). Print it or save it as PDF any time.</div></
     var items = Array.prototype.slice.call(document.querySelectorAll('[data-search]'));
     inp.addEventListener('input', function () {
       var q = inp.value.trim().toLowerCase();
-      if (!q) { items.forEach(function (x) { x.classList.remove('hid'); if (x.tagName === 'DETAILS') x.removeAttribute('data-qopen'); }); cnt.textContent = ''; return; }
+      if (!q) { items.forEach(function (x) { x.classList.remove('hid'); }); cnt.textContent = ''; return; }
       var n = 0;
       items.forEach(function (x) {
         var hit = x.getAttribute('data-search').indexOf(q) !== -1;
@@ -557,7 +696,7 @@ This page is private (not indexed). Print it or save it as PDF any time.</div></
       cnt.textContent = n + ' match' + (n === 1 ? '' : 'es');
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === '/' && document.activeElement !== inp) { e.preventDefault(); inp.focus(); }
+      if (e.key === '/' && document.activeElement !== inp && !pl.open) { e.preventDefault(); inp.focus(); }
     });
   }
 })();

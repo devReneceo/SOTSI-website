@@ -1,32 +1,32 @@
 {
-  "updated": "2026-08-19T09:52:00+00:00",
+  "updated": "2026-08-20T09:52:50+00:00",
   "items": [
+    {
+      "permalink": "https://www.instagram.com/p/DcPXx8nEZXt/",
+      "media_type": "CAROUSEL_ALBUM",
+      "quote": "Trying to keep external power is like trying to store water in a paper sack.",
+      "likes": 165,
+      "comments": 10,
+      "image": "assets/images/instagram/latest-1.webp",
+      "timestamp": "2026-08-19T23:30:08+0000"
+    },
     {
       "permalink": "https://www.instagram.com/reel/DcKORRfAgKY/",
       "media_type": "VIDEO",
       "quote": "Anger is not a separate thing. It's fear. Jealousy is not a separate thing. It's fear.",
-      "likes": 291,
-      "comments": 11,
-      "image": "assets/images/instagram/latest-1.webp",
+      "likes": 369,
+      "comments": 14,
+      "image": "assets/images/instagram/latest-2.webp",
       "timestamp": "2026-08-17T23:31:27+0000"
     },
     {
       "permalink": "https://www.instagram.com/reel/DcCf1YkDKgM/",
       "media_type": "VIDEO",
       "quote": "Is it poetic? No. Is it new age? No. It's real.",
-      "likes": 559,
-      "comments": 140,
-      "image": "assets/images/instagram/latest-2.webp",
-      "timestamp": "2026-08-14T23:30:55+0000"
-    },
-    {
-      "permalink": "https://www.instagram.com/p/Db_PSxYDLnz/",
-      "media_type": "CAROUSEL_ALBUM",
-      "quote": "Animals love without agenda.",
-      "likes": 456,
-      "comments": 49,
+      "likes": 574,
+      "comments": 145,
       "image": "assets/images/instagram/latest-3.webp",
-      "timestamp": "2026-08-13T17:08:07+0000"
+      "timestamp": "2026-08-14T23:30:55+0000"
     }
   ]
 }

@@ -1,32 +1,32 @@
 {
-  "updated": "2026-08-24T10:06:42+00:00",
+  "updated": "2026-08-25T09:54:08+00:00",
   "items": [
+    {
+      "permalink": "https://www.instagram.com/reel/DccP2WrjzS7/",
+      "media_type": "VIDEO",
+      "quote": "The times are not uncertain. The times are happening.",
+      "likes": 281,
+      "comments": 15,
+      "image": "assets/images/instagram/latest-1.webp",
+      "timestamp": "2026-08-24T23:31:29+0000"
+    },
     {
       "permalink": "https://www.instagram.com/reel/DcUhd66FZDD/",
       "media_type": "VIDEO",
       "quote": "You can choose love instead of fear.",
-      "likes": 288,
+      "likes": 301,
       "comments": 6,
-      "image": "assets/images/instagram/latest-1.webp",
+      "image": "assets/images/instagram/latest-2.webp",
       "timestamp": "2026-08-21T23:31:31+0000"
     },
     {
       "permalink": "https://www.instagram.com/p/DcPXx8nEZXt/",
       "media_type": "CAROUSEL_ALBUM",
       "quote": "Trying to keep external power is like trying to store water in a paper sack.",
-      "likes": 297,
+      "likes": 306,
       "comments": 14,
-      "image": "assets/images/instagram/latest-2.webp",
-      "timestamp": "2026-08-19T23:30:08+0000"
-    },
-    {
-      "permalink": "https://www.instagram.com/reel/DcKORRfAgKY/",
-      "media_type": "VIDEO",
-      "quote": "Anger is not a separate thing. It's fear. Jealousy is not a separate thing. It's fear.",
-      "likes": 449,
-      "comments": 17,
       "image": "assets/images/instagram/latest-3.webp",
-      "timestamp": "2026-08-17T23:31:27+0000"
+      "timestamp": "2026-08-19T23:30:08+0000"
     }
   ]
 }

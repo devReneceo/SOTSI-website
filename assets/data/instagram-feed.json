@@ -1,32 +1,32 @@
 {
-  "updated": "2026-08-30T14:26:52+00:00",
+  "updated": "2026-08-31T17:06:31+00:00",
   "items": [
+    {
+      "permalink": "https://www.instagram.com/reel/Dctkp3qEz0a/",
+      "media_type": "VIDEO",
+      "quote": "Let them run.",
+      "likes": 16,
+      "comments": 0,
+      "image": "assets/images/instagram/latest-1.webp",
+      "timestamp": "2026-08-31T17:00:26+0000"
+    },
     {
       "permalink": "https://www.instagram.com/reel/DcmjETYClyD/",
       "media_type": "VIDEO",
       "quote": "How you experience something depends upon how you hold it.",
-      "likes": 291,
-      "comments": 14,
-      "image": "assets/images/instagram/latest-1.webp",
+      "likes": 332,
+      "comments": 15,
+      "image": "assets/images/instagram/latest-2.webp",
       "timestamp": "2026-08-28T23:32:03+0000"
     },
     {
       "permalink": "https://www.instagram.com/p/DchZWRjAavS/",
       "media_type": "CAROUSEL_ALBUM",
       "quote": "There is nothing but love.",
-      "likes": 752,
+      "likes": 770,
       "comments": 30,
-      "image": "assets/images/instagram/latest-2.webp",
-      "timestamp": "2026-08-26T23:30:10+0000"
-    },
-    {
-      "permalink": "https://www.instagram.com/reel/DccP2WrjzS7/",
-      "media_type": "VIDEO",
-      "quote": "The times are not uncertain. The times are happening.",
-      "likes": 662,
-      "comments": 26,
       "image": "assets/images/instagram/latest-3.webp",
-      "timestamp": "2026-08-24T23:31:29+0000"
+      "timestamp": "2026-08-26T23:30:10+0000"
     }
   ]
 }

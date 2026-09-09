@@ -1,32 +1,32 @@
 {
-  "updated": "2026-09-08T13:40:50+00:00",
+  "updated": "2026-09-09T13:46:10+00:00",
   "items": [
+    {
+      "permalink": "https://www.instagram.com/reel/DdCRknEjAI9/",
+      "media_type": "VIDEO",
+      "quote": "A new reflection from Gary.",
+      "likes": 95,
+      "comments": 4,
+      "image": "assets/images/instagram/latest-1.webp",
+      "timestamp": "2026-09-08T17:57:47+0000"
+    },
     {
       "permalink": "https://www.instagram.com/reel/Dctkp3qEz0a/",
       "media_type": "VIDEO",
       "quote": "Let them run.",
-      "likes": 560,
+      "likes": 572,
       "comments": 20,
-      "image": "assets/images/instagram/latest-1.webp",
+      "image": "assets/images/instagram/latest-2.webp",
       "timestamp": "2026-08-31T17:00:26+0000"
     },
     {
       "permalink": "https://www.instagram.com/reel/DcmjETYClyD/",
       "media_type": "VIDEO",
       "quote": "How you experience something depends upon how you hold it.",
-      "likes": 401,
+      "likes": 405,
       "comments": 15,
-      "image": "assets/images/instagram/latest-2.webp",
-      "timestamp": "2026-08-28T23:32:03+0000"
-    },
-    {
-      "permalink": "https://www.instagram.com/p/DchZWRjAavS/",
-      "media_type": "CAROUSEL_ALBUM",
-      "quote": "There is nothing but love.",
-      "likes": 881,
-      "comments": 34,
       "image": "assets/images/instagram/latest-3.webp",
-      "timestamp": "2026-08-26T23:30:10+0000"
+      "timestamp": "2026-08-28T23:32:03+0000"
     }
   ]
 }

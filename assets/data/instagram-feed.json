@@ -1,32 +1,32 @@
 {
-  "updated": "2026-09-14T15:55:36+00:00",
+  "updated": "2026-09-15T14:21:39+00:00",
   "items": [
+    {
+      "permalink": "https://www.instagram.com/reel/DdSKMO-jBuZ/",
+      "media_type": "VIDEO",
+      "quote": "Where does the heart flow?",
+      "likes": 678,
+      "comments": 26,
+      "image": "assets/images/instagram/latest-1.webp",
+      "timestamp": "2026-09-14T22:00:58+0000"
+    },
+    {
+      "permalink": "https://www.instagram.com/p/DdR8a1ioH62/",
+      "media_type": "IMAGE",
+      "quote": "Gary recently spoke with Susan Hagar as part of the series Equanimity: 21 Keys to Embody Peace Amidst Chaos…",
+      "likes": 28,
+      "comments": 1,
+      "image": "assets/images/instagram/latest-2.webp",
+      "timestamp": "2026-09-14T20:00:11+0000"
+    },
     {
       "permalink": "https://www.instagram.com/reel/DdCRknEjAI9/",
       "media_type": "VIDEO",
       "quote": "A new reflection from Gary.",
-      "likes": 131,
+      "likes": 135,
       "comments": 9,
-      "image": "assets/images/instagram/latest-1.webp",
-      "timestamp": "2026-09-08T17:57:47+0000"
-    },
-    {
-      "permalink": "https://www.instagram.com/reel/Dctkp3qEz0a/",
-      "media_type": "VIDEO",
-      "quote": "Let them run.",
-      "likes": 604,
-      "comments": 20,
-      "image": "assets/images/instagram/latest-2.webp",
-      "timestamp": "2026-08-31T17:00:26+0000"
-    },
-    {
-      "permalink": "https://www.instagram.com/reel/DcmjETYClyD/",
-      "media_type": "VIDEO",
-      "quote": "How you experience something depends upon how you hold it.",
-      "likes": 417,
-      "comments": 15,
       "image": "assets/images/instagram/latest-3.webp",
-      "timestamp": "2026-08-28T23:32:03+0000"
+      "timestamp": "2026-09-08T17:57:47+0000"
     }
   ]
 }

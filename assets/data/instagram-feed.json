@@ -1,32 +1,32 @@
 {
-  "updated": "2026-09-17T14:19:49+00:00",
+  "updated": "2026-09-18T13:38:33+00:00",
   "items": [
+    {
+      "permalink": "https://www.instagram.com/reel/DdbYwpPkcby/",
+      "media_type": "VIDEO",
+      "quote": "What is the essence of creating authentic power?",
+      "likes": 99,
+      "comments": 4,
+      "image": "assets/images/instagram/latest-1.webp",
+      "timestamp": "2026-09-18T12:01:32+0000"
+    },
     {
       "permalink": "https://www.instagram.com/p/DdW_JRZjAIW/",
       "media_type": "CAROUSEL_ALBUM",
       "quote": "How do you choose love instead of fear when life feels difficult?",
-      "likes": 146,
+      "likes": 171,
       "comments": 2,
-      "image": "assets/images/instagram/latest-1.webp",
+      "image": "assets/images/instagram/latest-2.webp",
       "timestamp": "2026-09-16T19:00:11+0000"
     },
     {
       "permalink": "https://www.instagram.com/reel/DdSKMO-jBuZ/",
       "media_type": "VIDEO",
       "quote": "Where does the heart flow?",
-      "likes": 977,
-      "comments": 37,
-      "image": "assets/images/instagram/latest-2.webp",
-      "timestamp": "2026-09-14T22:00:58+0000"
-    },
-    {
-      "permalink": "https://www.instagram.com/p/DdR8a1ioH62/",
-      "media_type": "IMAGE",
-      "quote": "Gary recently spoke with Susan Hagar as part of the series Equanimity: 21 Keys to Embody Peace Amidst Chaos…",
-      "likes": 33,
-      "comments": 2,
+      "likes": 1026,
+      "comments": 36,
       "image": "assets/images/instagram/latest-3.webp",
-      "timestamp": "2026-09-14T20:00:11+0000"
+      "timestamp": "2026-09-14T22:00:58+0000"
     }
   ]
 }
